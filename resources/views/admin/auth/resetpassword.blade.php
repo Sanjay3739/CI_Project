@@ -60,9 +60,9 @@ $token = substr($_SERVER['REQUEST_URI'], -60);
                                             </div>
                                         </form>
                                     </div>
-                                        <div class="card-footer text-center py-3">
+                                        <!-- <div class="card-footer text-center py-3">
                                           <div class="small"><a href="register.html">Need an account? Sign up!</a></div>
-                                        </div>
+                                        </div> -->
                                 </div>
                             </div>
                         </div>
