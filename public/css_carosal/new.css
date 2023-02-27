@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 01px;
+   
+}
+
+.row>.col-lg-8 {
+    top: 0px;
+    left: 0px;
+    height: 714px;
+    height: 700px;
+
+
+}
+.mb-3 > h5{
+   padding-left: 70px;
+   margin-top: -50px;
+}
+.mb-3> p{
+    font-size: 12px;
+    padding-left: 10px;
+}
+
+.gh  > a{
+    list-style: none;
+    padding-left: 200px;
+ 
+    
+}
+.gh{
+    margin-top: 20px;
+}
+
+.red{
+    background-color: aliceblue;
+
+}
+
+.carousel-caption > h2{
+    justify-content: start;
+
+}
+.carousel-caption > p {
+    font-size: 12px;
+}
+
+#login{
+    padding-top: 250px;
+    background: transparent url('img/Layer 52.png') 0% 0% no-repeat padding-box;
+    opacity: 1;
+    justify-content: center;
+}
+  .sam
+  {
+    
+    padding-left: 80px;
+   
+}
+.sam > .btn{
+    width: 300px;
+    border-radius: 19px;
+}
+
+.mb-3{
+    
+    width: 380px;
+    padding-left: 80px;   
+}
+.bk{
+    
+    display: flex;
+}
+
+.ak> p{
+    padding-top: 10px;
+    padding-left: 85px;
+}
+
+.bk > p {
+    padding-left: 5px;
+}
+
+
+form > .nm > span{
+    padding-left: 180px;
+    font-size: 15px;
+    color: rgb(129, 125, 125);
+   
+}
