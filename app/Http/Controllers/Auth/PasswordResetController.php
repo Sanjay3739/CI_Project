@@ -27,6 +27,7 @@ class PasswordResetController extends Controller
             $token = Str::random(60);
 
             if (PasswordReset::where('email', $request->email)) {
+                echo 'here'; exit;
                 $user = new PasswordReset;
                 $user['email'] = $request->email;
                 $user['token'] = $token;
@@ -57,10 +58,10 @@ class PasswordResetController extends Controller
             return back()->with('error', "confirm password is difrent of actuale  password");
         }
 
-        $reset = PasswordReset::where('token', $request['token'])->get();
-        $email = $reset[0]->email;
+        $reset = PasswordReset::where('token', $request['token'])->first();
+        $email = $reset->email;
 
-        $user = User::where('email', $email)->get()[0];
+        $user = User::where('email', $email)->first();
         $user->password = bcrypt($request['password']);
         $user->save();
 

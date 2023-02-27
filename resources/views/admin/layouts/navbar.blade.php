@@ -28,9 +28,14 @@
   <nav class="sidebar close">
     <header>
       <div class="image-text">
+        <span class="image">
+          <img src="logo.png" alt="">
+        </span>
+
         <div class="text logo-text">
           <span class="name">Sanjay</span>
-
+          <BR>
+          <BR>
           <span class="profession">NAVIGATION</span>
         </div>
       </div>
@@ -64,42 +69,42 @@
 
           <li class="nav-link">
             <a href="#">
-                <img src="images/target.png" id="sa"   style="width: 25px;">
+                <img src="target.png" id="sa"   style="width: 25px;">
               <span class="text nav-text" id="sb">Mission</span>
             </a>
           </li>
 
           <li class="nav-link">
             <a href="#">
-                <img src="images/layout.png" id="sa" style="width: 25px;" alt="">
+                <img src="themes.png" id="sa" style="width: 25px;" alt="">
                  <span class="text nav-text" id="sb"> Mission Theme</span>
             </a>
           </li>
 
           <li class="nav-link">
             <a href="#">
-           <img src="images/pencil.png" id="sa" style="width: 25px;" alt="">
+           <img src="pencil.png" id="sa" style="width: 25px;" alt="">
               <span class="text nav-text" id="sb">Mission Skill</span>
             </a>
           </li>
 
           <li class="nav-link">
             <a href="#">
-             <img src="images/folders.png" id="sa" style="width: 25px;" alt="">
+             <img src="folder.png" id="sa" style="width: 25px;" alt="">
               <span class="text nav-text" id="sb">Mission Application</span>
             </a>
           </li>
 
           <li class="nav-link">
             <a href="#">
-              <img src="images/storys.png"id="sa"  style="width: 25px;" alt="">
+              <img src="rating.png"id="sa"  style="width: 25px;" alt="">
               <span class="text nav-text" id="sb">Story</span>
             </a>
           </li>
 
           <li class="nav-link">
             <a href="#">
-             <img src="images/ribbon-black-banner.png" id="sa" style="width: 25px;" alt="">
+             <img src="ribbon-black-banner.png" id="sa" style="width: 25px;" alt="">
               <span class="text nav-text" id="sb">Banner Management</span>
             </a>
           </li>

@@ -68,9 +68,10 @@ Route::post('resetpassword', [ForgetPasswordController::class, 'resetpassword'])
 Route::post('admin-check-email', [ForgetPasswordController::class, 'admincheckEmail'])->name('admin.check.email');
 Route::get('resetpassword', [ForgetPasswordController::class, 'resetpassword'])->name('resetpassword');
 Route::post('resetpassword2', [AdminPasswordResetController::class, 'resetPassword'])->name('resetpassword2');
-Route::get('adminresetpage/{$token}', function () {
+Route::get('adminresetpage/{token}', function () {
     return view('admin.auth.resetpassword');
+
 });
 
-
+Route::post('admin-password-resetting',[AdminPasswordResetController::class,'adminPasswordResetting'])->name('adminPasswordResetting');
 Route::get('missiontheme', [MissionThemeController::class, 'getAll']);

@@ -1,47 +1,74 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Admin;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use App\Models\Admin\Admin;
+use App\Models\PasswordReset;
+use App\Mail\AdminResetPassword;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
-
-class AdminAuthController extends Controller
+class AdminPasswordResetController extends Controller
 {
-    public function login(Request $request){
-        return view('admin.auth.login');
-    }
-
-    public function index(Request $request){
-        return view('admin.index');
-    }
-    public function dashboard(Request $request){
-        return view('admin.index');
-    }
-     public function customLogin(Request $request){
-        $request->validate([
-            'email' => 'required',
-            'password' => 'required',
-        ]);
-        $credentionals = $request->only('email','password');
-        if(Auth::guard('admin')->attempt($credentionals)){
-            return view('admin.index');
-        } else {
-            return redirect()->intended('adminlogin')->with('status','Oppes! You have entered wrong password');
+    public function resetPassword(Request $request){
+        if($request->email==null){
+            return back()->with('status','please Enter Email Address');
         }
+        else{
+            $link='<a style="text-decoration:none;" href="{{route(\'register\')}}">Create an account</a>';
+            if(Admin::where('email',$request->email)->get()->isEmpty()){
+                return back()->with('status',' This '.$request->email.' is not Registered. Please register here '.$link);
+            }else{
+
+                $this->validate($request, [
+                    'email' => 'required|email',
+                ]);
+                $user = new PasswordReset;
+                $token = Str::random(60);
+                $user['email'] = $request->email;
+                $user['token'] = $token;
+                $user->save();
+
+                $mail = Mail::to($request->email)->send(new AdminResetPassword($user['email'],$token));
+
+                if($mail) {
+                    return back()->with('success', 'Success! password reset link has been sent to your email');
+                }
+                return back()->with('failed', 'Failed! there is some issue with email provider');
+
+
+            }
+
+        }
+
     }
 
+    public function adminPasswordResetting(Request $request){
+        $request->validate(
 
+            ['token' => 'required',
+             'password' => 'required | min:8',
+             'confirm-password' => 'required | min:8',
+             ]
 
+        );
+
+        if($request['password']!==$request['confirm-password']){
+
+            return back()->with('error',"confirm password is different from password");
+
+        }
+
+        $reset = PasswordReset::where('token',$request['token'])->get();
+        $email = $reset[0]->email;
+
+        $user = Admin::where('email',$email)->get()[0];
+        $user->password = bcrypt($request['password']);
+        $user->save();
+
+        return redirect()->intended('/')->with('success','Hurry!! Password have been Successfully updated');
+    }
 
 }
-
-
-
-
-
-
-
