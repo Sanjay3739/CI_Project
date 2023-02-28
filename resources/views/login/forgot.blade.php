@@ -10,7 +10,7 @@
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 
         <style>
-          
+
 
             #login{
                 margin-top:120px ;
@@ -96,41 +96,28 @@
             <div class="alert alert-success">
                 <p>{{ $message }}</p>
             </div>
+
+
         @endif
 
-                     <form action="{{route('check.email')}}" method='post'  id="login"  >
+                     <form action="{{route('check.email')}}" method='post'  id="login"  style="margin-top:10px " >
                         @csrf
                         <div class="form-group">
                             <label for="" class="login-text">Email Address</label>
                             <input type="email" class="form-control m-1" name="email" id=""  aria-describedby="emailHelpId" placeholder="Enter your email address..." value="">
-                            @error('email')
-                                <div class="text-danger">
-                                    {{$message}}
-                                </div>
-                            @enderror
+
                         </div>
-    
+
                         <button type="submit"  id="btn" class="btn btn-outline-warning mt-3"   style="width: 100%; border-radius: 23px">Reset my Password</button>
                     </form>
 
-                    @if(session('status'))
-                        <div class="alert alert-danger">
-                            {!! session('status') !!}
-                        </div>
-                    @endif
-
-                    @if(session('success'))
-                        <div class="alert alert-success">
-                            {!! session('success') !!}
-                        </div>
-                    @endif
 
                     <br>
-                    
+
 
               <div class="footer"   style="padding-left: 60px;">
                     @include('components.loginnow')
-    
+
                     @include('components.privacypolicy')
                     </div>
             </div>

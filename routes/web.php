@@ -50,11 +50,6 @@ Route::post('register', [AuthController::class, 'register'])->name('post-registe
 Route::post('password-resetting', [PasswordResetController::class, 'passwordResetting'])->name('password-resetting');
 
 
-// post route "CRUD"
-
-Route::resource('posts', 'App\Http\Controllers\PostController');
-
-
 
 
 //All BACKEND ROUTES IN HERE
@@ -75,3 +70,9 @@ Route::get('adminresetpage/{token}', function () {
 
 Route::post('admin-password-resetting',[AdminPasswordResetController::class,'adminPasswordResetting'])->name('adminPasswordResetting');
 Route::get('missiontheme', [MissionThemeController::class, 'getAll']);
+
+
+// post route "CRUD"
+
+Route::resource('posts', 'App\Http\Controllers\PostController');
+
