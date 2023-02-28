@@ -68,7 +68,7 @@ class AdminPasswordResetController extends Controller
         $user->password = bcrypt($request['password']);
         $user->save();
 
-        return redirect()->intended('/')->with('success','Hurry!! Password have been Successfully updated');
+        return redirect()->intended('adminlogin')->with('success','Hurry!! Password have been Successfully updated');
     }
 
 }

@@ -61,7 +61,7 @@ class AdminResetPassword extends Mailable
         $user['name'] = $this->name;
         $user['token'] = $this->token;
 
-        return $this->from("makwanasanjaylm@gmail.com", "Makwana Sanjay")
+        return $this->from("aniketbhalani@gmail.com", "Aniket Bhalani")
         ->subject('Password Reset Link')
         ->view('admin.admintemplate.adminreset', ['user' => $user]);
     }
