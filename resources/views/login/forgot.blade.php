@@ -81,6 +81,37 @@
                 </div>
             </div>
 
+
+                <!-- Forget Password -->
+                @if ($message = Session::get('success'))
+            <div class="alert alert-success">
+                <p>{{ $message }}</p>
+            </div>
+
+
+        @endif
+
+                     <form action="{{route('check.email')}}" method='post'  id="login"  style="margin-top:10px " >
+                        @csrf
+                        <div class="form-group">
+                            <label for="" class="login-text">Email Address</label>
+                            <input type="email" class="form-control m-1" name="email" id=""  aria-describedby="emailHelpId" placeholder="Enter your email address..." value="">
+
+                        </div>
+
+                        <button type="submit"  id="btn" class="btn btn-outline-warning mt-3"   style="width: 100%; border-radius: 23px">Reset my Password</button>
+                    </form>
+
+
+                    <br>
+
+
+              <div class="footer"   style="padding-left: 60px;">
+                    @include('components.loginnow')
+
+                    @include('components.privacypolicy')
+                    </div>
+            </div>
         </div>
 
     </div>

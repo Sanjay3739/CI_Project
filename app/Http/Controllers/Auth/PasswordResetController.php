@@ -66,7 +66,8 @@ class PasswordResetController extends Controller
 
 
         if ($request['password'] !== $request['confirm-password']) {
-            return back()->with('error', "confirm password is difrent of actuale  password");
+            return back()->with('error', "confirm password is difrent of actuale
+             password");
         }
 
 
@@ -79,6 +80,7 @@ class PasswordResetController extends Controller
 
         User::where('email', $email)->update(['password' => bcrypt($request['password'])]);
 
-        return redirect()->intended('/')->with('success', 'speed!! Password  Successfully change');
+        return redirect()->intended('/')->with('success', 'speed!! Password
+         Successfully change');
     }
 }

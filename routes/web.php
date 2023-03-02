@@ -51,11 +51,6 @@ Route::post('register', [AuthController::class, 'register'])->name('post-registe
 Route::post('password-resetting', [PasswordResetController::class, 'passwordResetting'])->name('password-resetting');
 
 
-// post route "CRUD"
-
-Route::resource('posts', 'App\Http\Controllers\PostController');
-
-
 
 
 //All BACKEND ROUTES IN HERE

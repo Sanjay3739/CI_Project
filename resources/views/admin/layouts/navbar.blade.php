@@ -34,8 +34,7 @@
 
         <div class="text logo-text">
           <span class="name">Sanjay</span>
-          <BR>
-          <BR>
+
           <span class="profession">NAVIGATION</span>
         </div>
       </div>

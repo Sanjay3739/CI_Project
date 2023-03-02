@@ -1,7 +1,7 @@
 * {
     margin: 0;
-    padding: 01px;
-   
+    padding: 0;
+
 }
 
 .row>.col-lg-8 {
@@ -24,8 +24,8 @@
 .gh  > a{
     list-style: none;
     padding-left: 200px;
- 
-    
+
+
 }
 .gh{
     margin-top: 20px;
@@ -52,9 +52,9 @@
 }
   .sam
   {
-    
+
     padding-left: 80px;
-   
+
 }
 .sam > .btn{
     width: 300px;
@@ -62,12 +62,12 @@
 }
 
 .mb-3{
-    
+
     width: 380px;
-    padding-left: 80px;   
+    padding-left: 80px;
 }
 .bk{
-    
+
     display: flex;
 }
 
@@ -85,5 +85,5 @@ form > .nm > span{
     padding-left: 180px;
     font-size: 15px;
     color: rgb(129, 125, 125);
-   
+
 }
