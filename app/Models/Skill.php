@@ -6,19 +6,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class MissionTheme extends Model
+class Skill extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    
-    protected $primaryKey = 'mission_theme_id';
-    protected $dates = ['deleted_at'];
-    
+    protected $primaryKey = 'skill_id';
+
     protected $fillable = [
-        'title',
+        'skill_name',
         'status',
     ];
-    public function mission() {
-        $this->hasMany(Mission::class, 'mission_id');
+    public function missionSkill() {
+        return $this->belongsToMany(MissionSkill::class, 'skill_id');
+    }
+
+    public function userSkill() {
+        return $this->hasMany(UserSkill::class, 'skill_id');
     }
 }

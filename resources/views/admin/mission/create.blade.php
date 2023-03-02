@@ -42,28 +42,30 @@
                 </div>
                 <div class="col-md-6">
                     <label for="country">Country</label>
-                     <select name="country" class="form-control" id="country-dropdown">
+                     <select name="country_id" class="form-control" id="country-dropdown">
                           <option selected>Select Country</option>
                                     @foreach ($countries as $country)
                                         <option value="{{ $country->country_id }}">{{ $country->name }}</option>
                                     @endforeach
                                 </select>
-                                @error('country')
+                                @error('country_id')
                                     <div class="text-danger">
                                         {{$message}}
                                     </div>
                                 @enderror
                 </div>
                 <div class="col-md-6">
-                    <label for="city">city</label>
-                    <select class="form-control" name="city" id="city-dropdown">
+                    <label for="city">City</label>
+                    <select class="form-control" name="city_id" id="city-dropdown">
+                        
                     </select>
-                    @error('city')
+                    @error('city_id')
                         <div class="text-danger">
-                            {{$message}}
+                            {{ $message }}
                         </div>
                     @enderror
                 </div>
+
 
 
                 <div class="col-md-6">
@@ -166,9 +168,31 @@
             CKEDITOR.replace('editor1');
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="//cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
         <script>
-
-        </script>
+    $(document).ready(function() {
+        $('#country-dropdown').on('change', function() {
+            var country_id = this.value;
+            $("#city-dropdown").html('');
+            $.ajax({
+                url: "{{ url('api/fetch-city') }}",
+                type: "POST",
+                data: {
+                    country_id: country_id,
+                    _token: '{{ csrf_token() }}'
+                },
+                dataType: 'json',
+                success: function(result) {
+                    $('#city-dropdown').html('<option value="">Select City</option>');
+                    $.each(result.cities, function(key, value) {
+                        $("#city-dropdown").append('<option value="' + value.city_id +
+                            '">' + value.name + '</option>');
+                    });
+                }
+            });
+        });
+    });
+</script>
 
 @endsection
 add

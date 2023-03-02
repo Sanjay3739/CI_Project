@@ -42,7 +42,6 @@ class PasswordResetController extends Controller
 
                 } else {
 
-                    echo 'herennnnnnnnnn'; exit;
                     return back()->with('failed', 'Failed! there is some issue with email provider');
                 }
             }

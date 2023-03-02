@@ -1,4 +1,4 @@
-@endsection
+
 @section('js')
 <!-- DataTables -->
 <script type='text/javascript'>
@@ -8,7 +8,7 @@ $(function() {
       processing: true,
       serverSide: true,
       responsive: true,
-      ajax: "{!! route($route."ajaxData") !!}",
+      ajax: "{!! route($route ."ajaxData") !!}",
 
       columns: [
           {data: 'id', name: 'id' },

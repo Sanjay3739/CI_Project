@@ -105,7 +105,7 @@
                                 </a>
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-white">
+                                <button type="submit" class="btn btn-white ">
                                     <img src="Images/bin.png" alt="delete">
                                 </button>
                             </form>

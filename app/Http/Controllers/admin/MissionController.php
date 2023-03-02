@@ -9,9 +9,10 @@ use Illuminate\Http\Response;
 use App\Models\Mission;
 use App\Models\MissionTheme;
 use App\Models\Country;
-use App\Models\City;
+use App\Models\city;
 
 use App\Http\Requests\StoreMissionRequest;
+use App\Http\Requests\UpdateMissionRequest;
 
 class MissionController extends Controller
 {
@@ -61,33 +62,46 @@ class MissionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id): Response
+    public function show(Mission $mission)
     {
-        //
+        return view('admin.mission.edit', compact('mission'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id): Response
+    public function edit($missionId)
     {
-        //
+        $mission=new Mission;
+        $mission = $mission->find($missionId);
+        $countries = Country::get(['name','country_id']);
+        $mission_theme = MissionTheme::get(['title','mission_theme_id']);
+       
+        return view('admin.mission.edit', compact('mission', 'countries','mission_theme'));
+        // Create view by name mission/edit.blade.php
     }
-
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id): RedirectResponse
+    public function update(UpdateMissionRequest $request,$id): RedirectResponse
     {
-        //
+        $mission=new Mission;
+        $request->validated();
+        $mission->find($id)
+                     ->fill($request->post())
+                     ->save();
+        return redirect()->route('mission.index')->with('success','field Has Been updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id): RedirectResponse
+    public function destroy($id): RedirectResponse
     {
-        //
+        $mission=new Mission;
+        $mission->find($id)
+                     ->delete();
+        return back()->with('success','field has been deleted successfully');
     }
-
 }

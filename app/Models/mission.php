@@ -17,6 +17,8 @@ class Mission extends Model
         'theme_id',
         'country_id',
         'city_id',
+        'start_date',
+        'end_date'
     ];
 
     protected $primaryKey = 'mission_id';
