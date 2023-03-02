@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\AdminAuthController;
 use App\Http\Controllers\admin\ForgetPasswordController;
 use App\Http\Controllers\Admin\AdminPasswordResetController;
+use App\Http\Controllers\admin\MissionController;
 
 
 
@@ -74,4 +75,15 @@ Route::get('adminresetpage/{token}', function () {
 });
 
 Route::post('admin-password-resetting',[AdminPasswordResetController::class,'adminPasswordResetting'])->name('adminPasswordResetting');
-Route::get('missiontheme', [MissionThemeController::class, 'getAll']);
+// Route::get('missiontheme', [MissionThemeController::class, 'getAll']);
+
+
+//misssion
+// Route::get('/mission', [MissionController::class,'index'])->name('mission');
+Route::resource('/mission', MissionController::class);
+
+
+//missionTheme
+Route::resource('missiontheme', MissionThemeController::class)->withTrashed();
+Route::resource('missionskill', MissionSkillController::class)->withTrashed();
+Route::resource('user', UserController::class)->withTrashed();

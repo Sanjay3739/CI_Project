@@ -1,28 +1,28 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html> -->
 <!-- Coding by CodingLab | www.codinglabweb.com -->
-<html lang="en">
+<!-- <html lang="en"> -->
 
-<head>
+<!-- <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
 
   <!----======== CSS ======== -->
-  <link href="{{asset('css/navbar.css')}}" rel="stylesheet" />
+  <!-- <link href="{{asset('css/navbar.css')}}" rel="stylesheet" /> -->
 
 
   <!-- ======= fontawesome======= -->
- <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>">
+ <!-- <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"> -->
 
   <!----===== Boxicons CSS ===== -->
 
 
-  <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+  <!-- <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'> -->
 
   <!--<title>Dashboard Sidebar Menu</title>-->
-</head>
+<!-- </head>
 
 <body>
   <nav class="sidebar close">
@@ -63,7 +63,7 @@
           </li>
 
           <li class="nav-link">
-            <a href="#">
+            <a href="">
                 <img src="images/target.png" id="sa"   style="width: 25px;">
               <span class="text nav-text" id="sb">Mission</span>
             </a>
@@ -162,4 +162,19 @@
 <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 </body>
 
-</html>
+</html> -->
+
+
+@extends('admin.app')
+
+@section('title')
+    list
+@endsection
+
+@section('body')
+<div class="container-fluid px-4">
+        <h1 class="mt-4">Dashboard</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+@endsection

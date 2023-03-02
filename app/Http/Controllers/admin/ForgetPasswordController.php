@@ -40,11 +40,15 @@ class ForgetPasswordController extends Controller
                 $user->token = $token;
                 $user->save();
                 Mail::to($request->email)->send(new AdminResetPassword($user->name, $token));
+                
                 if (Mail::failures() == 0) {
+                    
                     return back()->with('success', 'Success! Check your email');
                 }
+                else {
                 return back()->with('failed', 'Some issue occurred. Please Re-try !!!!!!!!!!!!!!');
-            }
+                }
+           }
         }
     }
 }

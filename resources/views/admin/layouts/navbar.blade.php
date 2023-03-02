@@ -29,7 +29,7 @@
     <header>
       <div class="image-text">
         <span class="image">
-          <img src="logo.png" alt="">
+          <img src="images/logo.png" alt="">
         </span>
 
         <div class="text logo-text">
@@ -68,43 +68,43 @@
           </li>
 
           <li class="nav-link">
-            <a href="#">
-                <img src="target.png" id="sa"   style="width: 25px;">
+            <a href="mission">
+                <img src="images/target.png" id="sa"   style="width: 25px;">
               <span class="text nav-text" id="sb">Mission</span>
             </a>
           </li>
 
           <li class="nav-link">
             <a href="#">
-                <img src="themes.png" id="sa" style="width: 25px;" alt="">
+                <img src="images/themes.png" id="sa" style="width: 25px;" alt="">
                  <span class="text nav-text" id="sb"> Mission Theme</span>
             </a>
           </li>
 
           <li class="nav-link">
             <a href="#">
-           <img src="pencil.png" id="sa" style="width: 25px;" alt="">
+           <img src="images/pencil.png" id="sa" style="width: 25px;" alt="">
               <span class="text nav-text" id="sb">Mission Skill</span>
             </a>
           </li>
 
           <li class="nav-link">
             <a href="#">
-             <img src="folder.png" id="sa" style="width: 25px;" alt="">
+             <img src="images/folders.png" id="sa" style="width: 25px;" alt="">
               <span class="text nav-text" id="sb">Mission Application</span>
             </a>
           </li>
 
           <li class="nav-link">
             <a href="#">
-              <img src="rating.png"id="sa"  style="width: 25px;" alt="">
+              <img src="images/storys.png"id="sa"  style="width: 25px;" alt="">
               <span class="text nav-text" id="sb">Story</span>
             </a>
           </li>
 
           <li class="nav-link">
             <a href="#">
-             <img src="ribbon-black-banner.png" id="sa" style="width: 25px;" alt="">
+             <img src="images/ribbon-black-banner.png" id="sa" style="width: 25px;" alt="">
               <span class="text nav-text" id="sb">Banner Management</span>
             </a>
           </li>

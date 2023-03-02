@@ -26,6 +26,11 @@
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" id="inputEmail" name="email" type="email" placeholder="name@example.com" required/>
                                                 <label for="inputEmail">Email address</label>
+                                                @error('email')
+                                                  <div class="text-danger">
+                                                       {{$message}}
+                                                    </div>
+                                                @enderror
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                                 <a class="small" href="{{ route('adminlogin') }}">Return to login</a>
@@ -38,6 +43,8 @@
                                             {{ session('success') }}
                                         </div>
                                     @endif
+
+
 
                                     <!-- <div class="card-footer text-center py-3">
                                         <div class="small"><a href="register.html">Need an account? Sign up!</a></div>

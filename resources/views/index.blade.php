@@ -1,7 +1,14 @@
-@extends('layouts.app')
+@extends('admin.app')
 
-@section('content')
+@section('title')
+    list
+@endsection
 
-<h1>This is Index Pages </h1>
-<a href="/logout"> <button class="btn-primary"> Logout </button>  </a>
+@section('body')
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Dashboard</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+</div>
 @endsection
