@@ -23,14 +23,15 @@ class StoreMissionRequest extends FormRequest
     {
         return [
 
-        //    'title' => 'required',
-        //     'short_description' => 'required',
-        //     'description' => 'required',
-        //     'theme_id ' => 'required',
-        //     'city_id' => 'required',
-        //     'country_id' => 'required',
-        //     'mission_type' => 'required',
-        //     'status' => 'required',
+           'title' => 'required',
+            'short_description' => 'required',
+            'description' => 'required',
+            // 'organization_name'=> 'required',
+            'theme_id ' => 'required',
+            'city_id' => 'required',
+            'country_id' => 'required',
+            'mission_type' => 'required',
+            'status' => 'required',
 
         ];
     }
