@@ -26,7 +26,7 @@ class UpdateMissionRequest extends FormRequest
             'short_description' => 'required',
             'description' => 'required',
             'theme_id' => 'required',
-            // 'city_id' => 'required',
+            'city_id' => 'required',
             'country_id' => 'required',
             'mission_type' => 'required',
             'status' => 'required',

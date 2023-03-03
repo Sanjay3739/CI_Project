@@ -4,8 +4,9 @@ namespace Database\Factories;
 
 use Carbon\Traits\ToStringFormat;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use app\Models\city;
+use App\Models\City;
 use App\Models\Country;
+use Illuminate\Database\Eloquent\Builder;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Mission>
  */
@@ -20,7 +21,7 @@ class MissionFactory extends Factory
     {
         $countries = Country::All()->pluck('country_id')->toArray();
         $country = $this->faker->randomElement($countries);
-        $cities = City::Where('country_id',$country)->plunk('city_id')
+        $cities = City::Where('country_id',$country)->pluck('city_id');
         
         return [
             'theme_id' => $this->faker->numberBetween(1,200),
@@ -30,7 +31,7 @@ class MissionFactory extends Factory
             'mission_type' => $this->faker->randomElement(['GOAL','TIME']),
             'status'=> $this->faker->numberBetween(0,1),
             'country_id'=> $country,
-            'city_id'=>$this->faker->randomElement($cities), 
+            'city_id'=>$this->faker->randomElement($cities),
         ];
     }
 }

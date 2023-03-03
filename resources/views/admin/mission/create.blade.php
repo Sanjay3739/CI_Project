@@ -10,7 +10,7 @@
     <div class="container-fluid px-4">
         <h1 class="mt-4">Add Mission</h1>
 
-            <form method="post" action="{{route('mission.store')}}" class="row g-3">
+            <form method="post" action="{{route('mission.store')}}" class="row g-3" enctype="multipart/form-data">
                 @csrf
                 <div class="col-md-6">
                     <label for="missionTitle" class="form-label">Mission Title</label>
@@ -38,7 +38,7 @@
                         {{$message}}
                     </div>
                 @enderror
-                     {{-- <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"> --}}
+                     <!-- {{-- <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"> --}} -->
                 </div>
                 <div class="col-md-6">
                     <label for="country">Country</label>
@@ -109,14 +109,21 @@
                 </div>
                 <div class="col-md-6">
                     <label for="inputTheme" class="form-label">Mission Theme</label>
-                    <select class="form-control" id="country-dropdown" name='theme_id'>
+                    <select class="form-control" id="theme-dropdown" name='theme_id'>
                         <option selected>Select Theme</option>
                                   @foreach ($mission_theme as $theme)
                                       <option value="{{ $theme->mission_theme_id }}">{{ $theme->title }}</option>
                                   @endforeach
                               </select>
+                              @error('theme_id')
+                                    <div class="text-danger">
+                                        {{$message}}
+                                    </div>
+                                @enderror
 
                 </div>
+
+              
                 <div class="col-md-6">
                     <label for="inputSkill" class="form-label">Mission Skills</label>
                     <select id="inputSkill" class="form-select"  name='mission_skills'>
@@ -126,11 +133,16 @@
                 </div>
                 <div class="col-md-6">
                     <label class="form-label" for="customFile">Mission Images</label>
-                        <input type="file" class="form-control" id="customFile"  name='mission_images'/>
+                        <input type="file" class="form-control" id="customFile"  name="media_name[]" multiple/>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label" for="customFile">Mission Documents</label>
-                    <input type="file" class="form-control" id="customFile"  name='mission_documents'/>
+                    <input type="file" class="form-control" id="customFile"  name="document_name[]"multiple/>
+                    @error('document_name.*')
+                                    <div class="text-danger">
+                                        {{$message}}
+                                    </div>
+                                @enderror
                 </div>
                 <div class="col-md-6">
                     <label for="inputAvailable" class="form-label">Mission Availability</label>
@@ -143,10 +155,10 @@
                 </div>
                 <div class="col-md-6">
                     <label for="missionVideo" class="form-label">Mission Video</label>
-                    <input type="text" class="form-control" id="orgVideo" name='mission_video'>
+                    <input type="text" class="form-control" id="orgVideo" name="media_name" multiple>
                 </div>
                 <div class="col-md-6">
-                    <label class="float-start px-2" for="options-outlined">Status</label>
+                <label class="float-start px-2" for="options-outlined">Status</label>
                     <input type="radio" class="btn-check " name="status" value='1' id="success-outlined">
                     <label class="btn btn-outline-success px-3"  for="success-outlined">Active</label>
                     <input type="radio" class="btn-check" value='0' name="status" id="danger-outlined">
@@ -168,31 +180,6 @@
             CKEDITOR.replace('editor1');
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="//cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
-        <script>
-    $(document).ready(function() {
-        $('#country-dropdown').on('change', function() {
-            var country_id = this.value;
-            $("#city-dropdown").html('');
-            $.ajax({
-                url: "{{ url('api/fetch-city') }}",
-                type: "POST",
-                data: {
-                    country_id: country_id,
-                    _token: '{{ csrf_token() }}'
-                },
-                dataType: 'json',
-                success: function(result) {
-                    $('#city-dropdown').html('<option value="">Select City</option>');
-                    $.each(result.cities, function(key, value) {
-                        $("#city-dropdown").append('<option value="' + value.city_id +
-                            '">' + value.name + '</option>');
-                    });
-                }
-            });
-        });
-    });
-</script>
-
+       
 @endsection
 add

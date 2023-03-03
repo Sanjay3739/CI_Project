@@ -99,7 +99,7 @@
 
                 <a class="nav-link" href="#">
                     <div class='container'>
-                        {{-- <button type="button" class="btn btn-primary btn-lg btn-block">Block level button</button> --}}
+                        <!-- {{-- <button type="button" class="btn btn-primary btn-lg btn-block">Block level button</button> --}} -->
                         <i class="fa-solid fa-pen-to-square text-white"></i>
                         <span class="text-white font-weight-light ">
                             CMS Page
