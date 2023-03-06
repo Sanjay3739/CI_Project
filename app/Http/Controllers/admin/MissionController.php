@@ -35,8 +35,8 @@ class MissionController extends Controller
           ->appends(['s'=>$request->s]);
 
 
-        //$data = MissionTheme::orderBy('mission_theme_id','desc')->paginate(10);
-        return view('admin.mission.index',compact('data')); // Create view by name missiontheme/index.blade.php
+        
+        return view('admin.mission.index',compact('data')); // Create view by name mission/index.blade.php
     }
 
     /**
@@ -63,8 +63,8 @@ class MissionController extends Controller
    public function store(StoreMissionRequest $request)
     {
 
-        //dd($request);
-        $mission=Mission::create($request->post());
+       
+        
         // $document_path = $request->file('document_name')->store('mission_documents');
 
         // // Get the document type from the file extension
@@ -79,8 +79,8 @@ class MissionController extends Controller
         // // $mission_document->save();
         // $mission->missionDocument()->save($mission_document);
 
-
-
+        // dd($request->post());
+        $mission=Mission::create($request->post());
         if ($request->hasfile('document_name')) {
             foreach ($request->file('document_name') as $file) {
                 $fileName = $file->getClientOriginalName();
@@ -95,14 +95,6 @@ class MissionController extends Controller
                 ]);
             }
         }
-
-
-
-
-
-
-           $mission = Mission::create($request->post());
-
             if ($request->hasFile('media_name')) {
                 foreach ($request->file('media_name') as $key => $file) {
                     $fileName = $file->getClientOriginalName();
@@ -130,36 +122,11 @@ class MissionController extends Controller
                 }
             }
 
-           
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
         return redirect()->route('mission.index')->with('success','New Mission have been created');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    // public function show(Mission $mission)
-    // {
-    //     return view('admin.mission.edit', compact('mission'));
-    // }
-
-
-
-
-
+  
 
     /**
      * Display the specified resource.

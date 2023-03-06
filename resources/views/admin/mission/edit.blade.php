@@ -2,7 +2,7 @@
 @extends('admin.app')
 
 @section('title')
-    Mission-Theme Add mission
+    Mission-Add Mission
 @endsection
 
 @section('body')
@@ -127,15 +127,15 @@
                 </div>
                 <div class="col-md-6">
                     <label class="form-label" for="customFile">Mission Images</label>
-                        <input type="file" class="form-control" id="customFile"  name='mission_images'/>
+                        <input type="file" class="form-control" id="customFile"  name='mission_images' multiple/>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label" for="customFile">Mission Documents</label>
-                    <input type="file" class="form-control" id="customFile"  name='mission_documents'/>
+                    <input type="file" class="form-control" id="customFile"  name='mission_documents' multiple/>
                 </div>
                 <div class="col-md-6">
                     <label for="inputAvailable" class="form-label">Mission Availability</label>
-                    <select id="inputAvailable" class="form-select" name='mission_availability'>
+                    <select id="inputAvailable" class="form-select" name='availability'>
                         <option>Daily</option>
                         <option>Weekly</option>
                         <option>Week-end</option>
@@ -163,7 +163,7 @@
                 </div>
 
                 <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Submit Edit</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
         </div>

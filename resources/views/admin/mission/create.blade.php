@@ -2,7 +2,7 @@
 @extends('admin.app')
 
 @section('title')
-    Mission-Theme Add mission
+    Mission-create mission
 @endsection
 
 @section('body')
@@ -146,7 +146,7 @@
                 </div>
                 <div class="col-md-6">
                     <label for="inputAvailable" class="form-label">Mission Availability</label>
-                    <select id="inputAvailable" class="form-select" name='mission_availability'>
+                    <select id="inputAvailable" class="form-select" name='availability'>
                         <option>Daily</option>
                         <option>Weekly</option>
                         <option>Week-end</option>

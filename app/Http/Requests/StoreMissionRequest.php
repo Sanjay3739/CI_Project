@@ -25,7 +25,7 @@ class StoreMissionRequest extends FormRequest
              'title' => 'required|max:128',
              'short_description' => 'required',
              'description' => 'required',
-            //  'theme_id' => 'required',
+             'theme_id' => 'required',
              'city_id' => 'required',
              'country_id' => 'required',
              'mission_type' => 'required',

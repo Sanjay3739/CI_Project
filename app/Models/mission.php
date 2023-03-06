@@ -17,6 +17,9 @@ class Mission extends Model
         'theme_id',
         'country_id',
         'city_id',
+        'organization_name',
+        'organization_detail',
+        'availability',
         'start_date',
         'end_date'
     ];
