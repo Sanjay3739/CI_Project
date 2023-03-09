@@ -84,6 +84,15 @@
   background-color: #F88634;
 }
 
+@media screen and (max-width: 991px){
+  #filler-gap { display: none;}
+}
+@media screen and (min-width: 992px){
+  #sidebarToggle { display: none;}
+}
+
+
+
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);

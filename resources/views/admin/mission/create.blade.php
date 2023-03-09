@@ -126,11 +126,23 @@
               
                 <div class="col-md-6">
                     <label for="inputSkill" class="form-label">Mission Skills</label>
-                    <select id="inputSkill" class="form-select"  name='mission_skills'>
-                        <option>Time</option>
-                        <option>Goal</option>
+                    <select id="inputSkill" class="form-select"  name='skill_id'>
+                        @foreach ($skills as $skill)
+                                        <option value="{{ $skill->skill_id }}">{{ $skill->skill_name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('skill_id')
+                                    <div class="text-danger">
+                                        {{$message}}
+                                    </div>
+                                @enderror
                     </select>
                 </div>
+
+               
+
+
+
                 <div class="col-md-6">
                     <label class="form-label" for="customFile">Mission Images</label>
                         <input type="file" class="form-control" id="customFile"  name="media_name[]" multiple/>

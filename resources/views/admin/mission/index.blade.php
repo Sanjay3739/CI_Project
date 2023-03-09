@@ -19,11 +19,6 @@
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item active">Missions</li>
         </ol>
-        @if(session('success'))
-            <div class="alert">
-                {{session('success')}}
-            </div>
-        @endif
        
         <a href="{{ route('mission.create') }}">
         <button type="button" class="btn rounded text-right btn-outline-warning">

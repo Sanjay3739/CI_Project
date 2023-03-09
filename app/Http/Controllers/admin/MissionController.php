@@ -14,6 +14,8 @@ use App\Models\MissionDocument;
 use App\Models\MissionMedia;
 use App\Http\Requests\StoreMissionRequest;
 use App\Http\Requests\UpdateMissionRequest;
+use App\Models\MissionSkill;
+use App\Models\Skill;
 
 class MissionController extends Controller
 {
@@ -44,7 +46,7 @@ class MissionController extends Controller
      */
     public function create()
     {
-
+        $data['skills'] = Skill::get(['skill_name','skill_id']);
         $data['countries'] = Country::get(['name','country_id']);
         $data['mission_theme'] = MissionTheme::get(['title','mission_theme_id']);
         return view('admin.mission.create',$data);
@@ -63,7 +65,6 @@ class MissionController extends Controller
    public function store(StoreMissionRequest $request)
     {
 
-       
         
         // $document_path = $request->file('document_name')->store('mission_documents');
 
@@ -81,6 +82,11 @@ class MissionController extends Controller
 
         // dd($request->post());
         $mission=Mission::create($request->post());
+        $skill=MissionSkill::create([
+            'mission_id' => $mission->mission_id,
+            'skill_id' => $request->skill_id,
+        ]);
+        // dd($mission);
         if ($request->hasfile('document_name')) {
             foreach ($request->file('document_name') as $file) {
                 $fileName = $file->getClientOriginalName();
@@ -146,6 +152,8 @@ class MissionController extends Controller
         $mission = $mission->find($missionId);
         $countries = Country::get(['name','country_id']);
         $mission_theme = MissionTheme::get(['title','mission_theme_id']);
+        $skills = Skill::get(['skill_name','skill_id']);
+        
        
         return view('admin.mission.edit', compact('mission', 'countries','mission_theme'));
         // Create view by name mission/edit.blade.php
