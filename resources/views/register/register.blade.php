@@ -85,7 +85,7 @@
                     <form action="{{ route('post-register') }}" method='post'>
                         @csrf
                         <div class="col">
-                        <label for="inputFirstName" class="col-form-label"  > First Name</label>
+                        <label for="inputFirstName" class="col-form-label" > First Name</label>
 
                             <input type="text"  class="form-control"  name="first_name" id="" value="">
                             @error('first_name')

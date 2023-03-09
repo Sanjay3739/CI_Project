@@ -26,8 +26,9 @@ class AuthController extends Controller
     public function postLogin(Request $request)
     {
         $request->validate([
-            'email' => 'required',
-            'password' => 'required',
+
+            // 'email' => 'required',
+            // 'password' => 'required',
         ]);
         $credentionals = $request->only('email', 'password');
         if (Auth::attempt($credentionals)) {
@@ -40,9 +41,11 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $this->validate($request, [
-            'first_name' => 'required',
-            'last_name' => 'required',
+            'first_name' => 'required|max:255',
+            'last_name' => 'required|max:255',
             'phone_number' => 'required',
+            'email' => 'required|email|max:255',
+        // 'password' => 'required|min:8|confirmed',
             'email' => 'required|email',
             'password' => 'required',
         ]);

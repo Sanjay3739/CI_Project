@@ -1,31 +1,23 @@
 <?php
 
 use App\Http\Controllers\admin\MissionThemeController;
+use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\admin\AdminAuthController;
 use App\Http\Controllers\admin\ForgetPasswordController;
 use App\Http\Controllers\Admin\AdminPasswordResetController;
 use App\Http\Controllers\admin\MissionController;
-
-
-
-
-
-
-
-
-
+use App\Http\Controllers\admin\MissionSkillController;
 
 
 //frontend Routes
 Route::get('/', [AuthController::class, 'index'])->name('login');
 
 Route::get('index', function () {
-      return view('index');
+    return view('index');
 })->name('index')->middleware('auth');
 
 Route::get('logout', [AuthController::class, 'logout']);
@@ -47,13 +39,12 @@ Route::get('forgot-password/{token}', function ($token) {
     return view('reset', [$token]);
 });
 Route::post('register', [AuthController::class, 'register'])->name('post-register');
-
 Route::post('password-resetting', [PasswordResetController::class, 'passwordResetting'])->name('password-resetting');
 
 
 
 
-//All BACKEND ROUTES IN HERE
+//All BACKEND ROUTE  IN HERE
 
 Route::get('admindashboard', [AdminAuthController::class, 'dashboard'])->name('dashboard');
 Route::post('admindashboard', [AdminAuthController::class, 'index'])->name('dashboard');
@@ -66,19 +57,14 @@ Route::get('resetpassword', [ForgetPasswordController::class, 'resetpassword'])-
 Route::post('resetpassword2', [AdminPasswordResetController::class, 'resetPassword'])->name('resetpassword2');
 Route::get('adminresetpage/{token}', function () {
     return view('admin.auth.resetpassword');
-
 });
 
-Route::post('admin-password-resetting',[AdminPasswordResetController::class,'adminPasswordResetting'])->name('adminPasswordResetting');
-// Route::get('missiontheme', [MissionThemeController::class, 'getAll']);
-
-
-//misssion
-// Route::get('/mission', [MissionController::class,'index'])->name('mission');
+Route::post('admin-password-resetting', [AdminPasswordResetController::class, 'adminPasswordResetting'])->name('adminPasswordResetting');
 Route::resource('/mission', MissionController::class);
 
-
-//missionTheme
-Route::resource('missiontheme', MissionThemeController::class)->withTrashed();
+// MissionTheme-route
+Route::resource('missiontheme', MissionThemeController::class);
+// MissionSkill-route
 Route::resource('missionskill', MissionSkillController::class)->withTrashed();
+//  user-crud
 Route::resource('user', UserController::class)->withTrashed();

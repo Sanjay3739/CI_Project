@@ -83,33 +83,26 @@
                     @csrf
                     <div class="form-group">
                         <label for="" class="login-text mt-"4>Email Address</label>
-                        <input type="email" class="form-control m-1" name="email" id="" required aria-describedby="emailHelpId" placeholder="" value="">
+                        <input type="email" class="form-control m-1" name="email"  placeholder="" value="{{old('name')}}" >
                         @error('email')
-                        <div class="text-danger">
-                            {{$message}}
-                        </div>
-                        @enderror
+                            <div class="text-danger">
+                                {{$message}}
+                            </div>
+                            @enderror
                     </div>
                     <div class="form-group">
                         <label for="" class="login-text">Password</label>
-                        <input type="password" class="form-control m-1" name="password" required id="" placeholder="" value="">
+                        <input type="password" class="form-control m-1" name="password" placeholder="************"  required>
                         @error('password')
-                        <div class="text-danger">
-                            {{$message}}
-                        </div>
-                        @enderror
+                            <div class="text-danger">
+                                {{$message}}
+                            </div>
+                            @enderror
                     </div>
                     <div class="bt">
                         <button type="submit" class="btn btn-outline-warning btn-block btn-dark " id="button">Login</button>
                     </div>
                 </form>
-
-
-                @if(session('status'))
-                <div class="alert alert-danger">
-                    {{ session('status')}}
-                </div>
-                @endif
 
 
 

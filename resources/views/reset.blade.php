@@ -89,7 +89,7 @@ $token = substr($_SERVER['REQUEST_URI'],-60);
                         @csrf
                         <label for="inputNewPassword" class="col-form-label pl-3 ">New Password</label>
                         <div class="col">
-                            <input type="password" class="form-control" id="" name='password' value="">
+                            <input type="password" class="form-control" id="" name='password' required >
                             @error('password')
                             <div class="text-danger">
                                 {{$message}}
@@ -97,9 +97,9 @@ $token = substr($_SERVER['REQUEST_URI'],-60);
                             @enderror
                         </div>
 
-                        <label for="inputConfirmPassword" class="col-form-label pl-3">Confirm Password</label>
+                        <label for="inputConfirmPassword" class="col-form-label pl-3 ">Confirm Password</label>
                         <div class="col">
-                            <input type="password" class="form-control" name="confirm-password" id="" value="">
+                            <input type="password" class="form-control" name="confirm-password" required autofocus  >
                             @error('confirm-password')
                             <div class="text-danger">
                                 {{$message}}

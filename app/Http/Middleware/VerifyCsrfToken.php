@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Middleware;
+use App\Http\Controllers\Admin\UserController;
 
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
 
