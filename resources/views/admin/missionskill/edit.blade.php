@@ -53,7 +53,7 @@
                             </div>
                         @enderror
                     </div>
-                    <button type="submit" class='btn btn-warning'> Submit Edit</button>
+                    <button type="submit" class='btn btn-warning'> Submit</button>
                 </form>
             </div>
         </div>
