@@ -2,7 +2,7 @@
 @extends('admin.app')
 
 @section('title')
-    Mission-Theme Add mission
+    Mission-Add Mission
 @endsection
 
 @section('body')
@@ -60,6 +60,9 @@
                 <div class="col-md-6">
                     <label for="city">city</label>
                     <select class="form-control" name="city_id" id="city-dropdown" value='{{$mission->city}}'>
+                    <!-- @foreach ($countries as $country)
+                            <option value="{{ $country->country_id }}" @if ($country->country_id == $mission->country_id) selected @endif>{{ $country->name }}</option>
+                        @endforeach -->
                     </select>
                     @error('city_id')
                         <div class="text-danger">
@@ -110,32 +113,40 @@
                 </div>
                 <div class="col-md-6">
                     <label for="inputTheme" class="form-label">Mission Theme</label>
-                    <select class="form-control" id="country-dropdown" name='theme_id'>
+                    <select class="form-control" id="country-dropdown" name='theme_id' >
                         <option selected>Select Theme</option>
                                   @foreach ($mission_theme as $theme)
-                                      <option value="{{ $theme->mission_theme_id }}">{{ $theme->title }}</option>
+                                      <option value="{{ $theme->mission_theme_id }}" >{{ $theme->title }}</option> 
+                                      <!-- @if ($theme->mission_theme_id == $mission->mission_theme_id) selected @endif -->
                                   @endforeach
                               </select>
+                             
 
                 </div>
                 <div class="col-md-6">
                     <label for="inputSkill" class="form-label">Mission Skills</label>
-                    <select id="inputSkill" class="form-select"  name='mission_skills'>
-                        <option>Time</option>
-                        <option>Goal</option>
+                    <select id="inputSkill" class="form-select"  name='skill_id'>
+                        <option value="">vl</option>
+                        
+                                
                     </select>
+                    @error('skill_id')
+                                    <div class="text-danger">
+                                        {{$message}}
+                                    </div>
+                                @enderror
                 </div>
                 <div class="col-md-6">
                     <label class="form-label" for="customFile">Mission Images</label>
-                        <input type="file" class="form-control" id="customFile"  name='mission_images'/>
+                        <input type="file" class="form-control" id="customFile"  name='mission_images' multiple/>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label" for="customFile">Mission Documents</label>
-                    <input type="file" class="form-control" id="customFile"  name='mission_documents'/>
+                    <input type="file" class="form-control" id="customFile"  name='mission_documents' multiple/>
                 </div>
                 <div class="col-md-6">
                     <label for="inputAvailable" class="form-label">Mission Availability</label>
-                    <select id="inputAvailable" class="form-select" name='mission_availability'>
+                    <select id="inputAvailable" class="form-select" name='availability' value='{{$mission->availability}}'>
                         <option>Daily</option>
                         <option>Weekly</option>
                         <option>Week-end</option>
@@ -163,7 +174,7 @@
                 </div>
 
                 <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Submit Edit</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
         </div>

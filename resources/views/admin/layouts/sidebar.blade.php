@@ -8,16 +8,17 @@
                 <a class="nav-link" href="/user">
                     <div class='container'>
                         <i class="fa-solid fa-user text-white"></i>
-                        <span class="text-white font-weight-light">
+                        <span class="text-white ">
                             User
                         </span>
                     </div>
                 </a>
 
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/cmspage">
                     <div class='container'>
+                        <!-- {{-- <button type="button" class="btn btn-primary btn-lg btn-block">Block level button</button> --}} -->
                         <i class="fa-solid fa-pen-to-square text-white"></i>
-                        <span class="text-white font-weight-light ">
+                        <span class="text-white ">
                             CMS Page
                         </span>
                     </div>

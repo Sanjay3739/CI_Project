@@ -24,7 +24,7 @@
                                         <form method="post"  action="{{route('resetpassword2')}}">
                                             @csrf
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputEmail" name="email" type="email" placeholder="name@example.com" required/>
+                                                <input class="form-control" id="inputEmail" name="email" type="email" value="{{old('email')}}" placeholder="name@example.com" required/>
                                                 <label for="inputEmail">Email address</label>
                                                 @error('email')
                                                   <div class="text-danger">

@@ -5,12 +5,14 @@ use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\PasswordResetController;
+use App\Http\Controllers\admin\CmsPageController;;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\AdminAuthController;
 use App\Http\Controllers\admin\ForgetPasswordController;
 use App\Http\Controllers\Admin\AdminPasswordResetController;
 use App\Http\Controllers\admin\MissionController;
 use App\Http\Controllers\admin\MissionSkillController;
+
 
 
 //frontend Routes
@@ -61,6 +63,8 @@ Route::get('adminresetpage/{token}', function () {
 
 Route::post('admin-password-resetting', [AdminPasswordResetController::class, 'adminPasswordResetting'])->name('adminPasswordResetting');
 Route::resource('/mission', MissionController::class);
+Route::resource('/cmspage', CmsPageController::class);
+                           
 
 // MissionTheme-route
 Route::resource('missiontheme', MissionThemeController::class);
