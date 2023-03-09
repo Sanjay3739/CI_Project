@@ -20,39 +20,44 @@
             <li class="breadcrumb-item active">Missions</li>
         </ol>
        
-        <a href="{{ route('mission.create') }}">
+        <!-- <a href="{{ route('mission.create') }}">
         <button type="button" class="btn rounded text-right btn-outline-warning">
             <i class="fa-solid fa-plus px-3"></i> Add</button>
-        </a>
+        </a> -->
         <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-table me-1"></i>
             </div>
 
             <div class="card-body">
-                <div class="mt-1 mb-4">
+                <div class="d-flex align-items-center justify-content-between mt-1 mb-4">
                     <div class="relative max-w-xs">
                         <form action="{{ route('mission.index') }}" method="GET">
                             @csrf
-                            <label for="search" class="sr-only">
+                            <label for="search" class="sr-only p-2">
                                 Search
                             </label>
                             <input type="text" name="s"
                                 class="block w-full p-3 pl-10 text-sm border-gray-200 rounded-md focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
                                 placeholder="Search..." />
                         </form>
+                       
                     </div>
+                    <a href="{{ route('mission.create') }}">
+                       <button type="button" class="btn text-right btn-outline-warning"
+                       style="border-radius:18px">Add</button>
+                    </a>
                 </div>
 
 
-                <table class="table table-bordered">
+                <table class="table table responsive table-bordered">
                     <thead>
                         <tr>
                             <th>Mission Title</th>
                             <th>Mission Type</th>
                             <th>Start Date</th>
                             <th>End Date</th>
-                            <th width="280px">Action</th>
+                            <th width="150px">Action</th>
                         </tr>
                     </thead>
                     <tbody>
