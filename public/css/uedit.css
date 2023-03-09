@@ -1,0 +1,70 @@
+#fom{
+    background-color: #000;
+     box-shadow: 0 5px 10px 5px rgba(0, 0, 0, 0.2);
+}
+label {
+    color: #ffff;
+    padding-left: 10px;
+
+}
+li{
+    color: #000;
+}
+
+#bs {
+    background: linear-gradient(to left,
+            #d8b53a,
+            #75fd92,
+            #1acbe9);
+    box-shadow: 0 5px 10px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+#sb,
+#inputState {
+
+    padding: 10px;
+    color: #ffff;
+    background: linear-gradient(to right,
+            #4c2fb2,
+            #8524a2);
+
+    margin: 10px;
+    width: 90%;
+    box-shadow: 0 5px 10px 5px rgba(0, 0, 0, 0.2);
+}
+
+#inputState,
+option {
+    color: #ffff;
+    background-color: #000;
+}
+
+#avatar1 {
+    margin-left: -20px;
+}
+
+#imggroup {
+    width: 100%;
+    margin-bottom: 10px;
+
+}
+
+#imgs {
+    margin-left: 20px;
+}
+
+.breadcrumb{
+    width: 150px;
+    height: 50px;
+    color: #000;
+    box-shadow: 5px 5px 5px rgba(62, 60, 60, 0.6);
+
+}
+
+
+#rat{
+    width: 50px;
+    height: 50px;
+    box-shadow: 5px 5px 5px rgba(62, 60, 60, 0.6);
+}

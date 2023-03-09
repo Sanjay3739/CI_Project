@@ -1,4 +1,15 @@
-<div id="layoutSidenav_nav">
+<header>
+    <style>
+        .container>img {
+
+           filter: brightness(0) invert(1);
+
+        }
+       
+    </style>
+</header>
+
+<div id="layoutSidenav_nav" style=" width:15% " >
     <nav class="sb-sidenav accordion sb-sidenav zindex-sticky bg-orange" id="sidenavAccordion">
         <div class="sb-sidenav-menu align-content-center">
             <div class="nav">
@@ -7,7 +18,7 @@
 
                 <a class="nav-link" href="/user">
                     <div class='container'>
-                        <i class="fa-solid fa-user text-white"></i>
+                        <img src="images/use.png" style="width:17px" alt="">
                         <span class="text-white ">
                             User
                         </span>
@@ -17,7 +28,7 @@
                 <a class="nav-link" href="/cmspage">
                     <div class='container'>
                         <!-- {{-- <button type="button" class="btn btn-primary btn-lg btn-block">Block level button</button> --}} -->
-                        <i class="fa-solid fa-pen-to-square text-white"></i>
+                        <img src="images/pag.png" style="width:17px" alt="">
                         <span class="text-white ">
                             CMS Page
                         </span>
@@ -25,15 +36,15 @@
                 </a>
                 <a class="nav-link" href="/mission">
                     <div class='container'>
-                        <i class="fa-solid fa-bullseye text-white"></i>
+                        <img src="images/tar.png" style="width:17px" alt="">
                         <span class="text-white ">
                             Mission
                         </span>
                     </div>
                 </a>
                 <a class="nav-link" href="/missiontheme">
-                    <div class='container-fluid'>
-                        <i class="fa-light fa-rectangles-mixed"></i>
+                    <div class='container'>
+                        <img src="images/missiontheme.png" alt="" style="width:17px">
                         <span class="text-white text-active">
                             Mission Theme
                         </span>
@@ -42,7 +53,7 @@
 
                 <a class="nav-link" href="/missionskill">
                     <div class='container'>
-                        <i class="fa-solid fa-folder text-white"></i>
+                        <img src="images/pen.png" style="width:17px" alt="">
                         <span class="text-white">
                             Mission skill
                         </span>
@@ -50,7 +61,7 @@
                 </a>
                 <a class="nav-link" href="#">
                     <div class='container'>
-                        <i class="fa-solid fa-folder text-white"></i>
+                       <img src="images/fol.png" style="width:17px" alt="">
                         <span class="text-white">
                             Mission Application
                         </span>
@@ -58,15 +69,15 @@
                 </a>
                 <a class="nav-link" href="#">
                     <div class='container'>
-                        <i class="fa-solid fa-book-blank text-white"></i>
+                        <img src="images/sr.png" alt=""  style="width:17px">
                         <span class="text-white ">
                             Story
                         </span>
                     </div>
                 </a>
                 <a class="nav-link" href="#">
-                    <div class='container-fluid'>
-                        <i class="fa-brands fa-canadian-maple-leaf text-white"></i>
+                    <div class='container'>
+                        <img src="images/ben.png" alt=""  style="width:17px">
                         <span class="text-white ">
                             Banner Management
                         </span>
