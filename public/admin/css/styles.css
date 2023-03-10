@@ -90,6 +90,9 @@
 @media screen and (min-width: 992px){
   #sidebarToggle { display: none;}
 }
+/* @media screen and (min-width: 536px){
+  .sr-only { width: none;}
+} */
 
 
 

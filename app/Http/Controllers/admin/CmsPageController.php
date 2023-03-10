@@ -3,32 +3,35 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreCmsPageRequest;
-use App\Http\Requests\UpdateCmsPageRequest;
-use App\Models\CmsPage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use App\Models\CmsPage;
+use App\Http\Requests\StoreCmsPageRequest;
+use App\Http\Requests\UpdateCmsPageRequest;
+
 
 class CmsPageController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(request $request)
+    public function index(Request $request)
     {
-        $data = Cmspage::where([
-            ['title', '!=', null],
+        $data = CmsPage::where([
+            ['title','!=',Null],
             [function ($query) use ($request) {
-                if (($s = $request->s)) {
+                if(($s = $request->s)) {
                     $query->orWhere('title', 'LIKE', '%' . $s . '%')
-                        ->get();
+                          ->get();
                 }
-            }],
+            }]
         ])->paginate(10)
-            ->appends(['s' => $request->s]);
+          ->appends(['s'=>$request->s]);
 
-        return view('admin.cmspage.index', compact('data'));
-        // return view('admin.cmspage.index');
+
+
+        return view('admin.cmspage.index',compact('data'));
     }
 
     /**
@@ -44,17 +47,19 @@ class CmsPageController extends Controller
      */
     public function store(StoreCmsPageRequest $request): RedirectResponse
     {
+        
         $request->validated();
 
         CmsPage::create($request->post());
-
-        return redirect()->route('cmspage.index')->with('success', 'field has been created successfully.');
+       
+        return redirect()->route('cmspage.index')->with('success','field has been created successfully.');
+       
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(CmsPage $cmsPage)
     {
         return view('admin.cmspage.edit', compact('cmsPage'));
     }
@@ -62,34 +67,32 @@ class CmsPageController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-
-
-    public function edit(CmsPage $cmsPage, $cms_page_id)
+    public function edit(CmsPage $cmsPage, $cmsPageId)
     {
-        $cmsPage = $cmsPage->find($cms_page_id);
-
-        return view('admin.cmspage.edit', compact('cmsPage'));
+        $cmsPage = $cmsPage->find($cmsPageId);
+        return view('admin.cmspage.edit',compact('cmsPage'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCmsPageRequest $request, CmsPage $cmsPage, $id): RedirectResponse
+    public function update(UpdateCmsPageRequest $request,CmsPage $cmsPage,$id): RedirectResponse
     {
+        // dd($request);
         $request->validated();
         $cmsPage->find($id)
-            ->fill($request->post())
-            ->save();
-        return redirect()->route('cmspage.index')->with('success', 'field Has Been updated successfully');
+                     ->fill($request->post())
+                     ->save();
+        return redirect()->route('cmspage.index')->with('success','field Has Been updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CmsPage $cmsPage, $id): RedirectResponse
+    public function destroy(CmsPage $cmsPage,$id): RedirectResponse
     {
         $cmsPage->find($id)
-            ->delete();
-        return back()->with('success', 'field has been deleted successfully');
+        ->delete();
+ return back()->with('success','field has been deleted successfully');
     }
 }
