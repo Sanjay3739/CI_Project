@@ -9,13 +9,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class CmsPage extends Model
 {
     use HasFactory;
-
-    protected $table = 'cms_pages';
+    use SoftDeletes;
+   
     protected $primaryKey = 'cms_page_id';
     protected $fillable = [
-        'cms_page_id',
         'title',
         'text',
-        'slug'
+        'slug',
+        'status',
     ];
 }

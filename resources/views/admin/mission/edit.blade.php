@@ -1,8 +1,7 @@
-
 @extends('admin.app')
 
 @section('title')
-    Mission-Theme Add mission
+     Edit Mission
 @endsection
 
 @section('body')
@@ -60,8 +59,14 @@
             </div>
 
             <div class="col-md-6">
-                <label for="city">city</label>
-                <select class="form-control" name="city_id" id="city-dropdown" value='{{ $mission->city }}'>
+                <label for="city">City</label>
+                <select class="form-control" name="city_id" id="city-dropdown">
+                    <option value="none" selected="" disabled="" hidden=""></option>
+                    @foreach ($cities as $city)
+                        <option value="{{ $city->city_id }}" {{ $city->city_id == $mission->city_id ? 'selected' : '' }}>
+                            {{ $city->name }}
+                        </option>
+                    @endforeach
                 </select>
                 @error('city_id')
                     <div class="text-danger">
@@ -69,7 +74,6 @@
                     </div>
                 @enderror
             </div>
-
 
             <div class="col-md-6">
                 <label for="orgName" class="form-label">Mission Organisation Name</label>
@@ -96,17 +100,11 @@
 
                 </div>
             </div>
-            {{-- <div class="col-md-6">
-                    <label for="inputType" class="form-label">Mission Type</label>
-                    <select id="inputType" class="form-select" name='mission_type'>
-                        <option value="time">Time</option>
-                        <option value="goal">Goal</option>
-                    </select>
-                </div> --}}
+
             <div class="col-md-6">
                 <label for="inputType" class="form-label">Mission Type</label>
                 <select id="inputType" class="form-select" name='mission_type'>
-                    <option value="none" selected="" disabled="" hidden=""></option>
+                    <option value="none" selected="" disabled="" hidden="">select mission type</option>
                     <option value="TIME" @if ($mission->mission_type == 'TIME') selected @endif>Time</option>
                     <option value="GOAL" @if ($mission->mission_type == 'GOAL') selected @endif>Goal</option>
                 </select>
@@ -152,7 +150,19 @@
             </div>
             <div class="col-md-6">
                 <label class="form-label" for="customFile">Mission Images</label>
-                <input type="file" class="form-control" id="customFile" name='mission_images' />
+                <input type="file" class="form-control" id="customFile" name="media_name[]" multiple />
+
+                @error('media_name.*')
+                    <div class="text-danger">
+                        {{ $message }}
+                    </div>
+                @enderror
+                <div>
+                    @foreach ($missionImages as $image)
+                        <span>{{ $image->media_name }}</span>
+                        <input type="checkbox" name="selected_media[]" value="{{ $image->media_name }}" checked>
+                    @endforeach
+                </div>
             </div>
             <div class="col-md-6">
                 <label class="form-label" for="customFile">Mission Documents</label>
@@ -163,7 +173,13 @@
                         {{ $message }}
                     </div>
                 @enderror
-
+                <div>
+                    @foreach ($missionDocuments as $document)
+                        <span>{{ $document->document_name }}</span>
+                        <input type="checkbox" name="selected_documents[]" value="{{ $document->document_name }}"
+                            checked>
+                    @endforeach
+                </div>
             </div>
             <div class="col-md-6">
                 <label for="inputAvailable" class="form-label">Mission Availability</label>
@@ -177,7 +193,15 @@
             </div>
             <div class="col-md-6">
                 <label for="missionVideo" class="form-label">Mission Video</label>
-                <input type="text" class="form-control" id="orgVideo" name="media_names">
+
+                @if ($missionVideo && $missionVideo->count() > 0)
+                    <input type="text" class="form-control" id="orgVideo" name="media_names"
+                        value='{{ $missionVideo->first()->media_path }}'>
+                @else
+                    <input type="text" class="form-control" id="orgVideo" name="media_names" value=''>
+                @endif
+
+
                 @error('media_names')
                     <div class="text-danger">
                         {{ $message }}
@@ -198,12 +222,14 @@
                     </div>
                 @enderror
             </div>
-
-            <div class="col-md-12 py-2">
-                      <a class="btn rounded text-right btn-outline-secondary" href="{{route('mission.index')}}">cancel</a>
-                      <button class="btn rounded text-right btn-outline-warning" type="submit">Save</button>
+            <div class="row">
+                 <div class="col-md-6 py-4">
+                    <a class="btn  pull-right btn-outline-secondary" style="border-radius:18px" href="{{route('mission.index')}}">cancel</a>
+                    <button class="btn pull-right btn-outline-warning" type="submit" style="border-radius:18px">Save</button>
                 </div>
+            </div>
         </form>
+        
     </div>
     <script>
         CKEDITOR.replace('editor1');

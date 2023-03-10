@@ -1,6 +1,6 @@
 <nav class="sb-topnav navbar bg-white navbar-expand navbar justify-content-between" style="padding:0%; !important">
     <!-- Navbar Brand-->
-    {{-- <a class="navbar-brand ps-3" href="index.html">CI platform</a> --}}
+    <!-- <a class="navbar-brand ps-3" href="index.html">CI platform</a> -->
     <!-- Sidebar Toggle-->
     <div style="width: 225px; background-color:#F88634; height: inherit;" id="filler-gap"></div>
     <div>

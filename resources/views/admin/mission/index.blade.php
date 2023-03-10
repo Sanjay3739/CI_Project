@@ -14,8 +14,6 @@
             </div>
         @endif
 
-       
-        </script>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item active">Missions</li>
         </ol>
@@ -38,14 +36,15 @@
                                 Search
                             </label>
                             <input type="text" name="s"
-                                class="block w-full p-3 pl-10 text-sm border-gray-200 rounded-md focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                                placeholder="Search..." />
+                                class="block w-full p-1 pl-10 text-sm border-gray-200 rounded-md focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400" 
+                                style="border-radius: 18px; width:100%"
+                                placeholder="Search" />
                         </form>
                        
                     </div>
                     <a href="{{ route('mission.create') }}">
                        <button type="button" class="btn text-right btn-outline-warning"
-                       style="border-radius:18px">Add</button>
+                       style="border-radius:18px; width:115%">Add</button>
                     </a>
                 </div>
 
@@ -74,9 +73,10 @@
                                 </a>
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-white ">
+                                <!-- <button type="submit" class="btn btn-white ">
                                     <img src="Images/bin.png" alt="delete">
-                                </button>
+                                </button> -->
+                                <button type="submit" class="btn btn-sm" onclick="return confirm('Are you sure you want to delete this item?')"><img src="Images/bin.png" alt="delete"></button> 
                             </form>
                         </td>
                     </tr>
