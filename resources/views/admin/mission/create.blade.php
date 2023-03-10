@@ -57,7 +57,7 @@
                 <div class="col-md-6">
                     <label for="city">City</label>
                     <select class="form-control" name="city_id" id="city-dropdown">
-                        
+
                     </select>
                     @error('city_id')
                         <div class="text-danger">
@@ -123,7 +123,7 @@
 
                 </div>
 
-              
+
                 <div class="col-md-6">
                     <label for="inputSkill" class="form-label">Mission Skills</label>
                     <select id="inputSkill" class="form-select"  name='skill_id'>
@@ -139,7 +139,7 @@
                     </select>
                 </div>
 
-               
+
 
 
 
@@ -192,6 +192,9 @@
             CKEDITOR.replace('editor1');
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-       
+
 @endsection
-add
+
+
+
+

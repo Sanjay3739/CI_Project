@@ -26,22 +26,23 @@ class AuthController extends Controller
     public function postLogin(Request $request)
     {
         $request->validate([
+
             'email' => 'required',
             'password' => 'required',
         ]);
         $credentionals = $request->only('email', 'password');
         if (Auth::attempt($credentionals)) {
-            return redirect()->intended('/admin.index');
+            return redirect()->intended('index');
         } else {
-            return redirect()->intended('/index')->with('status', 'Oppes! Credentials Passed are INCORRECT');
+            return redirect()->intended('/')->with('status', 'Oppes! Credentials Passed are INCORRECT');
         }
     }
 
     public function register(Request $request)
     {
         $this->validate($request, [
-            'first_name' => 'required',
-            'last_name' => 'required',
+            'first_name' => 'required|max:255',
+            'last_name' => 'required|max:255',
             'phone_number' => 'required',
             'email' => 'required|email',
             'password' => 'required',

@@ -79,15 +79,17 @@
                 </div>
                 @endif
 
+                
+
                 <form action="{{route('check.email')}}" method='post' id="forgot">
                     @csrf
                     <div class="form-group">
                         <label for="" class="login-text">Email Address</label>
-                        <input type="email" class="form-control m-1" name="email" id="" aria-describedby="emailHelpId" placeholder="Enter your email address..." value="">
+                        <input type="email" class="form-control m-1" name="email" id="" aria-describedby="emailHelpId" placeholder="Enter your email address..." value="{{ old('email') }}" required>
 
                     </div>
 
-                    <button type="submit" id="btn" class="btn btn-outline-warning btn-block btn-dark" mt-3">Reset my Password</button>
+                    <button type="submit" id="btn" class="btn btn-outline-warning btn-block btn-dark mt-3">Reset my Password</button>
                 </form>
 
                 <br>

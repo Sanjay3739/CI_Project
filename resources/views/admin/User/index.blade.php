@@ -1,34 +1,27 @@
 @extends('admin.app')
 
 @section('title')
-    list
+    User
 @endsection
 
 @section('body')
 
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Mission Theme</h1>
+        <h1 class="mt-4">User</h1>
         @if (session('success'))
             <div class="alert alert-success">
                 {{session('success')}}
             </div>
         @endif
-
-        <script>
-        setTimeout(() => {
-            $('.alert').alert('close');
-        }, 3000);
-        </script>
-       
         <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item active">Missions</li>
+            <li class="breadcrumb-item active">User</li>
         </ol>
         @if(session('success'))
             <div class="alert">
                 {{session('success')}}
             </div>
         @endif
-        <a href="{{ route('missiontheme.create') }}">
+        <a href="{{ route('user.create') }}">
         <button type="button" class="btn rounded text-right btn-outline-warning">
             <i class="fa-solid fa-plus px-3"></i> Add</button>
         </a>
@@ -38,9 +31,9 @@
             </div>
 
             <div class="card-body">
-                <div class="mt-1 mb-4">
+                <div class="mt-1 mb-4">    <!-- This is search bar -->
                     <div class="relative max-w-xs">
-                        <form action="{{ route('missiontheme.index') }}" method="GET">
+                        <form action="{{ route('user.index') }}" method="GET">
                             @csrf
                             <label for="search" class="sr-only">
                                 Search
@@ -52,21 +45,26 @@
                     </div>
                 </div>
 
-
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>S.No</th>
-                            <th>Title</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Employee Id</th>
+                            <th>Department</th>
                             <th>Status</th>
-                            <th width="280px">Action</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($data as $d)
                     <tr>
-                        <td>{{ $d->mission_theme_id }}</td>
-                        <td>{{ $d->title }}</td>
+                        <td>{{ $d->first_name }}</td>
+                        <td>{{ $d->last_name }}</td>
+                        <td>{{ $d->email }}</td>
+                        <td>{{ $d->employee_id }}</td>
+                        <td>{{ $d->department }}</td>
                         <td>
                             @if($d->status)
                                             <div class="h5 text-success">
@@ -79,8 +77,8 @@
                                        @endif
                         </td>
                         <td>
-                            <form action="{{ route('missiontheme.destroy',$d->mission_theme_id) }}" method="Post">
-                                <a class="btn btn-white" href="{{route('missiontheme.edit',$d->mission_theme_id)}}">
+                            <form action="{{ route('user.destroy',$d->user_id) }}" method="Post">
+                                <a class="btn btn-white" href="{{route('user.edit',$d->user_id)}}">
                                 <img src="Images/edit.png" height="22px" width="22px" alt="edit">
                                 </a>
                                 @csrf

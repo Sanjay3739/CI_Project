@@ -1,96 +1,72 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\MissionTheme;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreMissionThemeRequest;
-use App\Http\Requests\UpdateMissionThemeRequest;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
-use Symfony\Component\HttpFoundation\Request;
+use App\Models\MissionTheme;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Exists;
 
 class MissionThemeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(Request $request)
+    public function index()
     {
-        $data = MissionTheme::where([
-            ['title','!=',Null],
-            [function ($query) use ($request) {
-                if(($s = $request->s)) {
-                    $query->orWhere('title', 'LIKE', '%' . $s . '%')
-                          ->get();
-                }
-            }]
-        ])->paginate(10)
-          ->appends(['s'=>$request->s]);
+        $data = MissionTheme::all();
 
-
-        //$data = MissionTheme::orderBy('mission_theme_id','desc')->paginate(10);
-        return view('admin.missiontheme.index',compact('data')); // Create view by name missiontheme/index.blade.php
+        return view('admin.missiontheme.index', compact('data'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view('admin.missiontheme.create'); // Create view by name missiontheme/create.blade.php
+        return view('admin.missiontheme.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreMissionThemeRequest $request): RedirectResponse
+    public function store(Request $request)
     {
-        $request->validated();
+        $data = new MissionTheme;
 
-        MissionTheme::create($request->post());
+        $data->title = $request->title;
+        $data->status = $request->has('status');
 
-        return redirect()->route('missiontheme.index')->with('success','field has been created successfully.');
+        $data->save();
+
+        return redirect()->route('missiontheme.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(MissionTheme $missionTheme)
+
+
+    public function show(MissionTheme $data, $id)
     {
-        return view('admin.missiontheme.edit', compact('missionTheme'));
+        $data = MissionTheme::where('mission_theme_id', $id)->first();
+        return view('admin.missiontheme.show', compact('data'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(MissionTheme $missionTheme, $missionThemeId)
+
+    public function edit($id)
     {
-        $missionTheme = $missionTheme->find($missionThemeId);
-        return view('admin.missiontheme.edit', compact('missionTheme'));
-        // Create view by name missiontheme/edit.blade.php
+        $data = MissionTheme::where('mission_theme_id', $id)->first();
+
+
+        return view('admin.missiontheme.edit', compact('data'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateMissionThemeRequest $request, MissionTheme $missionTheme,$id): RedirectResponse
+    public function update(Request $request, $id)
     {
 
-        $request->validated();
-        $missionTheme->find($id)
-                     ->fill($request->post())
-                     ->save();
-        return redirect()->route('missiontheme.index')->with('success','field Has Been updated successfully');
+
+        $data = MissionTheme::where('mission_theme_id', $id)->first();
+        $data->title = $request->title;
+        $data->status = $request->has('status');
+        $data->save();
+        return redirect()->route('missiontheme.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(MissionTheme $missionTheme,$id): RedirectResponse
+    public function destroy(MissionTheme $data, $id)
     {
-        $missionTheme->find($id)
-                     ->delete();
-        return back()->with('success','field has been deleted successfully');
+        $data = MissionTheme::where('mission_theme_id', $id);
+        $data->delete();
+
+        return redirect()->route('missiontheme.index');
     }
 }

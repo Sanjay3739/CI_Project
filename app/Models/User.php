@@ -2,67 +2,67 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory;
+    protected $primaryKey = 'user_id';
 
-
-     protected $primarykey = 'user_id';
-    /**
-     * The attributes that are mass assignable.
-     *
-  
-     */
     protected $fillable = [
         'first_name',
         'last_name',
         'email',
         'phone_number',
         'password',
+        'country_id',
+        'city_id',
+        'employee_id',
+        'department',
+        'status',
+        'profile_text',
+        'avatar',
     ];
 
-
-    public function country() {
+    public function country()
+    {
         return $this->belongsTo(Country::class, 'country_id');
     }
 
-    public function city() {
+    public function city()
+    {
         return $this->belongsTo(City::class, 'city_id');
     }
 
-    public function missionApplication(){
+    public function missionApplication()
+    {
         return $this->hasMany(MissionApplication::class, 'user_id');
     }
 
-    public function missionRating() {
+    public function missionRating()
+    {
         return $this->hasMany(MissionRating::class, 'user_id');
     }
 
-    public function story() {
+    public function story()
+    {
         return $this->hasMany(Story::class, 'user_id');
     }
 
-    public function comment() {
+    public function comment()
+    {
         return $this->hasMany(comment::class, 'user_id');
     }
 
-    public function favoriteMission() {
+    public function favoriteMission()
+    {
         return $this->hasMany(FavoriteMission::class, 'user_id');
     }
 
-    public function timeSheet() {
+    public function timeSheet()
+    {
         return $this->hasMany(TimeSheet::class, 'user_id');
     }
-
-
-    
-     
 }
