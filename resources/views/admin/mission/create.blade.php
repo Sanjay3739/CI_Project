@@ -1,8 +1,7 @@
-
 @extends('admin.app')
 
 @section('title')
-    Mission-create mission
+    Mission-Create mission
 @endsection
 
 @section('body')
@@ -10,32 +9,33 @@
     <div class="container-fluid px-4">
         <h1 class="mt-4">Add Mission</h1>
 
-            <form method="post" action="{{route('mission.store')}}" class="row g-3" enctype="multipart/form-data">
-                @csrf
-                <div class="col-md-6">
-                    <label for="missionTitle" class="form-label">Mission Title</label>
-                    <input type="text" class="form-control" id="missionTitle" name='title'>
-                    @error('title')
+        <form method="post" action="{{ route('mission.store') }}" class="row g-3" enctype="multipart/form-data">
+            @csrf
+            <div class="col-md-6">
+                <label for="missionTitle" class="form-label">Mission Title</label>
+                <input type="text" class="form-control" id="missionTitle" name='title'>
+                @error('title')
                     <div class="text-danger">
-                        {{$message}}
+                        {{ $message }}
                     </div>
                 @enderror
-                </div>
-                <div class="col-md-6">
-                    <label for="missionDesc" class="form-label">Mission Short Description</label>
-                    <input type="text" class="form-control" id="missionDesc" name='short_description'>
-                    @error('short_description')
+            </div>
+            <div class="col-md-6">
+                <label for="missionDesc" class="form-label">Mission Short Description</label>
+                <input type="text" class="form-control" id="missionDesc" name='short_description'>
+                @error('short_description')
                     <div class="text-danger">
-                        {{$message}}
+
+                {{ $message }}
                     </div>
                 @enderror
-                </div>
-                <div class="col-12">
-                    <label for="inputAddress" class="form-label">Mission Description</label>
-                    <textarea name="description" id="editor1"></textarea>
-                    @error('description')
+            </div>
+            <div class="col-12">
+                <label for="inputAddress" class="form-label">Mission Description</label>
+                <textarea name="description" id="editor1"></textarea>
+                @error('description')
                     <div class="text-danger">
-                        {{$message}}
+                        {{ $message }}
                     </div>
                 @enderror
                      <!-- {{-- <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"> --}} -->
@@ -57,7 +57,7 @@
                 <div class="col-md-6">
                     <label for="city">City</label>
                     <select class="form-control" name="city_id" id="city-dropdown">
-
+                        <option value="none" selected="" disabled="" hidden=""></option>
                     </select>
                     @error('city_id')
                         <div class="text-danger">
@@ -68,31 +68,29 @@
 
 
 
-                <div class="col-md-6">
-                    <label for="orgName" class="form-label">Mission Organisation Name</label>
-                    <input type="text" class="form-control" id="orgName" name='organization_name'>
+            <div class="col-md-6">
+                <label for="orgName" class="form-label">Mission Organisation Name</label>
+                <input type="text" class="form-control" id="orgName" name='organization_name'>
+            </div>
+            <div class="col-md-6">
+                <label for="exampleFormControlTextarea1" class="form-label">Mission Organisation Detail</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name='organization_detail'></textarea>
+            </div>
+            <div class="col-md-6">
+                <label for="inputdate" class="form-label">Mission Start Date</label>
+                <div class='input-group date' id='datetimepicker1'>
+                    <input type='date' class="form-control" name='start_date' />
+
                 </div>
-                <div class="col-md-6">
-                        <label for="exampleFormControlTextarea1" class="form-label">Mission Organisation Detail</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"  name='organization_detail'></textarea>
+            </div>
+            <div class="col-md-6">
+                <label for="inputPassword4" class="form-label">Mission End Date</label>
+                <div class='input-group date' id='datetimepicker1'>
+                    <input type='date' class="form-control" name='end_date' />
+
                 </div>
-                <div class="col-md-6">
-                    <label for="inputPassword4" class="form-label">Mission Start Date</label>
-                    <div class='input-group date' id='datetimepicker1'>
-                    <input type='date' class="form-control"  name='start_date'/>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <label for="inputPassword4" class="form-label">Mission End Date</label>
-                    <div class='input-group date' id='datetimepicker1'>
-                    <input type='date' class="form-control"  name='end_date' />
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-                </div>
-                <div class="col-md-6">
+            </div>
+            {{-- <div class="col-md-6">
                     <label for="inputType" class="form-label">Mission Type</label>
                     <select id="inputType" class="form-select"  name='mission_type'>
                         <option>Time</option>
@@ -106,39 +104,53 @@
                 <div class="col-md-6">
                     <label for="missionRegDeadline" class="form-label">Mission Registration Deadline</label>
                     <input type="date" class="form-control" id="missionRegDeadline" name='registration_deadline'>
-                </div>
-                <div class="col-md-6">
-                    <label for="inputTheme" class="form-label">Mission Theme</label>
-                    <select class="form-control" id="theme-dropdown" name='theme_id'>
-                        <option selected>Select Theme</option>
-                                  @foreach ($mission_theme as $theme)
-                                      <option value="{{ $theme->mission_theme_id }}">{{ $theme->title }}</option>
-                                  @endforeach
-                              </select>
-                              @error('theme_id')
-                                    <div class="text-danger">
-                                        {{$message}}
-                                    </div>
-                                @enderror
+                </div> --}}
+
+            <div class="col-md-6">
+                <label for="inputType" class="form-label">Mission Type</label>
+                <select id="inputType" class="form-select" name='mission_type'>
+                    <option value="none" selected="" disabled="" hidden=""></option>
+                    <option value="time">Time</option>
+                    <option value="goal">Goal</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="text" class="form-label">Total Seats</label>
+                <input type="text" class="form-control" id="text" name='total_seats' disabled>
+            </div>
+            <div class="col-md-6">
+                <label for="missionRegDeadline" class="form-label">Mission Registration Deadline</label>
+                <input type="date" class="form-control" id="missionRegDeadline" name='registration_deadline'
+                    disabled>
+            </div>
+
+            <div class="col-md-6">
+                <label for="inputTheme" class="form-label">Mission Theme</label>
+                <select class="form-control" id="country-dropdown" name='theme_id'>
+                    <option value="none" selected="" disabled="" hidden=""></option>
+                    @foreach ($mission_theme as $theme)
+                        <option value="{{ $theme->mission_theme_id }}">{{ $theme->title }}</option>
+                    @endforeach
+                </select>
 
                 </div>
 
 
                 <div class="col-md-6">
-                    <label for="inputSkill" class="form-label">Mission Skills</label>
-                    <select id="inputSkill" class="form-select"  name='skill_id'>
-                        @foreach ($skills as $skill)
-                                        <option value="{{ $skill->skill_id }}">{{ $skill->skill_name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('skill_id')
-                                    <div class="text-danger">
-                                        {{$message}}
-                                    </div>
-                                @enderror
+                    <label for="mission_skills">Mission Skills</label>
+                    <select name="skill_id[]" class="form-control" id="skill-dropdown" multiple>
+
+                        @foreach ($mission_skills as $skill)
+                            <option value="{{ $skill->skill_id }}">{{ $skill->skill_name }}</option>
+                        @endforeach
+                    </select>
+                    @error('skill_id')
+                        <div class="text-danger">
+                            {{ $message }}
+                        </div>
+                    @enderror
                     </select>
                 </div>
-
 
 
 
@@ -176,15 +188,17 @@
                     <input type="radio" class="btn-check" value='0' name="status" id="danger-outlined">
                     <label class="btn btn-outline-danger px-3" for="danger-outlined">Inactive</label>
 
-                    @error('status')
-                        <div class="text-danger">
-                            {{$message}}
-                        </div>
-                    @enderror
-                </div>
+                @error('status')
+                    <div class="text-danger">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
 
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Add</button>
+
+              <div class="col-md-12 py-2">
+                      <a class="btn rounded text-right btn-outline-secondary" href="{{route('mission.index')}}">cancel</a>
+                      <button class="btn rounded text-right btn-outline-warning" type="submit">Save</button>
                 </div>
             </form>
         </div>
@@ -194,7 +208,4 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 @endsection
-
-
-
 

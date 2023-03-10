@@ -9,13 +9,15 @@ use Illuminate\Http\Response;
 use App\Models\Mission;
 use App\Models\MissionTheme;
 use App\Models\Country;
-use App\Models\city;
+use App\Models\City;
 use App\Models\MissionDocument;
 use App\Models\MissionMedia;
 use App\Http\Requests\StoreMissionRequest;
 use App\Http\Requests\UpdateMissionRequest;
-use App\Models\MissionSkill;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Skill;
+use App\Models\MissionSkill;
+
 
 class MissionController extends Controller
 {
@@ -25,20 +27,20 @@ class MissionController extends Controller
     public function index(Request $request)
     {
         $data = Mission::where([
-            ['title','!=',Null],
+            ['title', '!=', Null],
             [function ($query) use ($request) {
-                if(($s = $request->s)) {
+                if (($s = $request->s)) {
                     $query->orWhere('title', 'LIKE', '%' . $s . '%')
-                          ->orWhere('mission_type', 'LIKE', '%' . $s . '%')
-                          ->get();
+                        ->orWhere('mission_type', 'LIKE', '%' . $s . '%')
+                        ->get();
                 }
             }]
         ])->paginate(10)
-          ->appends(['s'=>$request->s]);
+            ->appends(['s' => $request->s]);
 
 
-        
-        return view('admin.mission.index',compact('data')); // Create view by name mission/index.blade.php
+        //$data = MissionTheme::orderBy('mission_theme_id','desc')->paginate(10);
+        return view('admin.mission.index', compact('data')); // Create view by name missiontheme/index.blade.php
     }
 
     /**
@@ -46,26 +48,21 @@ class MissionController extends Controller
      */
     public function create()
     {
-        $data['skills'] = Skill::get(['skill_name','skill_id']);
-        $data['countries'] = Country::get(['name','country_id']);
-        $data['mission_theme'] = MissionTheme::get(['title','mission_theme_id']);
-        return view('admin.mission.create',$data);
+
+        $data['countries'] = Country::get(['name', 'country_id']);
+        $data['mission_theme'] = MissionTheme::get(['title', 'mission_theme_id']);
+        $data['mission_skills'] = Skill::get(['skill_id', 'skill_name']);
+        return view('admin.mission.create', $data);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    // public function store(StoreMissionRequest $request)
-    // {
-    //     // dd($request);
-    //     Mission::create($request->post());
-    //     return redirect()->route('mission.index')->with('success','New Mission have been created');
-    // }
-
-   public function store(StoreMissionRequest $request)
+    public function store(StoreMissionRequest $request)
     {
 
-        
+        //dd($request);
+        $mission = Mission::create($request->post());
         // $document_path = $request->file('document_name')->store('mission_documents');
 
         // // Get the document type from the file extension
@@ -80,13 +77,8 @@ class MissionController extends Controller
         // // $mission_document->save();
         // $mission->missionDocument()->save($mission_document);
 
-        // dd($request->post());
-        $mission=Mission::create($request->post());
-        $skill=MissionSkill::create([
-            'mission_id' => $mission->mission_id,
-            'skill_id' => $request->skill_id,
-        ]);
-        // dd($mission);
+
+
         if ($request->hasfile('document_name')) {
             foreach ($request->file('document_name') as $file) {
                 $fileName = $file->getClientOriginalName();
@@ -101,38 +93,64 @@ class MissionController extends Controller
                 ]);
             }
         }
-            if ($request->hasFile('media_name')) {
-                foreach ($request->file('media_name') as $key => $file) {
-                    $fileName = $file->getClientOriginalName();
-                    $extension = $file->getClientOriginalExtension();
-                    $uniqueName = uniqid() . '_' . $fileName;
-                    $file->storeAs('mission_media', $uniqueName, 'public');
-                    $mediaType = $extension;
-                    if (strpos($file->getMimeType(), 'video') !== false) {
-                        if (!preg_match('/(?:youtube\.com\/|vimeo\.com\/)(?:watch\?v=|embed\/|)([^\s]+)/', $request->media_name[$key])) {
-                            return back()->withInput()->withErrors(['media_name.' . $key => 'The video URL is invalid']);
-                        }
-                        $mediaType = 'video';
-                    } else {
-                        $mediaType = $extension;
-                    }
-                    $mediaPath = 'storage/mission_media/' . $uniqueName;
-                    $default = $key == 0 ? 1 : 0;
-                    MissionMedia::create([
-                        'mission_id' => $mission->mission_id,
-                        'media_name' => $uniqueName,
-                        'media_type' => $mediaType,
-                        'media_path' => $mediaPath,
-                        'default' => $default,
-                    ]);
-                }
+
+
+        // handle mission images
+        $images = $request->file('media_name');
+        if ($images) {
+            foreach ($images as $key => $image) {
+                // generate unique name for the image
+                $imageName = uniqid() . '.' . $image->getClientOriginalExtension();
+
+                // save image to storage/mission_media directory with the generated name
+                $imagePath = $image->storeAs('mission_media', $imageName, 'public');
+
+                // get file extension
+                $extension = $image->getClientOriginalExtension();
+
+                // create mission media entry for the image
+                $missionMedia = new MissionMedia([
+                    'mission_id' => $mission->mission_id,
+                    'media_name' => $image->getClientOriginalName(),
+                    'media_type' => $extension,
+                    'media_path' => $imagePath,
+                    'default' => ($key == 0 ? 1 : 0) // mark first image as default
+                ]);
+
+                $missionMedia->save();
             }
+        }
 
-        
-        return redirect()->route('mission.index')->with('success','New Mission have been created');
+
+        // handle mission video
+        $videoUrl = $request->input('media_names');
+        if ($videoUrl) {
+            // check if youtube url is valid
+            $pattern = '/^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/';
+            if (preg_match($pattern, $videoUrl)) {
+                // create mission media entry for the video
+                $missionMedia = new MissionMedia([
+                    'mission_id' => $mission->mission_id,
+                    'media_name' => 'youtube',
+                    'media_type' => 'MP4',
+                    'media_path' => $videoUrl,
+                    'default' => 1 // mark first video as default
+                ]);
+
+                $missionMedia->save();
+            }
+        }
+
+        foreach ($request->input('skill_id') as $skill_id) {
+            $missionSkill = new MissionSkill([
+                'skill_id' => $skill_id,
+                'mission_id' => $mission->mission_id,
+            ]);
+            $missionSkill->save();
+        }
+
+        return redirect()->route('mission.index')->with('success', 'New Mission have been created');
     }
-
-  
 
     /**
      * Display the specified resource.
@@ -148,27 +166,36 @@ class MissionController extends Controller
      */
     public function edit($missionId)
     {
-        $mission=new Mission;
+        $mission = new Mission;
         $mission = $mission->find($missionId);
-        $countries = Country::get(['name','country_id']);
-        $mission_theme = MissionTheme::get(['title','mission_theme_id']);
-        $skills = Skill::get(['skill_name','skill_id']);
-        
-       
-        return view('admin.mission.edit', compact('mission', 'countries','mission_theme'));
+        $countries = Country::get(['name', 'country_id']);
+        $mission_theme = MissionTheme::get(['title', 'mission_theme_id']);
+        $mission_skills = Skill::get(['skill_id', 'skill_name']);
+        $selected_skills = MissionSkill::where(['mission_id' => $missionId])->get();
+        return view('admin.mission.edit', compact('mission', 'countries', 'mission_theme', 'mission_skills','selected_skills'));
         // Create view by name mission/edit.blade.php
     }
+
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMissionRequest $request,$id): RedirectResponse
+    public function update(UpdateMissionRequest $request, $id): RedirectResponse
     {
-        $mission=new Mission;
+        // $mission=new Mission;
+        // $request->validated();
+        // $mission->find($id)
+        //              ->fill($request->post())
+        //              ->save();
+        //              dd($mission->mission_type);
+        // return redirect()->route('mission.index')->with('success','field Has Been updated successfully');
+
+        $mission = Mission::find($id);
         $request->validated();
-        $mission->find($id)
-                     ->fill($request->post())
-                     ->save();
-        return redirect()->route('mission.index')->with('success','field Has Been updated successfully');
+        $mission->fill($request->post())->save();
+
+
+
+        return redirect()->route('mission.index')->with('success', 'Field has been updated successfully');
     }
 
     /**
@@ -176,9 +203,10 @@ class MissionController extends Controller
      */
     public function destroy($id): RedirectResponse
     {
-        $mission=new Mission;
-        $mission->find($id)
-                     ->delete();
-        return back()->with('success','field has been deleted successfully');
+        $mission = new Mission;
+
+        $mission->find($id)->delete();
+
+        return back()->with('success', 'field has been deleted successfully');
     }
 }

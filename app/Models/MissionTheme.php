@@ -2,15 +2,21 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class MissionTheme extends Model
-
-
 {
+    use HasFactory;
+    use SoftDeletes;
     protected $primaryKey = 'mission_theme_id';
 
-    protected $fillable = ['title', 'status'];
+    protected $fillable = [
+        'title',
+        'status',
+
+    ];
 }
 
 

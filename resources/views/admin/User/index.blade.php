@@ -3,6 +3,9 @@
 @section('title')
     User
 @endsection
+<header>
+        <link rel="stylesheet" href="{{  URL::asset('css/index.css') }}">
+</header>
 
 @section('body')
 
@@ -67,14 +70,14 @@
                         <td>{{ $d->department }}</td>
                         <td>
                             @if($d->status)
-                                            <div class="h5 text-success">
-                                                Active
-                                            </div>
-                                       @else
-                                            <div class="h5 text-danger">
-                                                Inactive
-                                            </div>
-                                       @endif
+                            <div class="h5 text-success" id="data">
+                                Active
+                            </div>
+                            @else
+                            <div class="h5 text-danger">
+                                Inactive
+                            </div>
+                            @endif
                         </td>
                         <td>
                             <form action="{{ route('user.destroy',$d->user_id) }}" method="Post">
@@ -90,13 +93,13 @@
                         </td>
                     </tr>
                     @endforeach
-                    </tbody>
+                </tbody>
 
-                </table>
-                <div>
-                    {!! $data->links('pagination::bootstrap-4') !!}
-                </div>
+            </table>
+            <div>
+                {!! $data->links('pagination::bootstrap-4') !!}
             </div>
         </div>
     </div>
+</div>
 @endsection

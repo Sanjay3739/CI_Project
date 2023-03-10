@@ -67,10 +67,10 @@ Route::resource('/mission', MissionController::class);
 Route::resource('/cmspage', CmsPageController::class);
 
 
-// MissionTheme-route
-Route::resource('missiontheme', MissionThemeController::class);
 
-// MissionSkill-route
+//missionTheme
+Route::resource('missiontheme', MissionThemeController::class);
+//missionskill
 Route::resource('missionskill', MissionSkillController::class)->withTrashed();
 //  user-crud
 Route::resource('user', UserController::class)->withTrashed();
