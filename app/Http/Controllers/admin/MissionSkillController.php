@@ -45,7 +45,7 @@ class MissionSkillController extends Controller
     public function store(StoreSkillRequest $request)
     {
         Skill::create($request->post());
-        return redirect()->route('missionskill.index')->with('success','New Record is Created');
+        return redirect()->route('missionskill.index')->with('success','New Record is Updated');
     }
 
     /**

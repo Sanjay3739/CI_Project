@@ -38,34 +38,33 @@
                         {{ $message }}
                     </div>
                 @enderror
-
-            </div>
-            <div class="col-md-6">
-                <label for="country">Country</label>
-                <select name="country_id" class="form-control" id="country-dropdown">
-                    <option value="none" selected="" disabled="" hidden=""></option>
-                    @foreach ($countries as $country)
-                        <option value="{{ $country->country_id }}">{{ $country->name }}</option>
-                    @endforeach
-                </select>
-                @error('country_id')
-                    <div class="text-danger">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div>
-            <div class="col-md-6">
-                <label for="city">City</label>
-                <select class="form-control" name="city_id" id="city-dropdown">
-                    <option value="none" selected="" disabled="" hidden=""></option>
-
-                </select>
-                @error('city_id')
-                    <div class="text-danger">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div>
+                     <!-- {{-- <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"> --}} -->
+                </div>
+                <div class="col-md-6">
+                    <label for="country">Country</label>
+                     <select name="country_id" class="form-control" id="country-dropdown">
+                          <option selected>Select Country</option>
+                                    @foreach ($countries as $country)
+                                        <option value="{{ $country->country_id }}">{{ $country->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('country_id')
+                                    <div class="text-danger">
+                                        {{$message}}
+                                    </div>
+                                @enderror
+                </div>
+                <div class="col-md-6">
+                    <label for="city">City</label>
+                    <select class="form-control" name="city_id" id="city-dropdown">
+                        <option value="none" selected="" disabled="" hidden=""></option>
+                    </select>
+                    @error('city_id')
+                        <div class="text-danger">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
 
 
 
@@ -134,66 +133,60 @@
                     @endforeach
                 </select>
 
-            </div>
-            <div class="col-md-6">
-                <label for="mission_skills">Mission Skills</label>
-                <select name="skill_id[]" class="form-control" id="skill-dropdown" multiple>
+                </div>
 
-                    @foreach ($mission_skills as $skill)
-                        <option value="{{ $skill->skill_id }}">{{ $skill->skill_name }}</option>
-                    @endforeach
-                </select>
-                @error('skill_id')
-                    <div class="text-danger">
-                        {{ $message }}
-                    </div>
-                @enderror
-                </select>
-            </div>
-            <div class="col-md-6">
-                <label class="form-label" for="customFile">Mission Images</label>
-                <input type="file" class="form-control" id="customFile" name="media_name[]" multiple />
-                @error('media_name.*')
-                    <div class="text-danger">
-                        {{ $message }}
-                    </div>
-                @enderror
 
-            </div>
-            <div class="col-md-6">
-                <label class="form-label" for="customFile">Mission Documents</label>
-                <input type="file" class="form-control" id="customFile" name="document_name[]" multiple />
-                @error('document_name.*')
-                    <div class="text-danger">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div>
-            <div class="col-md-6">
-                <label for="inputAvailable" class="form-label">Mission Availability</label>
-                <select id="inputAvailable" class="form-select" name='availability'>
-                    <option>Daily</option>
-                    <option>Weekly</option>
-                    <option>Week-end</option>
-                    <option>Monthly</option>
-                </select>
-            </div>
-            <div class="col-md-6">
-                <label for="missionVideo" class="form-label">Mission Video</label>
-                <input type="text" class="form-control" id="orgVideo" name="media_names">
-                @error('media_names')
-                    <div class="text-danger">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div>
-            <div class="col-md-6">
-                <label for="status">Status</label>
-                <select name="status" id="status" class="form-control" required>
-                    <option value="0">Inactive</option>
-                    <option value="1" selected>Active</option>
-                </select>
+                <div class="col-md-6">
+                    <label for="mission_skills">Mission Skills</label>
+                    <select name="skill_id[]" class="form-control" id="skill-dropdown" multiple>
 
+                        @foreach ($mission_skills as $skill)
+                            <option value="{{ $skill->skill_id }}">{{ $skill->skill_name }}</option>
+                        @endforeach
+                    </select>
+                    @error('skill_id')
+                        <div class="text-danger">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                    </select>
+                </div>
+
+
+
+
+                <div class="col-md-6">
+                    <label class="form-label" for="customFile">Mission Images</label>
+                        <input type="file" class="form-control" id="customFile"  name="media_name[]" multiple/>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="customFile">Mission Documents</label>
+                    <input type="file" class="form-control" id="customFile"  name="document_name[]"multiple/>
+                    @error('document_name.*')
+                                    <div class="text-danger">
+                                        {{$message}}
+                                    </div>
+                                @enderror
+                </div>
+                <div class="col-md-6">
+                    <label for="inputAvailable" class="form-label">Mission Availability</label>
+                    <select id="inputAvailable" class="form-select" name='availability'>
+                        <option>Daily</option>
+                        <option>Weekly</option>
+                        <option>Week-end</option>
+                        <option>Monthly</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="missionVideo" class="form-label">Mission Video</label>
+                    <input type="text" class="form-control" id="orgVideo" name="media_name" multiple>
+                </div>
+                <div class="col-md-6">
+                <label class="float-start px-2" for="options-outlined">Status</label>
+                    <input type="radio" class="btn-check " name="status" value='1' id="success-outlined">
+                    <label class="btn btn-outline-success px-3"  for="success-outlined">Active</label>
+                    <input type="radio" class="btn-check" value='0' name="status" id="danger-outlined">
+                    <label class="btn btn-outline-danger px-3" for="danger-outlined">Inactive</label>
 
                 @error('status')
                     <div class="text-danger">
@@ -207,34 +200,12 @@
                       <a class="btn rounded text-right btn-outline-secondary" href="{{route('mission.index')}}">cancel</a>
                       <button class="btn rounded text-right btn-outline-warning" type="submit">Save</button>
                 </div>
+            </form>
+        </div>
+        <script>
+            CKEDITOR.replace('editor1');
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-
-        </form>
-    </div>
-    <script>
-        CKEDITOR.replace('editor1');
-    </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        // get the mission type select element
-        var missionType = $('#inputType');
-
-        // get the total seats and registration deadline inputs
-        var totalSeats = $('#text');
-        var regDeadline = $('#missionRegDeadline');
-
-        // add an event listener to the mission type select element
-        missionType.on('change', function() {
-            // check if the selected mission type is 'time'
-            if (missionType.val() === 'time') {
-                // if it is, enable the total seats and registration deadline inputs
-                totalSeats.prop('disabled', false);
-                regDeadline.prop('disabled', false);
-            } else {
-                // if it isn't, disable the total seats and registration deadline inputs
-                totalSeats.prop('disabled', true);
-                regDeadline.prop('disabled', true);
-            }
-        });
-    </script>
 @endsection
+

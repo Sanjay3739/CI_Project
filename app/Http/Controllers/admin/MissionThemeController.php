@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Controller;
 use App\Models\MissionTheme;
 use Illuminate\Support\Facades\DB;
@@ -44,13 +46,15 @@ class MissionThemeController extends Controller
     public function edit($id)
     {
         $data = MissionTheme::where('mission_theme_id', $id)->first();
+
+
         return view('admin.missiontheme.edit', compact('data'));
     }
 
-
-
     public function update(Request $request, $id)
     {
+
+
         $data = MissionTheme::where('mission_theme_id', $id)->first();
         $data->title = $request->title;
         $data->status = $request->has('status');

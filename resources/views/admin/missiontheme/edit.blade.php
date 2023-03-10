@@ -11,6 +11,7 @@ Mission
             <div class="card">
                 <div class="card-header">Edit Data - {{ $data->mission_theme_id }}</div>
                 <div class="card-body">
+            
                     <form action="{{ route('missiontheme.update', $data->mission_theme_id) }}" method="POST">
                         @csrf
                         @method('PUT')

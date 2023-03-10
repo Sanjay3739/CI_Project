@@ -27,14 +27,14 @@ class AuthController extends Controller
     {
         $request->validate([
 
-            // 'email' => 'required',
-            // 'password' => 'required',
+            'email' => 'required',
+            'password' => 'required',
         ]);
         $credentionals = $request->only('email', 'password');
         if (Auth::attempt($credentionals)) {
-            return redirect()->intended('/admin.index');
+            return redirect()->intended('index');
         } else {
-            return redirect()->intended('/index')->with('status', 'Oppes! Credentials Passed are INCORRECT');
+            return redirect()->intended('/')->with('status', 'Oppes! Credentials Passed are INCORRECT');
         }
     }
 
