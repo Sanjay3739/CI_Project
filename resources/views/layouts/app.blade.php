@@ -17,6 +17,11 @@
     <title>Document</title>
 </head>
 <body>
+    
+    @include('include.header')
     @yield('content')
+    @include('include.footer')
+
 </body>
+   @include('layouts.scripts')
 </html>

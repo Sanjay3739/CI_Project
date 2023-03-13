@@ -5,7 +5,7 @@ use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\PasswordResetController;
-use App\Http\Controllers\admin\CmsPageController;;
+use App\Http\Controllers\admin\CmsPageController;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\AdminAuthController;
@@ -13,6 +13,7 @@ use App\Http\Controllers\admin\ForgetPasswordController;
 use App\Http\Controllers\Admin\AdminPasswordResetController;
 use App\Http\Controllers\admin\MissionController;
 use App\Http\Controllers\admin\MissionSkillController;
+use App\Http\Controllers\CmsPagesController;
 
 
 
@@ -45,7 +46,8 @@ Route::post('register', [AuthController::class, 'register'])->name('post-registe
 Route::post('password-resetting', [PasswordResetController::class, 'passwordResetting'])->name('password-resetting');
 
 
-
+//cmspages(privacy and Policy)
+Route::get('policy', [CmsPagesController::class, 'index']);
 
 //All BACKEND ROUTE  IN HERE
 
