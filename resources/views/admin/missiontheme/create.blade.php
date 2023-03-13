@@ -11,6 +11,22 @@ Mission
             justify-content: space-between;
 
         }
+        input:invalid{
+            animation:rat 300ms;
+            color: red;
+        }
+        @keyframes rat {
+            25%{
+                transform: translateX(4px);
+            }
+            50%{
+                transform: translateX(-4px);
+            }
+            75%{
+                transform: translateX(4px);
+            }
+
+        }
     </style>
 </header>
 <br>
@@ -55,10 +71,10 @@ Mission
                         @csrf
                         <div class="form-group">
                             <label for="title"><h5>Title :</h5></label>
-                            <input type="text" name="title" class="form-control" id="title" placeholder="Enter title">
+                            <input type="text" name="title" pattern=" [a-z]* " class="form-control" id="title" placeholder="Enter title">
                         </div>
                         <div class="form-group form-check">
-                            <input type="checkbox" name="status" class="form-check-input" id="status">
+                            <input type="checkbox" name="status" class="form-check-input" id="status" >
                             <label class="form-check-label" for="status">Active</label>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -68,4 +84,5 @@ Mission
         </div>
     </div>
 </div>
+
 @endsection

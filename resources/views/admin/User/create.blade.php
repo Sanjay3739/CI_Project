@@ -3,75 +3,93 @@
 @section('title')
     User
 @endsection
+<header>
+    <style>
+        .breadcrumb {
+            display: flex;
+            justify-content: space-between;
+
+        }
+        .imges >img{
+            width:60px;
+            height: 60px;
+            box-shadow: rgb(11, 11, 12) 0px 0px 0px 3px, rgb(193, 27, 152) 0px 0px 0px 6px, rgb(79, 14, 190) 0px 0px 0px 9px, rgb(8, 115, 74) 0px 0px 0px 12px, rgb(8, 197, 255) 0px 0px 0px 15px; }
+    </style>
+</header>
 
 @section('body')
     <div class="container-fluid px-4">
         <h1 class="mt-4">User</h1>
-        <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item active">User</li>
+        <ol class="breadcrumb mb-4 w-25" style=" box-shadow: 5px 5px 5px rgba(62, 60, 60, 0.6);" >
+            <li class="breadcrumb-item  active" style="color: #000">User-Create</li>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9 19h-4v-2h4v2zm2.946-4.036l3.107 3.105-4.112.931 1.005-4.036zm12.054-5.839l-7.898 7.996-3.202-3.202 7.898-7.995 3.202 3.201zm-6 8.92v3.955h-16v-20h7.362c4.156 0 2.638 6 2.638 6s2.313-.635 4.067-.133l1.952-1.976c-2.214-2.807-5.762-5.891-7.83-5.891h-10.189v24h20v-7.98l-2 2.025z"/></svg>
+
+
         </ol>
         <div class="card mb-4">
-            <div class="card-header">
-                <i class="fa-solid fa-plus text-black"></i>
+            <div class="card-header" style="box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
+              <span class="pr-2" style="font-weight:600" >Enter:</span>  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9 19h-4v-2h4v2zm2.946-4.036l3.107 3.105-4.112.931 1.005-4.036zm12.054-5.839l-7.898 7.996-3.202-3.202 7.898-7.995 3.202 3.201zm-6 8.92v3.955h-16v-20h7.362c4.156 0 2.638 6 2.638 6s2.313-.635 4.067-.133l1.952-1.976c-2.214-2.807-5.762-5.891-7.83-5.891h-10.189v24h20v-7.98l-2 2.025z"/></svg>
+
+
             </div>
 
-            <div class="card-body">
-                <div class="container">
+            <div class="card-body" style="box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;">
+                <div class="container" style="box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;">
                     <form action="{{route('user.store')}}" method="post">
                         @csrf
-                        <div class="form-row py-4">
-                            <div class="form-check">
-                                <input class="form-check-input" value="Images/volunteer1.png" type="radio" name="avatar" id="avatar1" checked>
-                                <label class="form-check-label" for="avatar1">
-                                    <img class="rounded-circle" height="100px" width="100px" src="../Images/volunteer1.png" alt="Alt Images">
+                        <div class="form-row py-4 ml-5">
+                            <div class="form-check ">
+                                <input class="form-check-input ml-0" value="Images/volunteer1.png" type="radio" name="avatar" id="avatar1" checked>
+                                <label class="form-check-label p-2 imges " for="avatar1">
+                                    <img class="rounded-circle " src="../Images/volunteer1.png" class="img-fluid" alt="Alt Images">
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" value="Images/volunteer2.png" type="radio" name="avatar" id="avatar1">
-                                <label class="form-check-label" for="avatar1">
-                                    <img class="rounded-circle" height="100px" width="100px" src="../Images/volunteer2.png" alt="Alt Images">
+                                <input class="form-check-input ml-0" value="Images/volunteer2.png" type="radio" name="avatar" id="avatar1">
+                                <label class="form-check-label p-2 imges" for="avatar1">
+                                    <img class="rounded-circle " src="../Images/volunteer2.png" class="img-fluid" alt="Alt Images">
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" value="Images/volunteer3.png" type="radio" name="avatar" id="avatar1">
-                                <label class="form-check-label" for="avatar1">
-                                    <img class="rounded-circle" height="100px" width="100px" src="../Images/volunteer3.png" alt="Alt Images">
+                                <input class="form-check-input ml-0" value="Images/volunteer3.png" type="radio" name="avatar" id="avatar1">
+                                <label class="form-check-label p-2 imges" for="avatar1">
+                                    <img class="rounded-circle " src="../Images/volunteer3.png" class="img-fluid" alt="Alt Images">
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" value="Images/volunteer4.png" type="radio" name="avatar" id="avatar1">
-                                <label class="form-check-label" for="avatar1">
-                                    <img class="rounded-circle" height="100px" width="100px" src="../Images/volunteer4.png" alt="Alt Images">
+                                <input class="form-check-input ml-0" value="Images/volunteer4.png" type="radio" name="avatar" id="avatar1">
+                                <label class="form-check-label p-2  imges" for="avatar1">
+                                    <img class="rounded-circle " src="../Images/volunteer4.png"  class="img-fluid"   alt="Alt Images">
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" value="Images/volunteer5.png" type="radio" name="avatar" id="avatar1">
-                                <label class="form-check-label" for="avatar1">
-                                    <img class="rounded-circle" height="100px" width="100px" src="../Images/volunteer5.png" alt="Alt Images">
+                                <input class="form-check-input ml-0" value="Images/volunteer5.png" type="radio" name="avatar" id="avatar1">
+                                <label class="form-check-label p-2 imges" for="avatar1">
+                                    <img class="rounded-circle " src="../Images/volunteer5.png"  class="img-fluid" alt="Alt Images">
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" value="Images/volunteer6.png" type="radio" name="avatar" id="avatar1">
-                                <label class="form-check-label" for="avatar1">
-                                    <img class="rounded-circle" height="100px" width="100px" src="../Images/volunteer6.png" alt="Alt Images">
+                                <input class="form-check-input ml-0" value="Images/volunteer6.png" type="radio" name="avatar" id="avatar1">
+                                <label class="form-check-label p-2 imges" for="avatar1">
+                                    <img class="rounded-circle " src="../Images/volunteer6.png"  class="img-fluid" alt="Alt Images">
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" value="Images/volunteer7.png" type="radio" name="avatar" id="avatar1">
-                                <label class="form-check-label" for="avatar1">
-                                    <img class="rounded-circle" height="100px" width="100px" src="../Images/volunteer7.png" alt="Alt Images">
+                                <input class="form-check-input ml-0" value="Images/volunteer7.png" type="radio" name="avatar" id="avatar1">
+                                <label class="form-check-label p-2 imges" for="avatar1">
+                                    <img class="rounded-circle " src="../Images/volunteer7.png"  class="img-fluid" alt="Alt Images">
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" value="Images/volunteer8.png" type="radio" name="avatar" id="avatar1">
-                                <label class="form-check-label" for="avatar1">
-                                    <img class="rounded-circle" height="100px" width="100px" src="../Images/volunteer8.png" alt="Alt Images">
+                                <input class="form-check-input ml-0" value="Images/volunteer8.png" type="radio" name="avatar" id="avatar1">
+                                <label class="form-check-label p-2 imges" for="avatar1">
+                                    <img class="rounded-circle " src="../Images/volunteer8.png" class="img-fluid" alt="Alt Images">
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" value="Images/volunteer9.png" type="radio" name="avatar" id="avatar1">
-                                <label class="form-check-label" for="avatar1">
-                                    <img class="rounded-circle" height="100px" width="100px" src="../Images/volunteer9.png" alt="Alt Images">
+                                <input class="form-check-input ml-0" value="Images/volunteer9.png" type="radio" name="avatar" id="avatar1">
+                                <label class="form-check-label p-2 imges" for="avatar1">
+                                    <img class="rounded-circle " src="../Images/volunteer9.png" class="img-fluid" alt="Alt Images">
                                 </label>
                             </div>
                         </div>
@@ -227,4 +245,9 @@
         </div>
 
     </div>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.0/jquery.easing.js" type="text/javascript"></script>
+
 @endsection

@@ -6,13 +6,26 @@ use App\Http\Controllers\Controller;
 use App\Models\MissionTheme;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+
 use Illuminate\Validation\Rules\Exists;
 
 class MissionThemeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data = MissionTheme::all();
+        $data = MissionTheme::where([
+            ['title', '!=', Null],
+            [function ($query) use ($request) {
+                if (($s = $request->search)) {
+                    $query->orWhere('title', 'LIKE', '%' . $s . '%')
+                        ->get();
+                }
+
+            }]
+        ])->paginate(10)
+        ->appends(['s'=>$request->s]);
+
+        // $data = MissionTheme::all();
 
         return view('admin.missiontheme.index', compact('data'));
     }
