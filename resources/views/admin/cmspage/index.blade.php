@@ -23,7 +23,6 @@
             <div class="card-header">
                 <i class="fas fa-table me-1"></i>
             </div>
-
             <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between mt-1 mb-4">    <!-- This is search bar -->
                     <div class="relative max-w-xs ">
@@ -43,7 +42,6 @@
                        style="border-radius:18px; width:115%">Add</button>
                     </a>
                 </div>
-
                 <table class="table table responsive table-bordered">
                     <thead>
                         <tr>
@@ -82,12 +80,10 @@
 
                             </div>
                             </form>
-                        </td>
-                       
+                        </td> 
                     </tr>
                     @endforeach
                     </tbody>
-
                 </table>
                 <div>
                     {!! $data->links('pagination::bootstrap-4') !!}
