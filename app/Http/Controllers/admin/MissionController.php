@@ -3,19 +3,19 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use App\Models\Mission;
-use App\Models\Country;
+use App\Http\Requests\StoreMissionRequest;
+use App\Http\Requests\UpdateMissionRequest;
 use App\Models\City;
-use App\Models\MissionTheme;
+use App\Models\Country;
+use App\Models\Mission;
 use App\Models\MissionDocument;
 use App\Models\MissionMedia;
 use App\Models\MissionSkill;
+use App\Models\MissionTheme;
 use App\Models\Skill;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Requests\StoreMissionRequest;
-use App\Http\Requests\UpdateMissionRequest;
 
 class MissionController extends Controller
 {
@@ -25,17 +25,17 @@ class MissionController extends Controller
     public function index(Request $request)
     {
         $data = Mission::where([
-            ['title', '!=', Null],
+            ['title', '!=', null],
             [function ($query) use ($request) {
-                if (($s = $request->s)) {
-                    $query->orWhere('title', 'LIKE', '%' . $s . '%')
-                        ->orWhere('mission_type', 'LIKE', '%' . $s . '%')
+                if (($search = $request->s)) {
+                    $query->orWhere('title', 'LIKE', '%' . $search . '%')
+                        ->orWhere('mission_type', 'LIKE', '%' . $search. '%')
                         ->get();
                 }
-            }]
+            }],
         ])->orderByDesc('mission_id')->paginate(10)
-          ->appends(['s' => $request->s]);
-          return view('admin.mission.index', compact('data'));
+            ->appends(['s' => $request->s]);
+        return view('admin.mission.index', compact('data'));
     }
 
     /**
@@ -89,7 +89,7 @@ class MissionController extends Controller
                     'media_name' => $image->getClientOriginalName(),
                     'media_type' => $extension,
                     'media_path' => $imagePath,
-                    'default' => ($key == 0 ? 1 : 0) // mark first image as default
+                    'default' => ($key == 0 ? 1 : 0), // mark first image as default
                 ]);
                 $missionMedia->save();
             }
@@ -106,7 +106,7 @@ class MissionController extends Controller
                     'media_name' => 'youtube',
                     'media_type' => 'MP4',
                     'media_path' => $videoUrl,
-                    'default' => 1 //video as default
+                    'default' => 1, //video as default
                 ]);
                 $missionMedia->save();
             }
@@ -130,7 +130,6 @@ class MissionController extends Controller
         return view('admin.mission.edit', compact('mission'));
     }
 
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -147,12 +146,12 @@ class MissionController extends Controller
         $missionVideo = MissionMedia::where(['mission_id' => $missionId, 'media_name' => 'youtube'])->get();
         $missionImages = MissionMedia::where([
             'mission_id' => $missionId,
-            'media_type' => 'png'
+            'media_type' => 'png',
         ])->get();
         $missionDocuments = MissionDocument::where([
             'mission_id' => $missionId,
         ])->get();
-        return view('admin.mission.edit', compact('mission', 'countries', 'mission_theme','cities', 'mission_skills', 'selected_skills', 'missionVideo', 'missionImages', 'missionDocuments'));
+        return view('admin.mission.edit', compact('mission', 'countries', 'mission_theme', 'cities', 'mission_skills', 'selected_skills', 'missionVideo', 'missionImages', 'missionDocuments'));
     }
 
     /**
@@ -221,7 +220,7 @@ class MissionController extends Controller
                     'media_name' => $image->getClientOriginalName(),
                     'media_type' => $extension,
                     'media_path' => $imagePath,
-                    'default' => ($key == 0 ? 1 : 0) // mark first image as default
+                    'default' => ($key == 0 ? 1 : 0), // mark first image as default
                 ]);
                 $missionMedia->save();
             }
