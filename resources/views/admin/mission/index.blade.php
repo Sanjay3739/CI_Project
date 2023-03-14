@@ -5,7 +5,6 @@
 @endsection
 
 @section('body')
-
     <div class="container-fluid px-4">
         <h1 class="mt-4">Mission</h1>
         @if (session('success'))
@@ -13,20 +12,13 @@
                 {{session('success')}}
             </div>
         @endif
-
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item active">Missions</li>
         </ol>
-       
-        <!-- <a href="{{ route('mission.create') }}">
-        <button type="button" class="btn rounded text-right btn-outline-warning">
-            <i class="fa-solid fa-plus px-3"></i> Add</button>
-        </a> -->
         <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-table me-1"></i>
             </div>
-
             <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between mt-1 mb-4">
                     <div class="relative max-w-xs">
@@ -40,15 +32,12 @@
                                 style="border-radius: 18px; width:100%"
                                 placeholder="Search" />
                         </form>
-                       
                     </div>
                     <a href="{{ route('mission.create') }}">
                        <button type="button" class="btn text-right btn-outline-warning"
                        style="border-radius:18px; width:115%">Add</button>
                     </a>
                 </div>
-
-
                 <table class="table table responsive table-bordered">
                     <thead>
                         <tr>
@@ -73,16 +62,12 @@
                                 </a>
                                 @csrf
                                 @method('DELETE')
-                                <!-- <button type="submit" class="btn btn-white ">
-                                    <img src="Images/bin.png" alt="delete">
-                                </button> -->
                                 <button type="submit" class="btn btn-sm" onclick="return confirm('Are you sure you want to delete this item?')"><img src="Images/bin.png" alt="delete"></button> 
                             </form>
                         </td>
                     </tr>
                     @endforeach
                     </tbody>
-
                 </table>
                 <div>
                     {!! $data->links('pagination::bootstrap-4') !!}

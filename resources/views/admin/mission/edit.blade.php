@@ -50,14 +50,12 @@
                             {{ $country->name }}</option>
                     @endforeach
                 </select>
-
                 @error('country_id')
                     <div class="text-danger">
                         {{ $message }}
                     </div>
                 @enderror
             </div>
-
             <div class="col-md-6">
                 <label for="city">City</label>
                 <select class="form-control" name="city_id" id="city-dropdown">
@@ -74,7 +72,6 @@
                     </div>
                 @enderror
             </div>
-
             <div class="col-md-6">
                 <label for="orgName" class="form-label">Mission Organisation Name</label>
                 <input type="text" class="form-control" id="orgName" name='organization_name'
@@ -88,19 +85,19 @@
                 <label for="inputPassword4" class="form-label">Mission Start Date</label>
                 <div class='input-group date' id='datetimepicker1'>
                     <input type='date' class="form-control" name='start_date'
-                        value='{{ date('Y-m-d', strtotime($mission->start_date)) }}' />
-
+                        value="{{ date('Y-m-d', strtotime($mission->start_date)) }}" 
+                    />
                 </div>
             </div>
             <div class="col-md-6">
                 <label for="inputPassword4" class="form-label">Mission End Date</label>
                 <div class='input-group date' id='datetimepicker1'>
                     <input type='date' class="form-control" name='end_date'
-                        value='{{ date('Y-m-d', strtotime($mission->end_date)) }}' />
+                        value="{{ date('Y-m-d', strtotime($mission->end_date)) }}"
+                    />
 
                 </div>
             </div>
-
             <div class="col-md-6">
                 <label for="inputType" class="form-label">Mission Type</label>
                 <select id="inputType" class="form-select" name='mission_type'>
@@ -109,7 +106,6 @@
                     <option value="GOAL" @if ($mission->mission_type == 'GOAL') selected @endif>Goal</option>
                 </select>
             </div>
-
             <div class="col-md-6">
                 <label for="text" class="form-label">Total Seats</label>
                 <input type="text" class="form-control" id="text"
@@ -130,7 +126,6 @@
                         </option>
                     @endforeach
                 </select>
-
             </div>
             <div class="col-md-6">
                 <label for="mission_skills">Mission Skills</label>
@@ -146,12 +141,10 @@
                         {{ $message }}
                     </div>
                 @enderror
-                </select>
             </div>
             <div class="col-md-6">
                 <label class="form-label" for="customFile">Mission Images</label>
                 <input type="file" class="form-control" id="customFile" name="media_name[]" multiple />
-
                 @error('media_name.*')
                     <div class="text-danger">
                         {{ $message }}
@@ -167,7 +160,6 @@
             <div class="col-md-6">
                 <label class="form-label" for="customFile">Mission Documents</label>
                 <input type="file" class="form-control" id="customFile" name="document_name[]" multiple />
-
                 @error('document_name.*')
                     <div class="text-danger">
                         {{ $message }}
@@ -193,15 +185,12 @@
             </div>
             <div class="col-md-6">
                 <label for="missionVideo" class="form-label">Mission Video</label>
-
                 @if ($missionVideo && $missionVideo->count() > 0)
                     <input type="text" class="form-control" id="orgVideo" name="media_names"
                         value='{{ $missionVideo->first()->media_path }}'>
                 @else
                     <input type="text" class="form-control" id="orgVideo" name="media_names" value=''>
                 @endif
-
-
                 @error('media_names')
                     <div class="text-danger">
                         {{ $message }}
@@ -214,8 +203,6 @@
                     <option value="0" @if (!$mission->status) selected @endif>Inactive</option>
                     <option value="1" @if ($mission->status) selected @endif>Active</option>
                 </select>
-
-
                 @error('status')
                     <div class="text-danger">
                         {{ $message }}
@@ -229,7 +216,6 @@
                 </div>
             </div>
         </form>
-        
     </div>
     <script>
         CKEDITOR.replace('editor1');
