@@ -12,7 +12,7 @@
             @csrf
             <div class="col-md-6">
                 <label for="missionTitle" class="form-label">Mission Title</label>
-                <input type="text" class="form-control" id="missionTitle" name='title'>
+                <input type="text" class="form-control" id="missionTitle" name='title' value="{{ old('title') }}">
                 @error('title')
                     <div class="text-danger">
                         {{ $message }}
@@ -21,7 +21,8 @@
             </div>
             <div class="col-md-6">
                 <label for="missionDesc" class="form-label">Mission Short Description</label>
-                <input type="text" class="form-control" id="missionDesc" name='short_description'>
+                <input type="text" class="form-control" id="missionDesc" name='short_description'
+                    value="{{ old('short_description') }}">
                 @error('short_description')
                     <div class="text-danger">
                         {{ $message }}
@@ -30,13 +31,12 @@
             </div>
             <div class="col-12">
                 <label for="inputAddress" class="form-label">Mission Description</label>
-                <textarea name="description" id="editor1"></textarea>
+                <textarea name="description" id="editor1">{{ old('description') }}</textarea>
                 @error('description')
                     <div class="text-danger">
                         {{ $message }}
                     </div>
                 @enderror
-
             </div>
             <div class="col-md-6">
                 <label for="country">Country</label>
@@ -56,7 +56,6 @@
                 <label for="city">City</label>
                 <select class="form-control" name="city_id" id="city-dropdown">
                     <option value="none" selected="" disabled="" hidden=""></option>
-
                 </select>
                 @error('city_id')
                     <div class="text-danger">
@@ -64,33 +63,29 @@
                     </div>
                 @enderror
             </div>
-
-
-
             <div class="col-md-6">
                 <label for="orgName" class="form-label">Mission Organisation Name</label>
-                <input type="text" class="form-control" id="orgName" name='organization_name'>
+                <input type="text" class="form-control" id="orgName" name='organization_name'
+                    value="{{ old('organization_name') }}">
             </div>
             <div class="col-md-6">
                 <label for="exampleFormControlTextarea1" class="form-label">Mission Organisation Detail</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name='organization_detail'></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name='organization_detail'>{{ old('organization_detail') }}</textarea>
             </div>
             <div class="col-md-6">
                 <label for="inputdate" class="form-label">Mission Start Date</label>
                 <div class='input-group date' id='datetimepicker1'>
-                    <input type='date' class="form-control" name='start_date' />
+                    <input type='date' class="form-control" name='start_date' value="{{ old('start_date') }}" />
 
                 </div>
             </div>
             <div class="col-md-6">
                 <label for="inputPassword4" class="form-label">Mission End Date</label>
                 <div class='input-group date' id='datetimepicker1'>
-                    <input type='date' class="form-control" name='end_date' />
+                    <input type='date' class="form-control" name='end_date' value="{{ old('end_date') }}" />
 
                 </div>
             </div>
-
-
             <div class="col-md-6">
                 <label for="inputType" class="form-label">Mission Type</label>
                 <select id="inputType" class="form-select" name='mission_type'>
@@ -106,7 +101,7 @@
             <div class="col-md-6">
                 <label for="missionRegDeadline" class="form-label">Mission Registration Deadline</label>
                 <input type="date" class="form-control" id="missionRegDeadline" name='registration_deadline'
-                    disabled>
+                    value="{{ old('registration_deadline') }}" disabled>
             </div>
 
             <div class="col-md-6">
@@ -117,29 +112,22 @@
                         <option value="{{ $theme->mission_theme_id }}">{{ $theme->title }}</option>
                     @endforeach
                 </select>
-
             </div>
-
             <div class="col-md-6">
+                <label for="mission_skills">Mission Skills</label>
+                <select name="skill_id[]" class="form-control" id="skill-dropdown" multiple>
 
-
-                    <label for="mission_skills">Mission Skills</label>
-                    <select name="skill_id[]" class="form-control" id="skill-dropdown" multiple>
-
-                        @foreach ($mission_skills as $skill)
-                            <option value="{{ $skill->skill_id }}">{{ $skill->skill_name }}</option>
-                        @endforeach
-                    </select>
-                    @error('skill_id')
-                        <div class="text-danger">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                    </select>
-                </div>
-
-
-
+                    @foreach ($mission_skills as $skill)
+                        <option value="{{ $skill->skill_id }}">{{ $skill->skill_name }}</option>
+                    @endforeach
+                </select>
+                @error('skill_id')
+                    <div class="text-danger">
+                        {{ $message }}
+                    </div>
+                @enderror
+                </select>
+            </div>
             <div class="col-md-6">
                 <label class="form-label" for="customFile">Mission Images</label>
                 <input type="file" class="form-control" id="customFile" name="media_name[]" multiple />
@@ -148,7 +136,6 @@
                         {{ $message }}
                     </div>
                 @enderror
-
             </div>
             <div class="col-md-6">
                 <label class="form-label" for="customFile">Mission Documents</label>
@@ -183,8 +170,6 @@
                     <option value="0">Inactive</option>
                     <option value="1" selected>Active</option>
                 </select>
-
-
                 @error('status')
                     <div class="text-danger">
                         {{ $message }}
@@ -192,9 +177,11 @@
                 @enderror
             </div>
             <div class="row">
-                 <div class="col-md-6 py-4">
-                    <a class="btn  pull-right btn-outline-secondary" style="border-radius:18px" href="{{route('mission.index')}}">cancel</a>
-                    <button class="btn pull-right btn-outline-warning" type="submit" style="border-radius:18px">Save</button>
+                <div class="col-md-6 py-4">
+                    <a class="btn  pull-right btn-outline-secondary" style="border-radius:18px"
+                        href="{{ route('mission.index') }}">cancel</a>
+                    <button class="btn pull-right btn-outline-warning" type="submit"
+                        style="border-radius:18px">Save</button>
                 </div>
             </div>
         </form>
@@ -226,4 +213,3 @@
         });
     </script>
 @endsection
-

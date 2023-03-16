@@ -14,7 +14,6 @@
             <div class="card-header">
                 <span>Edit</span>
             </div>
-
             <div class="card-body">
                 <div class="container">
                     <form action="{{ route('cmspage.update', $cmsPage->cms_page_id) }}" method="post">
@@ -41,7 +40,6 @@
                                     </div>
                                 @enderror
                             </div>
-
                             <div class="col-md-12 mb-3">
                                 <label for="slug">Slug</label>
                                 <input type="text" name="slug" class="form-control" value='{{ $cmsPage->slug }}'
@@ -60,8 +58,6 @@
                                     </option>
                                     <option value="1" @if ($cmsPage->status) selected @endif>Active</option>
                                 </select>
-
-
                                 @error('status')
                                     <div class="text-danger">
                                         {{ $message }}
@@ -69,12 +65,14 @@
                                 @enderror
                             </div>
                             <div class="row">
-                              <div class="col-md-6 py-4">
-                                 <a class="btn  pull-right btn-outline-secondary" style="border-radius:18px" href="{{route('cmspage.index')}}">cancel</a>
-                              </div>
-                              <div class="col-md-6 py-4">
-                                 <button class="btn pull-right btn-outline-warning" style="border-radius:18px" type="submit">Save</button>
-                              </div>
+                                <div class="col-md-6 py-4">
+                                    <a class="btn  pull-right btn-outline-secondary" style="border-radius:18px"
+                                        href="{{ route('cmspage.index') }}">cancel</a>
+                                </div>
+                                <div class="col-md-6 py-4">
+                                    <button class="btn pull-right btn-outline-warning" style="border-radius:18px"
+                                        type="submit">Save</button>
+                                </div>
 
                             </div>
                         </div>
@@ -83,7 +81,6 @@
                 </div>
             </div>
         </div>
-
     </div>
     <script>
         CKEDITOR.replace('editor1');

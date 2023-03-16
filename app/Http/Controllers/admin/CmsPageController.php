@@ -5,11 +5,9 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Models\CmsPage;
 use App\Http\Requests\StoreCmsPageRequest;
 use App\Http\Requests\UpdateCmsPageRequest;
-
 
 class CmsPageController extends Controller
 {
@@ -28,9 +26,6 @@ class CmsPageController extends Controller
             }]
         ])->paginate(10)
           ->appends(['s'=>$request->s]);
-
-
-
         return view('admin.cmspage.index',compact('data'));
     }
 
@@ -47,13 +42,10 @@ class CmsPageController extends Controller
      */
     public function store(StoreCmsPageRequest $request): RedirectResponse
     {
-        
+        //dd ($request);
         $request->validated();
-
         CmsPage::create($request->post());
-       
         return redirect()->route('cmspage.index')->with('success','field has been created successfully.');
-       
     }
 
     /**
