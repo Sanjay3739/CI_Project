@@ -65,12 +65,14 @@
                                 @enderror
                             </div>
                             <div class="row">
-                              <div class="col-md-6 py-4">
-                                 <a class="btn  pull-right btn-outline-secondary" style="border-radius:18px" href="{{route('cmspage.index')}}">cancel</a>
-                              </div>
-                              <div class="col-md-6 py-4">
-                                 <button class="btn pull-right btn-outline-warning" style="border-radius:18px" type="submit">Save</button>
-                              </div>
+                                <div class="col-md-6 py-4">
+                                    <a class="btn  pull-right btn-outline-secondary" style="border-radius:18px"
+                                        href="{{ route('cmspage.index') }}">cancel</a>
+                                </div>
+                                <div class="col-md-6 py-4">
+                                    <button class="btn pull-right btn-outline-warning" style="border-radius:18px"
+                                        type="submit">Save</button>
+                                </div>
 
                             </div>
                         </div>

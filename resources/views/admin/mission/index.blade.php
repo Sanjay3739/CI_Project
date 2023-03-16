@@ -9,7 +9,7 @@
         <h1 class="mt-4">Mission</h1>
         @if (session('success'))
             <div class="alert alert-success">
-                {{session('success')}}
+                {{ session('success') }}
             </div>
         @endif
         <ol class="breadcrumb mb-4">
@@ -28,14 +28,13 @@
                                 Search
                             </label>
                             <input type="text" name="s"
-                                class="block w-full p-1 pl-10 text-sm border-gray-200 rounded-md focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400" 
-                                style="border-radius: 18px; width:100%"
-                                placeholder="Search" />
+                                class="block w-full p-1 pl-10 text-sm border-gray-200 rounded-md focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                                style="border-radius: 18px; width:100%" placeholder="Search" />
                         </form>
                     </div>
                     <a href="{{ route('mission.create') }}">
-                       <button type="button" class="btn text-right btn-outline-warning"
-                       style="border-radius:18px; width:115%">Add</button>
+                        <button type="button" class="btn text-right btn-outline-warning"
+                            style="border-radius:18px; width:115%">Add</button>
                     </a>
                 </div>
                 <table class="table table responsive table-bordered">
@@ -50,23 +49,25 @@
                     </thead>
                     <tbody>
                         @foreach ($data as $d)
-                    <tr>
-                        <td>{{ $d->title }}</td>
-                        <td>{{ $d->mission_type }}</td>
-                        <td>{{ $d->start_date }}</td>
-                        <td>{{ $d->end_date }}</td>
-                        <td>
-                            <form action="{{ route('mission.destroy',$d->mission_id) }}" method="post">
-                                <a class="btn btn-white"href="{{route('mission.edit',$d->mission_id)}}">
-                                <img src="Images/edit.png" height="22px" width="22px" alt="edit">
-                                </a>
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm" onclick="return confirm('Are you sure you want to delete this item?')"><img src="Images/bin.png" alt="delete"></button> 
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
+                            <tr>
+                                <td>{{ $d->title }}</td>
+                                <td>{{ $d->mission_type }}</td>
+                                <td>{{ $d->start_date }}</td>
+                                <td>{{ $d->end_date }}</td>
+                                <td>
+                                    <form action="{{ route('mission.destroy', $d->mission_id) }}" method="post">
+                                        <a class="btn btn-white" href="{{ route('mission.edit', $d->mission_id) }}">
+                                            <img src="Images/edit.png" height="22px" width="22px" alt="edit">
+                                        </a>
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm"
+                                            onclick="return confirm('Are you sure you want to delete this item?')"><img
+                                                src="Images/bin.png" alt="delete"></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
                 <div>

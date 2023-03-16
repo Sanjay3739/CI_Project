@@ -1,7 +1,7 @@
 @extends('admin.app')
 
 @section('title')
-     Edit Mission
+    Edit Mission
 @endsection
 
 @section('body')
@@ -85,16 +85,14 @@
                 <label for="inputPassword4" class="form-label">Mission Start Date</label>
                 <div class='input-group date' id='datetimepicker1'>
                     <input type='date' class="form-control" name='start_date'
-                        value="{{ date('Y-m-d', strtotime($mission->start_date)) }}" 
-                    />
+                        value="{{ date('Y-m-d', strtotime($mission->start_date)) }}" />
                 </div>
             </div>
             <div class="col-md-6">
                 <label for="inputPassword4" class="form-label">Mission End Date</label>
                 <div class='input-group date' id='datetimepicker1'>
                     <input type='date' class="form-control" name='end_date'
-                        value="{{ date('Y-m-d', strtotime($mission->end_date)) }}"
-                    />
+                        value="{{ date('Y-m-d', strtotime($mission->end_date)) }}" />
 
                 </div>
             </div>
@@ -108,8 +106,8 @@
             </div>
             <div class="col-md-6">
                 <label for="text" class="form-label">Total Seats</label>
-                <input type="text" class="form-control" id="text"
-                    name='total_seats'value='{{ $mission->total_seats }}' disabled>
+                <input type="text" class="form-control" id="text" name='total_seats'
+                    value='{{ $mission->total_seats }}' disabled>
             </div>
             <div class="col-md-6">
                 <label for="missionRegDeadline" class="form-label">Mission Registration Deadline</label>
@@ -122,7 +120,8 @@
                     <option value="none" selected="" disabled="" hidden=""></option>
                     @foreach ($mission_theme as $theme)
                         <option value="{{ $theme->mission_theme_id }}"
-                            {{ $theme->mission_theme_id == $mission->theme_id ? 'selected' : '' }}>{{ $theme->title }}
+                            {{ $theme->mission_theme_id == $mission->theme_id ? 'selected' : '' }}>
+                            {{ $theme->title }}
                         </option>
                     @endforeach
                 </select>
@@ -210,9 +209,11 @@
                 @enderror
             </div>
             <div class="row">
-                 <div class="col-md-6 py-4">
-                    <a class="btn  pull-right btn-outline-secondary" style="border-radius:18px" href="{{route('mission.index')}}">cancel</a>
-                    <button class="btn pull-right btn-outline-warning" type="submit" style="border-radius:18px">Save</button>
+                <div class="col-md-6 py-4">
+                    <a class="btn  pull-right btn-outline-secondary" style="border-radius:18px"
+                        href="{{ route('mission.index') }}">cancel</a>
+                    <button class="btn pull-right btn-outline-warning" type="submit"
+                        style="border-radius:18px">Save</button>
                 </div>
             </div>
         </form>
