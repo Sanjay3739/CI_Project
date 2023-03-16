@@ -71,7 +71,7 @@ Mission
                         @csrf
                         <div class="form-group">
                             <label for="title"><h5>Title :</h5></label>
-                            <input type="text" name="title" pattern=" [a-z]* " class="form-control" id="title" placeholder="Enter title">
+                            <input type="text" name="title"  class="form-control" id="title" placeholder="Enter title">
                         </div>
                         <div class="form-group form-check">
                             <input type="checkbox" name="status" class="form-check-input" id="status" >

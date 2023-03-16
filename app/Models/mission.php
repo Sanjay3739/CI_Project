@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Mission extends Model
@@ -29,7 +31,7 @@ class Mission extends Model
     protected $primaryKey = 'mission_id';
 
     public function missionTheme() {
-        return $this->belongTo(MissionTheme::class, 'mission_id');
+        return $this->hasMany(MissionTheme::class, 'mission_id');
     }
 
     public function missionApplication() {
@@ -48,8 +50,9 @@ class Mission extends Model
         return $this->hasMany(MissionMedia::class, 'mission_id');
     }
 
+
     public function missionSkill(){
-        return $this->belongTo(MissionSkill::class, 'mission_id');
+        return $this->hasMany(MissionSkill::class, 'mission_id');
     }
 
     public function story() {
