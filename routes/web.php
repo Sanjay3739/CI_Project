@@ -14,9 +14,7 @@ use App\Http\Controllers\Admin\AdminPasswordResetController;
 use App\Http\Controllers\admin\MissionController;
 use App\Http\Controllers\admin\MissionSkillController;
 use App\Http\Controllers\CmsPagesController;
-
-
-
+use App\Http\Controllers\UsereditController;
 //frontend Routes
 Route::get('/', [AuthController::class, 'index'])->name('login');
 
@@ -48,6 +46,9 @@ Route::post('password-resetting', [PasswordResetController::class, 'passwordRese
 
 //cmspages(privacy and Policy)
 Route::get('policy', [CmsPagesController::class, 'index']);
+
+//User Edit Profile
+Route::get('userprofile',[UsereditController::class, 'index']);
 
 //All BACKEND ROUTE  IN HERE
 
