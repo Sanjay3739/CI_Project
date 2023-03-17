@@ -24,7 +24,7 @@ class StoreUserRequest extends FormRequest
         return [
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'bail|required|email',
+            'email' => 'required|email:snoof',
             'phone_number' => 'bail|required|numeric',
             'password' => 'required',
             'confirm_password' => 'bail|required|same:password',

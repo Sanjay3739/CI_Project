@@ -14,8 +14,40 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
+    <style>
+
+        input[type="password"]:invalid {
+            border: 1.5px solid rgb(255, 0, 0);
+        }
+
+        input[type="email"]:invalid {
+            border: 1.5px solid rgb(255, 0, 0);
+        }
+
+        input[type="number"]:invalid {
+            border: 1.5px solid red;
+        }
+        input[type="password"]:valid {
+            border: 1.5px solid rgb(0, 255, 0);
+        }
+
+        input[type="email"]:valid {
+            border: 1.5px solid rgb(55, 255, 0);
+        }
+
+        input[type="number"]:valid {
+            border: 1.5px solid rgb(0, 255, 13);
+        }
+        input::selection{
+            background: #00ff00;
+            
+        }
+
+
+
+    </style>
 </head>
-</head>
+
 
 <body>
     <div class="container-fluid">
@@ -82,91 +114,87 @@
                 @endif
 
 
-                    <form action="{{ route('post-register') }}" method='post'>
-                        @csrf
-                        <div class="col">
-                        <label for="inputFirstName" class="col-form-label" > First Name</label>
+                <form action="{{ route('post-register') }}" method='post'>
+                    @csrf
+                    <div class="col">
+                        <label for="inputFirstName" class="col-form-label"> First Name</label>
 
-                            <input type="text"  class="form-control"  name="first_name" id="" value="">
-                            @error('first_name')
-                            <div class="text-danger">
-                                {{$message}}
-                            </div>
-                            @enderror
+                        <input type="text" class="form-control" name="first_name" id="" value="">
+                        @error('first_name')
+                        <div class="text-danger">
+                            {{$message}}
                         </div>
+                        @enderror
+                    </div>
 
-                       <div class="col" >
-                       <label for="inputLastName" class="col-form-label"> Last Name</label>
+                    <div class="col">
+                        <label for="inputLastName" class="col-form-label"> Last Name</label>
 
-                            <input type="text"  class="form-control"  name="last_name" id="" value="">
-                            @error('last_name')
-                            <div class="text-danger">
-                                {{$message}}
-                            </div>
-                            @enderror
+                        <input type="text" class="form-control" name="last_name" id="" value="">
+                        @error('last_name')
+                        <div class="text-danger">
+                            {{$message}}
                         </div>
-                        <div class="col">
+                        @enderror
+                    </div>
+                    <div class="col">
                         <label for="inputPhone" class="col-form-label"> Phone Number</label>
 
-                            <input type="tel" class="form-control"  name="phone_number" id=""
-                                value="">
-                                @error('phone_number')
-                                <div class="text-danger">
-                                    {{$message}}
-                                </div>
-                                @enderror
+                        <input type="number" class="form-control" name="phone_number" id="" value="">
+                        @error('phone_number')
+                        <div class="text-danger">
+                            {{$message}}
                         </div>
-                        <div class="col">
+                        @enderror
+                    </div>
+                    <div class="col">
                         <label for="inputEmail" class="col-form-label"> Email</label>
 
-                            <input   class="form-control"  name="email" id=""
-                                value="">
-                                @error('email')
-                                <div class="text-danger">
-                                    {{$message}}
-                                </div>
-                                @enderror
+                        <input type="email" class="form-control" name="email" id="" value="" >
+                        @error('email')
+                        <div class="text-danger">
+                            {{$message}}
                         </div>
-                         <div class="col">
-                         <label for="inputPassword" class="col-form-label">Password</label>
+                        @enderror
+                    </div>
+                    <div class="col">
+                        <label for="inputPassword" class="col-form-label">Password</label>
 
-                            <input type="password" class="form-control"  name="password" id="" value="">
-                            @error('password')
-                            <div class="text-danger">
-                                {{$message}}
-                            </div>
-                            @enderror
+                        <input type="password" class="form-control" name="password" id="" value="">
+                        @error('password')
+                        <div class="text-danger">
+                            {{$message}}
                         </div>
+                        @enderror
+                    </div>
 
-                        <div class="col">
+                    <div class="col">
                         <label for="inputComfirmPassword" class="col-form-label">Confirm Password</label>
 
-                            <input type="password" class="form-control"  name="confirm_password" id=""
-                                value="">
-                                @error('confirm_password')
-                                <div class="text-danger">
-                                    {{$message}}
-                                </div>
-                                @enderror
+                        <input type="password" class="form-control" name="confirm_password" id="" value="">
+                        @error('confirm_password')
+                        <div class="text-danger">
+                            {{$message}}
                         </div>
+                        @enderror
+                    </div>
 
-                        <div class="col">
-                            <button type="submit" class="btn btn-outline-warning btn-block btn-dark mt-3"
-                               >Register</button>
-                        </div>
-                    </form>
+                    <div class="col">
+                        <button type="submit" class="btn btn-outline-warning btn-block btn-dark mt-3">Register</button>
+                    </div>
+                </form>
 
-                    @if (session('status'))
-                        <div class="alert alert-danger">
-                            {{ session('status') }}
-                        </div>
-                         @endif
+                @if (session('status'))
+                <div class="alert alert-danger">
+                    {{ session('status') }}
+                </div>
+                @endif
 
-                        @include('components.lostyourpassword')
+                @include('components.lostyourpassword')
 
-                      @include('components.loginnow')
+                @include('components.loginnow')
 
-                       @include('components.privacypolicy')
+                @include('components.privacypolicy')
 
             </div>
         </div>
@@ -175,95 +203,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

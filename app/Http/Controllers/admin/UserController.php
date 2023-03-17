@@ -9,6 +9,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -17,12 +18,13 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-
+    
     public function index(Request $request)
     {
+
         $data = User::where([
             [function ($query) use ($request) {
-                if (($s = $request->s)) {
+                if (($s = $request->search)) {
                     $query->orWhere('first_name', 'LIKE', '%' . $s . '%')
                         ->orWhere('last_name', 'LIKE', '%' . $s . '%')
                       ->orWhere('email', 'LIKE', '%' . $s . '%')
@@ -33,7 +35,7 @@ class UserController extends Controller
                 }
             }]
         ])->paginate(10)
-            ->appends(['s' => $request->s]);
+            ->appends(['s' => $request->search]);
 
 
         //$data = User::orderBy('user_id','desc')->paginate(10);
