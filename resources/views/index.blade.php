@@ -7,7 +7,7 @@
 </div>
 <div class="row mt-4">
 
-    @foreach ($user as $data)
+    @foreach ($users as $data)
 
     <div class="col-lg-4 mt-4">
 

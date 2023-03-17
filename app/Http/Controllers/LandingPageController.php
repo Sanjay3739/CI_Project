@@ -6,6 +6,7 @@ use App\Models\Country;
 use App\Models\Mission;
 use App\Models\MissionTheme;
 use App\Models\Skill;
+use Illuminate\Support\Facades\Auth;
 use App\Models\MissionSkill;
 use Database\Seeders\CountrySeeder;
 use Illuminate\Http\Request;
@@ -18,14 +19,15 @@ class LandingPageController extends Controller
 
     public function index(Request $request)
     {
-        $user = DB::table('mission_themes')->get();
-        $user = DB::table('missions')->get();
+        $user = Auth::user();
+        $users = DB::table('mission_themes')->get();
+        $users = DB::table('missions')->get();
         $data = Mission::query()->where('mission_id', '!=', 'out')
             ->select('mission_id')->distinct()->count();
 
-        return view('index', compact('user', 'data' ));
+        return view('index', compact('user','users', 'data' ));
 
     }
 
-     
+
 }
