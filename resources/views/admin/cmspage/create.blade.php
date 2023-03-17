@@ -1,9 +1,7 @@
 @extends('admin.app')
-
 @section('title')
     CMS Page
 @endsection
-
 @section('body')
     <div class="container-fluid px-4">
         <h1 class="mt-4">CMS Page</h1>
@@ -18,7 +16,6 @@
                 <div class="container">
                     <form action="{{ route('cmspage.store') }}" method="post">
                         @csrf
-
                         <div class="form-row">
                             <div class="col-md-12 mb-3">
                                 <label for="Title">Title</label>
@@ -61,16 +58,11 @@
                                     </div>
                                 @enderror
                             </div>
-                            <div class="row">
-                                <div class="col-md-6 py-4">
-                                    <a class="btn  pull-right btn-outline-secondary" style="border-radius:18px"
-                                        href="{{ route('cmspage.index') }}">cancel</a>
-                                </div>
-                                <div class="col-md-6 py-4">
-                                    <button class="btn pull-right btn-outline-warning" style="border-radius:18px"
-                                        type="submit">Save</button>
-                                </div>
-
+                            <div class="col-md-12 py-4 mr-5">
+                                <button class="btn apply-btn px-3 float-end btn-outline-warning" type="submit"
+                                    style="border-radius:18px">Save</button>
+                                <a class="btn  apply-btn px-3 mr-2 float-end btn-outline-secondary"
+                                    style="border-radius:18px" href="{{ route('cmspage.index') }}">cancel</a>
                             </div>
                         </div>
                     </form>

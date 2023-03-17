@@ -1,13 +1,10 @@
 @extends('admin.app')
-
 @section('title')
     Create Mission
 @endsection
-
 @section('body')
     <div class="container-fluid px-4">
         <h1 class="mt-4">Add Mission</h1>
-
         <form method="post" action="{{ route('mission.store') }}" class="row g-3" enctype="multipart/form-data">
             @csrf
             <div class="col-md-6">
@@ -83,7 +80,6 @@
                 <label for="inputPassword4" class="form-label">Mission End Date</label>
                 <div class='input-group date' id='datetimepicker1'>
                     <input type='date' class="form-control" name='end_date' value="{{ old('end_date') }}" />
-
                 </div>
             </div>
             <div class="col-md-6">
@@ -103,7 +99,6 @@
                 <input type="date" class="form-control" id="missionRegDeadline" name='registration_deadline'
                     value="{{ old('registration_deadline') }}" disabled>
             </div>
-
             <div class="col-md-6">
                 <label for="inputTheme" class="form-label">Mission Theme</label>
                 <select class="form-control" id="country-dropdown" name='theme_id'>
@@ -116,7 +111,6 @@
             <div class="col-md-6">
                 <label for="mission_skills">Mission Skills</label>
                 <select name="skill_id[]" class="form-control" id="skill-dropdown" multiple>
-
                     @foreach ($mission_skills as $skill)
                         <option value="{{ $skill->skill_id }}">{{ $skill->skill_name }}</option>
                     @endforeach
@@ -176,13 +170,11 @@
                     </div>
                 @enderror
             </div>
-            <div class="row">
-                <div class="col-md-6 py-4">
-                    <a class="btn  pull-right btn-outline-secondary" style="border-radius:18px"
-                        href="{{ route('mission.index') }}">cancel</a>
-                    <button class="btn pull-right btn-outline-warning" type="submit"
-                        style="border-radius:18px">Save</button>
-                </div>
+            <div class="col-md-12 py-4 mr-5">
+                <button class="btn apply-btn px-3 float-end btn-outline-warning" type="submit"
+                    style="border-radius:18px">Save</button>
+                <a class="btn  apply-btn px-3 mr-2 float-end btn-outline-secondary" style="border-radius:18px"
+                    href="{{ route('mission.index') }}">cancel</a>
             </div>
         </form>
     </div>
@@ -191,22 +183,14 @@
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        // get the mission type select element
         var missionType = $('#inputType');
-
-        // get the total seats and registration deadline inputs
         var totalSeats = $('#text');
         var regDeadline = $('#missionRegDeadline');
-
-        // add an event listener to the mission type select element
         missionType.on('change', function() {
-            // check if the selected mission type is 'time'
             if (missionType.val() === 'time') {
-                // if it is, enable the total seats and registration deadline inputs
                 totalSeats.prop('disabled', false);
                 regDeadline.prop('disabled', false);
             } else {
-                // if it isn't, disable the total seats and registration deadline inputs
                 totalSeats.prop('disabled', true);
                 regDeadline.prop('disabled', true);
             }

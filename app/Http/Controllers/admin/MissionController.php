@@ -27,9 +27,9 @@ class MissionController extends Controller
         $data = Mission::where([
             ['title', '!=', null],
             [function ($query) use ($request) {
-                if (($search = $request->s)) {
-                    $query->orWhere('title', 'LIKE', '%' . $search . '%')
-                        ->orWhere('mission_type', 'LIKE', '%' . $search. '%')
+                if (($s = $request->s)) {
+                    $query->orWhere('title', 'LIKE', '%' . $s . '%')
+                        ->orWhere('mission_type', 'LIKE', '%' . $s. '%')
                         ->get();
                 }
             }],

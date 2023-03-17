@@ -1,9 +1,7 @@
 @extends('admin.app')
-
 @section('title')
     Mission
 @endsection
-
 @section('body')
     <div class="container-fluid px-4">
         <h1 class="mt-4">Mission</h1>
@@ -28,13 +26,13 @@
                                 Search
                             </label>
                             <input type="text" name="s"
-                                class="block w-full p-1 pl-10 text-sm border-gray-200 rounded-md focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
-                                style="border-radius: 18px; width:100%" placeholder="Search" />
+                                class="block w-full p-1 pl-10 px-4 text-sm border-gray-200 rounded-md focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                                style="border-radius: 18px;" placeholder="Search" />
                         </form>
                     </div>
                     <a href="{{ route('mission.create') }}">
-                        <button type="button" class="btn text-right btn-outline-warning"
-                            style="border-radius:18px; width:115%">Add</button>
+                        <button type="button" class="btn px-4 text-right btn-outline-warning"
+                            style="border-radius:18px">Add</button>
                     </a>
                 </div>
                 <table class="table table responsive table-bordered">
