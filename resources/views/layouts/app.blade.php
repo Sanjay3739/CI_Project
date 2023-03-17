@@ -23,4 +23,5 @@
 
 </body>
    @include('layouts.scripts')
+   @include('include.ContactUS')
 </html>
