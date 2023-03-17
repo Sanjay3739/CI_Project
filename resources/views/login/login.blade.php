@@ -14,6 +14,24 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
+
+    <style>
+        input[type="email"]:valid{
+            border:2px solid rgb(4, 255, 0);
+        }
+        input[type="email"]:invalid{
+            border:1.5px solid red;
+        }
+        input[type="password"]:invalid{
+            border:1.5px solid red;
+        }
+
+        input[type="password"]:valid{
+            border:1.5px solid rgb(0, 255, 34);
+        }
+
+
+    </style>
 </head>
 </head>
 

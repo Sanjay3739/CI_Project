@@ -14,8 +14,17 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
+    <style>
+        input[type="email"]:invalid{
+            border:1.5px solid red;
+        }
+        input[type="email"]:valid{
+            border:1.5px solid rgb(7, 252, 3);
+        }
+
+    </style>
 </head>
-</head>
+
 
 <body>
     <div class="container-fluid">
@@ -79,7 +88,7 @@
                 </div>
                 @endif
 
-                
+
 
                 <form action="{{route('check.email')}}" method='post' id="forgot">
                     @csrf
