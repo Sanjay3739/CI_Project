@@ -14,7 +14,7 @@ use App\Http\Controllers\Admin\AdminPasswordResetController;
 use App\Http\Controllers\admin\MissionController;
 use App\Http\Controllers\admin\MissionSkillController;
 use App\Http\Controllers\CmsPagesController;
-use App\Http\Controllers\UsereditController;
+use App\Http\Controllers\UserEditProfileController;
 //frontend Routes
 Route::get('/', [AuthController::class, 'index'])->name('login');
 
@@ -47,9 +47,6 @@ Route::post('password-resetting', [PasswordResetController::class, 'passwordRese
 //cmspages(privacy and Policy)
 Route::get('policy', [CmsPagesController::class, 'index']);
 
-//User Edit Profile
-Route::get('userprofile',[UsereditController::class, 'index']);
-
 //All BACKEND ROUTE  IN HERE
 
 Route::get('admindashboard', [AdminAuthController::class, 'dashboard'])->name('dashboard');
@@ -77,3 +74,9 @@ Route::resource('missiontheme', MissionThemeController::class);
 Route::resource('missionskill', MissionSkillController::class)->withTrashed();
 //  user-crud
 Route::resource('user', UserController::class)->withTrashed();
+
+//User Edit Profile
+// Route::get('userprofile',[UsereditController::class, 'index']);
+Route::post('update-profile', [UserEditProfileController::class,'updateProfile'])->name('update-profile');
+Route::get('edit-profile/{user_id}', [UserEditProfileController::class,'editProfile'])->name('edit-profile')->middleware('auth');
+Route::post('logout', [UserEditProfileController::class,'logout'])->name('logout');
