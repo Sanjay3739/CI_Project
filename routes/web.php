@@ -51,7 +51,7 @@ Route::get('data', [LandingPageController::class, 'filterData']);
 Route::get('policy', [CmsPagesController::class, 'index']);
 
 //cmspages(privacy and Policy)
-Route::get('policy', [CmsPagesController::class, 'index']);
+Route::get('policy', [CmsPagesController::class, 'index'])->name('privacypolicy');
 
 //User Edit Profile
 

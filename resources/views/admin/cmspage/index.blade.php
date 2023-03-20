@@ -19,7 +19,7 @@
             </div>
             <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between mt-1 mb-4">
-                    <!-- This is search bar -->
+                    
                     <div class="relative max-w-xs ">
                         <form action="{{ route('cmspage.index') }}" method="GET">
                             @csrf

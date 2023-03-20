@@ -16,7 +16,7 @@ class UserEditProfileController extends Controller
 
     public function editProfile(Request $request, $user_id)
     {
-       
+
         $user = User::find($user_id);
 
         if (!$user || $user->user_id != auth()->user()->user_id) {
@@ -27,6 +27,7 @@ class UserEditProfileController extends Controller
 
         $countries = Country::get(['name', 'country_id']);
         $cities = City::where("country_id", $user->country_id)->get();
+
 
         return view('userprofile', compact('user','countries','cities'));
     }
@@ -43,7 +44,8 @@ class UserEditProfileController extends Controller
         $user->last_name = $request->input('last_name');
         $user->country_id = $request->input('country');
         $user->city_id = $request->input('city');
-        $user->save();
+        $user->password = $request->input('password');
+        // $user->save();
 
         return redirect()->route('edit-profile')->with('success', 'Profile updated successfully!');
     }
