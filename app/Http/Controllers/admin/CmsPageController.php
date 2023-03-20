@@ -19,8 +19,8 @@ class CmsPageController extends Controller
         $data = CmsPage::where([
             ['title','!=',Null],
             [function ($query) use ($request) {
-                if(($s = $request->s)) {
-                    $query->orWhere('title', 'LIKE', '%' . $s . '%')
+                if(($search = $request->s)) {
+                    $query->orWhere('title', 'LIKE', '%' . $search . '%')
                           ->get();
                 }
             }]
@@ -42,7 +42,7 @@ class CmsPageController extends Controller
      */
     public function store(StoreCmsPageRequest $request): RedirectResponse
     {
-        //dd ($request);
+        dd ($request);
         $request->validated();
         CmsPage::create($request->post());
         return redirect()->route('cmspage.index')->with('success','field has been created successfully.');
@@ -68,11 +68,11 @@ class CmsPageController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCmsPageRequest $request,CmsPage $cmsPage,$id): RedirectResponse
+    public function update(UpdateCmsPageRequest $request,$id): RedirectResponse
     {
         // dd($request);
         $request->validated();
-        $cmsPage->find($id)
+        CmsPage::find($id)
                      ->fill($request->post())
                      ->save();
         return redirect()->route('cmspage.index')->with('success','field Has Been updated successfully');
