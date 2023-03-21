@@ -32,16 +32,29 @@ class StoreMissionRequest extends FormRequest
              'status' => 'required',
              'document_name.*' => 'required|mimes:pdf,doc,docx',
              'media_name.*' => 'required|file|max:2048|mimes:jpg,jpeg,png,mp4',
+             'media_names' => [
+                function ($attribute, $value, $fail) {
+                    $videoUrl = $this->input('media_names');
+                    if ($videoUrl && !preg_match('/^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/i', $videoUrl)) {
+                        $fail($attribute . ' must be a valid YouTube URL.');
+                    }
+                },
+            ],
+            'start_date' => 'date',
+            'end_date' => 'date|after:start_date',
+            'total_seats'=>'integer',
+            'registration_deadline'=>'date|after:start_date|before:end_date',
+            'goal_objective_text'=>'max:255|string',
+            'goal_value'=>'integer',
+            'skill_id' => 'required_without_all:skill_id.*|array|min:1',
         ];
     }
 
     public function messages()
     {
         return [
-            'media_name.*.required' => 'The media file is required',
-            'media_name.*.file' => 'The media file must be a file',
             'media_name.*.max' => 'The media file size must be less than 2 MB',
-            'media_name.*.mimes' => 'The media file must be a JPG, JPEG, PNG, or MP4',
+            'media_name.*.mimes' => 'The media file must be a JPG, JPEG, PNG',
         ];
     }
 }

@@ -38,7 +38,7 @@
             <div class="col-md-6">
                 <label for="country">Country</label>
                 <select name="country_id" class="form-control" id="country-dropdown">
-                    <option value="none" selected="" disabled="" hidden=""></option>
+                    <option value="none" selected="" disabled="" hidden="">Select Country</option>
                     @foreach ($countries as $country)
                         <option value="{{ $country->country_id }}">{{ $country->name }}</option>
                     @endforeach
@@ -67,37 +67,81 @@
             </div>
             <div class="col-md-6">
                 <label for="exampleFormControlTextarea1" class="form-label">Mission Organisation Detail</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name='organization_detail'>{{ old('organization_detail') }}</textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name='organization_detail'>{{ old('organization_name') }}</textarea>
             </div>
             <div class="col-md-6">
                 <label for="inputdate" class="form-label">Mission Start Date</label>
                 <div class='input-group date' id='datetimepicker1'>
                     <input type='date' class="form-control" name='start_date' value="{{ old('start_date') }}" />
-
                 </div>
+                @error('start_date')
+                    <div class="text-danger">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="col-md-6">
                 <label for="inputPassword4" class="form-label">Mission End Date</label>
                 <div class='input-group date' id='datetimepicker1'>
                     <input type='date' class="form-control" name='end_date' value="{{ old('end_date') }}" />
                 </div>
+                @error('end_date')
+                    <div class="text-danger">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="col-md-6">
                 <label for="inputType" class="form-label">Mission Type</label>
-                <select id="inputType" class="form-select" name='mission_type'>
+                <select id="inputType" class="form-select" name='mission_type' value="{{ old('mission_type') }}">
                     <option value="none" selected="" disabled="" hidden="">select mision type</option>
                     <option value="time">Time</option>
                     <option value="goal">Goal</option>
                 </select>
+                @error('mission_type')
+                    <div class="text-danger">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="col-md-6">
                 <label for="text" class="form-label">Total Seats</label>
                 <input type="text" class="form-control" id="text" name='total_seats' disabled>
+                @error('total_seats')
+                    <div class="text-danger">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="col-md-6">
                 <label for="missionRegDeadline" class="form-label">Mission Registration Deadline</label>
-                <input type="date" class="form-control" id="missionRegDeadline" name='registration_deadline'
-                    value="{{ old('registration_deadline') }}" disabled>
+                <input type="date" class="form-control" id="missionRegDeadline" name='registration_deadline' disabled
+                    value="{{ old('registration_deadline') }}">
+                @error('registration_deadline')
+                    <div class="text-danger">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+            <div class="col-md-6">
+                <label for="goal_objective_text" class="form-label">Goal Objective Text</label>
+                <input type="text" class="form-control" id="goal_objective_text" name='goal_objective_text' disabled
+                    value="{{ old('goal_objective_text') }}">
+                @error('goal_objective_text')
+                    <div class="text-danger">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+            <div class="col-md-6">
+                <label for="goal_value" class="form-label">Goal Value</label>
+                <input type="text" class="form-control" id="goal_value" name='goal_value' disabled
+                    value="{{ old('goal_value') }}">
+                @error('goal_value')
+                    <div class="text-danger">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="col-md-6">
                 <label for="inputTheme" class="form-label">Mission Theme</label>
@@ -183,16 +227,36 @@
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        var missionType = $('#inputType');
-        var totalSeats = $('#text');
-        var regDeadline = $('#missionRegDeadline');
-        missionType.on('change', function() {
-            if (missionType.val() === 'time') {
-                totalSeats.prop('disabled', false);
-                regDeadline.prop('disabled', false);
+        const missionTypeSelect = document.getElementById('inputType');
+        const totalSeatsInput = document.getElementById('text');
+        const registrationDeadlineInput = document.getElementById('missionRegDeadline');
+        const goalObjectiveTextInput = document.getElementById('goal_objective_text');
+        const goalValueInput = document.getElementById('goal_value');
+        missionTypeSelect.addEventListener('change', function() {
+            const selectedOption = missionTypeSelect.value;
+            if (selectedOption === 'time') {
+                totalSeatsInput.disabled = false;
+                registrationDeadlineInput.disabled = false;
+                goalObjectiveTextInput.disabled = true;
+                goalValueInput.disabled = true;
+                goalObjectiveTextInput.value = '';
+                goalValueInput.value = '';
+            } else if (selectedOption === 'goal') {
+                totalSeatsInput.disabled = true;
+                registrationDeadlineInput.disabled = true;
+                goalObjectiveTextInput.disabled = false;
+                goalValueInput.disabled = false;
+                totalSeatsInput.value = '';
+                registrationDeadlineInput.value = '';
             } else {
-                totalSeats.prop('disabled', true);
-                regDeadline.prop('disabled', true);
+                totalSeatsInput.disabled = true;
+                registrationDeadlineInput.disabled = true;
+                goalObjectiveTextInput.disabled = true;
+                goalValueInput.disabled = true;
+                totalSeatsInput.value = '';
+                registrationDeadlineInput.value = '';
+                goalObjectiveTextInput.value = '';
+                goalValueInput.value = '';
             }
         });
     </script>
