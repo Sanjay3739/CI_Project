@@ -27,47 +27,60 @@ class Mission extends Model
         'start_date',
         'end_date'
     ];
-
     protected $primaryKey = 'mission_id';
+    protected $dates = ['deleted_at'];
 
-    public function missionTheme() {
-        return $this->hasMany(MissionTheme::class, 'mission_id');
+
+
+
+    public function missionTheme(): HasOne{
+        return $this->hasOne(MissionTheme::class, 'mission_id','mission_theme_id' , 'title',  'theme_id');
     }
 
-    public function missionApplication() {
-        return $this->hasMany(MissionApplication::class,'mission_id');
+    public function missionApplication()
+    {
+        return $this->hasMany(MissionApplication::class, 'mission_id');
     }
 
-    public function missionDocument() {
+
+    public function missionDocument()
+    {
         return $this->hasMany(MissionDocument::class, 'mission_id');
     }
 
-    public function missionMedia() {
+    public function missionMedia()
+    {
         return $this->hasMany(MissionMedia::class, 'mission_id');
     }
 
-    public function missionRating() {
+    public function missionRating()
+    {
         return $this->hasMany(MissionMedia::class, 'mission_id');
     }
 
 
-    public function missionSkill(){
-        return $this->hasMany(MissionSkill::class, 'mission_id');
+    public function missionSkill()
+    {
+        return $this->belongTo(MissionSkill::class, 'mission_id');
     }
 
-    public function story() {
+    public function story()
+    {
         return $this->hasMany(Story::class, 'mission_id');
     }
 
-    public function comment() {
+    public function comment()
+    {
         return $this->hasMany(Comment::class, 'mission_id');
     }
 
-    public function favoriteMission() {
+    public function favoriteMission()
+    {
         return $this->hasMany(FavoriteMission::class, 'mission_id');
     }
 
-    public function goalMission() {
+    public function goalMission()
+    {
         return $this->hasOne(GoalMission::class, 'mission_id');
     }
 
@@ -79,7 +92,16 @@ class Mission extends Model
         return $this->hasMany(TimeSheet::class, 'mission_id');
     }
 
-    public function userSkill() {
+    public function userSkill()
+    {
         return $this->hasOne(UserSkill::class, 'mission_id');
+    }
+    public function country(): HasOne
+    {
+        return $this->hasOne(Country::class, 'country_id', 'country_id');
+    }
+    public function city(): HasOne
+    {
+        return $this->hasOne(City::class, 'city_id', 'city_id');
     }
 }
