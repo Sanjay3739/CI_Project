@@ -55,17 +55,6 @@
                                         <button type=Submit class="btn  px-4 btn-outline-warning"
                                             style="border-radius:18px">Save</button>
                                     </div>
-                                    {{-- <div class="d-flex py-4 justify-content-end">
-                                        <div class="px-1">
-                                            <button type="button" class="btn btn-outline-secondary px-4"
-                                                style="border-radius: 23px" data-dismiss="modal">Close</button>
-                                        </div>
-                                        <div class="px-1">
-                                            <button type="submit" class="btn btn-outline effects px-4"
-                                                style="border-color: #f88634 ;border-radius: 23px; color: #f88634">Change
-                                                Password</button>
-                                        </div>
-                                    </div> --}}
                                 </form>
                             </div>
 
@@ -240,6 +229,10 @@
                             </div>
                         </div>
                     </div>
+
+
+
+
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-1" type="button"
                             role="tab" aria-controls="home" aria-selected="flase"
@@ -256,16 +249,89 @@
                                 <div class="col-md-12">
                                     <label for="mission_skills">My Skills</label>
                                     <select name="skill_id[]" class="form-control" id="skill-dropdown" multiple>
+                                        @foreach ($skills as $skill)
+                                            <option value="">{{ $skill->skill_name }}</option>
+                                        @endforeach
+
+                                        {{-- <option value="">akls</option>
                                         <option value="">akls</option>
                                         <option value="">akls</option>
-                                        <option value="">akls</option>
-                                        <option value="">akls</option>
-                                        <option value="">akls</option>
+                                        <option value="">akls</option> --}}
                                     </select>
                                     <div class="col-3 mt-3">
-                                        <button type=submit class="btn pull-right btn-outline-secondary"
+                                        {{-- <button type=button data-toggle="modal" data-target="#password" class="btn pull-right btn-outline-secondary"
                                             style="border-radius:18px">Add
+                                            Skills</button> --}}
+                                        <button type="button" data-toggle="modal" data-target="#skill"
+                                            class="btn pull-right btn-outline-secondary" style="border-radius:18px">Add
                                             Skills</button>
+                                        <div class="modal fade" id="skill" tabindex="-1" role="dialog"
+                                            aria-labelledby="skillModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog d-flex justify-content-between">
+                                                <div class="modal-content p-3">
+                                                    <form action="" method="post">
+                                                        @csrf
+                                                        @method('POST')
+                                                        <div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="py-2 text-start">
+                                                                    Add Your Skills
+                                                                </div>
+                                                                <button type="button" class="close"
+                                                                    data-dismiss="modal" aria-label="Close"
+                                                                    style="border:none;background:none">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6 add_skill">
+                                                                    <label for="mission_skills">My Skills</label>
+                                                                    <div name="skill_id[]" class="form-control"
+                                                                        id="skill-dropdown" multiple>
+                                                                        @foreach ($skills as $skill)
+                                                                            <option value="">
+                                                                                {{ $skill->skill_name }}</option>
+                                                                        @endforeach
+                                                                    </div>
+                                                                    @error('skill_id')
+                                                                        <div class="text-danger">
+                                                                            {{ $message }}
+                                                                        </div>
+                                                                    @enderror
+                                                                    </select>
+                                                                </div>
+                                                                <div class=" col-md-6 save_skill">
+                                                                    <div class="col-md-12">
+                                                                        <label for="mission_skills">My Skills</label>
+                                                                        <div name="skill_id[]" class="form-control"
+                                                                            id="skill-dropdown" multiple>
+                                                                            @foreach ($skills as $skill)
+                                                                                <option value="">
+                                                                                    {{ $skill->skill_name }}</option>
+                                                                            @endforeach
+                                                                        </div>
+                                                                        @error('skill_id')
+                                                                            <div class="text-danger">
+                                                                                {{ $message }}
+                                                                            </div>
+                                                                        @enderror
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class=" d-flex mt-4 ">
+                                                            <button type="button" class="btn px-4 btn-outline-secondary"
+                                                                style="border-radius: 23px"
+                                                                data-dismiss="modal">Cancel</button>&nbsp;&nbsp;
+                                                            <button type=Submit class="btn  px-4 btn-outline-warning"
+                                                                style="border-radius:18px">Save</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+
+                                            </div>
+                                        </div>
                                     </div>
                                     @error('skill_id')
                                         <div class="text-danger">
@@ -282,7 +348,6 @@
                 </div>
             </div>
         </div>
-
     </form>
     <script>
         $(document).ready(function() {
