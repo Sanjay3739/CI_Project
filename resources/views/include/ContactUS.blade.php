@@ -21,13 +21,13 @@
                             <div class="row">
                                 <div class="col-12 mt-4">
                                     <label for="name" class="form-label">Name*</label>
-                                    {{--  <input type="text" class="form-control" id="name" placeholder="Enter your name" name="name" value="{{ $user->first_name }} {{ $user->last_name }}" disabled>  --}}
+                                    <input type="text" class="form-control" id="name" placeholder="Enter your name" name="name" value="{{ $user->first_name }} {{ $user->last_name }}" disabled>
 
                                 </div>
                                 <div class="col-12 mt-4">
                                     <label for="email" class="form-label">Email Address*</label>
 
-                                    {{--  <input type="email" class="form-control" id="email" placeholder="Enter your email" name="email" value="{{ $user->email }}" disabled>  --}}
+                                        <input type="email" class="form-control" id="email" placeholder="Enter your email" name="email" value="{{ $user->email }}" disabled>
 
                                 </div>
                                 <div class="col-12 mt-2">
