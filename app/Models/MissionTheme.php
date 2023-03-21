@@ -10,6 +10,7 @@ class MissionTheme extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
     protected $primaryKey = 'mission_theme_id';
     protected $dates = ['deleted_at'];
 

@@ -12,6 +12,7 @@ use App\Http\Controllers\LandingPageController;
 
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\admin\StoryController;
 use App\Http\Controllers\admin\AppController;
 use App\Http\Controllers\admin\MissionThemeController;
 use App\Http\Controllers\admin\MissionSkillController;
@@ -43,8 +44,8 @@ Route::get('forgot-password/{token}', function ($token) {
 });
 Route::post('register', [AuthController::class, 'register'])->name('post-register');
 Route::post('password-resetting', [PasswordResetController::class, 'passwordResetting'])->name('password-resetting');
-Route::get('index', [LandingPageController::class, 'index'])->name('landing.index');
-Route::get('data', [LandingPageController::class, 'filterData']);
+Route::get('index',[LandingPageController::class, 'index'])->name('landing.index');
+Route::get('filter-data',[LandingPageController::class,'filterData']);
 
 
 //cmspages(privacy and Policy)
@@ -91,7 +92,6 @@ Route::resource('/cmspage', CmsPageController::class);
 Route::resource('missiontheme', MissionThemeController::class);
 Route::resource('missionskill', MissionSkillController::class)->withTrashed();
 Route::resource('user', UserController::class)->withTrashed();
-
 Route::get('admin/banner',[BannerController::class, 'banner'])->name('banner');
 Route::get('admin/add_banner',[BannerController::class, 'add_banner']);
 Route::get('admin/edit_banner/{banner_id}',[BannerController::class, 'edit_banner']);
@@ -99,4 +99,17 @@ Route::post('admin/banner',[BannerController::class, 'banner']);
 Route::post('add-banner', [BannerController::class, 'banner_add'])->name('banner.add');
 Route::post('edit-banner', [BannerController::class, 'banner_edit'])->name('banner.edit');
 Route::get('admin/delete_banner/{banner_id}',[BannerController::class, 'delete_banner']);
+Route::resource('admin/story', StoryController::class);
 
+
+
+
+
+
+
+
+
+
+
+// Route::get('admin/approve_story/{story_id}',[StoryController::class, 'approve_story']);
+// Route::get('admin/decline_story/{story_id}',[StoryController::class, 'decline_story']);
