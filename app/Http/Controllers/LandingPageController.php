@@ -8,6 +8,7 @@ use App\Models\Skill;
 use App\Models\FavoriteMission;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\TimeMission;
 use App\Models\User;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Support\Facades\DB;
@@ -45,7 +46,7 @@ class LandingPageController extends Controller
                          ->where('mission_skills.skill_id',$request->skill_f);
         }
         $user_id=420;
-
+        
         $count = $data->count();
         $data = $data->paginate(9)->appends(["s" => $request->s,"country_f" => $request->country_f,"city_f"=>$request->city_f,"theme_f" => $request->theme_f,"skill_f" => $request->skill_f]);
 
@@ -54,7 +55,7 @@ class LandingPageController extends Controller
         $themes = MissionTheme::all(['mission_theme_id','title']);
 
         $skills = Skill::all(['skill_id','skill_name']);
-
+        $time =
         $favorite = FavoriteMission::where('user_id',$user_id)
                                      ->get(['favorite_mission_id','mission_id']);
         return view('index',compact('data','count','countries','themes','skills','favorite','user'));

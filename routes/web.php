@@ -25,37 +25,23 @@ use App\Http\Controllers\Admin\AdminPasswordResetController;
 use App\Http\Controllers\admin\MissionController;
 use App\Http\Controllers\CmsPagesController;
 use App\Http\Controllers\UserEditProfileController;
+
+
 //frontend Routes
 Route::get('/', [AuthController::class, 'index'])->name('login');
-Route::get('index', function () {
-    return view('index');
-})->name('index')->middleware('auth');
+Route::get('index', function () {return view('index');})->name('index')->middleware('auth');
 Route::get('logout', [AuthController::class, 'logout']);
 Route::post('custom-login', [AuthController::class, 'postLogin'])->name('login.custom');
-Route::get('forgot', function () {
-    return view('login.forgot');
-})->name('forgot.password');
+Route::get('forgot', function () {return view('login.forgot');})->name('forgot.password');
 Route::post('reset', [PasswordResetController::class, 'resetPassword'])->name('check.email');
-Route::get('register', function () {
-    return view('register.register');
-})->name('register');
-Route::get('forgot-password/{token}', function ($token) {
-    return view('reset', [$token]);
-});
+Route::get('register', function () { return view('register.register');})->name('register');
+Route::get('forgot-password/{token}', function ($token) {return view('reset', [$token]);});
 Route::post('register', [AuthController::class, 'register'])->name('post-register');
 Route::post('password-resetting', [PasswordResetController::class, 'passwordResetting'])->name('password-resetting');
 Route::get('index',[LandingPageController::class, 'index'])->name('landing.index');
 Route::get('filter-data',[LandingPageController::class,'filterData']);
-
-
-//cmspages(privacy and Policy)
 Route::get('policy', [CmsPagesController::class, 'index']);
-
-//cmspages(privacy and Policy)
 Route::get('policy', [CmsPagesController::class, 'index'])->name('privacypolicy');
-
-//User Edit Profile
-
 Route::post('update-profile', [UserEditProfileController::class,'updateProfile'])->name('update-profile');
 Route::get('edit-profile/{user_id}', [UserEditProfileController::class,'editProfile'])->name('edit-profile')->middleware('auth');
 Route::post('logout', [UserEditProfileController::class,'logout'])->name('logout');
@@ -79,19 +65,14 @@ Route::post('resetpassword', [ForgetPasswordController::class, 'resetpassword'])
 Route::post('admin-check-email', [ForgetPasswordController::class, 'admincheckEmail'])->name('admin.check.email');
 Route::get('resetpassword', [ForgetPasswordController::class, 'resetpassword'])->name('resetpassword');
 Route::post('resetpassword2', [AdminPasswordResetController::class, 'resetPassword'])->name('resetpassword2');
-Route::get('adminresetpage/{token}', function () {
-    return view('admin.auth.resetpassword');
-});
+Route::get('adminresetpage/{token}', function () { return view('admin.auth.resetpassword');});
 Route::post('admin-password-resetting', [AdminPasswordResetController::class, 'adminPasswordResetting'])->name('adminPasswordResetting');
 Route::resource('/mission', MissionController::class);
 Route::resource('/cmspage', CmsPageController::class);
-
-
-
-
 Route::resource('missiontheme', MissionThemeController::class);
 Route::resource('missionskill', MissionSkillController::class)->withTrashed();
 Route::resource('user', UserController::class)->withTrashed();
+Route::resource('story', StoryController::class);
 Route::get('admin/banner',[BannerController::class, 'banner'])->name('banner');
 Route::get('admin/add_banner',[BannerController::class, 'add_banner']);
 Route::get('admin/edit_banner/{banner_id}',[BannerController::class, 'edit_banner']);
@@ -99,7 +80,7 @@ Route::post('admin/banner',[BannerController::class, 'banner']);
 Route::post('add-banner', [BannerController::class, 'banner_add'])->name('banner.add');
 Route::post('edit-banner', [BannerController::class, 'banner_edit'])->name('banner.edit');
 Route::get('admin/delete_banner/{banner_id}',[BannerController::class, 'delete_banner']);
-Route::resource('admin/story', StoryController::class);
+
 
 
 
