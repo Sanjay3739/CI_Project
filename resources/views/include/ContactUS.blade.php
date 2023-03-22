@@ -8,7 +8,7 @@
                 <div class="modal-content p-3">
                     <form action="" method="post" id="form3">
                         @csrf
-                        @method('POST')
+                        @method('post')
                         <div>
                             <div class="d-flex justify-content-between">
                                 <div class="py-2 text-start">

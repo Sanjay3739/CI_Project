@@ -4,16 +4,10 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Hash;
-use Session;
-use App\Models\User;
-// use App\Models\Admin\admin;
 use Carbon\Carbon;
-use App\Models\Admin;
 use App\Models\Banner;
 use App\Models\Mission;
-use App\Models\MissionTheme;
-use Illuminate\Support\Facades\Auth;
+
 
 class BannerController extends Controller
 {
@@ -34,12 +28,12 @@ class BannerController extends Controller
             $banners = Mission::where('title', 'LIKE', '%' . $request->get('search') . '%')->where('deleted_at', null)->get();
         }
 
-        return view('admin.banner', compact('banners', 'page','cnt'));
+        return view('admin.banner.banner', compact('banners', 'page','cnt'));
     }
 
     public function add_banner()
     {
-        return view('admin.add_banner');
+        return view('admin.banner.add_banner');
     }
 
     public function banner_add(Request $request)
@@ -73,7 +67,7 @@ class BannerController extends Controller
     public function edit_banner($banner_id)
     {
         $banner = Banner::where(['banner_id' => $banner_id])->first();
-        return view('admin.edit_banner',compact('banner'));
+        return view('admin.banner.edit_banner',compact('banner'));
     }
 
     public function banner_edit(Request $request)
@@ -91,11 +85,12 @@ class BannerController extends Controller
             $request->image->store('public/uplodes');
         }
         $banner = [
-            "title" => $request->get('title'),
+            // "title" => $request->get('title'),
             "text" => $request->get('text'),
             "sort_order" => $request->get('sort_order'),
             "image" => $image,
         ];
+
         Banner::where('banner_id', $request->get('banner_id'))->update($banner);
         return redirect("admin/banner")->with('message', 'Banner updated sucessfully');
     }
@@ -103,5 +98,6 @@ class BannerController extends Controller
     public function delete_banner($banner_id)
     {
         Banner::where('banner_id', $banner_id)->update(['deleted_at' => Carbon::now()->toDateTimeString()]);
+        return redirect("admin/banner")->with('message', 'Banner deleted sucessfully');
     }
 }

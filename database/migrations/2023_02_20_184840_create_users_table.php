@@ -30,8 +30,11 @@ return new class extends Migration
             $table->string('linked_in_url', 255)->nullable();
             $table->string('title', 255)->nullable();
             $table->tinyInteger('status')->default(1);
+            $table->enum('availability', ['daily','weekly','week-end','monthly'])->nullable();
+            $table->string('manager', 255)->nullable();
             $table->timestamps();
             $table->softDeletes();
+
         });
     }
 
@@ -41,5 +44,11 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
+
+
     }
+
+
+
+
 };
