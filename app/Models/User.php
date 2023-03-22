@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Sanctum\Contracts\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
     use HasFactory;
+    use SoftDeletes;
     protected $table = 'users';
     protected $primaryKey = 'user_id';
 
@@ -27,6 +29,8 @@ class User extends Authenticatable
         'status',
         'profile_text',
         'avatar',
+        'linked_in_url',
+        'why_i_volunteer',
     ];
 
     public function country()

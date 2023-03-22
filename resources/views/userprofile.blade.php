@@ -6,6 +6,7 @@
 @section('content')
     <form action="{{ route('update-profile') }}" enctype="multipart/form-data" method="POST">
         @csrf
+        @method('POST')
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 img-thumbnail mt-5 d-flex-column justify-content-center text-center"
@@ -13,7 +14,7 @@
                     <img src="{{ Auth::user()->avatar ? asset(Auth::user()->avatar) : asset('Images/user-img1.png') }}"
                         alt="profile-photo" class="img-fluid rounded-circle mt-5" style="width: 130px; height: 115px;">
                     <h5 class="mt-2">{{ $user->first_name }} {{ $user->last_name }}</h5>
-                    <button type="button" data-toggle="modal" data-target="#password" class="btn btn-secoundary">Change
+                    {{-- <button type="button" data-toggle="modal" data-target="#password" class="btn btn-secoundary">Change
                         Password</button>
                     <div class="modal fade" id="password" tabindex="-1" role="dialog"
                         aria-labelledby="passwordModalLabel" aria-hidden="true">
@@ -59,7 +60,7 @@
                             </div>
 
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="col-lg-8">
                     <ul class="nav nav-tabs" id="myTab" role="tablist" style="border-bottom: 1px solid #ADADAD;">
@@ -232,117 +233,6 @@
 
 
 
-
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-1" type="button"
-                            role="tab" aria-controls="home" aria-selected="flase"
-                            style="border:none; border-bottom: 3px solid #0c0c0c;
-                                color: #0c0c0c;
-                                font-weight: 500;"><b>My
-                                Skills</b>
-                        </a>
-                    </ul>
-                    <div class="tab-content" id="myTabContent" style="margin-top: 25px;">
-                        <div class="tab-pane fade show active" id="tab-1" role="tabpanel"
-                            style="font-size: 15px; line-height: 24px; color: #3E3E3E;">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="mission_skills">My Skills</label>
-                                    <select name="skill_id[]" class="form-control" id="skill-dropdown" multiple>
-                                        @foreach ($skills as $skill)
-                                            <option value="">{{ $skill->skill_name }}</option>
-                                        @endforeach
-
-                                        {{-- <option value="">akls</option>
-                                        <option value="">akls</option>
-                                        <option value="">akls</option>
-                                        <option value="">akls</option> --}}
-                                    </select>
-                                    <div class="col-3 mt-3">
-                                        {{-- <button type=button data-toggle="modal" data-target="#password" class="btn pull-right btn-outline-secondary"
-                                            style="border-radius:18px">Add
-                                            Skills</button> --}}
-                                        <button type="button" data-toggle="modal" data-target="#skill"
-                                            class="btn pull-right btn-outline-secondary" style="border-radius:18px">Add
-                                            Skills</button>
-                                        <div class="modal fade" id="skill" tabindex="-1" role="dialog"
-                                            aria-labelledby="skillModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog d-flex justify-content-between">
-                                                <div class="modal-content p-3">
-                                                    <form action="" method="post">
-                                                        @csrf
-                                                        @method('POST')
-                                                        <div>
-                                                            <div class="d-flex justify-content-between">
-                                                                <div class="py-2 text-start">
-                                                                    Add Your Skills
-                                                                </div>
-                                                                <button type="button" class="close"
-                                                                    data-dismiss="modal" aria-label="Close"
-                                                                    style="border:none;background:none">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-6 add_skill">
-                                                                    <label for="mission_skills">My Skills</label>
-                                                                    <div name="skill_id[]" class="form-control"
-                                                                        id="skill-dropdown" multiple>
-                                                                        @foreach ($skills as $skill)
-                                                                            <option value="">
-                                                                                {{ $skill->skill_name }}</option>
-                                                                        @endforeach
-                                                                    </div>
-                                                                    @error('skill_id')
-                                                                        <div class="text-danger">
-                                                                            {{ $message }}
-                                                                        </div>
-                                                                    @enderror
-                                                                    </select>
-                                                                </div>
-                                                                <div class=" col-md-6 save_skill">
-                                                                    <div class="col-md-12">
-                                                                        <label for="mission_skills">My Skills</label>
-                                                                        <div name="skill_id[]" class="form-control"
-                                                                            id="skill-dropdown" multiple>
-                                                                            @foreach ($skills as $skill)
-                                                                                <option value="">
-                                                                                    {{ $skill->skill_name }}</option>
-                                                                            @endforeach
-                                                                        </div>
-                                                                        @error('skill_id')
-                                                                            <div class="text-danger">
-                                                                                {{ $message }}
-                                                                            </div>
-                                                                        @enderror
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class=" d-flex mt-4 ">
-                                                            <button type="button" class="btn px-4 btn-outline-secondary"
-                                                                style="border-radius: 23px"
-                                                                data-dismiss="modal">Cancel</button>&nbsp;&nbsp;
-                                                            <button type=Submit class="btn  px-4 btn-outline-warning"
-                                                                style="border-radius:18px">Save</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @error('skill_id')
-                                        <div class="text-danger">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <button type=Submit class="btn mt-5 px-4 float-end btn-outline-warning"
                         style="border-radius:18px">Save</button>
                 </div>
