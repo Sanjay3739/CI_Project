@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use app\Models\Mission;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -19,22 +20,8 @@ class MissionTheme extends Model
         'status',
 
     ];
-    public function mission(){
+    public function mission()
+    {
         $this->hasMany(Mission::class, 'mission_id');
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

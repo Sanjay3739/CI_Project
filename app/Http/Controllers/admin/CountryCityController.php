@@ -13,7 +13,7 @@ class CountryCityController extends Controller
         $data['cities'] = City::where("country_id",$request->country_id)
                             ->orderBy('name')
                             ->get(['name','city_id']);
-        
+
         return response()->json($data);
     }
 }

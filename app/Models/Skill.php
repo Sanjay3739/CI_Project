@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Controllers\admin\UserController;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Skill extends Model

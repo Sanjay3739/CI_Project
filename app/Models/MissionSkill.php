@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Mission;
+use App\Models\Skill;
 
 class MissionSkill extends Model
 {
@@ -12,14 +14,14 @@ class MissionSkill extends Model
     protected $fillable = [
         'mission_id',
         'skill_id',
-        
+
     ];
 
     public function mission() {
-        return $this->hasMany(Mission::class, 'mission_id');
+        return $this->belongsToMany(Mission::class, 'mission_id ' ,'mission_id');
     }
 
     public function skill(){
-        return $this->hasOne(Skill::class, 'skill_id');
+        return $this->hasOne(Skill::class, 'skill_id' ,'skill_id');
     }
 }

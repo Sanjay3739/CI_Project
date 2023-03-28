@@ -16,24 +16,17 @@ class MissionApplicationController extends Controller
     public function index()
     {
         $missionApplications = MissionApplication::with('Mission', 'User')->get();
-
-        return view('admin.mission-applications.index', compact('missionApplications'));
+        return view('admin.missionapplications.app', compact('missionApplications'));
     }
-
     public function update(MissionApplication $missionApplication, $status)
     {
         $missionApplication->status = $status;
-
         $missionApplication->save();
-
-
         return redirect()->back();
     }
-
     public function destroy(MissionApplication $missionApplication)
     {
         $missionApplication->delete();
-
         return redirect()->back();
     }
 }

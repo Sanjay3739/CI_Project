@@ -17,13 +17,15 @@ class FavoriteMission extends Model
         'user_id',
     ];
 
-    
+
     public function user() {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->hasOne(User::class, 'user_id');
+        //changes
     }
 
     public function mission() {
-        return $this->belongsTo(Mission::class, 'mission_id');
+        return $this->hasOne(Mission::class, 'mission_id');
+        //changes
     }
 }
 

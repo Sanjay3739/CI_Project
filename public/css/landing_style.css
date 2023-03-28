@@ -8,6 +8,12 @@
         display: none;
     }
 }
+@media screen and (max-width: 991px){
+    #filler-gap { display: none;}
+  }
+  @media screen and (min-width: 992px){
+    #cms-toggle { display: none;}
+  }
 
 .from_untill {
     border-radius: 23px;
@@ -19,7 +25,7 @@
 .like_btn{
     background-color: black;
     -webkit-background-composite: none;
-    color: rgb(255, 0, 0);
+    color: rgb(247, 81, 81);
     border-radius: 50%;
     border: none;
     height: 3rem;
@@ -172,7 +178,7 @@
 }
 
 .auto-width {
-    max-width: fit-content;
+    max-width:fit-content;
 }
 .relative-container {
     position: relative;
@@ -224,3 +230,31 @@ small {
 .background-1 {
     background-image: url();
 }
+
+.nav-link.active {
+    border-bottom: 2px solid #333;
+    color:#414141;
+    padding-bottom: 1em;
+  }
+.nav-link {
+    color:#e0dddd;
+}
+.nav-link:hover {
+    color:#414141;
+}
+.container.comment{
+    height:17em;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+.container.comment::-webkit-scrollbar {
+    width: 2px; /* Set the width of the scrollbar */
+  }
+  .container.comment::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Set the background color of the scrollbar track */
+  }
+
+  .container.comment::-webkit-scrollbar-thumb {
+    background: #d1cfcf; /* Set the background color of the scrollbar thumb */
+    border-radius: 5px; /* Set the border radius of the scrollbar thumb */
+  }

@@ -12,6 +12,6 @@ class BannerSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        \App\Models\Banner::factory(200)->create();
     }
 }

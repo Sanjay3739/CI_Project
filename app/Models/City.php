@@ -13,7 +13,7 @@ class city extends Model
     protected $fillable = [
         'country_id', 'name'
     ];
-    
+
     public function Country() {
         return $this->belongsTo(Country::class, 'country_id');
     }

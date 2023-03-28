@@ -1,9 +1,13 @@
 <?php
 
+
+use App\Http\Controllers\admin\CountryCityController;
+use App\Http\Controllers\LandingPageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\admin\CountryCityController;
-
+use App\Http\Controllers\FavouriteMissionController;
+use App\Http\Controllers\MissionInviteController;
+use App\Http\Controllers\UserEditProfileController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,10 +22,10 @@ use App\Http\Controllers\admin\CountryCityController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('fetch-city',[CountryCityController::class,'fetchCity']);
 
-
-
-
+Route::post('fetch-city', [CountryCityController::class, 'fetchCity']);
+Route::post('add-favourite', [FavouriteMissionController::class, 'addFavourite']);
+Route::post('remove-favourite', [FavouriteMissionController::class, 'removeFavourite']);
+Route::post('invite-user', [MissionInviteController::class, 'inviteUser']);
 
 

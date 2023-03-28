@@ -12,6 +12,12 @@
             border: none;
         }
 
+        .page-item {
+            width: 50px;
+            height: 100px;
+
+        }
+
         tr,
         td {
             padding-left: 13%;
@@ -28,19 +34,20 @@
 </header>
 
 @section('body')
-@if (Session::has('message'))
-<div class="alert alert-success mb-0 mt-3" role="alert">
-    {{ Session::get('message') }}
-</div>
-@endif
-@if (Session::has('error'))
-<div class="alert alert-danger mb-0 mt-3" role="alert">
-    {{ Session::get('error') }}
-</div>
-@endif
-
 <div class="container">
     <div class="row">
+        <div class="ms-5 w-25">
+            @if (Session::has('message'))
+            <div class="alert alert-success mb-0 mt-3" role="alert">
+                {{ Session::get('message') }}
+            </div>
+            @endif
+            @if (Session::has('error'))
+            <div class="alert alert-danger mb-0 mt-3" role="alert">
+                {{ Session::get('error') }}
+            </div>
+            @endif
+        </div>
         <div class="col-md-12">
 
             <div class="container-fluid px-1">
@@ -83,7 +90,6 @@
                 </svg>
             </div>
 
-
             <div class="m-4">
                 <div class="relative max-w-xs">
                     <form action="{{ route('banner') }}" method="POST" enctype="multipart/form-data">
@@ -92,8 +98,6 @@
                     </form>
                 </div>
             </div>
-
-
             <div class="tab-content">
                 <div class="tab-pane show active" id="bannerc">
                     <div class="table-responsive">
@@ -108,17 +112,18 @@
                             <tbody>
                                 @foreach ($banners as $banner)
                                 <tr>
-                                    <td class="p-3 pe-0 fs13">{{ strip_tags($banner->title) }}</td>
+                                    <td class="p-3 pe-0 fs13">{{ strip_tags($banner->text) }}</td>
                                     <td class="p-3 pe-0 fs13">{{ $banner->sort_order }}</td>
                                     <td class="p-3 pe-0 p-0 fs20">
-                                        <a href="edit_banner/{{ $banner->banner_id }}"><i class="fa fa-pencil-square-o co fs20" aria-hidden="true"></i></a>
+
+                                        <a href="edit_banner/{{ $banner->banner_id }}" class="btn btn-warning btn-sm">Edit</a>
                                         <div id="popup{{ $banner->banner_id }}" class="modal">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content p-2">
                                                     <div class="modal-header pb-0 border-bottom-0">
                                                         <h3 class="mb-0 fs20">Confirm Delete </h3>
+                                                        <img class="img-fluid" src="/storage/uplodes/{{ $banner->image }}" style="width: 50px; height:50px; box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;">
 
-                                                        <img class="text-end mt-2 mb-2 pe-auto h13" src="images/cancel1.png" data-bs-dismiss="modal">
                                                     </div>
                                                     <div class="modal-body pb-0">
                                                         Are you sure you want to delete this item?
@@ -126,52 +131,30 @@
                                                     <div class="modal-footer mt-3 justify-content-between border-top-0">
 
 
-                                                        <button  class="btn btn-danger pull-right" type="button"  data-bs-dismiss="modal">
-                                                            Cancle</button>
-                                                        <button class="btn btn-warning pull-right" href="delete_banner/{{ $banner->banner_id }}" type="submit" name="add_banner">
-                                                         Delete</button>
+                                                        <button class="btn btn-danger pull-right" type="button" data-bs-dismiss="modal">
+                                                            Cancle
+                                                        </button>
+
+                                                        <form action="{{ route('banner.destroy', $banner->banner_id) }}" method="Post">
+
+                                                            @csrf
+                                                            @method('DELETE')
+
+                                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?')">Delete</button>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                     </div>
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#popup{{ $banner->banner_id }}"><i class="fa fa-trash-o text-dark fs20" aria-hidden="true"></i></a>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#popup{{ $banner->banner_id }}" class="btn btn-danger btn-sm">Delete</a></a>
                     </td>
                     </tr>
                     @endforeach
                     </tbody>
                     </table>
-                    @if (request()->input('search') == '')
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination pager justify-content-end">
-                            @php
-                            $next = $page + 1;
-                            $previous = $page - 1;
-                            @endphp
-                            @if ($page == 1)
-                            <li class='page-item'><a class='page-link peginate'><img src='images/previous.png' alt=''></a></li>
-                            <li class='page-item'><a class='page-link peginate'><img src='images/left.png' alt=''></a></li>
-                            @else
-                            <li class='page-item'><a class='page-link peginate' href='/admin/banner?page=1'><img src='images/previous.png' alt=''></a></li>
-                            <li class='page-item'><a class='page-link peginate' href='/admin/banner?page={{ $previous }}'><img src='images/left.png' alt=''></a></li>
-                            @endif
-                            @for ($i = 1; $i <= $cnt; $i++) @if ($i==$page) <li class='page-item'><a class='page-link active text-center peginate p-0 pt-1' href='/admin/banner?page={{ $i }}'><b>{{ $i }}</b></a>
-                                </li>
-                                @else
-                                <li class='page-item'><a class='page-link text-center text-dark peginate p-0 pt-1' href='/admin/banner?page={{ $i }}'>{{ $i }}</a>
-                                </li>
-                                @endif
-                                @endfor
-                                @if ($page == $cnt)
-                                <li class='page-item'><a class='page-link peginate'><img src='images/arrow.png' alt=''></a></li>
-                                <li class='page-item'><a class='page-link peginate'><img src='images/next.png' alt=''></a></li>
-                                @else
-                                <li class='page-item'><a class='page-link peginate' href='/admin/banner?page={{ $next }}'><img src='images/arrow.png' alt=''></a></li>
-                                <li class='page-item'><a class='page-link peginate' href='/admin/banner?page={{ $cnt }}'><img src='images/next.png' alt=''></a></li>
-                                @endif
-                        </ul>
-                    </nav>
-                    @endif
+
+
                 </div>
             </div>
         </div>

@@ -16,7 +16,7 @@ class Story extends Model
         'description',
         'status',
         'published_at',
-        'story_id'  
+        'story_id'
     ];
 
     public function mission()
