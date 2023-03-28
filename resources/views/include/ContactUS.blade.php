@@ -10,14 +10,10 @@
                         @csrf
                         @method('post')
                         <div>
-                            <div class="d-flex justify-content-between">
-                                <div class="py-2 text-start">
-                                    Contact Us
-                                </div>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border:none;background:none">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                            <div class=" d-flex justify-content-between mt-3">
+                                <h6 class="modal-title fs-4" id="staticBackdropLabel">Contact Us</h6>
+                                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                        </div>
                             <div class="row">
                                 <div class="col-12 mt-4">
                                     <label for="name" class="form-label">Name*</label>
@@ -43,14 +39,9 @@
                         </div>
 
                         <div class="d-flex py-4 justify-content-end">
-                            <div class="px-1">
-                                <button type="button" class="btn btn-outline-secondary px-4" style="border-radius: 23px" data-dismiss="modal">cancel</button>
-                            </div>
-                            <div class="px-1">
-                                <button type="submit" class="btn btn-outline effects px-4" style="border-color: #f88634 ;border-radius: 23px; color: #f88634" form="form3">Save
-                                </button>
-                            </div>
-
+                                <a type="button" class="btn btn-outline-secondary px-3 rounded-pill" data-dismiss="modal">Cancel</a>&nbsp;&nbsp;
+                                <button type="button" class="btn btn-outline-warning px-3 rounded-pill"
+                                    id="saveSkillsBtn">Save</button>
                         </div>
                     </form>
                 </div>

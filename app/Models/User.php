@@ -6,10 +6,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+
 class User extends Authenticatable
 {
     use SoftDeletes;
     use HasFactory;
+    use SoftDeletes;
     protected $table = 'users';
     protected $primaryKey = 'user_id';
 
@@ -26,6 +28,11 @@ class User extends Authenticatable
         'status',
         'profile_text',
         'avatar',
+        'linked_in_url',
+        'why_i_volunteer',
+        'title',
+        'manager',
+        'availability',
     ];
 
     public function country()

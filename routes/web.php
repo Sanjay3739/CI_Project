@@ -25,31 +25,36 @@ use App\Http\Controllers\admin\ForgetPasswordController;
 use App\Http\Controllers\Admin\AdminPasswordResetController;
 use App\Http\Controllers\admin\MissionController;
 use App\Http\Controllers\CmsPagesController;
+use App\Http\Controllers\StoryInviteController;
+use App\Http\Controllers\TimeSheetsController;
 use App\Http\Controllers\UserEditProfileController;
+
+
 
 
 
 //frontend Routes
 Route::get('/', [AuthController::class, 'index'])->name('login');
 Route::get('index', function () {return view('index');})->name('index')->middleware('auth');
+Route::get('index', function () {return view('index');})->name('index')->middleware('auth');
 Route::get('logout', [AuthController::class, 'logout']);
 Route::post('custom-login', [AuthController::class, 'postLogin'])->name('login.custom');
 Route::get('forgot', function () {return view('login.forgot');})->name('forgot.password');
+Route::get('forgot', function () {return view('login.forgot');})->name('forgot.password');
 Route::post('reset', [PasswordResetController::class, 'resetPassword'])->name('check.email');
+Route::get('register', function () { return view('register.register');})->name('register');
+Route::get('forgot-password/{token}', function ($token) {return view('reset', [$token]);});
 Route::get('register', function () { return view('register.register');})->name('register');
 Route::get('forgot-password/{token}', function ($token) {return view('reset', [$token]);});
 Route::post('register', [AuthController::class, 'register'])->name('post-register');
 Route::post('password-resetting', [PasswordResetController::class, 'passwordResetting'])->name('password-resetting');
 Route::get('filter-data',[LandingPageController::class,'filterData']);
-Route::get('policy', [CmsPagesController::class, 'index']);
+// Route::get('policy', [CmsPagesController::class, 'index']);
 Route::get('policy', [CmsPagesController::class, 'index'])->name('privacypolicy');
 Route::post('update-profile', [UserEditProfileController::class,'updateProfile'])->name('update-profile');
 Route::get('edit-profile/{user_id}', [UserEditProfileController::class,'editProfile'])->name('edit-profile')->middleware('auth');
 Route::post('logout', [UserEditProfileController::class,'logout'])->name('logout');
-Route::get('index',[LandingPageController::class, 'index'])->name('landing.index')->middleware('auth');
-Route::post('index',[LandingPageController::class, 'index'])->name('landing.index')->middleware('auth');
-Route::get('filter-data',[LandingPageController::class,'filterData']);
-Route::get('mission-page/{mission_id}',[MissionDetailController::class,'main'])->name('mission-page');
+
 
 
 

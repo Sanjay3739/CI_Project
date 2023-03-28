@@ -5,7 +5,7 @@
         <div class="col-md-4 col-sm-6">
           <div class="d-flex justify-content-end">
             <div class="px-4">
-              <a  class="btn text-muted no-decor" href="#">Stories</a>
+              <a  class="btn text-muted no-decor" href="{{url('/sharestory')}}">Stories</a>
             </div>
             <div class="dropdown show ">
               <a class="btn text-muted btn-white dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -22,13 +22,15 @@
         </div>
         <div class="dropdown">
            <a class="btn text-muted btn-white dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img class="rounded-circle px-3" src="{{ Auth::user()->avatar ? asset(Auth::user()->avatar) : asset('Images/user-img1.png') }}" alt="Profile" style="height:54px">
+            <img class="rounded-circle px-3" id="header-avatar" src="{{ Auth::user()->avatar ? asset(Auth::user()->avatar) : asset('Images/user-img1.png') }}" alt="Profile" style="height:54px">
             <span id="userAvatar">{{ isset($user) ? $user->first_name . ' ' . $user->last_name : '' }}</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="{{ route('edit-profile', ['user_id' => Auth::user()->user_id]) }}">My Profile</a>
+            <a class="dropdown-item" href="{{url('/timesheet')}}">Volunteering Timesheet</a>
               <a class="dropdown-item" href="{{route('login')}}">Logout</a>
-              <a class="dropdown-item" href="{{route('adminlogin')}}">Login as Admin</a>
-              <a class="dropdown-item" href="{{ route('edit-profile', ['user_id' => Auth::user()->user_id]) }}">Edit Your Profile</a>
+
+
           </div>
         </div>
       </div>
