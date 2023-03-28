@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\CountryCityController;
+use App\Http\Controllers\UserEditProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::post('fetch-city',[CountryCityController::class,'fetchCity']);
+Route::post('/users/update-password',[UserEditProfileController::class, 'updatePassword'])->name('users.update-password');
+Route::post('/users/update-skills', [UserEditProfileController::class, 'updateSkills'])->name('users.update-skills');
 
 
 

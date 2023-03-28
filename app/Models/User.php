@@ -33,6 +33,9 @@ class User extends Authenticatable
         'avatar',
         'linked_in_url',
         'why_i_volunteer',
+        'title',
+        'manager',
+        'availability',
     ];
 
     public function country()

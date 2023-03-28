@@ -22,18 +22,17 @@ class UserProfileUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            // 'email' => 'bail|required|email',
-            // 'phone_number' => 'bail|required|numeric',
-            // 'password' => 'required',
-            // 'confirm_password' => 'bail|required|same:password',
-            'employee_id' => 'numeric',
-            // 'avatar' => 'required',
-            // 'department' => 'required',
+            'avatar'=>'max:2048',
+            'first_name' => 'required|max:16',
+            'last_name' => 'required|max:16',
+            'employee_id' => 'max:16',
+            'title'=>'max:255',
+            'department' => 'max:16',
             'profile_text' => 'required',
+            'why_i_volunteer' => 'required',
             'country_id' => 'required',
             'city_id' => 'required',
+            'linked_in_url'=>'max:255',
 
         ];
     }

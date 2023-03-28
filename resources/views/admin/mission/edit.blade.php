@@ -83,6 +83,11 @@
                     <input type='date' class="form-control" name='start_date'
                         value=" {{ date('Y-m-d', strtotime($mission->start_date)) }}" />
                 </div>
+                @error('start_date')
+                    <div class="text-danger">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="col-md-6">
                 <label for="inputPassword4" class="form-label">Mission End Date</label>

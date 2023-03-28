@@ -4,7 +4,7 @@
     <!-- Sidebar Toggle-->
     <div style="width: 225px; background-color:#F88634; height: inherit;" id="filler-gap"></div>
     <div>
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 px-3" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+        <button class="btn btn-outline-warning btn-sm order-1 order-lg-0 me-4 me-lg-0 px-3" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
     </div>
     <div>
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">

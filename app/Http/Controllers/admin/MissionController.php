@@ -192,7 +192,7 @@ class MissionController extends Controller
         $newMissionType = $request->post('mission_type');
         $mission->fill($request->post())->save();
         $mission->update($request->all());
-        
+
         // Move mission data between tables based on mission type change
         if ($currentMissionType !== $newMissionType) {
             if ($currentMissionType === 'TIME') {

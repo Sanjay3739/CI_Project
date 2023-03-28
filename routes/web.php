@@ -24,6 +24,8 @@ use App\Http\Controllers\admin\ForgetPasswordController;
 use App\Http\Controllers\Admin\AdminPasswordResetController;
 use App\Http\Controllers\admin\MissionController;
 use App\Http\Controllers\CmsPagesController;
+use App\Http\Controllers\StoryInviteController;
+use App\Http\Controllers\TimeSheetsController;
 use App\Http\Controllers\UserEditProfileController;
 
 
@@ -51,7 +53,8 @@ Route::get('policy', [CmsPagesController::class, 'index'])->name('privacypolicy'
 Route::post('update-profile', [UserEditProfileController::class,'updateProfile'])->name('update-profile');
 Route::get('edit-profile/{user_id}', [UserEditProfileController::class,'editProfile'])->name('edit-profile')->middleware('auth');
 Route::post('logout', [UserEditProfileController::class,'logout'])->name('logout');
-
+Route::resource('/timesheet',TimeSheetsController::class);
+Route::get('/sharestory',[StoryInviteController::class, 'stories']);
 
 
 
