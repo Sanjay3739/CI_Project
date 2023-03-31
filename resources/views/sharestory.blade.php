@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    Volunteeringtimesheet
+    Share Your Story
 @endsection
 @section('content')
     <div class="container mt-5">
@@ -53,32 +53,50 @@
                 @enderror
             </div>
             <div class="col-lg-12 mt-3">
-                <label for="photoes"class="form-label">Upload your photoes</label>
+                {{-- <div class="col-lg-12 mt-5">
+                    <label for="UploadYourPhotos" class="form-label">Upload your Photos</label>
+                    <div style="border: 2px dashed #d8d7d7; padding: 20px; text-align: center;">
+                        <i class="fas fa-plus" style="font-size: 40px;"></i>
+                        <div style="margin-top: 20px;">Drag and Drop Pictures Here</div>
+                    </div>
+                </div> --}}
+
+
+                {{-- <label for="photoes"class="form-label">Upload your photoes</label>
                 <select name="photos[]" class="form-control" id="upload_photo" multiple>
                     {{-- @foreach ($mission_skills as $skill)
                         <option value="{{ $skill->skill_id }}">{{ $skill->skill_name }}</option>
                     @endforeach --}}
-                </select>
+                {{-- </select>
                 @error('photos')
                     <div class="text-danger">
                         {{ $message }}
                     </div>
                 @enderror
-                </select>
+                </select> --}}
+                <div class="uploadOuter">
+                    <label for="uploadFile" class="btn btn-primary">Upload Image</label>
+                    <strong>OR</strong>
+                    <span class="dragBox">
+                        Darg and Drop image here
+                        <input type="file" onChange="dragNdrop(event)" ondragover="drag()" ondrop="drop()"
+                            id="uploadFile" />
+                    </span>
+                </div>
+                <div id="preview"></div>
+
             </div>
+
+
             <div class="row">
                 <div class=" mt-4">
-                    <button type="button" class="btn px-4  btn-outline-secondary  rounded-pill float-start" data-toggle="modal"
-                    data-target="#addSkillsModal">Cancel</button>
+                    <button type="button" class="btn px-4  btn-outline-secondary  rounded-pill float-start">Cancel</button>
                     <button type="submit" class="btn px-4 btn-outline-warning ms-3 rounded-pill float-end">
                         Submit</button>
-                    <button type="button" class="btn px-4 btn-outline-warning rounded-pill float-end"
-                        data-dismiss="modal">Save</button>
-
+                    <button type="button" class="btn px-4 btn-outline-warning rounded-pill float-end">Save</button>
                 </div>
             </div>
         </div>
 
     </div>
-
 @endsection

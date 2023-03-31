@@ -102,7 +102,7 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label for="inputType" class="form-label                                  ">Mission Type</label>
+                <label for="inputType" class="form-label">Mission Type</label>
                 <select id="inputType" class="form-select" name='mission_type' onchange="handleMissionTypeChange(this)">
                     <option value="none" selected="" disabled="" hidden="">select mission type</option>
                     <option value="time" {{ $mission->mission_type === 'TIME' ? 'selected' : '' }}>Time</option>

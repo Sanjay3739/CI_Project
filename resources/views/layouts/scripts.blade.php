@@ -11,9 +11,12 @@ CKEDITOR.replace( 'summary-ckeditor' );
 <script src="{{asset('admin/assets/demo/chart-bar-demo.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 <script src="{{asset('admin/js/datatables-simple-demo.js')}}"></script>
-{{--
-<script>
+
+{{-- <script>
     setTimeout(() => {
-        $('.alert').alert('close');
-    }, 3000);
+        $('.alert').alert('2000');
+    }, 2000);
 </script> --}}
+<script>
+    $(".alert").slideUp(2000);
+</script>

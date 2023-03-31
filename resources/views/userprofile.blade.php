@@ -62,6 +62,11 @@
                                     <label for="title" class="form-label">Title</label>
                                     <input type="text" class="form-control" id="title" name='title'
                                         placeholder="Enter your title" value="{{ $user->title }}">
+                                        @error('title')
+                                        <div class="text-danger">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                                 <div class="col-lg-6 mt-3">
                                     <label for="department" class="form-label">Department</label>

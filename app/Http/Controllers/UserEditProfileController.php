@@ -58,7 +58,7 @@ class UserEditProfileController extends Controller
         $request->validate([
             'old_password' => [
                 'required',
-                function ($value, $fail) use ($request) {
+                function ($attitibute, $value, $fail) use ($request) {
                     $user = User::find($request->user_id);
                     if (!$user || !Hash::check($value, $user->password)) {
                         $fail('The old password is incorrect.');
