@@ -24,7 +24,7 @@ class CmsPageController extends Controller
                           ->get();
                 }
             }]
-        ])->paginate(10)
+        ])->paginate(20)
           ->appends(['s'=>$request->s]);
         return view('admin.cmspage.index',compact('data'));
     }
@@ -42,7 +42,7 @@ class CmsPageController extends Controller
      */
     public function store(StoreCmsPageRequest $request): RedirectResponse
     {
-        dd ($request);
+        // dd ($request);
         $request->validated();
         CmsPage::create($request->post());
         return redirect()->route('cmspage.index')->with('success','field has been created successfully.');

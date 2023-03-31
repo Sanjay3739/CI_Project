@@ -32,9 +32,9 @@ class AuthController extends Controller
         ]);
         $credentionals = $request->only('email', 'password');
         if (Auth::attempt($credentionals)) {
-            return redirect()->intended('index');
+            return redirect()->intended('index'); //direction in index main page......
         } else {
-            return redirect()->intended('/')->with('status', 'Oppes! Credentials Passed are INCORRECT');
+            return redirect()->intended('/')->with('status', 'Oppes!  Password are INCORRECT');
         }
     }
 
@@ -53,10 +53,7 @@ class AuthController extends Controller
         if (User::where('email', $request->email)->count() === 0) {
             $user = User::create([
                 'first_name' => $request->first_name,
-
                 'last_name' => $request->last_name,
-
-
                 'phone_number' => $request->phone_number,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),

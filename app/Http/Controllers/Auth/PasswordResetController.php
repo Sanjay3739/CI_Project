@@ -16,6 +16,7 @@ class PasswordResetController extends Controller
     {
         $request->validate([
             'email' => 'required',
+            
         ]);
         $link = '<a style="text-decoration:none;" href="{{route(\'register\')}}">Create an account</a>';
         if (User::where('email', $request->email)->get()->isEmpty()) {

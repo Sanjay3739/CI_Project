@@ -28,12 +28,12 @@ class ApplicationController extends Controller
     public function approve_app($mission_application_id)
     {
         MissionApplication::where('mission_application_id', $mission_application_id)->update(['approval_status' => 'APPROVE']);
-        return redirect("admin/application")->with('message', 'Application Approved');
+        return redirect("application")->with('message', 'Application Approved');
     }
 
     public function decline_app($mission_application_id)
     {
         MissionApplication::where('mission_application_id', $mission_application_id)->update(['approval_status' => 'DECLINE']);
-        return redirect("admin/application")->with('message', 'Application Decline');
+        return redirect("application")->with('message', 'Application Decline');
     }
 }

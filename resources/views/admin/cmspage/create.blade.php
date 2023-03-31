@@ -1,6 +1,6 @@
 @extends('admin.app')
 @section('title')
-    CMS Page
+    CMS-Create
 @endsection
 @section('body')
     <div class="container-fluid px-4">

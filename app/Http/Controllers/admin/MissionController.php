@@ -32,11 +32,11 @@ class MissionController extends Controller
             [function ($query) use ($request) {
                 if (($s = $request->s)) {
                     $query->orWhere('title', 'LIKE', '%' . $s . '%')
-                        ->orWhere('mission_type', 'LIKE', '%' . $s. '%')
+                        ->orWhere('mission_type', 'LIKE', '%' . $s . '%')
                         ->get();
                 }
             }],
-        ])->orderByDesc('mission_id')->paginate(10)
+        ])->orderByDesc('mission_id')->paginate(20)
             ->appends(['s' => $request->s]);
         return view('admin.mission.index', compact('data'));
     }

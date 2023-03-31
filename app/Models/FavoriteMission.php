@@ -20,12 +20,12 @@ class FavoriteMission extends Model
 
     public function user() {
         return $this->hasOne(User::class, 'user_id');
-        //changes
+        
     }
 
     public function mission() {
         return $this->hasOne(Mission::class, 'mission_id');
-        //changes
+        
     }
 }
 

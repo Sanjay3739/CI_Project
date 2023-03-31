@@ -13,42 +13,50 @@ use Illuminate\Support\Facades\DB;
 
 class StoryController extends Controller
 {
+
     public function index(Request $request)
     {
+        $query = $request->input('search');
+
         $stories = Story::join('users', 'users.user_id', '=', 'stories.user_id')
             ->join('missions', 'missions.mission_id', '=', 'stories.mission_id')
-            ->get(['story_id', 'stories.title as story_title', 'users.first_name', 'users.last_name', 'missions.title']);
+            ->where('stories.title', 'LIKE', '%'.$query.'%')
+            ->orWhere('users.first_name', 'LIKE', '%'.$query.'%')
+            ->orWhere('users.last_name', 'LIKE', '%'.$query.'%')
+            ->orWhere('missions.title', 'LIKE', '%'.$query.'%')
+            ->select('story_id', 'stories.title as story_title', 'users.first_name', 'users.last_name', 'missions.title')
+            ->paginate(20);
+
+        $stories->appends(['search' => $query]);
 
         return view('admin.story.story', compact('stories'));
     }
+
+
     public function destroy($story_id)
     {
         Story::where('story_id', $story_id)->delete(['deleted_at' => Carbon::now()->toDateTimeString()]);
         return back()->with('success', 'Successfully Deleted');
     }
 
+    public function approve($story_id)
+    {
+        Story::where('story_id', $story_id)->update(['status' => 'PUBLISHED']);
+        return redirect('story')->with('message', 'Story published');
+    }
+
+    public function decline($story_id)
+    {
+        Story::where('story_id', $story_id)->update(['status' => 'DECLINED']);
+        return redirect('story')->with('message', 'Story declined');
+    }
+
     public function show($story_id)
     {
         $story = Story::join('users','users.user_id', '=', 'stories.user_id')->join('missions', 'missions.mission_id', '=', 'stories.mission_id')->where(['story_id' => $story_id])->first((['*', 'stories.title AS story_title', 'stories.description AS story_desc']));
         $medias = StoryMedia::where(['story_id' => $story_id ])->get();
-        foreach ($medias as $media) {
-            $media->image_path = $media->getImagePath();
-        }
-        return view('admin.story.view_story', compact('story', 'medias'));
-    }
-
-
-
-    public function approve($story_id)
-    {
-        Story::where('story_id', $story_id)->update(['status' => 'PUBLISHED']);
-        return redirect("story/story")->with('message', 'Story Approved');
-    }
-
-    public function disapprove($story_id)
-    {
-        Story::where('story_id', $story_id)->update(['status' => 'DECLINE']);
-        return redirect("story/story")->with('message', 'Story declined');
+        // $medias['ogPath'] = storage_public('images/' . $medias->path);
+        return view('admin.story.view_story', compact('story','medias'));
     }
 }
 

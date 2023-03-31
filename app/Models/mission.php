@@ -32,17 +32,16 @@ class Mission extends Model
     protected $dates = ['deleted_at'];
 
 
-    public function country(): HasOne
-    {
+    public function country(): HasOne {
+    
         return $this->hasOne(Country::class, 'country_id', 'country_id');
     }
-    public function city(): HasOne
-    {
+    public function city(): HasOne {
         return $this->hasOne(City::class, 'city_id', 'city_id');
     }
 
     public function missionTheme(): HasOne{
-        return $this->hasOne(MissionTheme::class, 'mission_id', 'mission_id','mission_theme_id' , 'title',  'theme_id');
+        return $this->hasOne(MissionTheme::class, 'mission_id','mission_id','mission_theme_id' , 'title',  'theme_id');
     }
 
     public function missionApplication()
@@ -83,7 +82,7 @@ class Mission extends Model
 
     public function favoriteMission()
     {
-        return $this->hasMany(FavoriteMission::class, 'mission_id');
+        return $this->belongsTo(FavoriteMission::class, 'mission_id','mission_id');
     }
 
     public function goalMission()

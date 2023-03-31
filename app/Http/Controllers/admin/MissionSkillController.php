@@ -25,7 +25,7 @@ class MissionSkillController extends Controller
                           ->get();
                 }
             }]
-        ])->paginate(10)
+        ])->paginate(20)
           ->appends(['s'=>$request->s]);
         //$data = Skill::orderBy('skill_id','desc')->paginate(10);
         return view("admin.missionskill.index",compact('data'));
@@ -45,7 +45,7 @@ class MissionSkillController extends Controller
     public function store(StoreSkillRequest $request)
     {
         Skill::create($request->post());
-        return redirect()->route('missionskill.index')->with('success','New Record is Updated');
+        return redirect()->route('missionskill.index')->with('success','New Record is Created');
     }
 
     /**
@@ -85,6 +85,6 @@ class MissionSkillController extends Controller
     {
         $skill->find($id)
               ->delete();
-        return back()->with('success','Successfully deleted Selected item');
+        return back()->with('success','Successfully item deleted');
     }
 }

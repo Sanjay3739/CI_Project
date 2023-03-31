@@ -18,7 +18,7 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    
+
     public function index(Request $request)
     {
 
@@ -34,7 +34,7 @@ class UserController extends Controller
                         ->get();
                 }
             }]
-        ])->paginate(10)
+        ])->paginate(20)
             ->appends(['s' => $request->search]);
 
 

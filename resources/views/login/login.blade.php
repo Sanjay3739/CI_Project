@@ -101,7 +101,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="" class="login-text mt-"4>Email Address</label>
-                        <input type="email" class="form-control m-1" name="email"  placeholder="" value="{{old('name')}}" >
+                        <input type="email" class="form-control m-1" name="email"  placeholder="" value="{{old('email')}}" >
                         @error('email')
                             <div class="text-danger">
                                 {{$message}}

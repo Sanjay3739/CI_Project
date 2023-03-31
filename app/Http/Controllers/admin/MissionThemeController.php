@@ -22,7 +22,7 @@ class MissionThemeController extends Controller
                 }
 
             }]
-        ])->paginate(10)
+        ])->paginate(20)
         ->appends(['s'=>$request->s]);
 
         // $data = MissionTheme::all();

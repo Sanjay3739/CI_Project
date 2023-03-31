@@ -48,7 +48,10 @@ Route::get('register', function () { return view('register.register');})->name('
 Route::get('forgot-password/{token}', function ($token) {return view('reset', [$token]);});
 Route::post('register', [AuthController::class, 'register'])->name('post-register');
 Route::post('password-resetting', [PasswordResetController::class, 'passwordResetting'])->name('password-resetting');
+Route::get('index',[LandingPageController::class, 'index'])->name('landing.index')->middleware('auth');
+Route::post('index',[LandingPageController::class, 'index'])->name('landing.index')->middleware('auth');
 Route::get('filter-data',[LandingPageController::class,'filterData']);
+
 // Route::get('policy', [CmsPagesController::class, 'index']);
 Route::get('policy', [CmsPagesController::class, 'index'])->name('privacypolicy');
 Route::post('update-profile', [UserEditProfileController::class,'updateProfile'])->name('update-profile');
@@ -83,7 +86,7 @@ Route::resource('missionskill', MissionSkillController::class)->withTrashed();
 Route::resource('user', UserController::class)->withTrashed();
 Route::resource('story', StoryController::class);
 Route::get('approve/{story_id}', [StoryController::class, 'approve']);
-Route::get('disapprove/{story_id}', [StoryController::class, 'disapprove']);
+Route::get('decline/{story_id}', [StoryController::class, 'decline']);
 Route::get('admin/banner',[BannerController::class, 'banner'])->name('banner');
 Route::get('admin/add_banner',[BannerController::class, 'add_banner']);
 Route::get('admin/edit_banner/{banner_id}',[BannerController::class, 'edit_banner']);
@@ -91,7 +94,7 @@ Route::post('admin/banner',[BannerController::class, 'banner']);
 Route::post('add-banner', [BannerController::class, 'banner_add'])->name('banner.add');
 Route::post('edit-banner', [BannerController::class, 'banner_edit'])->name('banner.edit');
 Route::delete('admin/delete_banner/{banner_id}',[BannerController::class, 'destroy'])->name('banner.destroy');
-Route::resource('admin/application', ApplicationController::class);
-Route::get('admin/approve_app/{mission_application_id}', [ApplicationController::class, 'approve_app']);
-Route::get('admin/decline_app/{mission_application_id}', [ApplicationController::class, 'decline_app']);
-
+Route::resource('application', ApplicationController::class);
+Route::get('approve_app/{mission_application_id}', [ApplicationController::class, 'approve_app']);
+Route::get('decline_app/{mission_application_id}', [ApplicationController::class, 'decline_app']);
+Route::get('mission-page/{mission_id}',[MissionDetailController::class,'main'])->name('mission-page');

@@ -1,6 +1,6 @@
 @extends('admin.app')
 @section('title')
-    Edit Mission
+     Mission-Edit
 @endsection
 @section('body')
     <div class="container-fluid px-4">
