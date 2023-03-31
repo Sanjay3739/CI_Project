@@ -28,12 +28,12 @@
 
                 <div class="border-start input-group h-100 px-2">
                     <div class="dropdown w-100">
-                        <button class="btn btn-none text-secondary form-select" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-none text-secondary form-select" type="button" id="country-drop-down" data-bs-toggle="dropdown" aria-expanded="false">
                             <span class="float-start ps-0 pe-5">
                                 Country
                             </span>
                         </button>
-                        <div class="dropdown-menu px-2" aria-labelledby="dropdownMenuButton">
+                        <div class="dropdown-menu px-2" aria-labelledby="country-drop-down">
                             <div>
                                 @foreach ($countries as $country)
                                 <div class="form-check">
@@ -57,6 +57,13 @@
                         </button>
                         <div class="dropdown-menu px-2" aria-labelledby="dropdownMenuButton" style="overflow: scroll; max-height: 500px; max-width: fit-content">
                             <div id="city_dropper">
+                                @foreach ($cities as $city)
+                                <div class='form-check'>
+                                    <input class='form-check-input' type='checkbox' value="{{ $city->city_id }}" id='city_option_{{ $city->city_id }}'>
+                                    <label class='form-check-label text-secondary' for='city_option_{{ $city->city_id }}' id='city_label_{{ $city->city_id }}'>{{ $city->name }}</label>
+                                </div>
+                                @endforeach
+
                             </div>
                         </div>
                     </div>
@@ -642,6 +649,10 @@
                         "<label class='form-check-label text-secondary' for='city_option_" + value.city_id + "' id='city_label_" + value.city_id + "'>" + value.name + "</label>" +
                         "</div>");
                 });
+
+            }
+            , error: function(error) {
+                console.log(error);
             }
         });
         return;

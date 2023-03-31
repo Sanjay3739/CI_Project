@@ -57,7 +57,7 @@ Route::get('policy', [CmsPagesController::class, 'index'])->name('privacypolicy'
 Route::post('update-profile', [UserEditProfileController::class,'updateProfile'])->name('update-profile');
 Route::get('edit-profile/{user_id}', [UserEditProfileController::class,'editProfile'])->name('edit-profile')->middleware('auth');
 Route::post('logout', [UserEditProfileController::class,'logout'])->name('logout');
-
+Route::resource('timesheet', TimesheetsController::class);
 
 
 
