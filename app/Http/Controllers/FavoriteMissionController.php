@@ -14,7 +14,7 @@ class FavoriteMissionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index():Response
+    public function index(): Response
     {
         //
     }

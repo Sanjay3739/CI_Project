@@ -1,6 +1,6 @@
 @extends('admin.app')
 @section('title')
-    Mission
+Mission
 @endsection
 @section('body')
     <div class="container-fluid px-4">
@@ -71,7 +71,45 @@
                 <div>
                     {!! $missiondata->links('pagination::bootstrap-4') !!}
                 </div>
+                <a href="{{ route('mission.create') }}">
+                    <button type="button" class="btn px-4 text-right btn-outline-warning" style="border-radius:18px">Add</button>
+                </a>
+            </div>
+            <table class="table table responsive table-bordered">
+                <thead>
+                    <tr>
+                        <th>Mission Title</th>
+                        <th>Mission Type</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th width="150px">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($data as $d)
+                    <tr>
+                        <td>{{ $d->title }}</td>
+                        <td>{{ $d->mission_type }}</td>
+                        <td>{{ $d->start_date }}</td>
+                        <td>{{ $d->end_date }}</td>
+                        <td>
+                            <form action="{{ route('mission.destroy', $d->mission_id) }}" method="post">
+                                <a class="btn btn-white" href="{{ route('mission.edit', $d->mission_id) }}">
+                                    <img src="Images/edit.png" height="22px" width="22px" alt="edit">
+                                </a>
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm" onclick="return confirm('Are you sure you want to delete this item?')"><img src="Images/bin.png" alt="delete"></button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <div>
+                {!! $data->links('pagination::bootstrap-4') !!}
             </div>
         </div>
     </div>
+</div>
 @endsection

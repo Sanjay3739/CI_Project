@@ -8,15 +8,24 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use App\Models\Banner;
 
 class PasswordResetController extends Controller
 {
 
+    public function postforgot(Request $request)
+    {
+
+        $banners = Banner::orderBy('sort_order','asc')->get();
+        return view('login.forgot', compact('banners'));
+    }
+
     public function resetPassword(Request $request)
     {
+
         $request->validate([
             'email' => 'required',
-            
+
         ]);
         $link = '<a style="text-decoration:none;" href="{{route(\'register\')}}">Create an account</a>';
         if (User::where('email', $request->email)->get()->isEmpty()) {
@@ -48,10 +57,15 @@ class PasswordResetController extends Controller
             }
         }
     }
-
+    public function postreset(Request $request)
+    {$token = $request->route()->parameter('token');
+        $banners = Banner::orderBy('sort_order','asc')->get();
+        return view('reset', compact('banners'))->with(['token' => $token, 'email' =>$request->email]);
+    }
 
     public function passwordResetting(Request $request)
     {
+
 
 
         $request->validate([
@@ -80,7 +94,7 @@ class PasswordResetController extends Controller
 
         User::where('email', $email)->update(['password' => bcrypt($request['password'])]);
 
-        return redirect()->intended('/')->with('success', 'speed!! Password
+        return redirect()->intended('/')->with('success', 'spending!! Password
          Successfully change');
     }
 }

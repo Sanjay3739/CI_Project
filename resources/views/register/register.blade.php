@@ -15,7 +15,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
     <style>
-
         input[type="password"]:invalid {
             border: 1.5px solid rgb(255, 0, 0);
         }
@@ -27,6 +26,7 @@
         input[type="number"]:invalid {
             border: 1.5px solid red;
         }
+
         input[type="password"]:valid {
             border: 1.5px solid rgb(0, 255, 0);
         }
@@ -38,61 +38,30 @@
         input[type="number"]:valid {
             border: 1.5px solid rgb(0, 255, 13);
         }
-        input::selection{
+
+        input::selection {
             background: #00ff00;
-            
+
         }
-
-
 
     </style>
 </head>
-
-
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid" style=" padding-left: 0px !important">
         <div class="row">
             <div class="col-lg-8">
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img class="d-block w-100 h-100" src="images/grow.png" class="img-fluid" alt="First slide">
+                        @foreach ($banners as $banner)
+                        <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                            <img class="d-block  img-fluid" src="/storage/uplodes/{{ $banner->image }}" alt="good so good" style="height:765px; width:100%;" title="" />
 
                             <div class="carousel-caption d-none d-md-block">
-                                <h3>Sed ut perspiciatis unde omnis iste natus voluptatem.</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                                    deserunt mollit anim id est laborum.</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <img class="d-block w-100 h-100" src="images/grow.png" class="img-fluid" alt="Second slide">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h3>Sed ut perspiciatis unde omnis iste natus voluptatem.</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                                    deserunt mollit anim id est laborum.</p>
-                            </div>
 
-                        </div>
-                        <div class="carousel-item">
-                            <img class="d-block w-100 h-100" src="images/grow.png" class="img-fluid" alt="Third slide">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h3>Sed ut perspiciatis unde omnis iste natus voluptatem.</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                                    deserunt mollit anim id est laborum.</p>
+                                {!! $banner->text !!}
                             </div>
                         </div>
+                        @endforeach
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -103,6 +72,7 @@
                         <span class="sr-only">Next</span>
                     </a>
                 </div>
+
             </div>
             <div class="col-lg-4  lg-mt-2">
                 @if(Session::has('success'))
@@ -117,7 +87,7 @@
                 <form action="{{ route('post-register') }}" method='post'>
                     @csrf
                     <div class="col">
-                        <label for="inputFirstName" class="col-form-label"> First Name</label>
+                        <label for="First Name" class="col-form-label"> First Name</label>
 
                         <input type="text" class="form-control" name="first_name" id="" value="">
                         @error('first_name')
@@ -128,7 +98,7 @@
                     </div>
 
                     <div class="col">
-                        <label for="inputLastName" class="col-form-label"> Last Name</label>
+                        <label for="Last Name" class="col-form-label"> Last Name</label>
 
                         <input type="text" class="form-control" name="last_name" id="" value="">
                         @error('last_name')
@@ -150,7 +120,7 @@
                     <div class="col">
                         <label for="inputEmail" class="col-form-label"> Email</label>
 
-                        <input type="email" class="form-control" name="email" id="" value="" >
+                        <input type="email" class="form-control" name="email" id="" value="">
                         @error('email')
                         <div class="text-danger">
                             {{$message}}

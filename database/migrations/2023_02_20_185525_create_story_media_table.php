@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('story_media', function (Blueprint $table) {
             $table->bigIncrements('story_media_id');
             $table->unsignedBigInteger('story_id');
-            $table->foreign('story_id')->references('story_id')->on('stories');
+            $table->foreign('story_id')->references('story_id')->on('stories')->onDelete('cascade');
             $table->string('type', 8);
             $table->text('path');
             $table->timestamps();

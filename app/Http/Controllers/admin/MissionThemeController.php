@@ -16,14 +16,14 @@ class MissionThemeController extends Controller
         $data = MissionTheme::where([
             ['title', '!=', Null],
             [function ($query) use ($request) {
-                if (($s = $request->search)) {
-                    $query->orWhere('title', 'LIKE', '%' . $s . '%')
+                if (($rat = $request->search)) {
+                    $query->orWhere('title', 'LIKE', '%' . $rat . '%')
                         ->get();
                 }
 
             }]
         ])->paginate(20)
-        ->appends(['s'=>$request->s]);
+        ->appends(['rat'=>$request->rat]);
 
         // $data = MissionTheme::all();
 
@@ -38,13 +38,10 @@ class MissionThemeController extends Controller
     public function store(Request $request)
     {
         $data = new MissionTheme;
-
         $data->title = $request->title;
-        $data->status = $request->has('status');
-
+        $data->status = $request->status;
         $data->save();
-
-        return redirect()->route('missiontheme.index');
+        return redirect()->route('missiontheme.index')->with('message', 'New Theme added sucessfully 😁👌');
     }
 
 
@@ -72,7 +69,7 @@ class MissionThemeController extends Controller
         $data->title = $request->title;
         $data->status = $request->has('status');
         $data->save();
-        return redirect()->route('missiontheme.index');
+        return redirect()->route('missiontheme.index')->with('message', 'Your!..... Theme Updated sucessfully 🙂👍');
     }
 
     public function destroy(MissionTheme $data, $id)
@@ -80,6 +77,6 @@ class MissionThemeController extends Controller
         $data = MissionTheme::where('mission_theme_id', $id);
         $data->delete();
 
-        return redirect()->route('missiontheme.index');
+        return redirect()->route('missiontheme.index')->with('message', ' Theme Deleted sucessfully 😒');
     }
 }

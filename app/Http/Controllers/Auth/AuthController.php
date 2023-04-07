@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Banner;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use \Illuminate\Support\Facades\Session;
@@ -13,9 +13,11 @@ class AuthController extends Controller
 {
 
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('login.login');
+
+        $banners = Banner::orderBy('sort_order','asc')->get();
+        return view('login.login', compact('banners'));
     }
 
     public function logout()
@@ -32,20 +34,29 @@ class AuthController extends Controller
         ]);
         $credentionals = $request->only('email', 'password');
         if (Auth::attempt($credentionals)) {
-            return redirect()->intended('index'); //direction in index main page......
+            return redirect()->intended('index')->with('sucsess  ', 'your account opened'); //direction in index main page......
         } else {
-            return redirect()->intended('/')->with('status', 'Oppes!  Password are INCORRECT');
+            return redirect()->intended('/')->with('failed  ', 'Oppes!  Password are INCORRECT');
         }
+    }
+
+
+    public function postregister(Request $request)
+    {
+
+        $banners = Banner::orderBy('sort_order','asc')->get();
+        return view('register.register', compact('banners'));
     }
 
     public function register(Request $request)
     {
+
         $this->validate($request, [
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
             'phone_number' => 'required',
             'email' => 'required|email|max:255',
-        // 'password' => 'required|min:8|confirmed',
+            // 'password' => 'required|min:8|confirmed',
             'email' => 'required|email',
             'password' => 'required',
         ]);
@@ -64,4 +75,3 @@ class AuthController extends Controller
         }
     }
 }
-

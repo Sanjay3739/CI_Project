@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\admin\CmsPageController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\MissionDetailController;
+use App\Http\Controllers\VolunteeringTimesheetController;
 
 
 
@@ -33,22 +34,25 @@ use App\Http\Controllers\UserEditProfileController;
 
 
 //frontend Routes
+Route::get('index', function () {return view('index');})->name('index')->middleware('auth');
 Route::get('/', [AuthController::class, 'index'])->name('login');
-Route::get('index', function () {return view('index');})->name('index')->middleware('auth');
-Route::get('index', function () {return view('index');})->name('index')->middleware('auth');
+Route::get('postregister', [AuthController::class, 'postregister'])->name('register');
 Route::get('logout', [AuthController::class, 'logout']);
 Route::post('custom-login', [AuthController::class, 'postLogin'])->name('login.custom');
-Route::get('forgot', function () {return view('login.forgot');})->name('forgot.password');
-Route::get('forgot', function () {return view('login.forgot');})->name('forgot.password');
+Route::get('forgot', [PasswordResetController::class, 'postforgot'])->name('forgot.password');
+// Route::get('forgot', function () {return view('login.forgot');})->name('forgot.password');
 Route::post('reset', [PasswordResetController::class, 'resetPassword'])->name('check.email');
-Route::get('register', function () { return view('register.register');})->name('register');
-Route::get('forgot-password/{token}', function ($token) {return view('reset', [$token]);});
-Route::get('register', function () { return view('register.register');})->name('register');
-Route::get('forgot-password/{token}', function ($token) {return view('reset', [$token]);});
+// Route::get('register', function () { return view('register.register');})->name('register');
+// Route::get('forgot-password/{token}', function ($token) {return view('reset', [$token]);});
+Route::get('forgot-password/{token}', [PasswordResetController::class, 'postreset']);
 Route::post('register', [AuthController::class, 'register'])->name('post-register');
 Route::post('password-resetting', [PasswordResetController::class, 'passwordResetting'])->name('password-resetting');
+
 Route::get('index',[LandingPageController::class, 'index'])->name('landing.index')->middleware('auth');
-Route::post('index',[LandingPageController::class, 'index'])->name('landing.index')->middleware('auth');
+Route::get('index-filter',[LandingPageController::class, 'filterApply'])->name('landing.filterApply')->middleware('auth');
+Route::get('index/find-city',[LandingPageController::class, 'findCity']);
+Route::get('index/find-theme',[LandingPageController::class, 'findTheme']);
+Route::get('index/find-skill',[LandingPageController::class, 'findSkill']);
 Route::get('filter-data',[LandingPageController::class,'filterData']);
 
 // Route::get('policy', [CmsPagesController::class, 'index']);
@@ -61,6 +65,31 @@ Route::get('sharestory',[ShareStoryController::class, 'index']);
 Route::resource('stories', ShareStoryController::class);
 Route::get('storylisting',[StoryListingController::class, 'index']);
 Route::get('storydetails',[StoryDetailController::class, 'storydetails']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -83,7 +112,7 @@ Route::get('adminresetpage/{token}', function () { return view('admin.auth.reset
 Route::post('admin-password-resetting', [AdminPasswordResetController::class, 'adminPasswordResetting'])->name('adminPasswordResetting');
 Route::resource('/mission', MissionController::class);
 Route::resource('/cmspage', CmsPageController::class);
-Route::resource('missiontheme', MissionThemeController::class);
+Route::resource('missiontheme', MissionThemeController::class)->withTrashed();
 Route::resource('missionskill', MissionSkillController::class)->withTrashed();
 Route::resource('user', UserController::class)->withTrashed();
 Route::resource('story', StoryController::class);
@@ -100,3 +129,4 @@ Route::resource('application', ApplicationController::class);
 Route::get('approve_app/{mission_application_id}', [ApplicationController::class, 'approve_app']);
 Route::get('decline_app/{mission_application_id}', [ApplicationController::class, 'decline_app']);
 Route::get('mission-page/{mission_id}',[MissionDetailController::class,'main'])->name('mission-page');
+Route::resource('timesheet',VolunteeringTimesheetController::class);

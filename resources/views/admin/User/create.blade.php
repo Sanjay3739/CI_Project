@@ -3,29 +3,17 @@
 @section('title')
 User-create
 @endsection
-<header>
-    <style>
-        .breadcrumb {
-            display: flex;
-            justify-content: space-between;
+<head>
+    <link rel="stylesheet" href={{ asset('css/usercreate.css') }}>
+</head>
 
-        }
-
-        .imges>img {
-            width: 60px;
-            height: 60px;
-            box-shadow: rgb(11, 11, 12) 0px 0px 0px 3px, rgb(193, 27, 152) 0px 0px 0px 6px, rgb(79, 14, 190) 0px 0px 0px 9px, rgb(8, 115, 74) 0px 0px 0px 12px, rgb(8, 197, 255) 0px 0px 0px 15px;
-        }
-
-    </style>
-</header>
 
 @section('body')
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
             <h1 class="mt-4">User</h1>
-            <marquee class="breadcrumb mb-4 w-25 " style=" background: linear-gradient(to right, #069ce6, #d00288, #f79809);box-shadow: 5px 5px 5px rgba(62, 60, 60, 0.6);">
+            <marquee class="breadcrumb mb-4 w-25 " id="marquee" style=" background: linear-gradient(to right, #069ce6, #d00288, #f79809);box-shadow: 5px 5px 5px rgba(62, 60, 60, 0.6);">
                 User-Create
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" class="ms-5" height="24" viewBox="0 0 24 24">
                     <path d="M9 19h-4v-2h4v2zm2.946-4.036l3.107 3.105-4.112.931 1.005-4.036zm12.054-5.839l-7.898 7.996-3.202-3.202 7.898-7.995 3.202 3.201zm-6 8.92v3.955h-16v-20h7.362c4.156 0 2.638 6 2.638 6s2.313-.635 4.067-.133l1.952-1.976c-2.214-2.807-5.762-5.891-7.83-5.891h-10.189v24h20v-7.98l-2 2.025z" />
@@ -48,7 +36,7 @@ User-create
                 <div class="container" style="box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;">
                     <form action="{{route('user.store')}}" method="post">
                         @csrf
-                        <div class="form-row py-4 ml-5">
+                        <div class="form-row py-4 ml-5" id="radioimg">
                             <div class="form-check ">
                                 <input class="form-check-input ml-0" value="Images/volunteer1.png" type="radio" name="avatar" id="avatar1" checked>
                                 <label class="form-check-label p-2 imges " for="avatar1">
@@ -230,8 +218,8 @@ User-create
                                 @enderror
                             </div>
                         </div>
-                        <div class="form-row justify-content-left">
-                            <div class="col-md-4 py-4">
+                        <div class="form-row justify-content-between">
+                            <div class="col-md-6 py-4">
                                 <label for="status">Status</label>
                                 <input type="radio" class="btn-check form-control" name="status" {{old('status')=='1'? 'checked':''}} value='1' id="success-outlined">
                                 {{-- @if($skill->status==1) checked @endif> --}}
@@ -246,8 +234,8 @@ User-create
                                 </div>
                                 @enderror
                             </div>
-                            <div class="col-md-4 py-4">
-                                <button class="btn btn-warning pull-right" type="submit"><i class="fa-solid fa-plus text-black"></i> Add</button>
+                            <div class="col-md-6 py-4">
+                                <button class="btn btn-outline-warning  pull-right" type="submit"  style="border-radius:10px"> Save</button>
                             </div>
                         </div>
                     </form>

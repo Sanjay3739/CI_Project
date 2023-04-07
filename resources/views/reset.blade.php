@@ -20,53 +20,25 @@ $token = substr($_SERVER['REQUEST_URI'],-60);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
 </head>
-</head>
+
 
 
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid" style=" padding-left: 0px !important"  >
         <div class="row">
             <div class="col-lg-8">
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img class="d-block w-100 h-100" src=" {{asset('images/grow.png')}}" class="img-fluid" alt="First slide">
+                        @foreach ($banners as $banner)
+                        <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                            <img class="d-block w-100 img-fluid" src="/storage/uplodes/{{ $banner->image }}" alt="good so good" style="height:765px; width:100%;" title="" />
 
                             <div class="carousel-caption d-none d-md-block">
-                                <h3>Sed ut perspiciatis unde omnis iste natus voluptatem.</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                                    deserunt mollit anim id est laborum.</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <img class="d-block w-100 h-100" src=" {{asset('images/grow.png')}}" class="img-fluid" alt="Second slide">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h3>Sed ut perspiciatis unde omnis iste natus voluptatem.</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                                    deserunt mollit anim id est laborum.</p>
-                            </div>
 
-                        </div>
-                        <div class="carousel-item">
-                            <img class="d-block w-100 h-100" src=" {{asset('images/grow.png')}}" class="img-fluid" alt="Third slide">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h3>Sed ut perspiciatis unde omnis iste natus voluptatem.</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                                    deserunt mollit anim id est laborum.</p>
+                                {!! $banner->text !!}
                             </div>
                         </div>
+                        @endforeach
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -77,6 +49,7 @@ $token = substr($_SERVER['REQUEST_URI'],-60);
                         <span class="sr-only">Next</span>
                     </a>
                 </div>
+
             </div>
             <div class="col-lg-4">
                 <div class="colx">
@@ -85,7 +58,7 @@ $token = substr($_SERVER['REQUEST_URI'],-60);
                         <small> Please enter a new password in the fields below.</small>
                     </div>
 
-                    <form action="{{route('password-resetting')}}" method='post'>
+                    <form action="{{route('password-resetting')}}"  method='post'>
                         @csrf
                         <label for="inputNewPassword" class="col-form-label pl-3 ">New Password</label>
                         <div class="col">

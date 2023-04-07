@@ -1,0 +1,122 @@
+.breadcrumb {
+    display: flex;
+    justify-content: space-between;
+}
+
+tr>td {
+    padding: 0px !important;
+
+}
+
+#img {
+    padding-left: 450px;
+    margin-top: 1%;
+    fill: rgb(44, 46, 44);
+}
+
+tr {
+
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+#green {
+    fill: green;
+}
+
+#red {
+    fill: red;
+}
+
+@media (max-width: 1298px) {
+    .btn-outline-danger{
+        margin-top: 4px;
+        margin-right: 75px;
+        
+    }
+
+}
+@media (max-width: 990px) {
+    #sidebarToggle {
+        margin-left: 10px !important;
+    }
+
+}
+
+@media (max-width:800px) {
+    #marquee {
+        width: 200px !important;
+    }
+}
+
+@media (max-width: 1223px) {
+    table {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 1184px) {
+    table {
+        font-size: 12px;
+    }
+
+    table>tbody>tr>td>a {
+        font-size: 10px !important;
+    }
+}
+
+@media (max-width: 1040px) {
+    table>tbody>tr>td>a {
+        font-size: 8px !important;
+        padding: 0px;
+    }
+
+    svg {
+        width: 25px;
+        height: 25px;
+    }
+
+    .btn-outline-danger {
+        margin-top: 2px;
+        margin-right: 50px !important;
+    }
+
+    .btn-outline-info {
+        width: 45px !important;
+    }
+
+}
+
+@media (max-width: 505px) {
+    .red {
+        margin-left: 70px !important;
+    }
+
+    .green {
+        margin-left: 22px;
+    }
+
+    .btn-outline-danger {
+        width: 45px;
+        margin-top: -20px !important;
+    }
+}
+
+@media (max-width: 492px) {
+    .btn-outline-info {
+        width: 45px !important;
+    }
+
+    .red {
+        margin-left: 58px !important;
+    }
+
+    .green {
+        margin-left: 10px;
+    }
+
+    .btn-outline-danger {
+        width: 45px;
+        margin-left: 10px;
+        margin-top: -20px !important;
+    }
+}

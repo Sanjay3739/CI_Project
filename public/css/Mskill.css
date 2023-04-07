@@ -1,5 +1,58 @@
-.breadcrumb {
-    display: flex;
-    justify-content: space-between;
-}
+ .breadcrumb {
+     display: flex;
+     justify-content: space-between;
+ }
 
+ tr>td {
+     padding: 0px !important;
+ }
+
+ tr {
+     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+         rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+ }
+
+ @media (max-width: 992px) {
+     #sidebarToggle {
+         margin-left: 10px !important;
+     }
+
+     table {
+         font-size: 30px;
+     }
+
+     #marquee {
+         width: 200px !important;
+     }
+
+     tr>td {
+         padding: 0px !important;
+     }
+ }
+
+ @media (max-width: 522px) {
+     table {
+         font-size: 15px;
+     }
+ }
+
+ @media (max-width: 465px) {
+     .rb>.input-group {
+         width: 210px;
+     }
+
+     .rb>.input-group>span>svg {
+         width: 15px;
+         height: 15px;
+     }
+
+     .d-flex>.card {
+         justify-content: left;
+         width: 100px;
+     }
+
+     .d-flex>.card>a {
+         font-size: 15px !important;
+         padding-right: 0px;
+     }
+ }

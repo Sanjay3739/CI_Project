@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Models;
+
 use App\Models\MissionTheme;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\city;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -32,21 +34,24 @@ class Mission extends Model
     protected $dates = ['deleted_at'];
 
 
-    public function country(): HasOne {
+    public function country(): HasOne
+    {
 
         return $this->hasOne(Country::class, 'country_id', 'country_id');
     }
-    public function city(): HasOne {
+    public function city(): HasOne
+    {
         return $this->hasOne(City::class, 'city_id', 'city_id');
     }
 
-    public function missionTheme(): HasOne{
-        return $this->hasOne(MissionTheme::class, 'mission_theme_id', 'theme_id');
+    public function missionTheme(): HasOne
+    {
+        return $this->hasOne(MissionTheme::class, 'mission_id', 'mission_id', 'mission_theme_id', 'title',  'theme_id');
     }
 
     public function missionApplication()
     {
-        return $this->hasMany(MissionApplication::class, 'mission_id');
+        return $this->hasMany(MissionApplication::class, 'mission_id', 'mission_id');
     }
 
 
@@ -62,12 +67,13 @@ class Mission extends Model
 
     public function missionRating()
     {
-        return $this->hasMany(MissionMedia::class, 'mission_id');
+        return $this->hasMany(MissionMedia::class, 'mission_id', 'mission_id');
     }
 
 
-    public function missionSkill(){
-        return $this->belongsTo(MissionSkill::class, 'mission_id','mission_id');
+    public function missionSkill()
+    {
+        return $this->hasMany(MissionSkill::class, 'mission_id', 'mission_id');
     }
 
     public function story()
@@ -82,7 +88,7 @@ class Mission extends Model
 
     public function favoriteMission()
     {
-        return $this->belongsTo(FavoriteMission::class, 'mission_id','mission_id');
+        return $this->belongsTo(FavoriteMission::class, 'mission_id', 'mission_id');
     }
 
     public function goalMission()
@@ -90,11 +96,13 @@ class Mission extends Model
         return $this->hasOne(GoalMission::class, 'mission_id');
     }
 
-    public function timeMission() {
+    public function timeMission()
+    {
         return $this->hasOne(TimeMission::class, 'mission_id');
     }
 
-    public function timeSheet() {
+    public function timeSheet()
+    {
         return $this->hasMany(TimeSheet::class, 'mission_id');
     }
 
@@ -102,5 +110,8 @@ class Mission extends Model
     {
         return $this->hasOne(UserSkill::class, 'mission_id');
     }
-
+    public function skill(): BelongsToMany
+    {
+        return $this->belongsToMany(Skill::class, 'mission_skills', 'mission_id', 'skill_id');
+    }
 }

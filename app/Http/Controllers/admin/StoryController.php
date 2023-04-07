@@ -36,19 +36,19 @@ class StoryController extends Controller
     public function destroy($story_id)
     {
         Story::where('story_id', $story_id)->delete(['deleted_at' => Carbon::now()->toDateTimeString()]);
-        return back()->with('success', 'Successfully Deleted');
+        return back()->with('success', 'Successfully Deleted')->with('message', 'Your!...........Story  Deleted 👍');
     }
 
     public function approve($story_id)
     {
         Story::where('story_id', $story_id)->update(['status' => 'PUBLISHED']);
-        return redirect('story')->with('message', 'Story published');
+        return redirect('story')->with('message', 'Your!..........Story Published 😁👌');
     }
 
     public function decline($story_id)
     {
         Story::where('story_id', $story_id)->update(['status' => 'DECLINED']);
-        return redirect('story')->with('message', 'Story declined');
+        return redirect('story')->with('message', 'Your!...........Story  Decline 😒');
     }
 
     public function show($story_id)
@@ -59,38 +59,3 @@ class StoryController extends Controller
         return view('admin.story.view_story', compact('story','medias'));
     }
 }
-
-
-// de-bugs_place
-
-// $stories = Story::select('*', 'stories.title AS stories')->join('users', 'stories.user_id', '=', 'users.user_id')->join('missions', 'stories.mission_id', '=', 'missions.mission_id')->where('stories.deleted_at', null)->where('stories.status', 'PENDING')->orderBy('stories.story_id', 'desc');
-
-
-        // var_dump($stories);
-
-        // $cnts = Story::join('users', 'stories.user_id', '=', 'users.user_id')->join('missions', 'stories.mission_id', '=', 'missions.mission_id')->where('stories.deleted_at', null)->where('stories.status', 'PENDING');
-        // dd($cnts);
-
-        // $pagecount = 5;
-        // if (isset($_REQUEST['page'])) {
-        //     $page = $_REQUEST['page'];
-        // } else
-        //     $page = 1;
-        // $cnts = Story::join('users', 'users.user_id', '=', 'stories.user_id')->join('missions', 'missions.mission_id', '=','stories.mission_id' )->where('stories.deleted_at', null)->where('stories.status', 'PENDING')->count();
-
-        // $cnt = ceil($cnts / $pagecount);
-        // // $users = DB::select('select * from stories');
-        // $stories = Story::select('*', 'stories.title AS story_title')->join('users', 'users.user_id', '=','stories.user_id' )->join('missions', 'missions.mission_id', '=', 'stories.user_id')->join('missions', 'missions.mission_id', '=','stories.mission_id'  )->where('stories.deleted_at', null)->where('stories.status', 'PENDING')->orderBy('stories.story_id', 'desc');
-
-        // // dd($stories);
-        // // var_dump($stories);
-        // if ($request->get('search')) {
-        //     $stories = Story::join('users', 'users.user_id' , '=','stories.user_id' )->join('missions', 'missions.mission_id' , '=', 'stories.mission_id' )->where('stories.title', 'LIKE', '%' . $request->get('search') . '%')->orwhere('users.first_name', 'LIKE', '%' . $request->get('search') . '%')->orwhere('users.last_name', 'LIKE', '%' . $request->get('search') . '%')->orwhere('missions.title', 'LIKE', '%' . $request->get('search') . '%')->where('stories.deleted_at', null)->where('stories.status', 'PENDING')->get((['*', 'stories.title AS story_title']));
-        // }
-
-
-//     public function show($story_id)
-// {
-//     $story = Story::find($story_id);
-//     return view('admin.story.story', ['story' => $story, 'story_id' => $story_id]);
-// }

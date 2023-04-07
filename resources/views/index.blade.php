@@ -3,142 +3,20 @@
     <?php
     $user_id = Auth::user()->user_id;
 
-    ?>
-    <div class="container-fluid border-bottom">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 d-flex rounded">
-                    <form action="{{ route('landing.index') }}" method="POST" id="search-mission"
-                        style="margin: 0%; padding:0%;">
-                        @csrf
-                        <div class="d-flex">
-                            <button type="submit" id="search-mission-id" class="btn">
-                                <i class="fas fa-search"></i>
-                            </button>
-                            <div>
-                                <input type="search" name="s" id="search_input" placeholder="Search Missions... "
-                                    value='{{ request()->input('s') }}' class="form-control border-0" />
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-md-6 d-flex justify-content-around">
-                    <button class="btn border-start" type=submit id="filter-apply">
-                        <img src="{{ asset('Images/filter.png') }}" alt="">
-                    </button>
+?>
+        @include('components.search-filter');
 
-
-                    <div class="border-start input-group h-100 px-2">
-                        <div class="dropdown w-100">
-                            <button class="btn btn-none text-secondary form-select" type="button" id="dropdownMenuButton"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="float-start ps-0 pe-5">
-                                    Country
-                                </span>
-                            </button>
-                            <div class="dropdown-menu px-2" aria-labelledby="dropdownMenuButton">
-                                <div>
-                                    @foreach ($countries as $country)
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox"
-                                                value="{{ $country->country_id }}"
-                                                id="country_option_{{ $country->country_id }}">
-                                            <label class="form-check-label text-secondary"
-                                                for="country_option_{{ $country->country_id }}"
-                                                id="country_label_{{ $country->country_id }}">
-                                                {{ $country->name }}
-                                            </label>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="border-start input-group px-2">
-
-                        <div class="dropdown w-100">
-                            <button class="btn btn-none text-secondary form-select" type="button" id="dropdownMenuButton"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="float-start ps-0 pe-5">
-                                    City
-                                </span>
-                            </button>
-                            <div class="dropdown-menu px-2" aria-labelledby="dropdownMenuButton"
-                                style="overflow: scroll; max-height: 500px; max-width: fit-content">
-                                <div id="city_dropper">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="border-start input-group px-2">
-                        <div class="dropdown w-100">
-                            <button class="btn btn-none text-secondary form-select" type="button" id="dropdownMenuButton"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="float-start ps-0 pe-5">
-                                    Theme
-                                </span>
-                            </button>
-                            <div class="dropdown-menu px-2" aria-labelledby="dropdownMenuButton">
-                                <div>
-                                    {{-- <div class="form-check">
-                                  <input class="form-check-input" type="checkbox" value="" id="selectAllskill">
-                                  <label class="form-check-label text-secondary" for="selectAllCheckbox">
-                                    Select All
-                                  </label>
-                                </div> --}}
-                                    @foreach ($themes as $theme)
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox"
-                                                value="{{ $theme->mission_theme_id }}"
-                                                id="mission_theme_option_{{ $theme->mission_theme_id }}">
-                                            <label class="form-check-label text-secondary"
-                                                for="mission_theme_option_{{ $theme->mission_theme_id }}"
-                                                id="theme_label_{{ $theme->mission_theme_id }}">
-                                                {{ $theme->title }}
-                                            </label>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="border-start border-end input-group px-2">
-                        <div class="dropdown w-100">
-                            <button class="btn btn-none text-secondary form-select" type="button" id="dropdownMenuButton"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="float-start ps-0 pe-5">
-                                    Skill
-                                </span>
-                            </button>
-                            <div class="dropdown-menu px-2" aria-labelledby="dropdownMenuButton">
-                                <div>
-                                    @foreach ($skills as $skill)
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="{{ $skill->skill_id }}"
-                                                id="skill_option_{{ $skill->skill_id }}" name="options[]">
-                                            <label class="form-check-label text-secondary"
-                                                for="skill_option_{{ $skill->skill_id }}"
-                                                id="skill_label_{{ $skill->skill_id }}">{{ $skill->skill_name }}</label>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <form id="form_f" action="{{ route('landing.index') }}" method="POST" style="display: none">
+    <form id="form_f"  action="{{route('landing.index')}}" method="POST" style="display: none">
         @csrf
-        <input type="text" name="country_f" id="country_f_id" value="{{ request()->input('country_f') }}" />
-        <input type="text" name="city_f" id="city_f_id" value="{{ request()->input('city_f') }}" />
-        <input type="text" name="s" id="search_f_id" value="{{ request()->input('s') }}" />
-        <input type="text" name="theme_f" id="theme_f_id" value="{{ request()->input('theme_f') }}" />
-        <input type="text" multiple name="skill_f" id="skill_f_id" value="{{ request()->input('skill_f') }}" />
-        <input type="number" name="sort" id="sort" value="{{ request()->input('sort') }}" />
+        <input  type="text" name="country_f" id="country_f_id" value="{{ request()->input('country_f') }}"/>
+        <input  type="text" name="city_f" id="city_f_id" value="{{ request()->input('city_f') }}"/>
+        <input type="text" name="s" id="search_f_id" value="{{ request()->input('s') }}"/>
+        <input type="text" name="theme_f" id="theme_f_id" value="{{ request()->input('theme_f')}}" />
+        <input type="text" multiple name="skill_f" id="skill_f_id" value="{{ request()->input('skill_f') }}"/>
+        <input type="number" name="sort" id="sort" value="{{request()->input('sort')}}"/>
         <button class="btn" type="submit" id="submit_f_id"></button>
     </form>
+
     </div>
     <div class="container py-4">
         <div class="d-flex">
@@ -150,506 +28,72 @@
         </div>
 
     </div>
-    @if ($count != 0)
-        <div class=" container  py-3">
-            <div class="d-flex py-4 justify-content-between">
-                <div>
-                    <h4> <span class="light-theme-color">Explore</span> <span class="theme-color"
-                            id="noOfMission">{{ $count }}
-                            Mission</span> </h4>
+@if($count!=0)
+    <div class=" container  py-3">
+        <div class="d-flex py-4 justify-content-between">
+            <div>
+                <h4> <span class="light-theme-color">Explore</span> <span class="theme-color" id="noOfMission">{{$count}}
+                    </span> Mission </h4>
+            </div>
+            <div class="d-flex">
+                <div class="input-group px-2" style="width: 200px ">
+                    <select id="selectsort" class="custom-select w-100 border-1 text-muted">
+                        <option disabled selected>Sort by</option>
+                        <option value="1" @if(request()->input('sort')=='1') selected @endif>Newest</option>
+                        <option value="2"@if(request()->input('sort')=='2') selected @endif>Oldest</option>
+                        <option value="3"@if(request()->input('sort')=='3') selected @endif>Lowest available seats</option>
+                        <option value="4"@if(request()->input('sort')=='4') selected @endif>Highest available seats</option>
+                        <option value="5"@if(request()->input('sort')=='5') selected @endif>My favourites</option>
+                        <option value="6" @if(request()->input('sort')=='6') selected @endif>Registration deadline</option>
+                    </select>
                 </div>
-                <div class="d-flex">
-                    <div class="input-group px-2" style="width: 200px ">
-                        <select id="selectsort" class="custom-select w-100 border-1 text-muted">
-                            <option disabled selected>Sort by</option>
-                            <option value="1" @if (request()->input('sort') == '1') selected @endif>Newest</option>
-                            <option value="2" @if (request()->input('sort') == '2') selected @endif>Oldest</option>
-                            <option value="3" @if (request()->input('sort') == '3') selected @endif>Lowest available seats
-                            </option>
-                            <option value="4" @if (request()->input('sort') == '4') selected @endif>Highest available
-                                seats</option>
-                            <option value="5" @if (request()->input('sort') == '5') selected @endif>My favourites</option>
-                            <option value="6" @if (request()->input('sort') == '6') selected @endif>Registration deadline
-                            </option>
-                        </select>
-                    </div>
-                    <div class='d-flex px-3 justify-content-center align-items-center'>
-                        <input type="radio" class="btn-check px-1" name="view" value='0' checked
-                            id="grid-view">
-                        <label id="grid-view-label" class="btn p-1 rounded-circle" for="grid-view"><img
-                                src={{ asset('Images/grid.png') }} alt=""></label>
-                        <input type="radio" class="btn-check px-1" name="view" id="list-view">
-                        <label id="list-view-label" class="btn p-2 rounded-circle" value='1' for="list-view"><img
-                                src={{ asset('Images/list.png') }} alt=""></label>
-                    </div>
+                <div class='d-flex px-3 justify-content-center align-items-center'>
+                    <input type="radio" class="btn-check px-1" name="view" value='0' checked  id="grid-view">
+                    <label  id="grid-view-label" class="btn p-1 rounded-circle" for="grid-view"><img src={{ asset('Images/grid.png') }}
+                            alt=""></label>
+                    <input type="radio" class="btn-check px-1" name="view" id="list-view">
+                    <label id="list-view-label" class="btn p-2 rounded-circle" value='1' for="list-view"><img
+                            src={{ asset('Images/list.png') }} alt=""></label>
                 </div>
             </div>
-            {{-- gridViewContent --}}
-            <div id="gridViewContent" class="row py-3" id="missions">
-                @foreach ($data as $item)
-                    {{-- This is grid view --}}
-                    <div class="card col-lg-6 col-xl-4 col-md-6 border-0  pb-4 text-center">
-                        <div class="py-1">
-                            <img class="card-img-top"
-                                src={{ asset('Images/Grow-Trees-On-the-path-to-environment-sustainability-3.png') }}
-                                alt="">
-                            <div class="position-relative">
-                                <div class="position-absolute parent_like_btn">
-
-                                    {{-- <label for="img1">
-                                    <input type="radio" name="imgbackground" id="img1" class="d-none imgbgchk py-1" value="">
-                                    <i class="fa-regular fa-heart fs-4"></i> --}}
-                                    <button id="mission_like_btn_{{ $item->mission_id }}_{{ $user_id }}"
-                                        type="button" class="like_btn py-1">
-                                        <?php $set = false;
-                                        $value = '0'; ?>
-                                        @foreach ($favorite as $fav)
-                                            @if ($fav->mission_id == $item->mission_id)
-                                                <i class="fas fa-heart fs-4"></i>
-                                                <?php $set = true;
-                                                $value = $fav->favorite_mission_id;
-                                                ?>
-                                            @break
-                                        @endif
-                                    @endforeach
-                                    @if ($set == false)
-                                        <i class="fa-regular fa-heart fs-4"></i>
-                                    @endif
-                                </button>
-                                <input type="radio" name="imgbackground"
-                                    id="mission_like_input_{{ $item->mission_id }}_{{ $user_id }}"
-                                    class="d-none imgbgchk py-1 hidden" style="display: none"
-                                    value={{ $value }}>
-                                {{-- </label> --}}
-                            </div>
-                            <div class="position-absolute parent_add_btn">
-                                <button class="add_btn py-1"
-                                    id="misison_invite_btn_{{ $item->mission_id }}_{{ $user_id }}"
-                                    data-toggle="modal"
-                                    data-target="#invite_user_modal_{{ $item->mission_id }}_{{ $user_id }}"><img
-                                        src={{ asset('Images/user.png') }} alt=""></button>
-                                <!-- Modal -->
-                                <div class="modal fade w-100"
-                                    id="invite_user_modal_{{ $item->mission_id }}_{{ $user_id }}"
-                                    tabindex="-1" role="dialog"
-                                    aria-labelledby="invite_user_modal_{{ $item->mission_id }}_{{ $user_id }}Label"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog modal-lg" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title"
-                                                    id="invite_user_modal_{{ $item->mission_id }}_{{ $user_id }}Label">
-                                                    Invite Your Friends</h5>
-                                                <button type="button" class="close btn" data-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th scope="col">First</th>
-                                                            <th scope="col">last</th>
-                                                            <th scope="col">email</th>
-                                                            <th scope="col">Invite</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach ($users as $user)
-                                                            <tr>
-                                                                <th>{{ $user->first_name }}</th>
-                                                                <td>{{ $user->last_name }}</td>
-                                                                <td>{{ $user->email }}</td>
-                                                                <td>
-                                                                    <input type="checkbox"
-                                                                        id="invite_{{ $item->mission_id }}_{{ $user->user_id }}_{{ $user_id }}"
-                                                                        value="{{ $user->user_id }}">
-                                                                </td>
-                                                            </tr>
-                                                        @endforeach
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-dismiss="modal">Close</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <span class="position-absolute parent_mission_location">
-                                <span class="mission_location px-2 py-1">
-                                    <img src={{ asset('Images/pin.png') }} alt=""><span
-                                        class="text-white px-2">{{ $item->city->name ?? 'Windwardside' }}</span>
-                                </span>
-                            </span>
-                        </div>
-
-
-                    </div>
-                    <div class="text-center" style="margin-top: -25px">
-                        <span class="fs-15 px-2 from_untill">
-                            @foreach ($themes as $theme)
-                                @if ($theme->mission_theme_id == $item->theme_id)
-                                    {{ $theme->title }}
-                                @endif
-                            @endforeach
-                        </span>
-                    </div>
-                    <div class="card-body">
-                        <h4 class='mission-title theme-color'>{{ $item->title }}
-                        </h4>
-                        <p class='card-text mission-short-description'>
-                            {{ $item->short_description }}
-                        </p>
-                        <div class="d-flex py-2 justify-content-between">
-                            <div>
-                                <span class="theme-color">
-                                    {{ $item->organization_name }}
-                                </span>
-                            </div>
-                            <div class="small-ratings">
-                                <i class="fa fa-star rating-color"></i>
-                                <i class="fa fa-star rating-color"></i>
-                                <i class="fa fa-star rating-color"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="py-3">
-                            <div class="border"></div>
-                            <div class="text-center" style="margin-top: -14px">
-                                <small class="p-2 fs-6 border from_untill">From
-                                    {{ date('d-m-Y', strtotime($item->start_date)) }} untill
-                                    {{ date('d-m-Y', strtotime($item->end_date)) }}
-                                </small>
-                            </div>
-                            <div class="py-2">
-                                <div class="d-flex py-3 justify-content-between">
-                                    @if ($item->timeMission != null)
-                                        <div class="d-flex align-items-center ">
-                                            <div class="px-1">
-                                                <img src={{ asset('Images/seats-left.png') }} alt="">
-                                            </div>
-                                            <div class="px-2 d-flex flex-column align-items-start">
-                                                <span
-                                                    class="theme-color fs-5 font-weight-bolder">{{ $item->timeMission->total_seats }}<br></span>
-                                                <span class="text-muted">Seats left</span>
-                                            </div>
-                                        </div>
-                                    @endif
-                                    @if (false)
-                                        <div class="d-flex align-items-center ">
-                                            <div class="px-1">
-                                                <img src={{ asset('Images/Already-volunteered.png') }} alt="">
-                                            </div>
-                                            <div class="px-2 d-flex flex-column align-items-start">
-                                                <span
-                                                    class="theme-color fs-5 font-weight-bolder">{{ $item->timeMission->total_seats }}<br></span>
-                                                <span class="text-muted"><small>Already volunteered</small></span>
-                                            </div>
-                                        </div>
-                                    @endif
-                                    @if ($item->timeMission != null)
-                                        <div class='d-flex align-items-center'>
-                                            <div class="px-1">
-                                                <img src={{ asset('Images/deadline.png') }} alt="">
-                                            </div>
-                                            <div class=" px-2 d-flex flex-column align-items-start">
-                                                <span
-                                                    class="theme-color fs-5 font-weight-bolder">{{ date('d-m-Y', strtotime($item->timeMission->registration_deadline)) }}<br></span>
-                                                <span class="text-muted">Deadline</span>
-                                            </div>
-                                        </div>
-                                    @elseif($item->goalMission != null)
-                                        <div class='d-flex align-items-center justify-content-start w-50'>
-                                            <div class="px-1">
-                                                <img src={{ asset('Images/achieved.png') }} alt="">
-                                            </div>
-
-                                            <div class="d-flex flex-column ps-2 w-100">
-                                                <div class="progress">
-                                                    <div class="progress-bar bg-warning" role="progressbar"
-                                                        style="width: 75%" aria-valuenow="75" aria-valuemin="0"
-                                                        aria-valuemax="100"></div>
-                                                </div>
-                                                <small
-                                                    class="fw-light text-secondary ps-1">{{ $item->goalMission->goal_value }}
-                                                    achieved</small>
-                                            </div>
-
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="border"></div>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <form action="{{ route('mission-page', $item->mission_id) }}">
-                                <button type="submit" class="btn btn-lg fs-5 apply-btn"> Apply <i
-                                        class="fa-sharp fa-solid fa-arrow-right"></i> </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
         </div>
-        {{-- ListViewContent --}}
-        <div class="row py-3" id="listViewContent" style="display: none;">
-            @foreach ($data as $item)
-                {{-- This is list view --}}
-                <div class="row">
-                    <div class="col-md-4 py-2 text-center">
-                        <img class="img-fluid"
-                            src="{{ asset('Images/Grow-Trees-On-the-path-to-environment-sustainability-3.png') }}"
-                            alt="">
-                        <div class="text-center" style="margin-top: -20px">
-                            <span class="fs-4 px-2 from_untill">
-                                {{ $item->title }}
-                            </span>
-                        </div>
-                        <div class="position-relative">
-                            <div class="position-absolute parent_like_btn_l">
-
-
-                                <button id="mission_like_btn_{{ $item->mission_id }}_{{ $user_id }}"
-                                    type="button" class="like_btn py-1">
-                                    <?php $set = false;
-                                    $value = '0'; ?>
-                                    @foreach ($favorite as $fav)
-                                        @if ($fav->mission_id == $item->mission_id)
-                                            <i class="fas fa-heart fs-4"></i>
-                                            <?php $set = true;
-                                            $value = $fav->favorite_mission_id;
-                                            ?>
-                                        @break
-                                    @endif
-                                @endforeach
-                                @if ($set == false)
-                                    <i class="fa-regular fa-heart fs-4"></i>
-                                @endif
-                            </button>
-                            <input type="radio" name="imgbackground"
-                                id="mission_like_input_{{ $item->mission_id }}_{{ $user_id }}"
-                                class="d-none imgbgchk py-1 hidden" style="display: none"
-                                value={{ $value }}>
-
-                        </div>
-                        <div class="position-absolute parent_add_btn_l">
-                            <button class="add_btn py-1"
-                                id="misison_invite_btn_{{ $item->mission_id }}_{{ $user_id }}"
-                                data-toggle="modal"
-                                data-target="#invite_user_modal_{{ $item->mission_id }}_{{ $user_id }}"><img
-                                    src={{ asset('Images/user.png') }} alt=""></button>
-                            {{-- <!-- Modal -->
-    <div class="modal fade w-100" id="invite_user_modal_{{$item->mission_id}}_{{$user_id}}" tabindex="-1" role="dialog" aria-labelledby="invite_user_modal_{{$item->mission_id}}_{{$user_id}}Label" aria-hidden="true">
-<div class="modal-dialog modal-lg" role="document">
-<div class="modal-content">
-<div class="modal-header">
-    <h5 class="modal-title" id="invite_user_modal_{{$item->mission_id}}_{{$user_id}}Label">Invite Your Friends</h5>
-    <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
-<div class="modal-body">
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">First</th>
-                <th scope="col">last</th>
-                <th scope="col">email</th>
-                <th scope="col">Invite</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($users as $user)
-            <tr>
-                <th>{{$user->first_name}}</th>
-                <td>{{$user->last_name}}</td>
-                <td>{{$user->email}}</td>
-                <td>
-                    <input type="checkbox" id="invite_{{$item->mission_id}}_{{$user->user_id}}_{{$user_id}}" value="{{$user->user_id}}">
-                </td>
-            </tr>
-            @endforeach
-
-        </tbody>
-    </table>
-</div>
-<div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-</div>
-</div>
-</div>
-</div> --}}
-                        </div>
-                        <span class="position-absolute parent_mission_location_l">
-                            <span class="mission_location px-2 py-1">
-                                <img src={{ asset('Images/pin.png') }} alt=""><span
-                                    class="text-white px-2">{{ $item->city->name ?? 'Windwardside' }}</span>
-                            </span>
-                        </span>
-                    </div>
-                </div>
-                <div class="col p-2">
-                    <div class="row align-items-start">
-                        <div class="col">
-                            <div class="d-flex">
-                                <div>
-                                    <img src="{{ asset('Images/pin1.png') }}" alt="">
-                                    {{ $item->city->name ?? 'Windwardside' }}
-                                </div>
-                                <div class="px-2">
-                                    <img src="{{ asset('Images/web.png') }}" alt=""> {{ $item->title }}
-                                </div>
-                                <div class="px-2">
-                                    <img src="{{ asset('Images/organization.png') }}" alt="">
-                                    {{ $item->organization_name }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <div class="small-ratings">
-                                <i class="fa fa-star rating-color"></i>
-                                <i class="fa fa-star rating-color"></i>
-                                <i class="fa fa-star rating-color"></i>
-                                <i class="fa fa-star rating-color"></i>
-                                <i class="fa fa-star rating-color"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="h4 theme-color pt-4">
-                        {{ $item->title }}
-                    </div>
-                    <p class='mission-short-description'>
-                        {{ $item->short_description }}
-                    </p>
-                    <div class="row justify-content-between">
-                        <div class="col">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="d-flex">
-                                        <div class="d-flex align-items-center ">
-                                            <div class="px-1">
-                                                <img src={{ asset('Images/seats-left.png') }} alt="">
-                                            </div>
-                                            <div class="px-2 d-flex flex-column align-items-start">
-                                                <span class="theme-color fs-5 font-weight-bolder">10 <br></span>
-                                                <span class="text-muted">Seats left</span>
-                                            </div>
-                                        </div>
-                                        @if ($item->timeMission != null)
-                                            <div class='d-flex align-items-center'>
-                                                <div class="px-1">
-                                                    <img src={{ asset('Images/deadline.png') }} alt="">
-                                                </div>
-                                                <div class=" px-2 d-flex flex-column align-items-start">
-                                                    <span
-                                                        class="theme-color fs-5 font-weight-bolder">{{ date('d-m-Y', strtotime($item->timeMission->registration_deadline)) }}
-                                                        <br></span>
-                                                    <span class="text-muted">Registration Deadline</span>
-                                                </div>
-                                            </div>
-                                        @elseif($item->goalMission != null)
-                                            <div class='d-flex align-items-center'>
-                                                <div class="px-1">
-                                                    <img src={{ asset('Images/achieved.png') }} alt="">
-                                                </div>
-                                                <div class=" px-2 d-flex flex-column align-items-start">
-                                                    {{-- <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="80" aria-valuemax="100"></div>
-        </div>  --}}
-                                                    <div class="progress p-5">
-                                                        <div class="progress-bar bg-warning" role="progressbar"
-                                                            style="width: 100%" aria-valuenow="75"
-                                                            aria-valuemin="80" aria-valuemax="100"></div>
-                                                    </div>
-                                                    <span class="text-muted"><small>{{ $item->goalMission->goal_value }}
-                                                            Achieved</small></span>
-                                                </div>
-                                            </div>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="d-flex">
-                                        <div class='d-flex align-items-center'>
-                                            <div class="px-1">
-                                                <img src={{ asset('Images/calender.png') }} alt="">
-                                            </div>
-                                            <div class=" px-2 d-flex flex-column align-items-start">
-                                                <small class="p-2 fs-7">From
-                                                    {{ date('d-m-Y', strtotime($item->start_date)) }} <br> untill
-                                                    {{ date('d-m-Y', strtotime($item->end_date)) }}
-                                                </small>
-                                            </div>
-                                        </div>
-                                        <div class='d-flex align-items-center'>
-                                            <div class="px-1">
-                                                <img src={{ asset('Images/settings.png') }} alt="">
-                                            </div>
-                                            <div class=" px-2 d-flex flex-column align-items-start">
-                                                <small class="p-2 fs-6 theme-color"> Skills <br>
-                                                    {{ $item->skill_name }}</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <button class="mx-2 btn btn-outline apply-btn px-2"> View Details <i
-                                    class=" fa-sharp fa-solid fa-arrow-right"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endforeach
+        <div  id="this_views">
+            @include('components.gridListView')
+        </div>
     </div>
-
-    @include('admin.layouts.pagination')
-</div>
 @else
-<div class="d-flex justify-content-center">
-    <span class="fs-3 font-weight-bold theme-color">
-        No Mission Found
-    </span>
-</div>
-<div class="d-flex pt-4 justify-content-center">
-    <button class="btn btn-outline fs-4 apply-btn w-50">
-        Submit New Missions
-        <i class="fa-sharp fa-solid fa-arrow-right"></i>
-    </button>
-</div>
+    @include('components.NoMissionFound')
 @endif
-<script>
-    $(document).ready(function() {
-        $('#grid-view').on('click', function() {
-            $('#grid-view-label').css({
-                'background-color': '#D9D9D9'
-            });
-            $('#list-view-label').css({
-                'background-color': 'white'
-            });
-        })
-        $('#grid-view').click();
-        $('#list-view').on('click', function() {
-            $('#list-view-label').css({
-                'background-color': '#D9D9D9'
-            });
-            $('#grid-view-label').css({
-                'background-color': 'white'
-            });
-        })
-        $('#country-dropdown').on('change', function() {
-            var country_id = this.value;
-            $("#city-dropdown").html('');
+    <script>
+        var countries = [];
+        var cities = [];
+        var themes = [];
+        var skills = [];
+        var sort = 0;
+        var search = "";
+        var view = 0;
+        function getBadge(id,name,type){
+            $("#clear_all").show()
+                    htmlstr = ""
+                    htmlstr += '<div id="close_'+type+'_parent_'+id+'" class="d-inline-flex border px-2" style="border-radius: 23px">';
+                    htmlstr += '<span class="badge fs-5" style="color: black; font-weight: lighter;">' +
+                        name + '</span>';
+                    htmlstr += '<button type="button" class="close btn" style="padding: 0%;" id=close_'+type+'_button_'+id+'>'
+                    htmlstr += '<span aria-hidden="true">&times;</span>'
+                    htmlstr += '</button></div>'
+                    $('#badges').append(
+                        htmlstr
+                    );
+                    badgeRunJQuery();
+        }
+        function removeBadge(id,type){
+            $('#close_'+type+'_parent_'+id).remove();
+            badgeRunJQuery();
+        }
+        function updateCityDropdown(country_id){
+            $('#city_dropper').html('');
             $.ajax({
-                url: "{{ url('api/fetch-city') }}",
+                url: "{{ url('api/fetch-city')}}",
                 type: "POST",
                 data: {
                     country_id: country_id,
@@ -657,133 +101,176 @@
                 },
                 dataType: 'json',
                 success: function(result) {
-                    $('#city-dropdown').html('<option value="">Select City</option>');
-                    $.each(result.cities, function(key, value) {
-                        $("#city-dropdown").append('<option value="' + value
-                            .city_id + '">' + value.name + '</option>');
+                    $.each(result.cities, function(key, value){
+                        html = "";
+                        $('#city_dropper').append("<div class='form-check'>"+
+                            "<input class='form-check-input' type='checkbox' value="+value.city_id+" id='city_option_"+value.city_id+"'>"+
+                            "<label class='form-check-label text-secondary' for='city_option_"+value.city_id+"' id='city_label_"+value.city_id+"'>"+value.name+"</label>"+
+                            "</div>" );
                     });
                 }
             });
-        });
-    });
-</script>
-<script>
-    var countries = [];
-    var cities = [];
-    var themes = [];
-    var skills = [];
-    var sort = 0;
-    var search = "";
-
-    function getBadge(id, name, type) {
-        $("#clear_all").show()
-        htmlstr = ""
-        htmlstr += '<div id="close_' + type + '_parent_' + id +
-            '" class="d-inline-flex border px-2" style="border-radius: 23px">';
-        htmlstr += '<span class="badge fs-5" style="color: black; font-weight: lighter;">' +
-            name + '</span>';
-        htmlstr += '<button type="button" class="close btn" style="padding: 0%;" id=close_' + type + '_button_' + id +
-            '>'
-        htmlstr += '<span aria-hidden="true">&times;</span>'
-        htmlstr += '</button></div>'
-        $('#badges').append(
-            htmlstr
-        );
-    }
-
-    function removeBadge(id, type) {
-        $('#close_' + type + '_parent_' + id).remove();
-    }
-
-    function updateCityDropdown(country_id) {
-        $('#city_dropper').html('');
-        $.ajax({
-            url: "{{ url('api/fetch-city') }}",
-            type: "POST",
-            data: {
-                country_id: country_id,
-                _token: '{{ csrf_token() }}'
-            },
-            dataType: 'json',
-            success: function(result) {
-                $.each(result.cities, function(key, value) {
-                    html = "";
-                    // html += "<div class='form-check'>";
-                    // html += "<input class='form-check-input' type='checkbox' value="+value.city_id+" id='city_option_"+value.city_id+"'>";
-                    // html += "<label class='form-check-label text-secondary' for='city_option_"+value.city_id+"' id='city_label_"value.city_id"'>"+value.name+"</label>";
-                    // html += "</div>";
-                    $('#city_dropper').append("<div class='form-check'>" +
-                        "<input class='form-check-input' type='checkbox' value=" + value
-                        .city_id + " id='city_option_" + value.city_id + "'>" +
-                        "<label class='form-check-label text-secondary' for='city_option_" +
-                        value.city_id + "' id='city_label_" + value.city_id + "'>" + value
-                        .name + "</label>" +
-                        "</div>");
-                });
-            }
-        });
-        return;
-    }
-
-    function getPreviousValue() {
-        skills = $('#skill_f_id').val().split(',');
-        skills.forEach(skill => {
-            if (skill != "") {
-                $('#skill_option_' + skill).prop('checked', true);
-                getBadge(skill, $('#skill_label_' + skill).text(), 'skill');
-            }
-        });
-        themes = $('#theme_f_id').val().split(',');
-        themes.forEach(theme => {
-            if (theme != "") {
-                $('#mission_theme_option_' + theme).prop('checked', true);
-                getBadge(theme, $('#theme_label_' + theme).text(), 'mission');
-            }
-        });
-        countries = $('#country_f_id').val().split(',');
-        countries.forEach(country => {
-            if (country != "") {
-                $('#country_option_' + country).prop('checked', true);
-                getBadge(country, $('#country_label_' + country).text(), 'country');
-            }
-        });
-        // cities = $('#city_f_id').val().split(',');
-        // cities.forEach(city => {
-        //     if(cities!=""){
-        //         $('#city_option_'+city).prop('checked', true);
-        //         getBadge(city,$('#city_label_'+city).text(),'city');
-        //     }
-        // });
-    }
-    $(document).ready(function(Event) {
-        getPreviousValue();
-        $('input[id^="invite_"]').on('click', function() {
-                if (this.checked) {
-                    var mission_id = this.id.split("_")[1];
-                    var to_user_id = this.id.split('_')[2];
-                    var from_user_id = this.id.split("_")[3];
-                    console.log(mission_id);
-                    $.ajax({
-                        url: "{{ url('api/invite-user') }}",
-                        type: "POST",
-                        data: {
-                            _token: '{{ csrf_token() }}',
-                            from_user_id: from_user_id,
-                            to_user_id: to_user_id,
-                            mission_id: mission_id,
-                        },
-                        success: function(data) {
-                            alert("Invite Send", 1000);
-                        },
-                    })
+            return;
+        }
+        function getPreviousValue(){
+            skills = $('#skill_f_id').val().split(',');
+            skills.forEach(skill => {
+                if(skill!=""){
+                    $('#skill_option_'+skill).prop('checked', true);
+                    getBadge(skill,$('#skill_label_'+skill).text(),'skill');
                 }
-            }), $("button[id^='mission_like_btn_']").on('click', function() {
+            });
+            themes = $('#theme_f_id').val().split(',');
+            themes.forEach(theme => {
+                if(theme!=""){
+                    $('#mission_theme_option_'+theme).prop('checked', true);
+                    getBadge(theme,$('#theme_label_'+theme).text(),'mission');
+                }
+            });
+            countries = $('#country_f_id').val().split(',');
+            countries.forEach(country => {
+                if(country!=""){
+                    $('#country_option_'+country).prop('checked', true);
+                    getBadge(country,$('#country_label_'+country).text(),'country');
+                }
+            });
+            // cities = $('#city_f_id').val().split(',');
+            // cities.forEach(city => {
+            //     if(cities!=""){
+            //         $('#city_option_'+city).prop('checked', true);
+            //         getBadge(city,$('#city_label_'+city).text(),'city');
+            //     }
+            // });
+        }
+        function getNextFilter(page){
+            $.ajax({
+                url: "{{url('index-filter')}}"+"?page="+page+"&s="+search+"&countries="+countries+"&cities="+cities+"&themes="+themes+"&skills="+skills+"&sort="+sort,
+                type: "get",
+                success: function(result){
+                    $('#this_views').html(result);
+                    selectProperView();
+                    runJquery();
+                }
+            })
+        }
+        function selectProperView(){
+            $('#noOfMission').text($('#noOfMission2').val());
+            if(view==1){
+                        $('#list-view').click();
+                    }else{
+                        $('#grid-view').click();
+                    }
+        }
+        function getCity(){
+            $('#city_drop_down_menu').prop('disabled', false);
+            $.ajax({
+                url: "{{url('index/find-city')}}",
+                type: "get",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    countries: countries,
+                    s: search,
+                },
+                success: function(result){
+                    $('#city_dropper').html(result);
+                    filterReloadJQueryCity();
+                }
+            });
+
+        }
+        function getTheme(){
+            $('#theme_drop_down_menu').prop('disabled', false);
+            $.ajax({
+                url: "{{url('index/find-theme')}}",
+                type: "get",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    countries: countries,
+                    s: search,
+                    cities: cities,
+                },
+                success: function(result){
+                    $('#theme_dropper').html(result);
+                    filterReloadJQueryTheme();
+                }
+            })
+        }
+        function getSkill(){
+            $('#skill_drop_down_menu').prop('disabled', false);
+            $.ajax({
+                url: "{{url('index/find-skill')}}",
+                type: "get",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    countries: countries,
+                    s: search,
+                    cities: cities,
+                    themes: themes,
+                },
+                success: function(result){
+                    $('#skill_dropper').html(result);
+                    filterReloadJQuerySkill();
+                }
+            })
+        }
+        function filterReloadJQueryCity(){
+            $('input[id^=city_option_]').on('change',function(){
+                let city_id = this.id.split('_')[2];
+                let city_name = $('#city_label_'+city_id).text();
+                if(this.checked){
+                    getBadge(city_id,city_name,'city');
+                    cities.push(city_id);
+                }
+                else{
+                    removeBadge(city_id, 'city');
+                    cities.pop(city_id);
+                }
+                $('#city_f_id').val(cities);
+                getNextFilter(1);
+                getTheme();
+            });
+        }
+        function filterReloadJQueryTheme(){
+            $('input[id^=mission_theme_option_]').on('change', function(){
+                let mission_theme_id = this.id.split('_')[3];
+                let title = $('#theme_label_'+mission_theme_id).text();
+                if(this.checked){
+                    getBadge(mission_theme_id,title,'mission');
+                    themes.push(mission_theme_id);
+                }
+                else{
+                    removeBadge(mission_theme_id,'mission');
+                    themes.pop(mission_theme_id);
+                }
+                $('#theme_f_id').val(themes);
+                getNextFilter(1);
+                getSkill();
+            });
+        }
+        function filterReloadJQuerySkill(){
+            $('input[id^=skill_option_]').on('change', function(){
+                let skill_id = this.id.split('_')[2];
+                let skill_name = $('#skill_label_'+skill_id).text();
+                if(this.checked){
+                    getBadge(skill_id, skill_name,'skill');
+                    skills.push(skill_id);
+                }
+                else{
+                    removeBadge(skill_id,'skill');
+                    skills.pop(skill_id);
+                }
+                $('#skill_f_id').val(skills);
+                getNextFilter(1);
+            })
+        }
+        function runJquery(){
+            $("button[id^='mission_like_btn_']").on('click', function() {
                 var mission_id = this.id.split("_")[3];
                 var user_id = this.id.split("_")[4];
 
-                if ($('#mission_like_input_' + mission_id + '_' + user_id).val() == '0') {
+                if($('#mission_like_input_'+mission_id+'_'+user_id).val()=='0'){
                     $.ajax({
-                        url: "{{ url('api/add-favourite') }}",
+                        url: "{{url('api/add-favourite')}}",
                         type: "POST",
                         data: {
                             _token: '{{ csrf_token() }}',
@@ -791,15 +278,14 @@
                             user_id: user_id,
                         },
                         success: function(data) {
-                            $('#mission_like_input_' + mission_id + '_' + user_id).val(data);
-                            $("button[id^='mission_like_btn_" + mission_id + "_" + user_id +
-                                "']").html('<i class="fas fa-heart fs-4"></i>');
+                            $('#mission_like_input_'+mission_id+'_'+user_id).val(data);
+                            $("button[id^='mission_like_btn_"+mission_id+"_"+user_id+"']").html('<i class="fas fa-heart fs-4"></i>');
                         }
                     });
-                } else {
-                    let fav = $('#mission_like_input_' + mission_id + '_' + user_id).val()
+                }else{
+                    let fav = $('#mission_like_input_'+mission_id+'_'+user_id).val()
                     $.ajax({
-                        url: "{{ url('api/remove-favourite') }}",
+                        url: "{{url('api/remove-favourite')}}",
                         type: "POST",
                         data: {
                             _token: '{{ csrf_token() }}',
@@ -808,16 +294,147 @@
                             favorite_mission_id: fav,
                         },
                         success: function() {
-                            $('#mission_like_input_' + mission_id + '_' + user_id).val('0');
-                            $("button[id^='mission_like_btn_" + mission_id + "_" + user_id +
-                                "']").html('<i class="fa-regular fa-heart fs-4"></i>');
+                            $('#mission_like_input_'+mission_id+'_'+user_id).val('0');
+                            $("button[id^='mission_like_btn_"+mission_id+"_"+user_id+"']").html('<i class="fa-regular fa-heart fs-4"></i>');
                         }
                     });
                 }
-            }), $('#selectsort').on('change', function() {
-                sort = $('#selectsort').val();
+            });
+            $('input[id^="invite_"]').on('click', function() {
+                if (this.checked) {
+                    var mission_id = this.id.split("_")[1];
+                    var to_user_id = this.id.split('_')[2];
+                    var from_user_id = this.id.split("_")[3];
+                    console.log(mission_id);
+                    $.ajax({
+                        url: "{{url('api/invite-user')}}",
+                        type: "POST",
+                        data: {
+                            _token: '{{csrf_token() }}',
+                            from_user_id: from_user_id,
+                            to_user_id: to_user_id,
+                            mission_id: mission_id,
+                        },
+                        success: function(data) {
+                            alert("Invite Send",1000);
+                        },
+                    })
+                }
+            });
+            //this is detail view page
+            $('[id^="click-to-details_"]').click(function(){
+                $(location).attr('href',"{{url('mission-page/')}}"+'/'+$(this).data('mission_id'));
+            });
+            $('button[id^="mission_application_btn_"]').on('click',function(){
+                mission_id=$(this).data('mission_id');
+                $.ajax({
+                    url: "{{url('api/new-mission-application')}}",
+                    type: "POST",
+                    data: {
+                        user_id: $(this).data('user_id'),
+                        mission_id: $(this).data('mission_id'),
+                        approval_status: 'PENDING',
+                    },
+                    success: function(result){
+                        alert(result);
+                        $('#badge_'+mission_id).prop('display','block');
+                    }
+                })
+                $(this).hide();
+
+                $('#mission_detail_btn_'+$(this).data('mission_id')).show();
+            });
+            $(document).on('click','.pagination a', function(event){
+                event.preventDefault();
+                var page = $(this).attr('href').split('page=')[1];
+                getNextFilter(page);
+            });
+        }
+        function badgeRunJQuery(){
+            $('[id^="close_skill_button_"]').click(function(){
+                let id = this.id.split('_')[3];
+                $('#skill_option_'+id).prop('checked', false);
+                skills.pop(id);
+                removeBadge(id,'skill');
+                getNextFilter(1);
+                badgeRunJQuery();
+            });
+            $('[id^="close_theme_button_"]').click(function(){
+                let id = this.id.split('_')[3];
+                $('#theme_option_'+id).prop('checked', false);
+                themes.pop(id);
+                removeBadge(id,'theme');
+                if(themes.length==0){
+                    $('[id^="close_skill_button_"]').click();
+                    $('#skill_drop_down_menu').prop('disabled', true);
+                }
+                getNextFilter(1);
+                badgeRunJQuery();
+            })
+            $('[id^="close_city_button_"]').click(function(){
+                let id = this.id.split('_')[3];
+                $('#city_option_'+id).prop('checked', false);
+                cities.pop(id);
+                removeBadge(id,'city');
+                if(cities.length==0){
+                    $('[id^="close_theme_button_"]').click();
+                    $('[id^="close_skill_button_"]').click();
+                    $('#skill_drop_down_menu').prop('disabled', true);
+                    $('#theme_drop_down_menu').prop('disabled', true);
+                }
+                getNextFilter(1);
+                badgeRunJQuery();
+            })
+            $('[id^="close_country_button_"]').click(function(){
+                let id = this.id.split('_')[3];
+                $('#country_option_'+id).prop('checked', false);
+                countries.pop(id);
+                removeBadge(id,'country');
+                if(countries.length==0){
+                    $('[id^="close_city_button_"]').click();
+                    $('[id^="close_theme_button_"]').click();
+                    $('[id^="close_skill_button_"]').click();
+                    $('#skill_drop_down_menu').prop('disabled', true);
+                    $('#theme_drop_down_menu').prop('disabled', true);
+                    $('#city_drop_down_menu').prop('disabled', true);
+                }
+                getNextFilter(1);
+                badgeRunJQuery();
+            })
+        }
+        $(document).ready(function(Event) {
+            console.log('started');
+            getPreviousValue();
+            runJquery();
+            $('#grid-view').on('click', function() {
+                $('#grid-view-label').css({'background-color': '#D9D9D9'});
+                $('#list-view-label').css({'background-color': 'white'});
+            })
+            $('#grid-view').click();
+            $('#list-view').on('click', function() {
+                $('#list-view-label').css({'background-color': '#D9D9D9'});
+                $('#grid-view-label').css({'background-color': 'white'});
+            })
+            $('#search-mission').on('submit', function(event){
+                event.preventDefault();
+                search = $('#search_input').val();
+                $.ajax({
+                    url: "{{route('landing.filterApply')}}",
+                    type: "get",
+                    data: {
+                        s: $('#search_input').val(),
+                    },
+                    success: function(result){
+                        $('#this_views').html(result);
+                        runJquery();
+                        selectProperView();
+                    }
+                })
+            })
+            $('#selectsort').on('change', function() {
+                sort=$('#selectsort').val();
                 $('#sort').val(sort);
-                $('#submit_f_id').click();
+                getNextFilter(1);
             }),
             // $('#refresh-apply').on('click', function() {
             //     $('#search_input').val('');
@@ -825,88 +442,109 @@
             //     search = $("#search_input").val();
             // }),
             $('#grid-view').on('click', function() {
+                view=0;
                 $('#gridViewContent').show();
                 $('#listViewContent').hide();
-            }), $('#list-view').on('click', function() {
+            }),
+            $('#list-view').on('click', function() {
+                view=1;
                 $('#gridViewContent').hide();
                 $('#listViewContent').show();
-            }), $("#filter-apply").on('click', function() {
+            }),
+            $("#filter-apply").on('click',function() {
                 search = $("#search_input").val();
                 $("#search_f_id").val(search);
                 $('#submit_f_id').click();
-            }), $('input[id^=country_option_]').on('change', function() {
+            }),
+            // this is country dropdown
+            $('input[id^=country_option_]').on('change', function(){
                 let country_id = this.id.split('_')[2];
-                let country_name = $('#country_label_' + country_id).text();
-                if (this.checked) {
-                    getBadge(country_id, country_name, 'country');
+                let country_name = $('#country_label_'+country_id).text();
+                if(this.checked){
+                    getBadge(country_id,country_name,'country');
                     countries.push(country_id);
-                } else {
+                }
+                else{
                     removeBadge(country_id, 'country');
                     countries.pop(country_id);
                 }
                 $('#country_f_id').val(countries);
-                updateCityDropdown(country_id);
-                $("#filter-apply").click();
+                getNextFilter(1);
+                getCity();
+            }),
+            // this is city dropdown
+            $('input[id^=city_option_]').on('change',function(){
+                let city_id = this.id.split('_')[2];
+                let city_name = $('#city_label_'+city_id).text();
+                if(this.checked){
+                    getBadge(city_id,city_name,'city');
+                    cities.push(city_id);
+                }
+                else{
+                    removeBadge(city_id, 'city');
+                    cities.pop(city_id);
+                }
+                $('#city_f_id').val(cities);
+                getNextFilter(1);
+                getTheme();
+            }),
+            // this is theme dropdown
+            $('input[id^=mission_theme_option_]').on('change', function(){
+                let mission_theme_id = this.id.split('_')[3];
+                let title = $('#theme_label_'+mission_theme_id).text();
+                if(this.checked){
+                    getBadge(mission_theme_id,title,'mission');
+                    themes.push(mission_theme_id);
+                }
+                else{
+                    removeBadge(mission_theme_id,'mission');
+                    themes.pop(mission_theme_id);
+                }
+                $('#theme_f_id').val(themes);
+                getNextFilter(1);
+                getSkill();
             })
-        $('input[id^=city_option_]').on('change', function() {
-            let city_id = this.id.split('_')[2];
-            let city_name = $('#city_label_' + city_id).text();
-            if (this.checked) {
-                getBadge(city_id, city_name, 'city');
-                cities.push(city_id);
-            } else {
-                removeBadge(city_id, 'city');
-                cities.pop(city_id);
-            }
-            $('#city_f_id').val(cities);
-            $("#filter-apply").click();
-        })
-        $('input[id^=mission_theme_option_]').on('change', function() {
-            let mission_theme_id = this.id.split('_')[3];
-            let title = $('#theme_label_' + mission_theme_id).text();
-            if (this.checked) {
-                getBadge(mission_theme_id, title, 'mission');
-                themes.push(mission_theme_id);
-            } else {
-                removeBadge(mission_theme_id, 'mission');
-                themes.pop(mission_theme_id);
-            }
-            $('#theme_f_id').val(themes);
-            $("#filter-apply").click();
-        })
-        $('input[id^=skill_option_]').on('change', function() {
-            let skill_id = this.id.split('_')[2];
-            let skill_name = $('#skill_label_' + skill_id).text();
-            if (this.checked) {
-                getBadge(skill_id, skill_name, 'skill');
-                skills.push(skill_id);
-            } else {
-                removeBadge(skill_id, 'skill');
-                skills.pop(skill_id);
-            }
-            $('#skill_f_id').val(skills);
-            $("#filter-apply").click();
-        })
-        $('#clear_all').on('click', function() {
+            // this is skill dropdown
+            $('input[id^=skill_option_]').on('change', function(){
+                let skill_id = this.id.split('_')[2];
+                let skill_name = $('#skill_label_'+skill_id).text();
+                if(this.checked){
+                    getBadge(skill_id, skill_name,'skill');
+                    skills.push(skill_id);
+                }
+                else{
+                    removeBadge(skill_id,'skill');
+                    skills.pop(skill_id);
+                }
+                $('#skill_f_id').val(skills);
+                getNextFilter(1);
+            })
+            $('#clear_all').on('click', function() {
+                $('#badges').children().remove();
+                countries = [];
+                cities = [];
+                themes = [];
+                skills = [];
+                search = '';
+                $('#country_f_id').val(countries);
+                $('#city_f_id').val(cities);
+                $('#themes_f_id').val(themes);
+                $('#skills_f_id').val(skills);
+                $('#search_f_id').val(search);
+                $("#clear_all").hide();
+                $('#city_drop_down_menu').prop('disabled', true);
+                $('#theme_drop_down_menu').prop('disabled', true);
+                $('#skill_drop_down_menu').prop('disabled', true);
+                $('[id^=country_option_]').prop('checked', false);
+                $('[id^=city_option_]').prop('checked', false);
+                $('[id^=mission_theme_option_]').prop('checked', false);
+                $('[id^=skill_option_]').prop('checked', false);
+                getNextFilter(1);
+            })
+        });
+        $(document).on('click', '#country-dropdown', function (e) {
+            e.stopPropagation();
+        });
 
-            $('#badges').children().remove();
-            countries = [];
-            cities = [];
-            themes = [];
-            skills = [];
-            search = '';
-            $('#country_f_id').val(countries);
-            $('#city_f_id').val(cities);
-            $('#themes_f_id').val(themes);
-            $('#skills_f_id').val(skills);
-            $('#search_f_id').val(search);
-            $('#filter-apply').click();
-            $("#clear_all").hide();
-            // $('#refresh-apply').click();
-        })
-    });
-    $(document).on('click', '#country-dropdown', function(e) {
-        e.stopPropagation();
-    });
-</script>
+    </script>
 @endsection

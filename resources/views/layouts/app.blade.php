@@ -8,12 +8,11 @@
     <script>
         CKEDITOR.replace( 'summary-ckeditor' );
         </script>
-    <link rel="stylesheet" href="{{asset('CSS/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('CSS/style.css')}}">
-    <link rel="stylesheet" href={{ asset('css/landing_style.css') }}>
-    <link rel="stylesheet" type="text/css" href="{{asset('css/skl.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('css/thum.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('css/storylisting.css')}}" />
+    <link rel="stylesheet" href={{asset('CSS/bootstrap.min.css')}}>
+    <link rel="stylesheet" href={{asset('CSS/style.css')}}>
+    <link rel="stylesheet" href={{asset('css/landing_style.css') }}>
+    <link rel="stylesheet" type="text/css" href="{{asset('slick/slick.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('slick/slick-theme.css')}}"/>
     <title>@yield('title')</title>
     <script src="{{asset('JS/jquery.min.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

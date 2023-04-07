@@ -1,0 +1,11 @@
+@media (max-width: 1090px) {
+    #sidebarToggle {
+        margin-left: 10px !important;
+    }
+}
+
+@media (max-width: 800px) {
+    #marquee {
+        width: 200px !important;
+    }
+}

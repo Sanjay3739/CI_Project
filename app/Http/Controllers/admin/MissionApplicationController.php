@@ -1,32 +1,57 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
-use App\Models\Admin\Admin;
 use App\Models\MissionApplication;
-use App\Models\Mission;
-
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MissionApplicationController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $missionApplications = MissionApplication::with('Mission', 'User')->get();
-        return view('admin.missionapplications.app', compact('missionApplications'));
+        $data = MissionApplication::whereHas('mission', function ($query) use ($request) {
+            if (($s = $request->s)) {
+                $query->where('title', 'LIKE', '%' . $s . '%');
+            }
+        })
+            ->orWhereHas('user', function ($query) use ($request) {
+                if (($s = $request->s)) {
+                    $query->where('first_name', 'LIKE', '%' . $s . '%')
+                        ->orWhere('last_name', 'LIKE', '%' . $s . '%');
+                }
+            })
+            ->orderByRaw("CASE approval_status
+                                                WHEN 'PENDING' THEN 1
+                                                WHEN 'APPROVE' THEN 2
+                                                WHEN 'DECLINE' THEN 3
+                                                END")
+            ->orderBy('created_at', 'desc')
+            ->paginate(10)
+            ->appends(['s' => $request->s]);
+
+        return view('admin.missionapplication.index', compact('data'));
     }
-    public function update(MissionApplication $missionApplication, $status)
+    public function newMissionApplication(Request $request)
     {
-        $missionApplication->status = $status;
-        $missionApplication->save();
-        return redirect()->back();
+        $req = MissionApplication::where('mission_id', $request->mission_id)
+            ->where('user_id', $request->user_id);
+        MissionApplication::create($request->post());
+        return "Mission Application Request submitted";
     }
-    public function destroy(MissionApplication $missionApplication)
+    public function approveApplication(Request $request)
     {
-        $missionApplication->delete();
-        return redirect()->back();
+        $application = MissionApplication::find($request->mission_application_id);
+        $application->approval_status = "APPROVE";
+        $application->save();
+        return ("success");
+    }
+    public function rejectApplication(Request $request)
+    {
+        $application = MissionApplication::find($request->mission_application_id);
+        $application->approval_status = "DECLINE";
+        $application->save();
+        return ("rejected");
     }
 }

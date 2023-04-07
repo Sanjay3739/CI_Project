@@ -12,19 +12,18 @@ class BannerController extends Controller
 {
     public function banner(Request $request)
     {
-        $pagecount = 5;
-        if (isset($_REQUEST['page'])) {
-          $page = $_REQUEST['page'];
-        } else
-          $page = 5;
-        $cnts = Banner::where('deleted_at', null)->get()->count();
-        $cnt = ceil($cnts / $pagecount);
-        $banners = Banner::where('deleted_at', null)->paginate($pagecount);
-        if ($request->get('search')) {
-            $banners = Banner::where('text', 'LIKE', '%' . $request->get('search') . '%')->where('deleted_at', null)->get();
-        }
-        return view('admin.banner.banner', compact('banners', 'page','cnt'));
+        $query = $request->input('search');
+        $banners = Banner::whereNull('deleted_at')
+            ->where(function ($q) use ($query) {
+                $q->where('banners.text', 'like', '%' . $query . '%');
+            })
+            ->paginate(5);
+        $banners->appends(['search' => $query]);
+
+        return view('admin.banner.banner', compact('banners'));
     }
+
+
     public function add_banner()
     {
         return view('admin.banner.add_banner');
@@ -48,7 +47,7 @@ class BannerController extends Controller
     public function edit_banner($banner_id)
     {
         $banner = Banner::where(['banner_id' => $banner_id])->first();
-        return view('admin.banner.edit_banner',compact('banner'));
+        return view('admin.banner.edit_banner', compact('banner'));
     }
     public function banner_edit(Request $request)
     {
@@ -59,7 +58,7 @@ class BannerController extends Controller
         ]);
         $banner = Banner::where(['banner_id' => $request->get('banner_id')])->first();
         $image = $banner->image;
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $image = $request->image->hashName();
             $request->image->store('public/uplodes');
         }
@@ -76,7 +75,7 @@ class BannerController extends Controller
 
         $banner = new Banner;
         $banner->find($banner_id)
-             ->delete();
-        return back()->with('success','Successfully Deleted');
+            ->delete();
+        return back()->with('success', 'Successfully Deleted');
     }
 }
