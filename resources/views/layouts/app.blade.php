@@ -13,6 +13,7 @@
     <link rel="stylesheet" href={{ asset('css/landing_style.css') }}>
     <link rel="stylesheet" type="text/css" href="{{asset('css/skl.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{asset('css/thum.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('css/storylisting.css')}}" />
     <title>@yield('title')</title>
     <script src="{{asset('JS/jquery.min.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -29,10 +30,10 @@
     @include('include.header')
     @yield('content')
     @include('include.footer')
+    @include('include.ContactUS')
     <script src="{{asset('JS/jquery.min.js')}}"></script>
 
 
 </body>
 @include('layouts.scripts')
-@yield('layouts.ContactUS')
 </html>

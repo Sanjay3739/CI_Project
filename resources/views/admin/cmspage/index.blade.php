@@ -19,7 +19,7 @@
             </div>
             <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between mt-1 mb-4">
-                    
+
                     <div class="relative max-w-xs ">
                         <form action="{{ route('cmspage.index') }}" method="GET">
                             @csrf
@@ -45,11 +45,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($data as $d)
+                        @foreach ($cmsdata as $data)
                             <tr>
-                                <td>{{ $d->title }}</td>
+                                <td>{{ $data->title }}</td>
                                 <td>
-                                    @if ($d->status)
+                                    @if ($data->status)
                                         <div class="h5 text-success">
                                             Active
                                         </div>
@@ -60,9 +60,9 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <form action="{{ route('cmspage.destroy', $d->cms_page_id) }}" method="post">
+                                    <form action="{{ route('cmspage.destroy', $data->cms_page_id) }}" method="post">
                                         <div>
-                                            <a class="btn btn-white"href="{{ route('cmspage.edit', $d->cms_page_id) }}">
+                                            <a class="btn btn-white"href="{{ route('cmspage.edit', $data->cms_page_id) }}">
                                                 <img src="Images/edit.png" height="22px" width="22px" alt="edit">
                                             </a>
                                             @csrf
@@ -81,7 +81,7 @@
                     </tbody>
                 </table>
                 <div>
-                    {!! $data->links('pagination::bootstrap-4') !!}
+                    {!! $cmsdata->links('pagination::bootstrap-4') !!}
                 </div>
             </div>
         </div>

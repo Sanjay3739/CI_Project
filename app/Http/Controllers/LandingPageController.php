@@ -18,6 +18,7 @@ class LandingPageController extends Controller
 
     public function index(Request $request)
     {
+        $user=Auth::user();
         $count = 0;
         $data = Mission::where([
             ['title', '!=', Null],
@@ -102,11 +103,11 @@ class LandingPageController extends Controller
         $skills = Skill::all(['skill_id', 'skill_name']);
         $favorite = FavoriteMission::where('user_id', Auth::user()->user_id)
             ->get(['favorite_mission_id', 'mission_id']);
-        $users = User::where('user_id', '!=', Auth::user()->user_id)
-            ->orderBy('user_id', 'asc')
+        $users = User::where('user_id', '=', Auth::user()->user_id)
+            // ->orderBy('user_id', 'desc')
             ->get();
 
         $cities = City::whereIn('country_id', $country_array)->get(['city_id', 'name']);
-        return view('index', compact('data', 'count', 'cities', 'countries', 'themes', 'skills', 'favorite', 'users')); // Create view by name missiontheme/index.blade.php
+        return view('index', compact('data', 'user', 'count', 'cities', 'countries', 'themes', 'skills', 'favorite', 'users')); // Create view by name missiontheme/index.blade.php
     }
 }

@@ -33,7 +33,7 @@ class Mission extends Model
 
 
     public function country(): HasOne {
-    
+
         return $this->hasOne(Country::class, 'country_id', 'country_id');
     }
     public function city(): HasOne {
@@ -41,7 +41,7 @@ class Mission extends Model
     }
 
     public function missionTheme(): HasOne{
-        return $this->hasOne(MissionTheme::class, 'mission_id','mission_id','mission_theme_id' , 'title',  'theme_id');
+        return $this->hasOne(MissionTheme::class, 'mission_theme_id', 'theme_id');
     }
 
     public function missionApplication()

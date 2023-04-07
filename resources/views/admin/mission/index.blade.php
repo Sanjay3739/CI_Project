@@ -46,15 +46,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($data as $d)
+                        @foreach ($missiondata as $data)
                             <tr>
-                                <td>{{ $d->title }}</td>
-                                <td>{{ $d->mission_type }}</td>
-                                <td>{{ $d->start_date }}</td>
-                                <td>{{ $d->end_date }}</td>
+                                <td>{{ $data->title }}</td>
+                                <td>{{ $data->mission_type }}</td>
+                                <td>{{ $data->start_date }}</td>
+                                <td>{{ $data->end_date }}</td>
                                 <td>
-                                    <form action="{{ route('mission.destroy', $d->mission_id) }}" method="post">
-                                        <a class="btn btn-white" href="{{ route('mission.edit', $d->mission_id) }}">
+                                    <form action="{{ route('mission.destroy', $data->mission_id) }}" method="post">
+                                        <a class="btn btn-white" href="{{ route('mission.edit', $data->mission_id) }}">
                                             <img src="Images/edit.png" height="22px" width="22px" alt="edit">
                                         </a>
                                         @csrf
@@ -69,7 +69,7 @@
                     </tbody>
                 </table>
                 <div>
-                    {!! $data->links('pagination::bootstrap-4') !!}
+                    {!! $missiondata->links('pagination::bootstrap-4') !!}
                 </div>
             </div>
         </div>

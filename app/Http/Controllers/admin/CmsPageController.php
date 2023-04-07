@@ -16,7 +16,7 @@ class CmsPageController extends Controller
      */
     public function index(Request $request)
     {
-        $data = CmsPage::where([
+        $cmsdata = CmsPage::where([
             ['title','!=',Null],
             [function ($query) use ($request) {
                 if(($search = $request->s)) {
@@ -26,7 +26,7 @@ class CmsPageController extends Controller
             }]
         ])->paginate(20)
           ->appends(['s'=>$request->s]);
-        return view('admin.cmspage.index',compact('data'));
+        return view('admin.cmspage.index',compact('cmsdata'));
     }
 
     /**
@@ -85,6 +85,6 @@ class CmsPageController extends Controller
     {
         $cmsPage->find($id)
         ->delete();
- return back()->with('success','field has been deleted successfully');
+        return back()->with('success','field has been deleted successfully');
     }
 }

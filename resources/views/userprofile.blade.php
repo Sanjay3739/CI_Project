@@ -62,7 +62,7 @@
                                     <label for="title" class="form-label">Title</label>
                                     <input type="text" class="form-control" id="title" name='title'
                                         placeholder="Enter your title" value="{{ $user->title }}">
-                                        @error('title')
+                                    @error('title')
                                         <div class="text-danger">
                                             {{ $message }}
                                         </div>
@@ -289,10 +289,11 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="col-2 d-flex flex-column align-items-center justify-content-center">
-                                <a href="#" class="text-decoration-none text-muted add-skill"><i
+                            <div class="col-2 d-flex flex-column align-items-center justify-content-center"
+                            style="height: 100%; position: sticky; top:50%;">
+                                <a href="#" class="text-decoration-none text-muted add-skill "><i
                                         class="fas fa-chevron-right"></i></a>
-                                <a href="#" class="text-decoration-none text-muted remove-skill"><i
+                                <a href="#" class="text-decoration-none text-muted remove-skill mt-2"><i
                                         class="fas fa-chevron-left"></i></a>
                             </div>
                             <div class="col-5">
@@ -409,14 +410,9 @@
             });
         });
     </script>
-
     {{-- Change Avtar --}}
     <script>
         $(function() {
-            // $('label[for="avatar"]').on('click', function(e) {
-            //     e.stopPropagation();
-            //     $('#avatar').click();
-            // });
             $('#avatar').on('click', function(e) {
                 e.stopPropagation();
             });

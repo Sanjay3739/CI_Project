@@ -70,7 +70,7 @@
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name='organization_detail'>{{ old('organization_name') }}</textarea>
             </div>
             <div class="col-md-6">
-                <label for="inputdate" class="form-label">Mission Start Date</label>
+                <label for="startdate" class="form-label">Mission Start Date</label>
                 <div class='input-group date' id='datetimepicker1'>
                     <input type='date' class="form-control" name='start_date' value="{{ old('start_date') }}" />
                 </div>
@@ -81,7 +81,7 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label for="inputPassword4" class="form-label">Mission End Date</label>
+                <label for="enddate" class="form-label">Mission End Date</label>
                 <div class='input-group date' id='datetimepicker1'>
                     <input type='date' class="form-control" name='end_date' value="{{ old('end_date') }}" />
                 </div>
@@ -93,7 +93,7 @@
             </div>
             <div class="col-md-6">
                 <label for="inputType" class="form-label">Mission Type</label>
-                <select id="inputType" class="form-select" name='mission_type' value="{{ old('mission_type') }}">
+                <select id="missionType" class="form-select" name='mission_type' value="{{ old('mission_type') }}">
                     <option value="none" selected="" disabled="" hidden="">select mision type</option>
                     <option value="time">Time</option>
                     <option value="goal">Goal</option>
@@ -227,35 +227,35 @@
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        const missionTypeSelect = document.getElementById('inputType');
-        const totalSeatsInput = document.getElementById('text');
-        const registrationDeadlineInput = document.getElementById('missionRegDeadline');
-        const goalObjectiveTextInput = document.getElementById('goal_objective_text');
-        const goalValueInput = document.getElementById('goal_value');
+        const missionTypeSelect = document.getElementById('missionType');
+        const totalSeats = document.getElementById('text');
+        const registrationDeadline = document.getElementById('missionRegDeadline');
+        const goalObjectiveText = document.getElementById('goal_objective_text');
+        const goalValue = document.getElementById('goal_value');
         missionTypeSelect.addEventListener('change', function() {
             const selectedOption = missionTypeSelect.value;
             if (selectedOption === 'time') {
-                totalSeatsInput.disabled = false;
-                registrationDeadlineInput.disabled = false;
-                goalObjectiveTextInput.disabled = true;
-                goalValueInput.disabled = true;
-                goalObjectiveTextInput.value = '';
-                goalValueInput.value = '';
+                totalSeats.disabled = false;
+                registrationDeadline.disabled = false;
+                goalObjectiveText.disabled = true;
+                goalValue.disabled = true;
+                goalObjectiveText.value = '';
+                goalValue.value = '';
             } else if (selectedOption === 'goal') {
-                totalSeatsInput.disabled = true;
-                registrationDeadlineInput.disabled = true;
-                goalObjectiveTextInput.disabled = false;
-                goalValueInput.disabled = false;
-                totalSeatsInput.value = '';
+                totalSeats.disabled = true;
+                registrationDeadline.disabled = true;
+                goalObjectiveText.disabled = false;
+                goalValue.disabled = false;
+                totalSeats.value = '';
                 registrationDeadlineInput.value = '';
             } else {
-                totalSeatsInput.disabled = true;
-                registrationDeadlineInput.disabled = true;
-                goalObjectiveTextInput.disabled = true;
-                goalValueInput.disabled = true;
-                totalSeatsInput.value = '';
-                registrationDeadlineInput.value = '';
-                goalObjectiveTextInput.value = '';
+                totalSeats.disabled = true;
+                registrationDeadline.disabled = true;
+                goalObjectiveText.disabled = true;
+                goalValue.disabled = true;
+                totalSeats.value = '';
+                registrationDeadline.value = '';
+                goalObjectiveText.value = '';
                 goalValueInput.value = '';
             }
         });

@@ -19,7 +19,8 @@ class TimeSheetsController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $timesheets= Timesheet::all();
+        // $timesheets= Timesheet::all();
+        $timesheets = Timesheet::where('user_id', $user->user_id)->get();
         $missions = Mission::get(['mission_id', 'title']);
         $ApprovedTimeMissionId = MissionApplication::where('user_id', $user->user_id)
             ->where('approval_status', 'APPROVE')
@@ -63,7 +64,7 @@ class TimeSheetsController extends Controller
             $timesheet->time = null;
             $timesheet->action = $request->action;
         }
-
+  
         $timesheet->date_volunteered = $request->date_volunteered;
         $timesheet->notes = $request->notes;
         $timesheet->status = 'PENDING';

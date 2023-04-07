@@ -1,6 +1,6 @@
 @extends('admin.app')
 @section('title')
-     Mission-Edit
+    Mission-Edit
 @endsection
 @section('body')
     <div class="container-fluid px-4">
@@ -74,14 +74,14 @@
                     value='{{ $mission->organization_name }}'>
             </div>
             <div class="col-md-6">
-                <label for="exampleFormControlTextarea1" class="form-label">Mission Organisation Detail</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name='organization_detail'>{{ $mission->organization_detail }}</textarea>
+                <label for="missionorg" class="form-label">Mission Organisation Detail</label>
+                <textarea class="form-control" id="missionorg" rows="3" name='organization_detail'>{{ $mission->organization_detail }}</textarea>
             </div>
             <div class="col-md-6">
-                <label for="inputPassword4" class="form-label">Mission Start Date</label>
+                <label for="startdate" class="form-label">Mission Start Date</label>
                 <div class='input-group date' id='datetimepicker1'>
                     <input type='date' class="form-control" name='start_date'
-                        value=" {{ date('Y-m-d', strtotime($mission->start_date)) }}" />
+                        value="{{ date('Y-m-d', strtotime($mission->start_date)) }}" />
                 </div>
                 @error('start_date')
                     <div class="text-danger">
@@ -90,7 +90,7 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label for="inputPassword4" class="form-label">Mission End Date</label>
+                <label for="endtdate" class="form-label">Mission End Date</label>
                 <div class='input-group date' id='datetimepicker1'>
                     <input type='date' class="form-control" name='end_date'
                         value="{{ date('Y-m-d', strtotime($mission->end_date)) }}" />
@@ -103,7 +103,7 @@
             </div>
             <div class="col-md-6">
                 <label for="inputType" class="form-label">Mission Type</label>
-                <select id="inputType" class="form-select" name='mission_type' onchange="handleMissionTypeChange(this)">
+                <select id="missionType" class="form-select" name='mission_type' onchange="handleMissionTypeChange(this)">
                     <option value="none" selected="" disabled="" hidden="">select mission type</option>
                     <option value="time" {{ $mission->mission_type === 'TIME' ? 'selected' : '' }}>Time</option>
                     <option value="goal" {{ $mission->mission_type === 'GOAL' ? 'selected' : '' }}>Goal</option>
@@ -194,7 +194,7 @@
                     </div>
                 @enderror
                 <div>
-                    @foreach ($missionImages as $image)
+                    @foreach ($Images as $image)
                         <span>{{ $image->media_name }}</span>
                         <input type="checkbox" name="selected_media[]" value="{{ $image->media_name }}" checked>
                     @endforeach
@@ -209,7 +209,7 @@
                     </div>
                 @enderror
                 <div>
-                    @foreach ($missionDocuments as $document)
+                    @foreach ($Documents as $document)
                         <span>{{ $document->document_name }}</span>
                         <input type="checkbox" name="selected_documents[]" value="{{ $document->document_name }}"
                             checked>
@@ -265,31 +265,36 @@
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        const missionTypeSelect = document.querySelector('#inputType');
-        const totalSeatsInput = document.querySelector('#text');
-        const registrationDeadlineInput = document.querySelector('#missionRegDeadline');
-        const goalObjectiveTextInput = document.querySelector('#goal_objective_text');
-        const goalValueInput = document.querySelector('#goal_value');
+        const missionTypeSelect = document.querySelector('#missionType');
+        const totalSeats = document.querySelector('#text');
+        const registrationDeadline = document.querySelector('#missionRegDeadline');
+        const goalObjectiveText = document.querySelector('#goal_objective_text');
+        const goalValue = document.querySelector('#goal_value');
+
         function disableTotalSeatsAndRegistrationDeadline() {
             totalSeatsInput.disabled = true;
-            registrationDeadlineInput.disabled = true;
-            totalSeatsInput.value = '';
-            registrationDeadlineInput.value = '';
+            registrationDeadline.disabled = true;
+            totalSeats.value = '';
+            registrationDeadline.value = '';
         }
+
         function disableGoalObjectiveTextAndGoalValue() {
-            goalObjectiveTextInput.disabled = true;
-            goalValueInput.disabled = true;
-            goalObjectiveTextInput.value = '';
-            goalValueInput.value = '';
+            goalObjectiveText.disabled = true;
+            goalValue.disabled = true;
+            goalObjectiveText.value = '';
+            goalValue.value = '';
         }
+
         function enableTotalSeatsAndRegistrationDeadline() {
-            totalSeatsInput.disabled = false;
-            registrationDeadlineInput.disabled = false;
+            totalSeats.disabled = false;
+            registrationDeadline.disabled = false;
         }
+
         function enableGoalObjectiveTextAndGoalValue() {
-            goalObjectiveTextInput.disabled = false;
-            goalValueInput.disabled = false;
+            goalObjectiveText.disabled = false;
+            goalValue.disabled = false;
         }
+
         function handleMissionTypeChange(selectElement) {
             const selectedMissionType = selectElement.value;
             if (selectedMissionType === 'time') {
@@ -303,7 +308,6 @@
         missionTypeSelect.addEventListener('change', function() {
             handleMissionTypeChange(this);
         });
-        // Initialize field states based on the initial mission type value
         const initialMissionType = missionTypeSelect.value;
         if (initialMissionType === 'time') {
             disableGoalObjectiveTextAndGoalValue();

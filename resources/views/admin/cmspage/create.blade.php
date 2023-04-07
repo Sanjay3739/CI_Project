@@ -20,7 +20,6 @@
                             <div class="col-md-12 mb-3">
                                 <label for="Title">Title</label>
                                 <input type="text" name="title" class="form-control" id="">
-
                                 @error('title')
                                     <div class="text-danger">
                                         {{ $message }}
@@ -39,7 +38,6 @@
                             <div class="col-md-12 mb-3">
                                 <label for="slug">Slug</label>
                                 <input type="text" name="slug" class="form-control" id="">
-
                                 @error('slug')
                                     <div class="text-danger">
                                         {{ $message }}
@@ -59,10 +57,10 @@
                                 @enderror
                             </div>
                             <div class="col-md-12 py-4 mr-5">
-                                <button class="btn apply-btn px-3 float-end btn-outline-warning" type="submit"
-                                    style="border-radius:18px">Save</button>
-                                <a class="btn  apply-btn px-3 mr-2 float-end btn-outline-secondary"
-                                    style="border-radius:18px" href="{{ route('cmspage.index') }}">cancel</a>
+                                <button class="btn apply-btn px-3 rounded-pill float-end btn-outline-warning" type="submit"
+                                    >Save</button>
+                                <a class="btn  apply-btn px-3 mr-2 rounded-pill float-end btn-outline-secondary"
+                                     href="{{ route('cmspage.index') }}">cancel</a>
                             </div>
                         </div>
                     </form>

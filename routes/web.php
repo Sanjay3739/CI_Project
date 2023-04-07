@@ -25,12 +25,11 @@ use App\Http\Controllers\admin\ForgetPasswordController;
 use App\Http\Controllers\Admin\AdminPasswordResetController;
 use App\Http\Controllers\admin\MissionController;
 use App\Http\Controllers\CmsPagesController;
-use App\Http\Controllers\StoryInviteController;
+use App\Http\Controllers\ShareStoryController;
+use App\Http\Controllers\StoryDetailController;
+use App\Http\Controllers\StoryListingController;
 use App\Http\Controllers\TimeSheetsController;
 use App\Http\Controllers\UserEditProfileController;
-
-
-
 
 
 //frontend Routes
@@ -58,7 +57,10 @@ Route::post('update-profile', [UserEditProfileController::class,'updateProfile']
 Route::get('edit-profile/{user_id}', [UserEditProfileController::class,'editProfile'])->name('edit-profile')->middleware('auth');
 Route::post('logout', [UserEditProfileController::class,'logout'])->name('logout');
 Route::resource('timesheet', TimesheetsController::class);
-
+Route::get('sharestory',[ShareStoryController::class, 'index']);
+Route::resource('stories', ShareStoryController::class);
+Route::get('storylisting',[StoryListingController::class, 'index']);
+Route::get('storydetails',[StoryDetailController::class, 'storydetails']);
 
 
 

@@ -27,7 +27,7 @@ class MissionController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Mission::where([
+        $missiondata = Mission::where([
             ['title', '!=', Null],
             [function ($query) use ($request) {
                 if (($s = $request->s)) {
@@ -38,7 +38,7 @@ class MissionController extends Controller
             }],
         ])->orderByDesc('mission_id')->paginate(20)
             ->appends(['s' => $request->s]);
-        return view('admin.mission.index', compact('data'));
+        return view('admin.mission.index', compact('missiondata'));
     }
 
     /**
@@ -46,10 +46,10 @@ class MissionController extends Controller
      */
     public function create()
     {
-        $data['countries'] = Country::get(['name', 'country_id']);
-        $data['mission_theme'] = MissionTheme::get(['title', 'mission_theme_id']);
-        $data['mission_skills'] = Skill::get(['skill_id', 'skill_name']);
-        return view('admin.mission.create', $data);
+        $missiondata['countries'] = Country::get(['name', 'country_id']);
+        $missiondata['mission_theme'] = MissionTheme::get(['title', 'mission_theme_id']);
+        $missiondata['mission_skills'] = Skill::get(['skill_id', 'skill_name']);
+        return view('admin.mission.create', $missiondata);
     }
 
     /**
@@ -165,17 +165,17 @@ class MissionController extends Controller
         $mission_skills = Skill::get(['skill_id', 'skill_name']);
         $selected_skills = MissionSkill::where(['mission_id' => $missionId])->get();
         $missionVideo = MissionMedia::where(['mission_id' => $missionId, 'media_name' => 'youtube'])->get();
-        $missionImages = MissionMedia::where([
+        $Images = MissionMedia::where([
             'mission_id' => $missionId,
             'media_type' => 'png',
         ])->get();
-        $missionDocuments = MissionDocument::where([
+        $Documents = MissionDocument::where([
             'mission_id' => $missionId,
         ])->get();
         $goalMission = $mission->goalMission;
         $timeMission = $mission->timeMission;
 
-        return view('admin.mission.edit', compact('mission', 'countries', 'mission_theme', 'cities', 'mission_skills', 'selected_skills', 'missionVideo', 'missionImages', 'missionDocuments', 'goalMission', 'timeMission'));
+        return view('admin.mission.edit', compact('mission', 'countries', 'mission_theme', 'cities', 'mission_skills', 'selected_skills', 'missionVideo', 'Images', 'Documents', 'goalMission', 'timeMission'));
         // Create view by name mission/edit.blade.php
     }
 
@@ -249,9 +249,9 @@ class MissionController extends Controller
 
         // handle missionimages
         $selectedMedia = $request->input('selected_media', []);
-        $missionImages = MissionMedia::where('mission_id', $id)->get();
+        $missionImage = MissionMedia::where('mission_id', $id)->get();
 
-        foreach ($missionImages as $image) {
+        foreach ($missionImage as $image) {
             if (!in_array($image->media_name, $selectedMedia)) {
                 Storage::delete('public/' . $image->media_path);
                 $image->delete();
