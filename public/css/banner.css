@@ -4,13 +4,13 @@
  }
 
  @media (max-width: 1178px) {
-     .btn-danger {
-         margin-top: 5px;
+
+     .btn-danger,
+     .btn {
+         margin-top: 5px !important;
      }
 
-     .btn-warning {
-         width: 58px;
-     }
+
  }
 
  @media (max-width: 992px) {

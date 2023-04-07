@@ -44,7 +44,7 @@ Mission-Skill
                 </marquee>
         </div>
 
-        <div class="col-lg-12" style=" box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;">
+        <div class="col-lg-12 col-md-12 col-sm-12 mw-100" style=" box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;">
 
 
             <div class="card-header"><svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
@@ -64,13 +64,13 @@ Mission-Skill
                         </div>
                     </div>
                 </form>
-                <div class="card ">
+                <div class="card add_btn ">
                     <a href="{{ route('missionskill.create') }}" <button type="button" class="btn rounded text-right btn btn-outline-success" style="box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;">
-                        <i class="fa-solid fa-plus px-3"></i> Add</button>
+                        <i class="fa-solid fa-plus"></i> Add</button>
                     </a>
                 </div>
             </div>
-            <table class="table table-hover table-bordered text-center  table-responsive-lg  table-responsive-md table-responsive-sm">
+            <table class="table table-hover mw-100 w-100 table-bordered text-center  table-responsive-lg  table-responsive-md table-responsive-sm">
                 <thead class="thead-light">
                     <tr>
                         <th class="fs-7" scope="col">ID</th>

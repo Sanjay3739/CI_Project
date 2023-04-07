@@ -13,4 +13,28 @@
      #marquee {
          width: 200px !important;
      }
+
+ }
+
+ @media (max-width: 768px) {
+     .btn-outline-dark {
+         margin: 10px !important;
+     }
+
+     .btn-outline-warning {
+         margin: 10px !important;
+     }
+
+ }
+
+ @media (max-width: 325px) {
+     .btn-outline-succsess {
+         margin: 10px !important;
+     }
+
+     .btn-outline-danger {
+         margin-left: 85px !important;
+         width: 80px !important;
+     }
+
  }

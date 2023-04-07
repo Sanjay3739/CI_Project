@@ -152,8 +152,8 @@
     max-width: 133px;
 }
 .apply-btn:hover{
-    background-color:  #f88634;
-    color: white;
+    background-color:  #ea2d9b;
+    color: rgb(255, 255, 255);
 }
 .time-border {
     position: absolute;

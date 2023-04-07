@@ -9,3 +9,14 @@
         width: 200px !important;
     }
 }
+
+@media (max-width: 768px) {
+    .btn-outline-dark {
+        margin: 20px !important;
+    }
+
+    .btn-outline-warning {
+        margin: 20px !important;
+    }
+
+}

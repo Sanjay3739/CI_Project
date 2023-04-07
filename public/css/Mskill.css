@@ -18,7 +18,7 @@
      }
 
      table {
-         font-size: 30px;
+         font-size: 15px !important;
      }
 
      #marquee {
@@ -46,13 +46,17 @@
          height: 15px;
      }
 
-     .d-flex>.card {
-         justify-content: left;
-         width: 100px;
-     }
+
 
      .d-flex>.card>a {
          font-size: 15px !important;
          padding-right: 0px;
+     }
+ }
+
+ @media (max-width: 400px) {
+    #rat {
+        width: 100px;
+
      }
  }
