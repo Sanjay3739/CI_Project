@@ -29,6 +29,12 @@ class StoreTimesheetRequest extends FormRequest
         return [
 
             'mission_id' => 'required',
+            'notes' => 'required|string',
+            'action' => [
+                Rule::requiredIf(function () use ($mission) {
+                    return $mission->mission_type === 'GOAL';
+                })
+            ],
             'hour' => [
 
                 Rule::requiredIf(function () use ($mission) {
@@ -53,16 +59,8 @@ class StoreTimesheetRequest extends FormRequest
                 'date',
                 'after_or_equal:' . $mission->start_date,
                 'before_or_equal:' . $mission->end_date,
-                'before:tomorrow',
-            ],
-
-            'action' => [
-                Rule::requiredIf(function () use ($mission) {
-                    return $mission->mission_type === 'GOAL';
-                })
-            ],
-            'notes' => 'required|string',
-        ];
+                'before:tomorrow', // Ensure the date is not in the future
+            ],      ];
     }
 
     public function messages()

@@ -1,7 +1,7 @@
-<div class="container-fluid border-bottom">
+<div class="container-fluid " style="border: 1px solid #0e9e2c; background-color:#ffffff">
     <div class="container">
         <div class="row">
-            <div class="col-md-6 d-flex rounded">
+            <div class="col-lg-6 col-md-12  d-flex rounded">
                 <form id="search-mission" style="margin: 0%; padding:0%;">
                     @csrf
                 <div class="d-flex">
@@ -15,11 +15,11 @@
                 </div>
                </form>
             </div>
-            <div class="col-md-6 d-flex justify-content-around">
+            <div class="col-lg-6 col-md-12 d-flex justify-content-around">
                     {{-- <button class="btn border-start" type=submit id="filter-apply">
                         <img src="{{asset("Images/filter.png")}}" alt="">
                     </button> --}}
-                <div class="border input-group h-100 px-2">
+                <div class="col-lg-3 col-md-1 border input-group  px-2">
                     <div class="dropdown w-100">
                         <button class="btn btn-none text-secondary form-select" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                             <span class="float-start ps-0 pe-5">
@@ -40,7 +40,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="border input-group px-2" >
+                <div class="col-lg-3 col-md-1 border input-group px-2" >
                     {{-- <select class="custom-select w-100 border-0 text-muted" name="city_id" id="city-dropdown">
                         <option disabled selected> City </option>
                     </select> --}}
@@ -64,7 +64,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="border input-group px-2">
+                <div class="col-lg-3 col-md-1 border input-group px-2">
                     <div class="dropdown w-100">
                         <button class="btn btn-none text-secondary form-select" disabled type="button" id="theme_drop_down_menu" data-bs-toggle="dropdown" aria-expanded="false">
                             <span class="float-start ps-0 pe-5">
@@ -85,7 +85,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="border border-end input-group px-2">
+                <div class="col-lg-3 col-md-1 border border-end input-group px-2">
                     <div class="dropdown w-100">
                         <button class="btn btn-none text-secondary form-select" type="button" disabled id="skill_drop_down_menu" data-bs-toggle="dropdown" aria-expanded="false">
                             <span class="float-start ps-0 pe-5">

@@ -43,46 +43,13 @@ class VolunteeringTimesheetController extends Controller
     }
 
 
-    // public function index(Request $request)
-    // {
-    //     $user = Auth::user();
 
-    //     $timesheets = Timesheet::where('user_id', $user->user_id)->get();
-
-    //     $appliedTimeMissionIds = MissionApplication::where('user_id', $user->user_id)
-    //         ->where('approval_status', 'APPROVE')
-    //         ->pluck('mission_id')
-    //         ->toArray();
-
-    //     $timemissions = Mission::whereIn('mission_id', $appliedTimeMissionIds)
-    //         ->where('mission_type', 'TIME')
-    //         ->get();
-
-    //     $missions = Mission::get(['title', 'mission_id']);
-
-    //     $appliedGoalMissionIds = MissionApplication::where('user_id', $user->user_id)
-    //         ->where('approval_status', 'APPROVE')
-    //         ->pluck('mission_id')
-    //         ->toArray();
-
-    //     $goalmissions = Mission::whereIn('mission_id', $appliedGoalMissionIds)
-    //         ->where('mission_type', 'GOAL')
-    //         ->get();
-
-    //     return view('volunteeringtimesheet.index', compact('user', 'timesheets', 'appliedTimeMissionIds', 'timemissions', 'appliedGoalMissionIds', 'goalmissions', 'missions'));
-    // }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(StoreTimesheetRequest $request)
     {
 

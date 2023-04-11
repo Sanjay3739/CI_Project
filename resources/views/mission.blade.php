@@ -1,31 +1,36 @@
 @extends('layouts.app')
 @section('content')
+
+
 <?php
-    use Carbon\Carbon;
-    $currentDateTime = Carbon::now();
-    $formattedDateTime = $currentDateTime->format('l, F j, Y, g:iA');
+    // use Carbon\Carbon;
+    // $currentDateTime = Carbon::now();
+    // $formattedDateTime = $currentDateTime->format('l, F j, Y, g:iA');
     $user_id = Auth::user()->user_id;
-    
 ?>
 <div class="container">
     <div class="row p-5">
-        <div class="col-md-6">
-            <div class="single-item">
-                <div class="image">
-                    <img src="{{asset('Images/Animal-welfare-&-save-birds-campaign.png')}}" alt="">
+        <div class="col-lg-6">{{--This is carousel Code--}}
+            <div class="carousel-thumbnail">
+                <div class="top-image">
+                    @foreach ($mission->missionMedia as $media)
+                    <div class="image p-1">
+                        <img class="img-fluid w-100 h-100" src={{asset('storage/'.$media->media_path)}} alt="">
+                    </div>
+                    @endforeach
                 </div>
-                <div class="image">
-                    <img src="{{asset('Images/Animal-welfare-&-save-birds-campaign.png')}}" alt="">
-                </div>
-                <div class="image">
-                    <img src="{{asset('Images/Animal-welfare-&-save-birds-campaign.png')}}" alt="">
-                </div>
-                <div class="image">
-                    <img src="{{asset('Images/Animal-welfare-&-save-birds-campaign.png')}}" alt="">
+            </div>
+            <div class="slidebar-nav">
+                <div class="multiple-items">
+                    @foreach ($mission->missionMedia as $media)
+                    <div class="image p-1">
+                        <img class="img-fluid w-100 h-100" src={{asset('storage/'.$media->media_path)}} alt="">
+                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-lg-6">
             <div class="fs-2" style="color: #414141">
                 {{$mission->title}}
             </div>
@@ -51,7 +56,7 @@
                             <img src={{ asset('Images/seats-left.png') }} alt="">
                         </div>
                         <div class="px-2 d-flex flex-column align-items-start">
-                            <span class="theme-color fs-5 font-weight-bolder"> 10 <br></span>
+                            <span class="theme-color fs-5 font-weight-bolder"> {{$mission->timeMission->total_seats ?? '88'}} <br></span>
                             <span class="text-muted">Seats left</span>
                         </div>
                     </div>
@@ -85,8 +90,18 @@
                             <img src={{ asset('Images/achieved.png') }} alt="">
                         </div>
                         <div class="d-flex flex-column ps-2 w-100">
+                            <style>
+                                .progress-bar {
+                                    background-color: #f88634;
+                                }
+
+                                .progress {
+                                    width: 20em;
+                                }
+
+                            </style>
                             <div class="progress">
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                             <small class="text-muted fs-6">{{$mission->goalMission->goal_value}} achieved</small>
                         </div>
@@ -97,7 +112,7 @@
             <div class="Border-top"></div>
             <div class="row py-4">
                 <div class="col-xxl-6 col-12 py-3">
-                    <button id="mission_like_btn_{{$mission->mission_id}}_{{$user_id}}" class="btn btn-outline-secondary w-100 border-2" style="border-radius: 23px">
+                    <button id="this_mission_like_btn_{{$mission->mission_id}}_{{$user_id}}" class="btn btn-outline-secondary w-100 border-2" style="border-radius: 23px">
                         @if($mission->favoriteMission==null)
                         <?php $value=0?>
                         <span class="text-center">
@@ -105,14 +120,14 @@
                             Add to favorite
                         </span>
                         @else
-                        <?php $value=$mission->favorite_mission_id?>
+                        <?php $value=$mission->favoriteMission->favorite_mission_id?>
                         <span class="text-center">
                             <i class="fas fa-heart fs-4 text-secondary px-1"></i>
                             Added to favorites
                         </span>
                         @endif
                     </button>
-                    <input type="radio" name="imgbackground" id="mission_like_input_{{$mission->mission_id}}_{{$user_id}}" class="d-none imgbgchk py-1 hidden" style="display: none" value={{$value}}>
+                    <input type="radio" name="imgbackground" id="this_mission_like_input_{{$mission->mission_id}}_{{$user_id}}" class="d-none imgbgchk py-1 hidden" style="display: none" value={{$value}}>
                 </div>
                 <div class="col-xxl-6 col-12 py-3">
                     <button class="btn btn-outline-secondary w-100 border-2" id="misison_invite_btn_{{$mission->mission_id}}_{{$user_id}}" data-toggle="modal" data-target="#invite_user_modal_{{$mission->mission_id}}_{{$user_id}}" style="border-radius: 23px">
@@ -164,38 +179,66 @@
                 </div>
             </div>
             <div class="Border-top"></div>
-            <div class="text-center position-relative" style="margin-top: -14px">
-                <small class="p-2 fs-6 text-center text-secondary" style="background-color: white">
-                    <span class="fa fa-star fs-5 checked"></span>
-                    <span class="fa fa-star fs-5 checked"></span>
-                    <span class="fa fa-star fs-5 checked"></span>
-                    <span class="fa fa-star fs-5 checked"></span>
-                    <span class="far fa-star fs-5"></span>
-                </small>
+            <div class="d-flex justify-content-center position-relative" style="margin-top: -35px">
+                <div class='rating bg-white' data-mission_id="{{$mission->mission_id}}" data-user_id="{{$user_id}}">
+                    <input type="radio" name="rating_5" @if ($my_rating!=null) @if($my_rating->rating=='5')
+                    checked
+                    @endif
+                    @endif
+                    value="5" id="5"><label for="5">☆</label>
+                    <input type="radio" name="rating_4" @if ($my_rating!=null) @if($my_rating->rating=='4')
+                    checked
+                    @endif
+                    @endif
+                    value="4" id="4"><label for="4">☆</label>
+                    <input type="radio" name="rating_3" @if ($my_rating!=null) @if($my_rating->rating=='3')
+                    checked
+                    @endif
+                    @endif
+                    value="3" id="3"><label for="3">☆</label>
+                    <input type="radio" name="rating_2" @if ($my_rating!=null) @if($my_rating->rating=='2')
+                    checked
+                    @endif
+                    @endif
+                    value="2" id="2"><label for="2">☆</label>
+                    <input type="radio" name="rating_1" @if ($my_rating!=null) @if($my_rating->rating=='1')
+                    checked
+                    @endif
+                    @endif
+                    value="1" id="1"><label for="1">☆</label>
+                </div>
+                {{-- <small class="p-2 fs-6 text-center text-secondary" style="background-color: white">
+                        <span class="far fa-star fs-5 "></span>
+                        <span class="far fa-star fs-5 "></span>
+                        <span class="far fa-star fs-5 "></span>
+                        <span class="far fa-star fs-5 "></span>
+                        <span class="far fa-star fs-5"></span>
+                    </small> --}}
             </div>
             <div class="row pt-3"> {{--This is cards --}}
                 <div class="col-xxl-3 col-md-6 col-6 col-xs-12 p-2">
                     <div class="card" style="height: 9em">
-                        <div class="card-body">
-                            <h5 class="card-title pb-4"><img src={{ asset('Images/pin1.png') }} alt=""></h5>
+                        <div class="card-body d-flex flex-column justify-content-end">
+                            <h5 class="card-title mb-auto"><img src={{ asset('Images/pin1.png') }} alt=""></h5>
                             <h6 class="card-subtitle text-muted">City</h6>
-                            <p class="card-text">{{$mission->name}}</p>
+                            <p class="card-text fs-7">{{$mission->city->name ?? 'ratua'}}</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-xxl-3 col-md-6 col-6 col-xs-12 p-2">
                     <div class="card" style="height: 9em">
-                        <div class="card-body">
-                            <h5 class="card-title pb-4"><img src={{asset('Images/web.png')}} alt=""></h5>
+                        <div class="card-body d-flex flex-column justify-content-end">
+                            <h5 class="card-title mb-auto"><img src={{asset('Images/web.png')}} alt=""></h5>
                             <h6 class="card-subtitle text-muted">Theme</h6>
                             <p class="card-text">{{$mission->title}}</p>
+
                         </div>
                     </div>
                 </div>
                 <div class="col-xxl-3 col-md-6 col-6 col-xs-12 p-2">
                     <div class="card" style="height: 9em">
-                        <div class="card-body">
-                            <h5 class="card-title pb-3"><img src={{ asset('Images/pin1.png') }} alt=""></h5>
+                        <div class="card-body d-flex flex-column justify-content-end">
+                            <h5 class="card-title mb-auto"><img src={{ asset('Images/pin1.png') }} alt=""></h5>
                             <h6 class="card-subtitle text-muted">Date</h6>
                             <p class="card-text">
                                 {{date('d-m-Y', strtotime($mission->start_date))}}
@@ -205,8 +248,8 @@
                 </div>
                 <div class="col-xxl-3 col-md-6 col-6 col-xs-12 p-2">
                     <div class="card" style="height: 9em">
-                        <div class="card-body">
-                            <h5 class="card-title pb-3"><img src={{asset('Images/organization.png')}} alt=""></h5>
+                        <div class="card-body d-flex flex-column justify-content-end">
+                            <h5 class="card-title mb-auto"><img src={{asset('Images/organization.png')}} alt=""></h5>
                             <h6 class="card-subtitle text-muted">Organization</h6>
                             <p class="card-text">{{$mission->organization_name}}</p>
                         </div>
@@ -215,83 +258,91 @@
             </div>
             <div class="row py-4 justify-content-center align-item-center">{{--Apply Button--}}
                 <div class="col-6 align-self-center">
-                    <form action="#">
-                        <button type="submit text-center" class="btn btn-lg fs-5 apply-btn w-100"> Apply <i class="fa-sharp fa-solid fa-arrow-right"></i> </button>
-                    </form>
+                    @if(count($mission->missionApplication->where('user_id',$user_id))===0)
+                    <button type="button" id="mission_application_btn" class="btn btn-lg fs-5 apply-btn w-100"> Apply <i class="fa-sharp fa-solid fa-arrow-right"></i> </button>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
-    <div class="p-5">
+    <div class="pt-5 container-fluid">
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-lg-7 ">
                 <ul class="nav border-bottom" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link " id="mission-detail-tab" data-toggle="tab" href="#mission-detail" role="tab" aria-controls="mission-detail" aria-selected="true">Mission</a>
+                        <a class="nav-link active" id="mission-detail-tab" data-toggle="tab" href="#mission-detail" role="tab" aria-controls="mission-detail" aria-selected="false">Mission</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="organization-detail-tab" data-toggle="tab" href="#organization-detail" role="tab" aria-controls="organization-detail" aria-selected="false">Organization</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" id="Comment-detail-tab" data-toggle="tab" href="#Comment-detail" role="tab" aria-controls="Comment-detail" aria-selected="false">Comments</a>
+                        <a class="nav-link" id="Comment-detail-tab" data-toggle="tab" href="#Comment-detail" role="tab" aria-controls="Comment-detail" aria-selected="false">Comments</a>
                     </li>
                 </ul>
-                <div class="tab-content pt-4" id="myTabContent">
-                    <div class="tab-pane fade " id="mission-detail" role="tabpanel" aria-labelledby="mission-detail-tab">
+                <div class="tab-content pt-4" id="myTabContent" style="overflow-wrap: break-word;">
+                    <div class="tab-pane fade show active" id="mission-detail" role="tabpanel" aria-labelledby="mission-detail-tab">
                         <h1 class="fs-4 py-1 theme-color">Introduction</h1>
                         <p class="text-muted">{{$mission->short_description}}</p>
-                        <p class="text-muted">{{$mission->description}}</p>
+                        <p class="text-muted ">{!!$mission->description!!}</p>
 
                         <h1 class="fs-4 py-1 theme-color">Challenges</h1>
                         <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, quasi? Dicta fugiat, saepe exercitationem laudantium dignissimos odio veniam expedita culpa sequi quia. Eveniet consequatur quas ratione ut exercitationem consequuntur accusamus.</p>
                         <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, quasi? Dicta fugiat, saepe exercitationem laudantium dignissimos odio veniam expedita culpa sequi quia. Eveniet consequatur quas ratione ut exercitationem consequuntur accusamus.</p>
-
+                        @if(count($mission->missionDocument)!=0)
                         <h1 class="fs-4 py-1 theme-color">Documents</h1>
+                        @endif
+
                         <div class="row">
+                            @foreach($mission->missionDocument as $document)
                             <div class="p-1 col-lg-4 col-md-6 col-12">
-                                <button class="btn py-2 btn-outline border text-center" style="border-radius: 23px">
-                                    <img src={{asset('Images/pdf.png')}} alt=""> random-pdf-type-doc
+                                <button class="downloadClick btn py-2 btn-outline border text-center" data-filename="{{$document->document_name}}" style="border-radius: 23px">
+                                    <div class="d-flex">
+                                        <img @if($document->document_type=='pdf')
+                                        src={{asset('Images/pdf.png')}}
+                                        @elseif($document->document_type=='doc')
+                                        src={{asset('Images/doc.png')}}
+                                        @elseif($document->document_type=="xlsx")
+                                        src={{asset('Images/xlsx.png')}}
+                                        @endif
+                                        alt="">
+                                        <span class="fs-7">{{explode('_',$document->document_name)[1]}}</span>
+                                    </div>
                                 </button>
                             </div>
-                            <div class="p-1 col-lg-4 col-md-6 col-12">
-                                <button class="btn py-2 btn-outline border text-center" style="border-radius: 23px">
-                                    <img src={{asset('Images/doc.png')}} alt=""> random-doc-type-doc
-                                </button>
-                            </div>
-                            <div class="p-1 col-lg-4 col-md-6 col-12">
-                                <button class="btn py-2 btn-outline border text-center" style="border-radius: 23px">
-                                    <img src={{asset('Images/xlsx.png')}} alt=""> random-xlsx-type-doc
-                                </button>
-                            </div>
+                            @endforeach
+                            {{-- <div class="p-1 col-lg-4 col-md-6 col-12">
+                                    <button class="btn py-2 btn-outline border text-center" style="border-radius: 23px">
+                                        <img src={{asset('Images/doc.png')}} alt=""> random-doc-type-doc
+                            </button>
                         </div>
-                    </div>
-                    <div class="tab-pane fade" id="organization-detail" role="tabpanel" aria-labelledby="organization-detail-tab">
-                        {{$mission->organization_detail}}
-                    </div>
-                    <div class="tab-pane fade show active" id="Comment-detail" role="tabpanel" aria-labelledby="Comment-detail-tab">
-                        <div class="form-outline">
-                            <textarea class="form-control" id="textAreaExample3" rows="3" placeholder="Enter your comments"></textarea>
-                        </div>
-                        <div class="py-3">
-                            <button class="form-outline btn btn-outline apply-btn">Post comment</button>
-                        </div>
-                        <div class="container comment">
-                            @for ($i=0;$i<10;$i++) <div class="row">
-                                <div class="col-2 text-center">
-                                    <img class="img-fluid rounded-circle" src={{asset("Images/volunteer1.png")}} width="60px" height="60px" alt="">
-                                </div>
-                                <div class="col-10">
-                                    <span class="fs-6">Rahul Dua <br></span>
-                                    <small>{{$formattedDateTime}}<br></small>
-                                    <p class="pt-1">Nice Mission, Good Environment in place</p>
-                                </div>
-                        </div>
-                        @endfor
+                        <div class="p-1 col-lg-4 col-md-6 col-12">
+                            <button class="btn py-2 btn-outline border text-center" style="border-radius: 23px">
+                                <img src={{asset('Images/xlsx.png')}} alt=""> random-xlsx-type-doc
+                            </button>
+                        </div> --}}
                     </div>
                 </div>
+
+                <div class="tab-pane fade " id="organization-detail" role="tabpanel" aria-labelledby="organization-detail-tab">
+                    <th> {{$mission->organization_detail}}
+                </div>
+                <div class="tab-pane fade " id="Comment-detail" role="tabpanel" aria-labelledby="Comment-detail-tab">
+                    <form id="comment_form">
+                        <div class="form-outline">
+                            <textarea class="form-control" id="your_comment" data-mission_id={{$mission->mission_id}} data-user_id={{$user_id}} rows="3" placeholder="Enter your comments"></textarea>
+                        </div>
+                        <div id="your_comment_error" class="text-danger"></div>
+                        <div class="py-3">
+                            <button type="submit" class="form-outline btn btn-outline apply-btn" id="your_comment_btn">Post comment</button>
+                        </div>
+                    </form>
+                    <div class="container comment" id='comment' data-mission_id={{$mission->mission_id}} data-user_id={{$user_id}}>
+                    </div>
+                </div>
+
             </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-lg-5">
             <div class="card px-4">
                 <div class="card-body">
                     <div class="card-title fs-4">
@@ -300,7 +351,11 @@
                     <div class="card-text py-3">
                         <div class="row">
                             <div class="col-md-3 fs-6 theme-color"> Skills</div>
-                            <div class="col-md-9 fs-6 theme-color">{{$mission->skill_name}}</div>
+                            <div class="col-md-9 fs-6 theme-color">
+                                @foreach ($skills as $skill)
+                                {{$skill}},
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                     <div class="border-bottom"></div>
@@ -316,12 +371,12 @@
                             <div class="col-md-3 pe-2 fs-6 theme-color"> Rating</div>
                             <div class="col-md-9 fs-6 theme-color">
                                 <div class="small-ratings">
-                                    <i class="fa fa-star rating-color"></i>
-                                    <i class="fa fa-star rating-color"></i>
-                                    <i class="fa fa-star rating-color"></i>
-                                    <i class="fa fa-star rating-color"></i>
-                                    <i class="fa fa-star rating-color"></i>
-                                    <span class="text-muted">(by 125 Volunteers)</span>
+                                    @for ($i=1;$i<=5;$i++,$avg_rating--) @if($avg_rating<=0) <i class="far fa-star rating-color"></i>
+                                        @else
+                                        <i class="fa fa-star rating-color"></i>
+                                        @endif
+                                        @endfor
+                                        <span class="text-muted">(by {{$count_rating}} Volunteers)</span>
                                 </div>
                             </div>
                         </div>
@@ -329,34 +384,170 @@
                 </div>
             </div>
             <br>
-            <div class="card px-4">
+            <div class="card">
                 <div class="card-body">
                     <div class="card-title fs-4">
                         <ul class="nav border-bottom"><span class="nav-link active"> Recent Volunteers </span></ul>
                     </div>
-                    <div class="card-text py-4">
-                        {{-- Users foreach --}}
-                    </div>
-                    <div class="card-footer text-muted">
-                        {{-- User Pagination comes here --}}
+                    <div class="card-text">
+                        <div class="row" id="volunteer" data-mission_id="{{$mission->mission_id}}">
+                            {{-- @include('components.recentvolunteers') --}}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
-</div>
-<div class="container-fluid border-bottom py-4"></div>
-<div class="py-4"></div>
-<div class="d-flex justify-content-center py-4">
-    <h1 class="fs-2 theme-color">Related Mission</h1>
-</div>
-<div class="container">
-    {{-- Here comes grid view cards of all related missions --}}
-</div>
+    <div class="container-fluid border-bottom py-4"></div>
+    <div class="py-4"></div>
+    <div class="d-flex justify-content-center py-4">
+        <h1 class="fs-2 theme-color">Related Mission</h1>
+    </div>
 
 </div>
+<div class="container-fluid">
+    @include('home.gridView')
+</div>
 <script>
+    function getComment() {
+        const options = {
+            weekday: 'long'
+            , month: 'long'
+            , day: 'numeric'
+            , year: 'numeric'
+            , hour: 'numeric'
+            , minute: 'numeric'
+            , hour12: true
+            , timeZoneName: 'short'
+        };
+        $('#comment').html('');
+        $.ajax({
+            url: "{{url('api/fetch-comment')}}"
+            , type: "POST"
+            , data: {
+                mission_id: $('#comment').data('mission_id')
+            , }
+            , dataType: 'json'
+            , success: function(result) {
+                result.forEach(comment => {
+                    html = '<div class="row">';
+                    html += '<div class="col-2 text-center">';
+                    html += '<img class="img-fluid rounded-circle" src="http://127.0.0.1:8000/' + comment['avatar'] + '" width="60px" height="60px" alt="">';
+
+                    html += '</div>';
+                    html += '<div class="col-10">';
+                    html += '<span class="fs-6">' + comment['first_name'] + ' ' + comment['last_name'] + '<br></span>';
+                    html += '<small>' + new Date(Date.parse(comment['created_at'])).toLocaleString('en-US', options) + '<br></small>';
+                    html += '<p class="pt-1">' + comment['text'] + '</p>';
+                    html += '</div>';
+                    html += '</div>';
+                    $('#comment').append(html);
+                });
+            }
+        , });
+    }
+
+    function getVolunteers(page) {
+        $.ajax({
+            url: "{{url('api/recent-volunteer')}}" + "?page=" + page
+            , type: "GET"
+            , data: {
+                mission_id: $('#volunteer').data('mission_id')
+            , }
+            , success: function(data) {
+                $('#volunteer').html(data);
+            }
+        })
+    }
     $(document).ready(function() {
+        getComment();
+        getVolunteers(1);
+
+        $('button[id^="mission_application_btn_"]').on('click', function() {
+            mission_id = $(this).data('mission_id');
+            $.ajax({
+                url: "{{url('api/new-mission-application')}}"
+                , type: "POST"
+                , data: {
+                    user_id: $(this).data('user_id')
+                    , mission_id: $(this).data('mission_id')
+                    , approval_status: 'PENDING'
+                    , applied_at: Date.now()
+                , }
+                , success: function(result) {
+                    $('#applied_badge_' + mission_id).css('display', 'block');
+                }
+            })
+            $(this).hide();
+            $('#mission_detail_btn_' + $(this).data('mission_id')).css('display', 'block');
+        });
+        $(".downloadClick").on('click', function() {
+            var filename = $(this).data('filename');
+            console.log(filename);
+            $.ajax({
+                type: "GET"
+                , url: "{{ url('download/:filename')}}".replace(':filename', filename)
+                , xhrFields: {
+                    responseType: 'blob'
+                }
+                , success: function(blob) {
+                    var url = URL.createObjectURL(blob);
+                    var link = document.createElement('a');
+                    link.href = url;
+                    link.download = filename;
+                    link.click();
+                }
+                , error: function() {
+                    console.log('Document download failed!');
+                }
+            })
+        })
+        $('input[name^="rating_"]').on('click', function() {
+            let rating = $(this).val();
+            $.ajax({
+                url: "{{url('api/add-rating')}}"
+                , type: "POST"
+                , data: {
+                    user_id: $('.rating').data('user_id')
+                    , mission_id: $('.rating').data('mission_id')
+                    , rating: rating
+                , }
+                , success: function(response) {
+                    console.log(response);
+                }
+            })
+        })
+        $(document).on('click', '.pagination a', function(event) {
+            event.preventDefault();
+            var page = $(this).attr('href').split('page=')[1];
+            getVolunteers(page);
+        })
+        $('#comment_form').submit(function(event) {
+            event.preventDefault();
+            $.ajax({
+                type: 'POST'
+                , url: "{{url('api/add-comment')}}"
+                , data: {
+                    mission_id: $('#your_comment').data('mission_id')
+                    , user_id: $('#your_comment').data('user_id')
+                    , text: $('#your_comment').val()
+                    , approval_status: 'PUBLISHED'
+                , }
+                , success: function(result) {
+                    console.log(result);
+                    getComment();
+                }
+                , error: function(result) {
+                    var errors = result.responseJSON.errors;
+                    var errorHtml = '';
+                    $.each(errors, function(key, value) {
+                        errorHtml += '<p>' + value + '</p>';
+                    });
+                    $('#your_comment_error').html(errorHtml).show();
+                }
+            })
+        })
         $("button[id^='mission_like_btn_']").on('click', function() {
             var mission_id = this.id.split("_")[3];
             var user_id = this.id.split("_")[4];
@@ -371,8 +562,7 @@
                     , }
                     , success: function(data) {
                         $('#mission_like_input_' + mission_id + '_' + user_id).val(data);
-                        $("button[id^='mission_like_btn_" + mission_id + "_" + user_id + "']")
-                            .html('<span class="text-center"><i class="fas fa-heart fs-4 text-secondary px-1"></i>Added to favorites</span>');
+                        $("button[id^='mission_like_btn_" + mission_id + "_" + user_id + "']").html('<i class="fas fa-heart fs-4"></i>');
                     }
                 });
             } else {
@@ -388,7 +578,43 @@
                     , }
                     , success: function() {
                         $('#mission_like_input_' + mission_id + '_' + user_id).val('0');
-                        $("button[id^='mission_like_btn_" + mission_id + "_" + user_id + "']").html('<span class="text-center"><i class="fa-regular fa-heart fs-4 text-secondary px-1"></i>Add to favorite</span>');
+                        $("button[id^='mission_like_btn_" + mission_id + "_" + user_id + "']").html('<i class="fa-regular fa-heart fs-4"></i>');
+                    }
+                });
+            }
+        })
+        $("button[id^='this_mission_like_btn_']").on('click', function() {
+            var mission_id = this.id.split("_")[4];
+            var user_id = this.id.split("_")[5];
+            if ($('#this_mission_like_input_' + mission_id + '_' + user_id).val() == '0') {
+                $.ajax({
+                    url: "{{url('api/add-favourite')}}"
+                    , type: "POST"
+                    , data: {
+                        _token: '{{ csrf_token() }}'
+                        , mission_id: mission_id
+                        , user_id: user_id
+                    , }
+                    , success: function(data) {
+                        $('#this_mission_like_input_' + mission_id + '_' + user_id).val(data);
+                        $("button[id^='this_mission_like_btn_" + mission_id + "_" + user_id + "']")
+                            .html('<span class="text-center"><i class="fas fa-heart fs-4 text-secondary px-1"></i>Added to favorites</span>');
+                    }
+                });
+            } else {
+                let fav = $('#this_mission_like_input_' + mission_id + '_' + user_id).val()
+                $.ajax({
+                    url: "{{url('api/remove-favourite')}}"
+                    , type: "POST"
+                    , data: {
+                        _token: '{{ csrf_token() }}'
+                        , mission_id: mission_id
+                        , user_id: user_id
+                        , favorite_mission_id: fav
+                    , }
+                    , success: function() {
+                        $('#this_mission_like_input_' + mission_id + '_' + user_id).val('0');
+                        $("button[id^='this_mission_like_btn_" + mission_id + "_" + user_id + "']").html('<span class="text-center"><i class="fa-regular fa-heart fs-4 text-secondary px-1"></i>Add to favorite</span>');
                     }
                 });
             }
@@ -414,7 +640,59 @@
                 , })
             }
         })
-        $(".single-item").slick();
+        $('.top-image').slick({
+            slidesToShow: 1
+            , slidesToScroll: 1
+            , arrows: false
+            , fade: true
+            , asNavFor: '.multiple-items'
+        })
+        $('.multiple-items').slick({
+            infinite: true
+            , arrows: true
+            , slidesToShow: 4
+            , slidesToScroll: 1
+            , asNavFor: '.top-image'
+            , centerMode: false
+            , focusOnSelect: true
+            , responsive: [{
+                    breakpoint: 1399
+                    , settings: {
+                        slidesToShow: 3
+                        , slidesToScroll: 1
+                    }
+                }
+                , {
+                    breakpoint: 1199
+                    , settings: {
+                        slidesToShow: 2
+                        , slidesToScroll: 2
+                    }
+                }
+                , {
+                    breakpoint: 991
+                    , settings: {
+                        slidesToShow: 4
+                        , slidesToScroll: 1
+                    }
+                }
+                , {
+                    breakpoint: 768
+                    , settings: {
+                        slidesToShow: 2
+                        , slidesToScroll: 1
+                    }
+                }
+                , {
+                    breakpoint: 433
+                    , settings: {
+                        slidesToScroll: 1
+                        , slidesToShow: 1
+                    }
+                }
+            , ]
+        })
+
     });
 
 </script>

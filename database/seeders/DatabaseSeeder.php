@@ -3,6 +3,11 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Mission;
+use App\Models\MissionMedia;
+use App\Models\StoryInvite;
+use App\Models\StoryMedia;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,13 +24,22 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call([
-            CountrySeeder::class,
-            CitySeeder::class,
+            // CountrySeeder::class,
+            // CitySeeder::class,
             SkillSeeder::class,
+            // StoryInviteSeeder::class,
+            // StoryMediaSeeder::class,
+            // StorySeeder::class, mmmmmmmm
+
             MissionThemeSeeder::class,
-            MissionSeeder::class,
+            MissionSkillSeeder::class,
+            MissionMediaSeeder::class,
+            // MissionSeeder::class,
             UserSeeder::class,
-            StorySeeder::class,
+            // MissionSeeder::class,
+            // GoalMissionSeeder::class,
+            // CommentSeeder::class,  in which text field not availabe in database
+            // MissionApplicationSeeder::class,
 
         ]);
     }

@@ -11,6 +11,8 @@ class MissionDocument extends Model
     use HasFactory;
     use SoftDeletes;
     protected $primaryKey = 'mission_document_id';
+    protected $dates = ['deleted_at'];
+    
     protected $fillable = [
     'document_name',
     'mission_id',

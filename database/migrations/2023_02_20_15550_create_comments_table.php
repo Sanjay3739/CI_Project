@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('user_id')->on('users');
             $table->unsignedBigInteger('mission_id');
             $table->foreign('mission_id')->references('mission_id')->on('missions');
+            $table->string('text', 255)->nullable();
             $table->enum('approval_status', [ 'PENDING',  'PUBLISHED'])->default('PENDING');
             $table->timestamps();
             $table->softDeletes();

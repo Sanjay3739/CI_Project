@@ -13,7 +13,7 @@
                             <div class=" d-flex justify-content-between mt-3">
                                 <h6 class="modal-title fs-4" id="staticBackdropLabel">Contact Us</h6>
                                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                        </div>
+                            </div>
                             <div class="row">
                                 <div class="col-12 mt-4">
                                     <label for="name" class="form-label">Name*</label>
@@ -23,7 +23,7 @@
                                 <div class="col-12 mt-4">
                                     <label for="email" class="form-label">Email Address*</label>
 
-                                        <input type="email" class="form-control" id="email" placeholder="Enter your email" name="email" value="{{ $user->email }}" disabled>
+                                    <input type="email" class="form-control" id="email" placeholder="Enter your email" name="email" value="{{ $user->email }}" disabled>
 
                                 </div>
                                 <div class="col-12 mt-2">
@@ -39,9 +39,8 @@
                         </div>
 
                         <div class="d-flex py-4 justify-content-end">
-                                <a type="button" class="btn btn-outline-secondary px-3 rounded-pill" data-dismiss="modal">Cancel</a>&nbsp;&nbsp;
-                                <button type="button" class="btn btn-outline-warning px-3 rounded-pill"
-                                    id="saveSkillsBtn">Save</button>
+                            <a type="button" class="btn btn-outline-secondary px-3 rounded-pill" data-dismiss="modal">Cancel</a>&nbsp;&nbsp;
+                            <button type="button" class="btn btn-outline-warning px-3 rounded-pill" id="saveSkillsBtn">Save</button>
                         </div>
                     </form>
                 </div>

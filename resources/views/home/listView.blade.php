@@ -1,27 +1,27 @@
 <div class="row py-3" id="listViewContent" style="display: none;">
     @foreach ($data as $item)
     {{-- This is list view --}}
-    <div class="row  py-3">
+    <div class="row mb-4 py-3" style=" background-color:#ffffff ;box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px; border-radius:20px;">
         <div class="col-lg-12 col-xl-4 py-2">
             <div class="position-relative">
-                {{-- <img class="img-fluid w-100" src="{{asset('storage/'.$item->missionMedia)}}" alt=""> --}}
-                <img class="card-img-top" src={{ asset('Images/Grow-Trees-On-the-path-to-environment-sustainability-3.png') }} alt="">
-
-                @if(count($item->missionApplication->where('user_id',$user_id))!==0)
+                <img class="img-fluid w-100 " @if($item->missionMedia->where('default','1')->first()!= Null)
+                src="{{asset('storage/'.$item->missionMedia->where('default','1')[0]->media_path)}}"
+                @endif alt="">
                 <div class="position-absolute current-status">
+                    @if(count($item->missionApplication->where('user_id',$user_id))!==0)
                     @if($item->missionApplication->where('user_id',$user_id)->first()->approval_status=='PENDING'
                     || $item->missionApplication->where('user_id',$user_id)->first()->approval_status=='APPROVE'
                     )
-                    <span class="badge bg-success fs-6">Applied</span>
+                    <span class="badge fs10 " style="background-color: rgb(26, 210, 54)">Applied</span>
                     @elseif ($item->missionApplication->where('user_id',$user_id)->first()->approval_status=='DECLINE')
-                    <span class="badge bg-danger fs-6">Decline</span>
+                    <span class="badge fs10" style="background-color: rgb(252, 41, 41)">Decline</span>
                     @endif
+                    @endif
+                    <span id="applied_l_badge_{{$item->mission_id}}" style="display: none;" class="badge bg-success fs-6">Applied</span>
                 </div>
-                @endif
-
                 <span class="position-absolute parent_mission_location">
                     <span class="mission_location px-2 py-1">
-                        <img src={{ asset('Images/pin.png') }} alt=""><span class="text-white px-2">{{ $item->city->name ?? 'santar' }}</span>
+                        <img src={{ asset('Images/pin.png') }} alt=""><span class="text-white px-2">{{ $item->city->name ?? 'trangyo'}}</span>
                     </span>
                 </span>
 
@@ -38,6 +38,8 @@
                         @break
                         @endif
                         @endforeach
+
+
                         @if($set==false)
                         <i class="fa-regular fa-heart fs-4"></i>
                         @endif
@@ -49,13 +51,13 @@
                 <div class="position-absolute parent_add_btn">
                     <button class="add_btn py-1" id="misison_invite_btn_{{$item->mission_id}}_{{$user_id}}" data-toggle="modal" data-target="#invite_user_modal_{{$item->mission_id}}_{{$user_id}}"><img src={{ asset('Images/user.png') }} alt=""></button>
                 </div>
+
+
+
                 <div class="text-center" style="z-index: 1; margin-top: -25px">
-                    <span class="fs-10 px-2 from_untill" style="">
-                        @foreach($themes as $theme)
-                        @if ($theme->mission_theme_id==$item->theme_id)
-                        {{ $theme->title }}
-                        @endif
-                        @endforeach
+                    <span class="fs-4 px-2 from_untill" style="">
+                        {{ $item->title }}
+
                     </span>
                 </div>
             </div>
@@ -65,10 +67,15 @@
                 <div class="col">
                     <div class="d-flex">
                         <div>
-                            <img src="{{asset('Images/pin1.png')}}" alt=""> {{$item->city->name ?? 'santar'}}
+                            <img src="{{asset('Images/pin1.png')}}" alt=""> {{$item->city->name ?? 'kagyos'}}
                         </div>
                         <div class="px-2">
-                            <img src="{{asset('Images/web.png')}}" alt=""> {{$item->title}}
+                            <img src="{{asset('Images/web.png')}}" alt=""> {{ $item->title }}
+                            {{-- @foreach($themes as $theme)  --}}
+                            {{-- @if ($theme->mission_theme_id==$item->theme_id)
+                            {{ $theme->title }}
+                            @endif
+                            @endforeach --}}
                         </div>
                         <div class="px-2">
                             <img src="{{asset('Images/organization.png')}}" alt=""> {{$item->organization_name}}
@@ -153,8 +160,7 @@
                                         <img src={{ asset('Images/calender.png') }} alt="">
                                     </div>
                                     <div class=" px-2 d-flex flex-column align-items-start">
-                                        <small class="p-2 fs-8">From
-                                            {{ date('d-m-Y', strtotime($item->start_date)) }} <br> untill
+                                        <small class="p-2 fs-8">
                                             {{ date('d-m-Y', strtotime($item->end_date)) }}
                                         </small>
                                     </div>
@@ -177,12 +183,14 @@
                     </div>
                 </div>
                 <div class="col-xxl-3">
-                    @if(count($item->missionApplication->where('user_id',$user_id))===0)
-                    <button type="button" id="mission_application_btn" data-mission_id="{{$item->mission_id}}" data-user_id="{{$user_id}}" class="btn btn-lg fs-6 apply-btn"> Apply <i class="fa-sharp fa-solid fa-arrow-right"></i> </button>
-                    @else
-                    <a href="{{route('mission-page',$item->mission_id)}}"><button id="mission_detail_btn_{{$item->mission_id}}" class="mx-2 btn btn-outline apply-btn fs-6 px-2"> View Details <i class=" fa-sharp fa-solid fa-arrow-right"></i>
+
+                    <button type="button" id="mission_application_l_btn_{{$item->mission_id}}" data-mission_id="{{$item->mission_id}}" data-user_id="{{$user_id}}" class="btn btn-lg fs-6 apply-btn" @if(count($item->missionApplication->where('user_id',$user_id))!==0) style="display: none;" @endif
+                        > Apply <i class="fa-sharp fa-solid fa-arrow-right"></i> </button>
+
+                    <a href="{{route('mission-page',$item->mission_id)}}"><button id="mission_detail_l_btn_{{$item->mission_id}}" class="mx-2 btn btn-outline apply-btn fs-6 px-2" @if(count($item->missionApplication->where('user_id',$user_id))===0) style="display: none;" @endif
+                            > View Details <i class=" fa-sharp fa-solid fa-arrow-right"></i>
                         </button></a>
-                    @endif
+
                 </div>
             </div>
         </div>
@@ -229,4 +237,31 @@
         </div>
     </div>
     @endforeach
+    <script>
+        function runJquery() {
+
+            $('input[id^="invite_"]').on('click', function() {
+                if (this.checked) {
+                    var mission_id = this.id.split("_")[1];
+                    var to_user_id = this.id.split('_')[2];
+                    var from_user_id = this.id.split("_")[3];
+                    console.log(mission_id);
+                    $.ajax({
+                        url: "{{url('api/invite-user')}}"
+                        , type: "POST"
+                        , data: {
+                            _token: '{{csrf_token() }}'
+                            , from_user_id: from_user_id
+                            , to_user_id: to_user_id
+                            , mission_id: mission_id
+                        , }
+                        , success: function(data) {
+                            alert("Invite Send", 1000);
+                        }
+                    , })
+                }
+            });
+        }
+
+    </script>
 </div>

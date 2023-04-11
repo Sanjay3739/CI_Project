@@ -1,18 +1,20 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
+// use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\admin\CmsPageController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\MissionDetailController;
+use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\VolunteeringTimesheetController;
 
 
 
 
-
-
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TimesheetController;
+use App\Http\Controllers\VolunteeringController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\StoryController;
 use App\Http\Controllers\admin\ApplicationController;
@@ -34,7 +36,9 @@ use App\Http\Controllers\UserEditProfileController;
 
 
 //frontend Routes
-Route::get('index', function () {return view('index');})->name('index')->middleware('auth');
+Route::get('index', function () {
+    return view('index');
+})->name('index')->middleware('auth');
 Route::get('/', [AuthController::class, 'index'])->name('login');
 Route::get('postregister', [AuthController::class, 'postregister'])->name('register');
 Route::get('logout', [AuthController::class, 'logout']);
@@ -48,6 +52,20 @@ Route::get('forgot-password/{token}', [PasswordResetController::class, 'postrese
 Route::post('register', [AuthController::class, 'register'])->name('post-register');
 Route::post('password-resetting', [PasswordResetController::class, 'passwordResetting'])->name('password-resetting');
 
+// Route::get('policy', [CmsPagesController::class, 'index']);
+Route::get('policy', [CmsPagesController::class, 'index'])->name('privacypolicy');
+Route::post('update-profile', [UserEditProfileController::class, 'updateProfile'])->name('update-profile');
+Route::get('edit-profile/{user_id}', [UserEditProfileController::class, 'editProfile'])->name('edit-profile')->middleware('auth');
+Route::post('logout', [UserEditProfileController::class, 'logout'])->name('logout');
+Route::resource('timesheet', TimesheetsController::class);
+Route::get('sharestory', [ShareStoryController::class, 'index']);
+Route::resource('stories', ShareStoryController::class);
+Route::get('storylisting', [StoryListingController::class, 'index']);
+Route::get('storydetails', [StoryDetailController::class, 'storydetails']);
+Route::get('admin-mission-application',[MissionApplicationController::class, 'index']);
+Route::resource('timesheet',VolunteeringTimesheetController::class);
+Route::get('download/{filename}',[DownloadController::class,'download']);
+Route::get('mission-page/{mission_id}',[MissionDetailController::class,'main'])->name('mission-page');
 Route::get('index',[LandingPageController::class, 'index'])->name('landing.index')->middleware('auth');
 Route::get('index-filter',[LandingPageController::class, 'filterApply'])->name('landing.filterApply')->middleware('auth');
 Route::get('index/find-city',[LandingPageController::class, 'findCity']);
@@ -55,21 +73,12 @@ Route::get('index/find-theme',[LandingPageController::class, 'findTheme']);
 Route::get('index/find-skill',[LandingPageController::class, 'findSkill']);
 Route::get('filter-data',[LandingPageController::class,'filterData']);
 
-// Route::get('policy', [CmsPagesController::class, 'index']);
-Route::get('policy', [CmsPagesController::class, 'index'])->name('privacypolicy');
-Route::post('update-profile', [UserEditProfileController::class,'updateProfile'])->name('update-profile');
-Route::get('edit-profile/{user_id}', [UserEditProfileController::class,'editProfile'])->name('edit-profile')->middleware('auth');
-Route::post('logout', [UserEditProfileController::class,'logout'])->name('logout');
-Route::resource('timesheet', TimesheetsController::class);
-Route::get('sharestory',[ShareStoryController::class, 'index']);
-Route::resource('stories', ShareStoryController::class);
-Route::get('storylisting',[StoryListingController::class, 'index']);
-Route::get('storydetails',[StoryDetailController::class, 'storydetails']);
-
-
-
-
-
+Route::resource('home', HomeController::class);
+Route::get('like/{mission_id}', [HomeController::class, 'like']);
+Route::get('unlike/{mission_id}', [HomeController::class, 'unlike']);
+Route::resource('volunteering_mission', VolunteeringController::class);
+Route::get('edit_rating/{rating}/{mission_id}', [VolunteeringController::class, 'edit_rating']);
+Route::get('add_rating/{rating}/{mission_id}', [VolunteeringController::class, 'add_rating']);
 
 
 
@@ -108,7 +117,9 @@ Route::post('resetpassword', [ForgetPasswordController::class, 'resetpassword'])
 Route::post('admin-check-email', [ForgetPasswordController::class, 'admincheckEmail'])->name('admin.check.email');
 Route::get('resetpassword', [ForgetPasswordController::class, 'resetpassword'])->name('resetpassword');
 Route::post('resetpassword2', [AdminPasswordResetController::class, 'resetPassword'])->name('resetpassword2');
-Route::get('adminresetpage/{token}', function () { return view('admin.auth.resetpassword');});
+Route::get('adminresetpage/{token}', function () {
+    return view('admin.auth.resetpassword');
+});
 Route::post('admin-password-resetting', [AdminPasswordResetController::class, 'adminPasswordResetting'])->name('adminPasswordResetting');
 Route::resource('/mission', MissionController::class);
 Route::resource('/cmspage', CmsPageController::class);
@@ -118,15 +129,13 @@ Route::resource('user', UserController::class)->withTrashed();
 Route::resource('story', StoryController::class);
 Route::get('approve/{story_id}', [StoryController::class, 'approve']);
 Route::get('decline/{story_id}', [StoryController::class, 'decline']);
-Route::get('admin/banner',[BannerController::class, 'banner'])->name('banner');
-Route::get('admin/add_banner',[BannerController::class, 'add_banner']);
-Route::get('admin/edit_banner/{banner_id}',[BannerController::class, 'edit_banner']);
-Route::post('admin/banner',[BannerController::class, 'banner']);
+Route::get('admin/banner', [BannerController::class, 'banner'])->name('banner');
+Route::get('admin/add_banner', [BannerController::class, 'add_banner']);
+Route::get('admin/edit_banner/{banner_id}', [BannerController::class, 'edit_banner']);
+Route::post('admin/banner', [BannerController::class, 'banner']);
 Route::post('add-banner', [BannerController::class, 'banner_add'])->name('banner.add');
 Route::post('edit-banner', [BannerController::class, 'banner_edit'])->name('banner.edit');
-Route::delete('admin/delete_banner/{banner_id}',[BannerController::class, 'destroy'])->name('banner.destroy');
+Route::delete('admin/delete_banner/{banner_id}', [BannerController::class, 'destroy'])->name('banner.destroy');
 Route::resource('application', ApplicationController::class);
 Route::get('approve_app/{mission_application_id}', [ApplicationController::class, 'approve_app']);
 Route::get('decline_app/{mission_application_id}', [ApplicationController::class, 'decline_app']);
-Route::get('mission-page/{mission_id}',[MissionDetailController::class,'main'])->name('mission-page');
-Route::resource('timesheet',VolunteeringTimesheetController::class);

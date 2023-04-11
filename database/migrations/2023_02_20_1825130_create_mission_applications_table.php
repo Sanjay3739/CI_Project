@@ -18,11 +18,14 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('user_id')->on('users');
             $table->dateTime('applied_at');
-            $table->enum('approval_status',['PENDING', 'APPROVE', 'DECLINE'])->default('PENDING');
+            $table->enum('approval_status', ['PENDING', 'APPROVE', 'DECLINE'])->default('PENDING');
             $table->timestamps();
             $table->softDeletes();
         });
     }
+
+
+
 
     /**
      * Reverse the migrations.

@@ -18,9 +18,25 @@ class MissionMedia extends Model
         'media_path',
         'default',
         ];
-    
+
 
     public function mission() {
         return $this->belongsTo(Mission::class,'mission_id');
     }
+
+    /**
+	 * @return mixed
+	 */
+	public function getFillable() {
+		return $this->fillable;
+	}
+
+	/**
+	 * @param mixed $fillable
+	 * @return self
+	 */
+	public function setFillable($fillable): self {
+		$this->fillable = $fillable;
+		return $this;
+	}
 }

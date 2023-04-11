@@ -22,17 +22,17 @@ class StoreMissionRequest extends FormRequest
     public function rules(): array
     {
         return [
-             'title' => 'required|max:128',
-             'short_description' => 'required',
-             'description' => 'required',
-             'theme_id' => 'required',
-             'city_id' => 'required',
-             'country_id' => 'required',
-             'mission_type' => 'required',
-             'status' => 'required',
-             'document_name.*' => 'required|mimes:pdf,doc,docx',
-             'media_name.*' => 'required|file|max:2048|mimes:jpg,jpeg,png,mp4',
-             'media_names' => [
+            'title' => 'required|max:128',
+            'short_description' => 'required',
+            'description' => 'required',
+            'theme_id' => 'required',
+            'city_id' => 'required',
+            'country_id' => 'required',
+            'mission_type' => 'required',
+            'status' => 'required',
+            'document_name.*' => 'required|mimes:pdf,doc,docx',
+            'media_name.*' => 'image|max:2048|mimes:jpg,jpeg,png,',
+            'media_names' => [
                 function ($attribute, $value, $fail) {
                     $videoUrl = $this->input('media_names');
                     if ($videoUrl && !preg_match('/^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/i', $videoUrl)) {
@@ -47,14 +47,17 @@ class StoreMissionRequest extends FormRequest
             'goal_objective_text'=>'max:255|string',
             'goal_value'=>'integer',
             'skill_id' => 'required_without_all:skill_id.*|array|min:1',
+
         ];
     }
 
     public function messages()
     {
         return [
+
             'media_name.*.max' => 'The media file size must be less than 2 MB',
             'media_name.*.mimes' => 'The media file must be a JPG, JPEG, PNG',
+
         ];
     }
 }

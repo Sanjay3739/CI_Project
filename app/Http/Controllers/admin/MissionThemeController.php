@@ -20,10 +20,10 @@ class MissionThemeController extends Controller
                     $query->orWhere('title', 'LIKE', '%' . $rat . '%')
                         ->get();
                 }
-
             }]
-        ])->paginate(20)
-        ->appends(['rat'=>$request->rat]);
+        ])->orderBy('created_at', 'desc')
+            ->paginate(20)
+            ->appends(['rat' => $request->rat]);
 
         // $data = MissionTheme::all();
 

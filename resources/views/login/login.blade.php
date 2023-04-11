@@ -15,10 +15,18 @@
     </script>
 
     <style>
-        .col-lg-4 {
+        .form-control {
+            border-radius: 20px;
+            width: 75%;
+         
+        }
+        form{
+             margin-left: 80px
+        }
+        {{--  .col-lg-4 {
 
             background: linear-gradient(to bottom right, #ffdef2, #e6f0ff)
-        }
+        }  --}}
 
         input[type="email"]:valid {
             border: 2px solid rgb(4, 255, 0);
@@ -68,7 +76,7 @@
                 </div>
 
             </div>
-            <div class="col-lg-4 login">
+            <div class="col-lg-4  login">
                 @if ($message = Session::get('failed'))
                 <div class="alert alert-danger">
                     <p>{{ $message }}</p>
@@ -78,6 +86,7 @@
                 <form action="{{ route('login.custom') }}" style="margin-top: 180px" method="post" id="bs" class:"dd">
 
                     @csrf
+
                     <div class="form-group">
                         <label for="" class="login-text mt-4">Email Address</label>
                         <input type="email" class="form-control m-1" name="email" placeholder="" value="{{ old('email') }}">
@@ -96,8 +105,8 @@
                         </div>
                         @enderror
                     </div>
-                    <div class="bt">
-                        <button type="submit" class="btn btn-outline-warning btn-block btn-dark " id="button">Login</button>
+                    <div class="bt" style=" width:75% ">
+                        <button type="submit" class="btn btn-outline-warning btn-block btn-dark "  style=" border-radius: 20px;" id="button">Login</button>
                     </div>
                 </form>
                 @include('components.lostyourpassword')

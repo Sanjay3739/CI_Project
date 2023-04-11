@@ -24,6 +24,6 @@ class MissionApplication extends Model
     }
 
     public function user() {
-        return $this->hasOne(user::class, 'user_id' , 'mission_id');
+        return $this->hasOne(user::class, 'user_id' , 'user_id');
     }
 }

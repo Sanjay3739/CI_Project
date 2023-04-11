@@ -21,9 +21,13 @@
         input[type="email"]:valid {
             border: 1.5px solid rgb(7, 252, 3);
         }
-        .col-lg-4 {
+        .form-control {
+            border-radius: 20px;
+            width: 75%;
 
-            background: linear-gradient(to bottom right, #ffdef2, #e6f0ff)
+        }
+        form{
+             margin-left: 80px
         }
 
     </style>
@@ -58,7 +62,7 @@
                 </div>
 
             </div>
-            <div class="col-lg-4 w-100">
+            <div class="col-lg-4 w-100" style="background-color:#d7eadd">
                 @if ($message = Session::get('success'))
                 <div class="alert alert-success">
                     <p>{{ $message }}</p>
@@ -83,7 +87,7 @@
                         @enderror
                     </div>
 
-                    <button type="submit" id="btn" class="btn btn-outline-warning btn-block btn-dark mt-3">Reset my Password</button>
+                    <button type="submit" id="btn" class="btn btn-outline-warning btn-block btn-dark mt-3"  style=" width:75%; border-radius: 20px;">Reset my Password</button>
                 </form>
 
                 <br>

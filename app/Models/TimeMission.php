@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TimeMission extends Model
 {
@@ -18,5 +19,8 @@ class TimeMission extends Model
         'total_seats',
         'registration_deadline',
     ];
+    public function missions(): BelongsTo {
+        return $this->belongsTo(Mission::class,'mission_id','mission_id');
+    }
 }
 
