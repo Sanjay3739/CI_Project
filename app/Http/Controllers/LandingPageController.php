@@ -43,6 +43,8 @@ class LandingPageController extends Controller
         $favorite = FavoriteMission::where('user_id', Auth::user()->user_id)
             ->get(['favorite_mission_id', 'mission_id']);
 
+            $user=Auth::user();
+
         $users = User::where('user_id', '!=', Auth::user()->user_id)
             ->orderBy('user_id', 'asc')
             ->get();
@@ -61,7 +63,7 @@ class LandingPageController extends Controller
         // }
 
         $data = $data->orderBy('created_at', 'desc')->paginate(9);
-        return view('index', compact('data', 'count', 'countries', 'cities', 'themes', 'skills', 'favorite', 'users'));
+        return view('index', compact('data', 'count', 'countries', 'user','cities', 'themes', 'skills', 'favorite', 'users'));
     }
     public function filterApply(Request $request)
     {

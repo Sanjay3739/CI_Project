@@ -9,6 +9,7 @@ use App\Models\Mission;
 use App\Models\MissionTheme;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\MissionApplication;
 class StoryListingController extends Controller
 {
 
@@ -17,7 +18,8 @@ class StoryListingController extends Controller
         $user = Auth::user();
 
         $published_stories = Story::where('status', 'PUBLISHED')->paginate(6);
-        return view('storylisting',compact('user','published_stories'));
-
+        $draft_stories = Story::where('user_id', $user->user_id)->where('status', 'DRAFT')->get();
+        return view('storylisting',compact('user','published_stories','draft_stories'));
     }
+    
 }

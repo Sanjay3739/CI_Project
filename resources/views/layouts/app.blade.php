@@ -10,6 +10,7 @@
     {{-- <link rel="stylesheet" href="{{asset('css/landing_style.css')}}"> --}}
     <link rel="stylesheet" type="text/css" href="{{asset('slick/slick.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{asset('slick/slick-theme.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('css/storylisting.css')}}"/>
 
     <title>@yield('title')</title>
     <script src={{ asset ('JS/jquery.min.js')}}></script>
@@ -30,3 +31,14 @@
 @include('layouts.scripts')
 @yield('contactus')
 </html>
+
+
+{{--
+<link rel="stylesheet" href="{{asset('CSS/bootstrap.min.css')}}">
+<link rel="stylesheet" href="{{asset('CSS/style.css')}}">
+<link rel="stylesheet" href={{ asset('css/landing_style.css') }}>
+<link rel="stylesheet" type="text/css" href="{{asset('css/skl.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{asset('css/thum.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{asset('css/storylisting.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{asset('slick/slick.css')}}"/>
+<link rel="stylesheet" type="text/css" href="{{asset('slick/slick-theme.css')}}"/>  --}}

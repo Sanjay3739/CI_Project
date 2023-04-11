@@ -73,12 +73,25 @@ Route::get('index/find-theme',[LandingPageController::class, 'findTheme']);
 Route::get('index/find-skill',[LandingPageController::class, 'findSkill']);
 Route::get('filter-data',[LandingPageController::class,'filterData']);
 
-Route::resource('home', HomeController::class);
-Route::get('like/{mission_id}', [HomeController::class, 'like']);
-Route::get('unlike/{mission_id}', [HomeController::class, 'unlike']);
-Route::resource('volunteering_mission', VolunteeringController::class);
-Route::get('edit_rating/{rating}/{mission_id}', [VolunteeringController::class, 'edit_rating']);
-Route::get('add_rating/{rating}/{mission_id}', [VolunteeringController::class, 'add_rating']);
+// Route::get('policy', [CmsPagesController::class, 'index']);
+Route::get('policy', [CmsPagesController::class, 'index'])->name('privacypolicy');
+Route::post('update-profile', [UserEditProfileController::class,'updateProfile'])->name('update-profile');
+Route::get('edit-profile/{user_id}', [UserEditProfileController::class,'editProfile'])->name('edit-profile')->middleware('auth');
+Route::post('logout', [UserEditProfileController::class,'logout'])->name('logout');
+Route::resource('timesheet', TimesheetsController::class);
+//sharestory
+Route::get('sharestory',[ShareStoryController::class, 'index']);
+Route::resource('stories', ShareStoryController::class);
+//story Listing
+Route::get('storylisting',[StoryListingController::class, 'index']);
+// Route::resource('storylisting',StoryListingController::class);
+//storyDetails
+Route::get('storydetail/{story_id}',[StoryDetailController::class, 'storydetails'])->name('storydetail');
+
+
+
+
+
 
 
 
