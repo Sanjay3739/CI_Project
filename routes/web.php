@@ -61,10 +61,14 @@ Route::post('update-profile', [UserEditProfileController::class,'updateProfile']
 Route::get('edit-profile/{user_id}', [UserEditProfileController::class,'editProfile'])->name('edit-profile')->middleware('auth');
 Route::post('logout', [UserEditProfileController::class,'logout'])->name('logout');
 Route::resource('timesheet', TimesheetsController::class);
+//sharestory
 Route::get('sharestory',[ShareStoryController::class, 'index']);
 Route::resource('stories', ShareStoryController::class);
+//story Listing
 Route::get('storylisting',[StoryListingController::class, 'index']);
-Route::get('storydetails',[StoryDetailController::class, 'storydetails']);
+// Route::resource('storylisting',StoryListingController::class);
+//storyDetails
+Route::get('storydetail/{story_id}',[StoryDetailController::class, 'storydetails'])->name('storydetail');
 
 
 

@@ -10,6 +10,8 @@ use App\Http\Controllers\MissionDetailController;
 use App\Http\Controllers\MissionInviteController;
 use App\Http\Controllers\MissionRatingController;
 use App\Http\Controllers\UserEditProfileController;
+use App\Http\Controllers\StoryInviteController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -45,3 +47,4 @@ Route::get('approve-application',[MissionApplicationController::class,'approveAp
 Route::get('reject-application',[MissionApplicationController::class,'rejectApplication']);
 
 
+Route::post('invite-users', [StoryInviteController::class, 'inviteUser']);
