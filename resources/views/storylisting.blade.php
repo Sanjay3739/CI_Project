@@ -18,10 +18,10 @@
                         et dolore magna
                         aliqua.<br> Ut enim ad minim veniam, quis nostrud
                         exercitation ullamco laboris nisi ut aliquip.</p>
-                    <a class="btn px-3 mr-2 rounded-pill btn-outline-secondary" href="{{ url('share-your-story') }}">Share
+                    <a class="btn px-3 mr-2 rounded-pill btn-outline-secondary" href="{{ url('sharestory') }}">Share
                         Your
                         Story <i class="fa fa-arrow-right"></i></a>
-                        {{-- <p class="image_description">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Commodi officiis similique animi quibusdam, ratione quia aliquam quae provident vero ullam incidunt exercitationem nulla labore tempora sapiente dolorum asperiores amet vel.</p> --}}
+
                 </div>
             </div>
 
@@ -41,9 +41,7 @@
                             src="{{ asset('storage/' . $mystory->storyMedia->whereIn('type', ['jpeg', 'jpg', 'png'])->first()->path) }}"
                             alt="">
 
-                        {{-- <img class="d-block w-100 h-100"
-                        src="images/Grow-Trees-On-the-path-to-environment-sustainability-3.png" class="img-fluid"
-                        alt="First slide"> --}}
+
                         @if ($mystory->status == 'PUBLISHED')
                             <div class="cardimage__overlay">
                                 <a class="btn px-3 mr-2 rounded-pill btn-outline-secondary"
@@ -92,9 +90,6 @@
                             src="{{ asset('storage/' . $story->storyMedia->whereIn('type', ['jpeg', 'jpg', 'png'])->first()->path) }}"
                             alt="">
 
-                        {{-- <img class="d-block w-100 h-100"
-                            src="images/Grow-Trees-On-the-path-to-environment-sustainability-3.png" class="img-fluid"
-                            alt="First slide"> --}}
                         <div class="cardimage__overlay">
                             <a class="btn px-3 mr-2 rounded-pill btn-outline-secondary"
                                 href="{{ route('storydetail', $story->story_id) }}">View

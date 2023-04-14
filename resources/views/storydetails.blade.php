@@ -6,52 +6,25 @@
 @section('content')
     <div class="container">
         <div class="row">
-            {{-- <div class="col-xl-6 mt-5">
-
-                <img class="d-block w-100 h-100"src="{{ asset('images/growsharestory.png') }}" class="img-fluid"
-                    alt="First slide">
-                <div class="col-lg-6 w-100 h-100">
-                    <div class="carousel-thumbnail">
-                        <div class="top-image">
-                            @foreach ($story->storyMedia as $media)
-                                <div class="image p-1">
-                                    <img class="img-fluid w-100 h-100" src={{ asset('storage/' . $media->path) }}
-                                        alt="">
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                    <div class="slidebar-nav">
-                        <div class="multiple-items">
-                            @foreach ($story->storyMedia as $media)
-                                <div class="image p-1">
-                                    <img class="img-fluid w-100 h-100" src={{ asset('storage/' . $media->path) }}
-                                        alt="">
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
             <div class="col-xl-6 mt-5">
                 <div class="carousel-thumbnail">
-                    <div class="top-image">
-                        @foreach ($story->storyMedia as $media)
-                        <div class="image p-1">
-                            <img class="img-fluid w-100 h-100" src={{ asset('storage/' . $media->path) }}
-                                alt="">
-                        </div>
-                    @endforeach
+                    <div class="topimages">
+                        @foreach ($storydetails->storyMedia as $storymedia)
+                            <div class="image p-1">
+                                <img class="img-fluid w-100 h-100" src={{ asset('storage/' . $storymedia->path) }}
+                                    alt="">
+                            </div>
+                        @endforeach
                     </div>
                 </div>
                 <div class="slidebar-nav">
                     <div class="multiple-items">
-                        @foreach ($story->storyMedia as $media)
-                        <div class="image p-1">
-                            <img class="img-fluid w-100 h-100" src={{ asset('storage/' . $media->path) }}
-                                alt="">
-                        </div>
-                    @endforeach
+                        @foreach ($storydetails->storyMedia as $storymedia)
+                            <div class="image p-1">
+                                <img class="img-fluid w-100 h-100" src={{ asset('storage/' . $storymedia->path) }}
+                                    alt="">
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -59,39 +32,41 @@
                 <div class="row">
                     <div class="d-flex justify-content-start">
                         <img class="rounded-circle px-2 ms-3 mb-2 " id="header-avatar"
-                            src="{{ asset($story->user->avatar) }}" alt="Profile">
+                            src="{{ asset($storydetails->user->avatar) }}" alt="Profile">
                     </div>
                     <div class="col-xl-12">
-                        <span class="ms-4 px-2" id="userAvatar">{{ $story->user->first_name }}
-                            {{ $story->user->last_name }}</span>
+                        <span class="ms-4 px-2" id="userAvatar">{{ $storydetails->user->first_name }}
+                            {{ $storydetails->user->last_name }}</span>
 
                         <button type="button" class="btn px-2   btn-outline-secondary float-end rounded-pill "><i
                                 class="fa fa-eye"></i>&nbsp;
-                            {{ count($story->storyView) }}
+                            {{ count($storydetails->storyView) }}
                         </button>
                     </div>
 
                     <div class="row ms-3 mt-3">
-                        {!! $story->user->why_i_volunteer !!}
+                        {!! $storydetails->user->why_i_volunteer !!}
                     </div>
                     <div class="row">
-                        <div class=" mt-4">
-                            <button type="button" class="btn px-4  ms-5 btn-outline-secondary  rounded-pill"
-                                id="story_invite_btn_{{ $story->story_id }}_{{ $user->user_id }}" data-toggle="modal"
-                                data-target="#inviteusermodal_{{ $story->story_id }}_{{ $user->user_id }}"><i
-                                    class="fa fa-square"></i>&nbsp;Recommend to a Co-Worker</button>
-
+                        <div class=" mt-4 text-center">
+                            <button type="button" class="btn px-4  btn-outline-secondary  rounded-pill"
+                                id="story_invites_btn_{{ $storydetails->story_id }}_{{ $user->user_id }}" data-toggle="modal"
+                                data-target="#inviteusersmodal_{{ $storydetails->story_id }}_{{ $user->user_id }}"><i
+                                    class="fa fa-square"></i>&nbsp;Recommend to a Co-Worker</button>&nbsp;&nbsp;
+                            <a href="{{ route('mission-page', $storydetails->mission_id) }}"
+                                class="btn px-4 btn-outline-warning rounded-pill">Open Mission&nbsp;<i
+                                    class="fa fa-arrow-right"></i></a>
                             <div class="position-absolute parent_add_btn">
                                 <div class="modal fade w-100"
-                                    id="inviteusermodal_{{ $story->story_id }}_{{ $user->user_id }}" tabindex="-1"
+                                    id="inviteusersmodal_{{ $storydetails->story_id }}_{{ $user->user_id }}" tabindex="-1"
                                     role="dialog"
-                                    aria-labelledby="inviteusermodal_{{ $story->story_id }}_{{ $user->user_id }}Label"
+                                    aria-labelledby="inviteusersmodal_{{ $storydetails->story_id }}_{{ $user->user_id }}Label"
                                     aria-hidden="true">
-                                    <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-dialog modal-xl" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title"
-                                                    id="inviteusermodal_{{ $story->story_id }}_{{ $user->user_id }}Label">
+                                                    id="inviteusersmodal_{{ $storydetails->story_id }}_{{ $user->user_id }}Label">
                                                     Invite Your Friends</h5>
                                                 <button type="button" class="btn-close" data-dismiss="modal"
                                                     aria-label="Close"></button>
@@ -100,10 +75,10 @@
                                                 <table class="table">
                                                     <thead>
                                                         <tr>
-                                                            <th scope="col">First Name</th>
-                                                            <th scope="col">Last Name</th>
-                                                            <th scope="col">Email</th>
-                                                            <th scope="col">Invite</th>
+                                                            <th>First Name</th>
+                                                            <th>Last Name</th>
+                                                            <th>Email</th>
+                                                            <th>Invite</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -114,12 +89,11 @@
                                                                 <td>{{ $userdetail->email }}</td>
                                                                 <td>
                                                                     <input type="checkbox"
-                                                                        id="invite_{{ $story->story_id }}_{{ $userdetail->user_id }}_{{ $user->user_id }}"
+                                                                        id="userinvites_{{ $storydetails->story_id }}_{{ $userdetail->user_id }}_{{ $user->user_id }}"
                                                                         value="{{ $userdetail->user_id }}">
                                                                 </td>
                                                             </tr>
                                                         @endforeach
-
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -131,9 +105,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="{{ route('mission-page', $story->mission_id) }}"
-                                class="btn px-4 btn-outline-warning rounded-pill ms-3">Open Mission&nbsp;<i
-                                    class="fa fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -146,17 +117,17 @@
                     style="border:none; border-bottom: 2px solid #5c5c5c;
                     color: #474747;
                     font-weight: 500; font-family: Roboto; font-size:large">
-                    {{ $story->title }}
+                    {{ $storydetails->title }}
                 </a>
             </ul>
             <div class="row mt-3">
-                {!! $story->description !!}
+                {!! $storydetails->description !!}
             </div>
         </div>
     </div>
     <script>
         $(document).ready(function() {
-            $('.top-image').slick({
+            $('.topimages').slick({
                 slidesToShow: 1,
                 slidesToScroll: 1,
                 arrows: false,
@@ -168,7 +139,7 @@
                 arrows: true,
                 slidesToShow: 4,
                 slidesToScroll: 1,
-                asNavFor: '.top-image',
+                asNavFor: '.topimages',
                 centerMode: false,
                 focusOnSelect: true,
                 responsive: [{
@@ -209,14 +180,14 @@
                 ]
             })
         });
-        $('input[id^="invite_"]').on('click', function() {
+        $('input[id^="userinvites_"]').on('click', function() {
             if (this.checked) {
                 var story_id = this.id.split("_")[1];
                 var to_user_id = this.id.split('_')[2];
                 var from_user_id = this.id.split("_")[3];
                 console.log(story_id);
                 $.ajax({
-                    url: "{{ url('api/invite-users') }}",
+                    url: "{{ url('api/inviteUsers') }}",
                     type: "POST",
                     data: {
                         _token: '{{ csrf_token() }}',
@@ -225,7 +196,7 @@
                         story_id: story_id,
                     },
                     success: function(data) {
-                        alert("Invite Send", 1000);
+                        alert("User Invite Send Successfully", 1000);
                     },
                 })
             }

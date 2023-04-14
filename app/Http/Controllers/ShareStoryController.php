@@ -8,240 +8,72 @@ use App\Models\StoryMedia;
 use App\Models\MissionApplication;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ShareStoryController extends Controller
 {
     public function index(Request $request)
     {
         $user = Auth::user();
-
-
-
-        $appliedMissionIds = MissionApplication::where('user_id', $user->user_id)
+        $storyshareMission = Story::where('user_id', $user->user_id)
+            ->pluck('mission_id')
+            ->toArray();
+        $approveMission = MissionApplication::where('user_id', $user->user_id)
             ->where('approval_status', 'APPROVE')
             ->pluck('mission_id')
             ->toArray();
-        $appliedMissions = Mission::whereIn('mission_id', $appliedMissionIds)->get();
+        $storyMissions = Mission::whereIn('mission_id', $approveMission)
+            ->whereNotIn('mission_id', $storyshareMission)
+            ->get();
 
-        return view('sharestory', compact('user',  'appliedMissionIds', 'appliedMissions'));
+        return view('sharestory', compact('user', 'approveMission', 'storyMissions'));
     }
-
 
     public function store(Request $request)
     {
 
         if ($request->ajax()) {
-            $validatedData = $request->validate([
-                'title' => 'required|string|max:255',
-                'description' => 'required|max:40000',
-                'mission_id' => 'required',
-                'published_at' => 'nullable|date',
-                'path' => 'nullable|array|max:20',
-                'path.*' => 'required|url',
-                'photos' => 'nullable|array|max:20',
-                'photos.*' => 'required|image|max:4096|mimes:jpg,jpeg,png,',
-            ]);
+            $validated = $request->validate(
+                [
+                    'mission_id' => 'required',
+                    'title' => 'required|string|max:255',
+                    'description' => 'required|max:40000',
+                    'published_at' => 'required|date',
+                    'path' => 'nullable|array|max:20',
+                    'path.*' => 'required|url',
+                    'images' => 'nullable|array|max:20',
+                    'images.*' => 'image|max:4096|mimes:jpg,jpeg,png,',
+                ]
+            );
+            $story = new Story;
+            $story->mission_id = $validated['mission_id'];
+            $story->title = $validated['title'];
+            $story->description = $validated['description'];
+            $story->published_at = $validated['published_at'];
+            $story->status = 'DRAFT';
+            $story->user_id = auth()->user()->user_id;
+            $story->save();
 
-            $draft = Story::where([
-                ['user_id', '=', auth()->user()->user_id],
-                ['mission_id', '=', $validatedData['mission_id']],
-                ['status', '=', 'DRAFT']
-            ])->first();
-
-            if ($draft) {
-                $draft->title = $validatedData['title'];
-                $draft->description = $validatedData['description'];
-                $draft->mission_id = $validatedData['mission_id'];
-                $draft->published_at = $validatedData['published_at'];
-                $draft->save();
-
-                // // Save videos
-                // $draft->storyMedia()->where('type', 'video')->delete();
-                // foreach ($validatedData['path'] as $video) {
-                //     $media = new StoryMedia;
-                //     $media->story_id = $draft->story_id;
-                //     $media->type = 'video';
-                //     $media->path = $video;
-                //     $media->save();
-                //
-
-                // Update videos
-                $existingMedia = $draft->storyMedia()->where('type', 'video')->get();
-                $existingPaths = $existingMedia->pluck('path')->toArray();
-                $newPaths = $validatedData['path'];
-
-                // Find paths that have been removed
-                $removedPaths = array_diff($existingPaths, $newPaths);
-
-                // Find paths that have been added
-                $addedPaths = array_diff($newPaths, $existingPaths);
-
-                // Update existing media
-                foreach ($existingMedia as $media) {
-                    if (in_array($media->path, $addedPaths)) {
-                        // Update the path if it was changed
-                        $media->path = $newPaths[array_search($media->path, $addedPaths)];
-                        $media->save();
-                    } elseif (in_array($media->path, $removedPaths)) {
-                        // Delete the media if the path was removed
-                        $media->delete();
-                    }
-                }
-
-                // Add new media
-                foreach ($addedPaths as $path) {
-                    if (!in_array($path, $existingPaths)) {
-                        $media = new StoryMedia;
-                        $media->story_id = $draft->story_id;
-                        $media->type = 'video';
-                        $media->path = $path;
-                        $media->save();
-                    }
-                }
-
-                return "Draft updated";
-
-
-                //return "Draft updated";
-            } else {
-                $story = new Story;
-                $story->title = $validatedData['title'];
-                $story->description = $validatedData['description'];
-                $story->mission_id = $validatedData['mission_id'];
-                $story->published_at = $validatedData['published_at'];
-                $story->status = 'DRAFT';
-                $story->user_id = auth()->user()->user_id;
-                $story->save();
-
-                // Save videos
-                foreach ($validatedData['path'] as $video) {
-                    $media = new StoryMedia;
-                    $media->story_id = $story->story_id;
-                    $media->type = 'video';
-                    $media->path = $video;
-                    $media->save();
-                }
-
-                foreach ($validatedData['photos'] as $photo) {
-                    $imageName = $photo->getClientOriginalName();
-                    $imagePath = $photo->storeAs('storage/StoryMedia', $imageName,'public');
-                    $extension = $photo->getClientOriginalExtension();
-                    $media = new StoryMedia;
-                    $media->story_id = $story->story_id;
-                    $media->type = $extension;
-                    $media->path = $imagePath;
-                    $media->save();
-                }
-
-
-                return "Saved to Draft";
+            foreach ($validated['images'] as $photo) {
+                $storyimage = $photo->getClientOriginalName();
+                $imagePath = $photo->storeAs('storage/storyMedia', $storyimage, 'public');
+                $extension = $photo->getClientOriginalExtension();
+                $storymedia = new StoryMedia;
+                $storymedia->story_id = $story->story_id;
+                $storymedia->type = $extension;
+                $storymedia->path = $imagePath;
+                $storymedia->save();
             }
-        } else {
-            $validatedData = $request->validate([
-                'title' => 'required|string|max:255',
-                'description' => 'required|max:40000',
-                'mission_id' => 'required',
-                'published_at' => 'nullable|date',
-                'path' => 'nullable|array|max:20',
-                'path.*' => 'required|url',
-                'photos' => 'nullable|array|max:20',
-                'photos.*' => 'nullable|file|max:4096',
-
-                //  /^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/
-            ]);
-
-            $draft = Story::where([
-                ['user_id', '=', auth()->user()->user_id],
-                ['mission_id', '=', $validatedData['mission_id']],
-                ['status', '=', 'DRAFT']
-            ])->first();
-
-            if ($draft) {
-                $draft->title = $validatedData['title'];
-                $draft->description = $validatedData['description'];
-                $draft->mission_id = $validatedData['mission_id'];
-                $draft->published_at = $validatedData['published_at'];
-                $draft->status = 'PENDING';
-                $draft->save();
-
-                // // Save videos
-                // $draft->storyMedia()->where('type', 'video')->delete();
-                // foreach ($validatedData['path'] as $video) {
-                //     $media = new StoryMedia;
-                //     $media->story_id = $draft->story_id;
-                //     $media->type = 'video';
-                //     $media->path = $video;
-                //     $media->save();
-                // }
-
-
-
-
-
-
-
-
-
-                // Update videos
-                $existingMedia = $draft->storyMedia()->where('type', 'video')->get();
-                $existingPaths = $existingMedia->pluck('path')->toArray();
-                $newPaths = $validatedData['path'];
-
-                // Find paths that have been removed
-                $removedPaths = array_diff($existingPaths, $newPaths);
-
-                // Find paths that have been added
-                $addedPaths = array_diff($newPaths, $existingPaths);
-
-                // Update existing media
-                foreach ($existingMedia as $media) {
-                    if (in_array($media->path, $addedPaths)) {
-                        // Update the path if it was changed
-                        $media->path = $newPaths[array_search($media->path, $addedPaths)];
-                        $media->save();
-                    } elseif (in_array($media->path, $removedPaths)) {
-                        // Delete the media if the path was removed
-                        $media->delete();
-                    }
-                }
-
-                // Add new media
-                foreach ($addedPaths as $path) {
-                    if (!in_array($path, $existingPaths)) {
-                        $media = new StoryMedia;
-                        $media->story_id = $draft->story_id;
-                        $media->type = 'video';
-                        $media->path = $path;
-                        $media->save();
-                    }
-                }
-
-
-
-
-
-                return redirect()->route('landing.index')->with('success', 'Your story has been shared.');
-            } else {
-                $story = new Story;
-                $story->title = $validatedData['title'];
-                $story->description = $validatedData['description'];
-                $story->mission_id = $validatedData['mission_id'];
-                $story->published_at = $validatedData['published_at'];
-                $story->status = 'PENDING';
-                $story->user_id = auth()->user()->user_id;
-                $story->save();
-
-                // Save videos
-                foreach ($validatedData['path'] as $video) {
-                    $media = new StoryMedia;
-                    $media->story_id = $story->story_id;
-                    $media->type = 'video';
-                    $media->path = $video;
-                    $media->save();
-                }
-
-                return redirect()->route('landing.index')->with('success', 'Your story has been submitted for review.');
+            foreach ($validated['path'] as $video) {
+                $storymedia = new StoryMedia;
+                $storymedia->story_id = $story->story_id;
+                $storymedia->type = 'video';
+                $storymedia->path = $video;
+                $storymedia->save();
             }
+
+            $sharestory_id = $story->story_id;
+            return $sharestory_id;
         }
     }
 
@@ -249,156 +81,171 @@ class ShareStoryController extends Controller
     {
         $user = Auth::user();
         $story = Story::findOrFail($story_id);
-        $storyvideoMedia = StoryMedia::where('story_id', $story_id)->where('type', 'video')->get();
-        $storyimageMedia = StoryMedia::where('story_id', $story_id)->whereIn('type', ['png', 'jpg', 'jpeg'])->get();
+        $storyvideo = StoryMedia::where('story_id', $story_id)->where('type', 'video')->get();
+        $storyimage = StoryMedia::where('story_id', $story_id)->whereIn('type', ['png', 'jpg', 'jpeg'])->get();
 
-
-
-        $appliedMissionIds = MissionApplication::where('user_id', $user->user_id)
+        $approveMission = MissionApplication::where('user_id', $user->user_id)
             ->where('approval_status', 'APPROVE')
             ->pluck('mission_id')
             ->toArray();
 
-        $appliedMissions = Mission::whereIn('mission_id', $appliedMissionIds,)->get();
-        return view('editshareyourstory', compact('user', 'story', 'storyvideoMedia', 'appliedMissions', 'storyimageMedia'));
+        $storyMissions = Mission::whereIn('mission_id', $approveMission,)->get();
+        return view('editshareyourstory', compact('user', 'story', 'storyMissions', 'storyvideo', 'storyimage'));
     }
-    
+
+    public function updatedstory(Request $request, $story_id)
+    {
+        $story = Story::findOrFail($story_id);
+        $validated = $request->validate(
+            [
+                'mission_id' => 'required',
+                'title' => 'required|string|max:255',
+                'description' => 'required|max:40000',
+                'published_at' => 'nullable|date',
+                'path' => 'array|max:20|required',
+                'path.*' => 'url',
+                'images' => 'nullable|array|max:20',
+                'images.*' => 'required|image|max:4096|mimes:jpg,jpeg,png,',
+            ]
+        );
+        $story = Story::findOrFail($story_id);
+        $story->mission_id = $validated['mission_id'];
+        $story->title = $validated['title'];
+        $story->description = $validated['description'];
+        $story->published_at = $validated['published_at'];
+        $story->status = 'DRAFT';
+        $story->user_id = auth()->user()->user_id;
+        $story->save();
+
+         // images
+        if (isset($request->images)) {
+            foreach ($validated['images'] as $photo) {
+                $storyimage = $photo->getClientOriginalName();
+                $imagePath = $photo->storeAs('storage/storyMedia', $storyimage, 'public');
+                $extension = $photo->getClientOriginalExtension();
+                $storymedia = new StoryMedia;
+                $storymedia->story_id = $story->story_id;
+                $storymedia->type = $extension;
+                $storymedia->path = $imagePath;
+                $storymedia->save();
+            }
+        }
+        if (isset($request->CancleImages)) {
+
+            $story_media_ids = explode(',', $request->CancleImages);
+            foreach ($story_media_ids as $story_media_id) {
+                $story_media = StoryMedia::findOrFail($story_media_id);
+                $story_media->delete();
+            }
+        }
+
+        //video
+        $existingMedia = $story->storyMedia()->where('type', 'video')->get();
+        $existingPaths = $existingMedia->pluck('path')->toArray();
+        $newPaths = $validated['path'];
+        $removedPaths = array_diff($existingPaths, $newPaths);
+        $addedPaths = array_diff($newPaths, $existingPaths);
+        foreach ($existingMedia as $media) {
+            if (in_array($media->path, $addedPaths)) {
+
+                $storymedia->path = $newPaths[array_search($media->path, $addedPaths)];
+                $storymedia->save();
+            } elseif (in_array($media->path, $removedPaths)) {
+
+                $media->delete();
+            }
+        }
+
+        foreach ($addedPaths as $path) {
+            if (!in_array($path, $existingPaths)) {
+                $storymedia = new StoryMedia;
+                $storymedia->story_id = $story->story_id;
+                $storymedia->type = 'video';
+                $storymedia->path = $path;
+                $storymedia->save();
+            }
+        }
+
+        return 'Your Story has been Updated';
+    }
+
     public function update(Request $request, $story_id)
     {
+        $newPaths = explode("\r\n", $request->path[0]);
+        $validator = Validator::make($newPaths, [
+            'path.*' => 'required|url',
+        ]);
+        $validated = $request->validate([
+            'mission_id' => 'required',
+            'title' => 'required|string|max:255',
+            'description' => 'required|max:40000',
+            'published_at' => 'nullable|date',
+            'path' => 'nullable|array|max:20',
+            'images' => 'nullable|array|max:20',
+            'images.*' => 'image|max:4096|mimes:jpg,jpeg,png,',
 
-        if ($request->ajax()) {
-          //dd($request->toArray());
-          $story = Story::findOrFail($story_id);
+        ]);
 
-            $validatedData = $request->validate([
-                'title' => 'required|string|max:255',
-                'description' => 'required|max:40000',
-                'mission_id' => 'required',
-                'published_at' => 'nullable|date',
-                'path' => 'nullable|array|max:20',
-                'path.*' => 'required|url',
-                'photos' => 'nullable|array|max:20',
-                'photos.*' => 'required|image|max:4096|mimes:jpg,jpeg,png,',
-            ]);
+        $mypaths = $validated['path'];
+        $paths = array_filter($validated['path']);
+        $story = Story::findOrFail($story_id);
+        $story->title = $validated['title'];
+        $story->description = $validated['description'];
+        $story->mission_id = $validated['mission_id'];
+        $story->published_at = $validated['published_at'];
+        $story->status = 'PENDING';
+        $story->save();
 
-            // dd($request->toArray());
-            $story = Story::findOrFail($story_id);
-            $story->title = $validatedData['title'];
-            $story->description = $validatedData['description'];
-            $story->mission_id = $validatedData['mission_id'];
-            $story->published_at = $validatedData['published_at'];
-            $story->status = 'DRAFT';
-            $story->user_id = auth()->user()->user_id;
-            $story->save();
+        // Update videos
+        $existingMedia = $story->storyMedia()->where('type', 'video')->get();;
+        $existingPaths = $existingMedia->pluck('path')->toArray();
+        if (isset($paths[0])) {
+            $newPaths = explode("\r\n", $paths[0]);
+        }
 
-            $existingMedia = $story->storyMedia()->where('type', 'video')->get();
-            $existingPaths = $existingMedia->pluck('path')->toArray();
-            $newPaths = $validatedData['path'];
+        $removedPaths = array_diff($existingPaths, $newPaths);
+        $addedPaths = array_diff($newPaths, $existingPaths);
 
-            $removedPaths = array_diff($existingPaths, $newPaths);
-
-
-            $addedPaths = array_diff($newPaths, $existingPaths);
-
-            foreach ($existingMedia as $media) {
-                if (in_array($media->path, $addedPaths)) {
-
-                    $media->path = $newPaths[array_search($media->path, $addedPaths)];
-                    $media->save();
-                } elseif (in_array($media->path, $removedPaths)) {
-
-                    $media->delete();
-                }
+        foreach ($existingMedia as $storymedia) {
+            if (in_array($storymedia->path, $addedPaths)) {
+                $storymedia->path = $newPaths[array_search($storymedia->path, $addedPaths)];
+                $storymedia->save();
+            } elseif (in_array($storymedia->path, $removedPaths)) {
+                $storymedia->delete();
             }
+        }
 
-
-            foreach ($addedPaths as $path) {
-                if (!in_array($path, $existingPaths)) {
-                    $media = new StoryMedia;
-                    $media->story_id = $story->story_id;
-                    $media->type = 'video';
-                    $media->path = $path;
-                    $media->save();
-                }
+        foreach ($addedPaths as $path) {
+            if (!in_array($path, $existingPaths)) {
+                $storymedia = new StoryMedia;
+                $storymedia->story_id = $story->story_id;
+                $storymedia->type = 'video';
+                $storymedia->path = $path;
+                $storymedia->save();
             }
+        }
 
-            foreach ($validatedData['photos'] as $photo) {
-                $imageName = $photo->getClientOriginalName();
-                $imagePath = $photo->storeAs('storage/story_media', $imageName, 'public');
+        if (isset($request->images)) {
+            foreach ($validated['images'] as $photo) {
+                $storyimage = $photo->getClientOriginalName();
+                $imagePath = $photo->storeAs('storage/story_media', $storyimage, 'public');
                 $extension = $photo->getClientOriginalExtension();
-                $media = new StoryMedia;
-                $media->story_id = $story->story_id;
-                $media->type = $extension;
-                $media->path = $imagePath;
-                $media->save();
+                $storymedia = new StoryMedia;
+                $storymedia->story_id = $story_id;
+                $storymedia->type = $extension;
+                $storymedia->path = $imagePath;
+                $storymedia->save();
             }
-
-            return 'Draft Updated';
         }
-
-
-        else{
-            $validatedData = $request->validate([
-                'title' => 'required|string|max:255',
-                'description' => 'required|max:40000',
-                'mission_id' => 'required',
-                'published_at' => 'nullable|date',
-                'path' => 'nullable|array|max:20',
-              // 'path.*' => 'url',
-                'photos' => 'nullable|array|max:20',
-                'photos.*' => 'image|max:4096|mimes:jpg,jpeg,png,',
-
-            ]);
-        //    dd($validatedData);
-            $story = Story::findOrFail($story_id);
-            $story->title = $validatedData['title'];
-            $story->description = $validatedData['description'];
-            $story->mission_id = $validatedData['mission_id'];
-            $story->published_at = $validatedData['published_at'];
-            $story->status = 'PENDING';
-            $story->save();
-
-            // Update videos
-            $existingMedia = $story->storyMedia()->where('type', 'video')->get();
-            //dd($existingMedia);
-            $existingPaths = $existingMedia->pluck('path')->toArray();
-           // dd($existingPaths);
-            $newPaths = $validatedData['path'];
-            //dd($newPaths);
-            // Find paths that have been removed
-            $removedPaths = array_diff($existingPaths, $newPaths);
-           // dd($removedPaths);
-
-            // Find paths that have been added
-            $addedPaths = array_diff($newPaths, $existingPaths);
-            // dd($addedPaths);
-
-            // Update existing media
-            foreach ($existingMedia as $media) {
-                if (in_array($media->path, $addedPaths)) {
-                    // Update the path if it was changed
-                    $media->path = $newPaths[array_search($media->path, $addedPaths)];
-                    $media->save();
-                } elseif (in_array($media->path, $removedPaths)) {
-                    // Delete the media if the path was removed
-                    $media->delete();
-                }
+        if (isset($request->CancleImages)) {
+            $story_media_ids = explode(',', $request->CancleImages);
+            foreach ($story_media_ids as $story_media_id) {
+                $story_media = StoryMedia::findOrFail($story_media_id);
+                $story_media->delete();
             }
-
-            // Add new media
-            foreach ($addedPaths as $path) {
-                if (!in_array($path, $existingPaths)) {
-                    $media = new StoryMedia;
-                    $media->story_id = $story->story_id;
-                    $media->type = 'video';
-                    $media->path = $path;
-                    $media->save();
-                }
-            }
-
-            return redirect()->route('landing.index')->with('success', 'Your story has been shared.');
         }
+        return redirect()->route('storylisting')->with('Successfully', 'Your story has been Updated.');
     }
-
-
 }
+
+

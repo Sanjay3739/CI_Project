@@ -9,7 +9,7 @@ class StoryInviteController extends Controller
 {
     public function inviteUser(Request $request)
     {
-        $invite = StoryInvite::create($request->post());
+        $userstoryinvite = StoryInvite::create($request->post());
         return;
     }
 }
