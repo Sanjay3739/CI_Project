@@ -42,7 +42,7 @@
                     <div class="carousel-inner">
                         @foreach ($banners as $banner)
                         <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                            <img class="d-block w-100  img-fluid" src="/storage/uplodes/{{ $banner->image }}" alt="good so good" style="height:765px; width:100%;" title="" />
+                            <img class="d-block w-100  img-fluid" src="/storage/uplodes/{{ $banner->image }}" alt="" style="height:765px; width:100%;" title="" />
 
                             <div class="carousel-caption d-none d-md-block">
 
@@ -62,7 +62,8 @@
                 </div>
 
             </div>
-            <div class="col-lg-4 w-100" style="background-color:#d7eadd">
+            <div class="col-lg-4 w-100">
+                <br>
                 @if ($message = Session::get('success'))
                 <div class="alert alert-success">
                     <p>{{ $message }}</p>

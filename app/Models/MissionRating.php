@@ -18,7 +18,7 @@ class MissionRating extends Model
     ];
 
     public function mission() {
-        return $this->belongToMany(Mission::class, 'mission_id'); }
+        return $this->belongToMany(Mission::class, 'mission_id','mission_id'); }
 
     public function user() {
         return $this->belongToMany(User::class, 'user_id');}

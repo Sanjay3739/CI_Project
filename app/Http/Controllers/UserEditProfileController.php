@@ -50,7 +50,7 @@ class UserEditProfileController extends Controller
         }
         $avtarprofile->fill($request->post());
         $avtarprofile->save();
-        return redirect()->route('landing.index')->with('success', 'Profile updated successfully!');
+        return redirect()->route('main.index')->with('success', 'Profile updated successfully!');
     }
 
     public function updatePassword(Request $request)

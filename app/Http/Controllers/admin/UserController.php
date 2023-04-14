@@ -5,20 +5,21 @@ namespace App\Http\Controllers\admin;
 use App\Models\city;
 use App\Models\Country;
 use App\Models\User;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequest;
-use App\Http\Requests\UpdateUserRequest;
-use Illuminate\Http\RedirectResponse;
-
-
-use Symfony\Component\HttpFoundation\Request;
 
 
 class UserController extends Controller
 {
+
+    /**
+     * Display a all Data of the resource.
+     */
+
     public function index(Request $request)
     {
         $data = User::where([
+
             [function ($query) use ($request) {
                 if (($rat = $request->search)) {
                     $query->orWhere('first_name', 'LIKE', '%' . $rat . '%')
@@ -36,41 +37,44 @@ class UserController extends Controller
 
     public function create()
     {
-
+        /**
+         * Show the form for creating a new resource.
+         */
         $data['countries'] = Country::get(['name', 'country_id']);
         return view('admin.user.create', $data);
     }
 
-    public function store(UserRequest $request)
+    public function store(Request $request)
     {
-        // $this->validate($request, [
-        //     'first_name' => 'required',
-        //     'last_name' => 'required',
-        //     'email' => 'required|email:snoof',
-        //     'phone_number' => 'bail|required|numeric',
-        //     'password' => 'required',
-        //     'confirm_password' => 'bail|required|same:password',
-        //     'employee_id' => 'numeric',
-        //     'avatar' => 'required',
-        //     'department' => 'required',
-        //     'profile_text' => 'required',
-        //     'country_id' => 'required',
-        //     'city_id' => 'required',
-        //     'status'=>'required',
-        // ]);
+        /**
+         * Store a newly created resource in storage.
+         */
+        $validatedData = $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|email:snoof',
+            'phone_number' => 'bail|required|numeric',
+            'password' => 'required',
+            'confirm_password' => 'bail|required|same:password',
+            'employee_id' => 'numeric',
+            'avatar' => 'required',
+            'department' => 'required',
+            'profile_text' => 'required',
+            'country_id' => 'required',
+            'city_id' => 'required',
+            'status' => 'required',
+        ]);
 
-        $password = $request['password'];
-        $request['password'] = bcrypt($password);
-        User::create($request->post());
+        $password = $validatedData['password'];
+        $validatedData['password'] = bcrypt($password);
+        User::create($validatedData);
         return redirect()->route('user.index')->with('message', 'Your............. Account Created sucessfully 😁👌');
     }
-    // public function show(User $user, $id)
-    // {
-    //     $user->find('$id');
-    //     return view('admin.user.edit');
-    // }
     public function show(User $users, $id)
     {
+        /**
+         * Display the specified resource.
+         */
         $cities = City::where('country_id')->get(['city_id', 'name']);
         $countries = Country::where('country_id')->get(['country_id', 'name']);
         $users = User::where('user_id', $id)->first();
@@ -78,6 +82,9 @@ class UserController extends Controller
     }
     public function edit($id)
     {
+        /**
+         * Show the form for editing the specified resource.
+         */
         $user = User::find($id);
         if ($user->city_id != null) {
             $cities = $user->country->city;
@@ -89,20 +96,38 @@ class UserController extends Controller
         }
     }
 
-    public function update(UpdateUserRequest $request, $id): RedirectResponse
+    public function update(Request $request, $id)
     {
-        $user = new User;
-        $password = $request['password'];
-        $request['password'] = bcrypt($password);
-        $user->find($id)
-            ->fill($request->post())
-            ->save();
-        return redirect()->route('user.index')
-            ->with('message', 'Your!.. Data Updated sucessfully 🙂👍');
-    }
 
-    public function destroy($id): RedirectResponse
+        /**
+         * Update the specified resource in storage.
+         */
+        $validatedData = $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'bail|required|email',
+            'phone_number' => 'bail|required|numeric',
+            'password' => 'required',
+            'confirm_password' => 'bail|required|same:password',
+            'employee_id' => 'numeric',
+            'avatar' => 'required',
+            'department' => 'required',
+            'profile_text' => 'required',
+            'country_id' => 'required',
+            'city_id' => 'required',
+            'status' => 'required',
+        ]);
+
+        $password = $validatedData['password'];
+        $validatedData['password'] = bcrypt($password);
+        User::findOrFail($id)->fill($validatedData)->save();
+        return redirect()->route('user.index')->with('message', 'Your!.. Data Updated sucessfully 🙂👍');
+    }
+    public function destroy($id)
     {
+        /**
+         * Remove the specified resource from storage.
+         */
         $user = new User;
         $user->find($id)
             ->delete();

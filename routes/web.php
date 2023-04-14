@@ -2,11 +2,16 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\PasswordResetController;
-use App\Http\Controllers\admin\CmsPageController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\MissionDetailController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\VolunteeringTimesheetController;
+use App\Http\Controllers\CmsPagesController;
+use App\Http\Controllers\ShareStoryController;
+use App\Http\Controllers\StoryDetailController;
+use App\Http\Controllers\StoryListingController;
+use App\Http\Controllers\TimeSheetsController;
+use App\Http\Controllers\UserEditProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\StoryController;
 use App\Http\Controllers\admin\ApplicationController;
@@ -19,15 +24,9 @@ use App\Http\Controllers\admin\AdminAuthController;
 use App\Http\Controllers\admin\ForgetPasswordController;
 use App\Http\Controllers\Admin\AdminPasswordResetController;
 use App\Http\Controllers\admin\MissionController;
-use App\Http\Controllers\CmsPagesController;
-use App\Http\Controllers\ShareStoryController;
-use App\Http\Controllers\StoryDetailController;
-use App\Http\Controllers\StoryListingController;
-use App\Http\Controllers\TimeSheetsController;
-use App\Http\Controllers\UserEditProfileController;
+use App\Http\Controllers\admin\CmsPageController;
 
 //frontend Routes//
-
 Route::get('index', function () {
     return view('index');
 })->name('index')->middleware('auth');

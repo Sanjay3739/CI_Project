@@ -1,5 +1,5 @@
 <?php
-$token = substr($_SERVER['REQUEST_URI'],-60);
+$token = substr($_SERVER['REQUEST_URI'],-25);
 ?>
 
 
@@ -11,7 +11,7 @@ $token = substr($_SERVER['REQUEST_URI'],-60);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
     </script>
@@ -24,14 +24,14 @@ $token = substr($_SERVER['REQUEST_URI'],-60);
 
 
 <body>
-    <div class="container-fluid" style=" padding-left: 0px !important"  >
+    <div class="container-fluid" style=" padding-left: 0px !important">
         <div class="row">
             <div class="col-lg-8">
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                         @foreach ($banners as $banner)
                         <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                            <img class="d-block w-100 img-fluid" src="/storage/uplodes/{{ $banner->image }}" alt="good so good" style="height:765px; width:100%;" title="" />
+                            <img class="d-block w-100 img-fluid" src="/storage/uplodes/{{ $banner->image }}" alt="" style="height:765px; width:100%;" title="" />
 
                             <div class="carousel-caption d-none d-md-block">
 
@@ -58,11 +58,11 @@ $token = substr($_SERVER['REQUEST_URI'],-60);
                         <small> Please enter a new password in the fields below.</small>
                     </div>
 
-                    <form action="{{route('password-resetting')}}"  method='post'>
+                    <form action="{{route('password-resetting')}}" method='post'>
                         @csrf
                         <label for="inputNewPassword" class="col-form-label pl-3 ">New Password</label>
                         <div class="col">
-                            <input type="password" class="form-control" id="" name='password' required >
+                            <input type="password" class="form-control" id="" name='password' required>
                             @error('password')
                             <div class="text-danger">
                                 {{$message}}
@@ -72,7 +72,7 @@ $token = substr($_SERVER['REQUEST_URI'],-60);
 
                         <label for="inputConfirmPassword" class="col-form-label pl-3 ">Confirm Password</label>
                         <div class="col">
-                            <input type="password" class="form-control" name="confirm-password" required autofocus  >
+                            <input type="password" class="form-control" name="confirm-password" required autofocus>
                             @error('confirm-password')
                             <div class="text-danger">
                                 {{$message}}

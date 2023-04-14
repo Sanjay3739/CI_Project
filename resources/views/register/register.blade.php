@@ -47,10 +47,11 @@
         .form-control {
             border-radius: 20px;
             width: 75%;
-         
+
         }
-        form{
-             margin-left: 80px
+
+        form {
+            margin-left: 80px
         }
 
     </style>
@@ -63,7 +64,7 @@
                     <div class="carousel-inner">
                         @foreach ($banners as $banner)
                         <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                            <img class="d-block  img-fluid" src="/storage/uplodes/{{ $banner->image }}" alt="good so good" style="height:765px; width:100%;" title="" />
+                            <img class="d-block  img-fluid" src="/storage/uplodes/{{ $banner->image }}"  style="height:765px; width:100%;" title="" />
 
                             <div class="carousel-caption d-none d-md-block">
 
@@ -87,13 +88,15 @@
                 @if(Session::has('success'))
                 <div class="alert alert-sucess">{{ Session::get('success')}}</div>
                 @endif
-
-                @if(Session::has('fail'))
-                <div class="alert alert-denger">{{ Session::get('fail')}}</div>
+                @if (session('status'))
+                <div class="alert alert-danger">
+                    {{ session('status') }}
+                </div>
                 @endif
 
 
-                <form action="{{ route('post-register') }}" method='post'>
+
+                <form method="POST" action="{{ route('register') }}">
                     @csrf
                     <div class="col">
                         <label for="First Name" class="col-form-label"> First Name</label>
@@ -163,11 +166,7 @@
                     </div>
                 </form>
 
-                @if (session('status'))
-                <div class="alert alert-danger">
-                    {{ session('status') }}
-                </div>
-                @endif
+
 
                 @include('components.lostyourpassword')
 

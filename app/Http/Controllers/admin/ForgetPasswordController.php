@@ -1,54 +1,58 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Admin\Admin;
-use Illuminate\Support\Facades\Mail;
 use App\Mail\AdminResetPassword;
+use App\Models\Admin\Admin;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class ForgetPasswordController extends Controller
 {
-    public function forgetpassword(Request $request)
+
+    /**
+     * View the page .
+     */
+    public function forgetPassword()
     {
         return view('admin.auth.forgetpassword');
     }
 
     public function reset(Request $request)
     {
+        
         return view('admin.auth.login');
     }
 
-    public function resetpassword(Request $request)
+    public function resetPassword(Request $request)
     {
         return view('admin.auth.resetpassword');
     }
 
-    protected $email;
-    public function admincheckEmail(Request $request)
+    public function adminCheckEmail(Request $request)
     {
-        if ($request->email == null) {
-            return back()->with('message', 'Please Enter Email Address👍');
-        } else {
-            $user = admin::where('email', $request->email)->first();
-            if ($user == null) {
-                return back()->with('message', 'Please Enter Valid Email 😒😒');
-            } else {
-                $token = Str::random(60);
-                $user->token = $token;
-                $user->save();
-                Mail::to($request->email)->send(new AdminResetPassword($user->name, $token));
+        $request->validate([
+            'email' => 'required|email',
+        ]);
 
-                if (Mail::failures() == 0) {
+        $user = Admin::where('email', $request->email)->first();
 
-                    return back()->with('success', 'Success fully send your emails! Check your email 🙂👍👍👍');
-                }
-                else {
-                return back()->with('failed', 'Any Issue ,you can re-enter');
-                }
-           }
+        if (!$user) {
+            return back()->with('message', 'Please Enter Valid Email 😒😒');
         }
+
+        $token = Str::random(60);
+        $user->token = $token;
+        $user->save();
+
+        Mail::to($request->email)->send(new AdminResetPassword($user->name, $token));
+
+        if (Mail::failures()) {
+            return back()->with('failed', 'Unable to send reset password email');
+        }
+
+        return back()->with('success', 'Reset password email sent! Check your email 🙂👍👍👍');
     }
 }

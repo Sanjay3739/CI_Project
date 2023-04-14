@@ -15,14 +15,13 @@ class MissionMediaSeeder extends Seeder
     public function run(): void
     {
         $paths = [
-            'mission_media/Animal-welfare-&-save-birds-campaign-1.png',
-            'mission_media/Grow-Trees-On-the-path-to-environment-sustainability-2.png',
-            'mission_media/img2.png',
-            'mission_media/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-2.png',
-            'mission_media/Nourish-the-Children-in--African-country.png',
-            'mission_media/img22.png',
-            'mission_media/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png',
-            'mission_media/Plantation-and-Afforestation-programme-1.png'
+            'mission_media/6435266f7ed03.jpeg',
+            'mission_media/643525ab949cc.jpeg',
+            'mission_media/64353293def77.png',
+            'mission_media/643533ab0e725.png',
+            'mission_media/643533ead0ab2.png',
+            'mission_media/6435342d82b81.png',
+
         ];
         $mission_ids = Mission::all()->pluck('mission_id');
         foreach ($mission_ids as $mission_id){

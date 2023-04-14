@@ -4,9 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 
 class AdminAuthController extends Controller
@@ -29,14 +27,14 @@ class AdminAuthController extends Controller
     public function customLogin(Request $request)
     {
         $request->validate([
-            'email' => 'required',
+            'email' => 'nullable|email',
             'password' => 'required',
         ]);
-        $credentionals = $request->only('email', 'password');
-        if (Auth::guard('admin')->attempt($credentionals)) {
+        $credentials = $request->only('email', 'password');
+        if (Auth::guard('admin')->attempt($credentials)) {
             return view('admin.index');
         } else {
-            return redirect()->intended('adminlogin')->with('status', 'Oppes! You have entered wrong password');
+            return redirect()->intended('adminlogin')->withInput()->withErrors(['password' => 'Oppes! You have entered wrong password']);
         }
     }
 }

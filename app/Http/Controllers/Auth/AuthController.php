@@ -15,53 +15,70 @@ class AuthController extends Controller
 
     public function index(Request $request)
     {
-
-        $banners = Banner::orderBy('sort_order','asc')->get();
+        /**
+         * Dynamic banner show.
+         */
+        $banners = Banner::orderBy('sort_order', 'asc')->get();
         return view('login.login', compact('banners'));
     }
 
     public function logout()
     {
+        /**
+         * remove session storage data using flush
+         */
+
         Session::flush();
         return redirect('/');
     }
     public function postLogin(Request $request)
     {
+        /**
+         *  submission of a login form via HTTP POST request.
+         */
         $request->validate([
-
-            'email' => 'required',
-            'password' => 'required',
+            'email' => 'required|email:snoof',
+            'password' => 'required|max:6',
         ]);
-        $credentionals = $request->only('email', 'password');
-        if (Auth::attempt($credentionals)) {
-            return redirect()->intended('index')->with('sucsess  ', 'your account opened'); //direction in index main page......
+
+        $credentials = $request->only('email', 'password');
+        // intended = back()method = return back this page
+        // with = msg send , like alert or success or show the view page , this with method sentence.
+        // Auth = auth abbreviation,  shorthand for referring to these authentication 
+        // credentials = user authentication credentials, such as a username and password.
+        if (Auth::attempt($credentials)) {
+            return redirect()->intended('index')->with('success', 'Your account has been opened.');
         } else {
-            return redirect()->intended('/')->with('failed  ', 'Oppes!  Password are INCORRECT');
+            return redirect()->intended('/')->with('error', 'The email and password you entered do not match our records.');
         }
     }
 
-
     public function postregister(Request $request)
     {
-
-        $banners = Banner::orderBy('sort_order','asc')->get();
+        /**
+         * Dynamic banner show in register page. 
+         * orderBy = data set in order , like { 1,2,3,4,5}
+         */
+        $banners = Banner::orderBy('sort_order', 'asc')->get();
         return view('register.register', compact('banners'));
     }
 
     public function register(Request $request)
     {
-
+        /**
+         *  submission of a registration form via HTTP POST request.
+         */
         $this->validate($request, [
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
             'phone_number' => 'required',
-            'email' => 'required|email|max:255',
-            // 'password' => 'required|min:8|confirmed',
-            'email' => 'required|email',
-            'password' => 'required',
+            'email' => 'required|email:snoof',
+            'password' => 'required|max:6',
         ]);
+        // dd(User::where('email', $request->email)->count());
 
         if (User::where('email', $request->email)->count() === 0) {
+
             $user = User::create([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
@@ -69,9 +86,9 @@ class AuthController extends Controller
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
             ]);
-            return redirect()->intended('/')->with('success', $user->first_name . ' New User is Registered');
+            return redirect()->intended('/')->with('success', 'Registration Successfully' .$user->first_name );
         } else {
-            return redirect()->intended('register')->with('status', 'user-Already exists');
+            return redirect()->intended('postregister')->with('status', 'user-Already exists');
         }
     }
 }

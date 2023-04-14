@@ -32,18 +32,17 @@ Route::post('fetch-city', [CountryCityController::class, 'fetchCity']);
 Route::post('add-favourite', [FavouriteMissionController::class, 'addFavourite']);
 Route::post('remove-favourite', [FavouriteMissionController::class, 'removeFavourite']);
 Route::post('invite-user', [MissionInviteController::class, 'inviteUser']);
-Route::post('/users/update-skills', [UserEditProfileController::class, 'updateSkills'])->name('users.update-skills');
 
 
 
-
-Route::post('fetch-comment', [CommentController::class,'showComments']);
-Route::post('add-comment',[CommentController::class,'addComment']);
-Route::get('recent-volunteer',[MissionDetailController::class,'showVolunteer']);
-Route::post('add-rating',[MissionRatingController::class,'addRating']);
-Route::post('new-mission-application',[MissionApplicationController::class,'newMissionApplication']);
-Route::get('approve-application',[MissionApplicationController::class,'approveApplication']);
-Route::get('reject-application',[MissionApplicationController::class,'rejectApplication']);
 
 
 Route::post('inviteUsers', [StoryInviteController::class, 'inviteUser']);
+Route::post('fetch-comment', [CommentController::class, 'showComments']);
+Route::post('add-comment', [CommentController::class, 'addComment']);
+Route::get('recent-volunteer', [MissionDetailController::class, 'showVolunteer']);
+Route::post('add-rating', [MissionRatingController::class, 'addRating']);
+Route::post('new-mission-application', [MissionApplicationController::class, 'newMissionApplication']);
+Route::get('approve-application', [MissionApplicationController::class, 'approveApplication']);
+Route::get('reject-application', [MissionApplicationController::class, 'rejectApplication']);
+Route::post('invite-users', [StoryInviteController::class, 'inviteUser']);

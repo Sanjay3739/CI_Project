@@ -20,8 +20,7 @@ class MissionTheme extends Model
         'status',
 
     ];
-    public function mission()
-    {
+     public function mission() {
         $this->hasMany(Mission::class, 'mission_id');
     }
 }

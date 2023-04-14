@@ -100,7 +100,7 @@
 
         </div>
         <div class="text-center" style="z-index: 1; margin-top: -25px">
-            <span class="fs-4 px-2 from_untill" style="">
+            <span class="fs-10 px-2 from_untill" style="">
                 {{ $item->title }}
 
 
@@ -113,8 +113,12 @@
         </div>
         <div class="card-body">
             <div id="click-to-details_{{$item->mission_id}}" data-mission_id="{{$item->mission_id}}">
-                {{--  <h4 class='mission-title theme-color'>{{ $item->title }}
-                </h4>  --}}
+                <h4 class='mission-title theme-color'>
+
+                    {{ $item->mission}}
+
+
+                </h4>
                 <p class='card-text mission-short-description'>
                     {{ $item->short_description }}
                 </p>
@@ -126,24 +130,23 @@
                     </div>
 
                     {{-- Mission Rating Code --}}
+
+
                     <?php
-                    $user_rating = $item->missionRating;
+                    $user_rating = $item->missionrating;
                     $rating = $user_rating->pluck('rating')->toArray();
+
                     $count = count($rating);
-                    if($count=='0'){
-                        $avg_rating = 0;
-                    }
-                    else{
-                        $avg_rating = ceil(array_sum($rating)/$count);
-                    }
-                ?>
-                    <div class="small-ratings col-lg-6">
-                        @for ($i=1;$i<=5;$i++,$avg_rating--) @if($avg_rating<=0) <i class="far fa-star rating-color"></i>
+
+                    $avg_rating = $count > 4.5 ? round(array_sum($rating)/$count) : 3;
+
+                  ?>
+                    <div class="small-ratings">
+                        @for ($i=1;$i<=5;$i++) @if($i<=$avg_rating) <i class="fa fa-star rating-color"></i>
                             @else
-                            <i class="fa fa-star rating-color"></i>
+                            <i class="far fa-star"></i>
                             @endif
                             @endfor
-
                     </div>
 
                 </div>

@@ -12,6 +12,9 @@ class BannerController extends Controller
 {
     public function banner(Request $request)
     {
+        /**
+     * Display a all Data of the resource.
+     */
         $query = $request->input('search');
         $banners = Banner::whereNull('deleted_at')
             ->where(function ($q) use ($query) {
@@ -19,21 +22,24 @@ class BannerController extends Controller
             })
             ->paginate(5);
         $banners->appends(['search' => $query]);
-
         return view('admin.banner.banner', compact('banners'));
     }
-
-
     public function add_banner()
+    /**
+     * Show the form for creating a new resource.
+     */
     {
         return view('admin.banner.add_banner');
     }
     public function banner_add(Request $request)
     {
+         /**
+     * Store a newly created resource in storage.
+     */
         $request->validate([
-            'text' => 'required',
-            'sort_order' => 'required',
-            'image' => 'required|mimes:jpeg,bmp,png'
+            'text' => 'required|string|min:3|max:255',
+            'sort_order' => 'required|integer',
+            'image' => 'required|mimes:jpeg,bmp,png',
         ]);
         $request->image->store('public/uplodes');
         $banner = new Banner([
@@ -46,15 +52,22 @@ class BannerController extends Controller
     }
     public function edit_banner($banner_id)
     {
+        /**
+     * Show the form for editing the specified resource.
+     */
         $banner = Banner::where(['banner_id' => $banner_id])->first();
         return view('admin.banner.edit_banner', compact('banner'));
     }
     public function banner_edit(Request $request)
     {
+       
+    /**
+     * Update the specified resource in storage.
+     */
         $request->validate([
-            'text' => 'required',
-            'sort_order' => 'required',
-            'image' => 'mimes:jpeg,bmp,png'
+            'text' => 'required|string|min:3|max:255',
+            'sort_order' => 'required|integer',
+            'image' => 'required|mimes:jpeg,bmp,png',
         ]);
         $banner = Banner::where(['banner_id' => $request->get('banner_id')])->first();
         $image = $banner->image;
@@ -72,6 +85,9 @@ class BannerController extends Controller
     }
     public function destroy($banner_id)
     {
+        /**
+     * Remove the specified resource from storage.
+     */
 
         $banner = new Banner;
         $banner->find($banner_id)

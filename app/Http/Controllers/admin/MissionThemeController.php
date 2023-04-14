@@ -4,13 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\MissionTheme;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
-use Illuminate\Validation\Rules\Exists;
 
 class MissionThemeController extends Controller
 {
+
+    /**
+     * Display a all Data of the resource.
+     */
+
     public function index(Request $request)
     {
         $data = MissionTheme::where([
@@ -32,11 +35,17 @@ class MissionThemeController extends Controller
 
     public function create()
     {
+        /**
+     * Show the form for creating a new resource.
+     */
         return view('admin.missiontheme.create');
     }
 
     public function store(Request $request)
     {
+         /**
+     * Store a newly created resource in storage.
+     */
         $data = new MissionTheme;
         $data->title = $request->title;
         $data->status = $request->status;
@@ -48,6 +57,9 @@ class MissionThemeController extends Controller
 
     public function show(MissionTheme $data, $id)
     {
+         /**
+     * Display the specified resource.
+     */
         $data = MissionTheme::where('mission_theme_id', $id)->first();
         return view('admin.missiontheme.show', compact('data'));
     }
@@ -55,6 +67,9 @@ class MissionThemeController extends Controller
 
     public function edit($id)
     {
+        /**
+     * Show the form for editing the specified resource.
+     */
         $data = MissionTheme::where('mission_theme_id', $id)->first();
 
 
@@ -64,6 +79,9 @@ class MissionThemeController extends Controller
     public function update(Request $request, $id)
     {
 
+    /**
+     * Update the specified resource in storage.
+     */
 
         $data = MissionTheme::where('mission_theme_id', $id)->first();
         $data->title = $request->title;
@@ -74,6 +92,9 @@ class MissionThemeController extends Controller
 
     public function destroy(MissionTheme $data, $id)
     {
+        /**
+     * Remove the specified resource from storage.
+     */
         $data = MissionTheme::where('mission_theme_id', $id);
         $data->delete();
 

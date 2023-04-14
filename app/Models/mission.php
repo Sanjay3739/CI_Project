@@ -67,7 +67,7 @@ class Mission extends Model
 
     public function missionRating()
     {
-        return $this->hasMany(MissionMedia::class, 'mission_id', 'mission_id');
+        return $this->hasMany(MissionRating::class, 'mission_id', 'mission_id');
     }
 
 

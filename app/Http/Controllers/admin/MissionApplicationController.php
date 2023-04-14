@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\MissionApplication;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class MissionApplicationController extends Controller
 {
     public function index(Request $request)
     {
+        /**
+         * Display a all Data of the resource.
+         */
+
         $data = MissionApplication::whereHas('mission', function ($query) use ($request) {
             if (($s = $request->s)) {
                 $query->where('title', 'LIKE', '%' . $s . '%');
@@ -35,6 +37,10 @@ class MissionApplicationController extends Controller
     }
     public function newMissionApplication(Request $request)
     {
+
+        /**
+         * New Create the specified application.
+         */
         $req = MissionApplication::where('mission_id', $request->mission_id)
             ->where('user_id', $request->user_id);
         MissionApplication::create($request->post());
@@ -42,6 +48,9 @@ class MissionApplicationController extends Controller
     }
     public function approveApplication(Request $request)
     {
+        /**
+         * Approve  the specified application from resorces.
+         */
         $application = MissionApplication::find($request->mission_application_id);
         $application->approval_status = "APPROVE";
         $application->save();
@@ -49,6 +58,9 @@ class MissionApplicationController extends Controller
     }
     public function rejectApplication(Request $request)
     {
+        /**
+         * Decline  the specified application from resorces.
+         */
         $application = MissionApplication::find($request->mission_application_id);
         $application->approval_status = "DECLINE";
         $application->save();

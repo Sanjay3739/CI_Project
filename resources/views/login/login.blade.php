@@ -18,15 +18,12 @@
         .form-control {
             border-radius: 20px;
             width: 75%;
-         
-        }
-        form{
-             margin-left: 80px
-        }
-        {{--  .col-lg-4 {
 
-            background: linear-gradient(to bottom right, #ffdef2, #e6f0ff)
-        }  --}}
+        }
+
+        form {
+            margin-left: 80px
+        }
 
         input[type="email"]:valid {
             border: 2px solid rgb(4, 255, 0);
@@ -56,7 +53,7 @@
                     <div class="carousel-inner">
                         @foreach ($banners as $banner)
                         <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                            <img class="d-block  w-100  img-fluid" src="/storage/uplodes/{{ $banner->image }}" alt="good so good" style="height:765px;" title="" />
+                            <img class="d-block  w-100  img-fluid" src="/storage/uplodes/{{ $banner->image }}" alt="" style="height:765px;" title="" />
 
                             <div class="carousel-caption d-none d-md-block">
 
@@ -77,13 +74,20 @@
 
             </div>
             <div class="col-lg-4  login">
-                @if ($message = Session::get('failed'))
-                <div class="alert alert-danger">
-                    <p>{{ $message }}</p>
+                <br>
+                @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
                 </div>
-                @endif
+            @endif
 
-                <form action="{{ route('login.custom') }}" style="margin-top: 180px" method="post" id="bs" class:"dd">
+                @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+                <form action="{{ route('login.custom') }}" style="margin-top: 180px" method="POST">
 
                     @csrf
 
@@ -105,8 +109,8 @@
                         </div>
                         @enderror
                     </div>
-                    <div class="bt" style=" width:75% ">
-                        <button type="submit" class="btn btn-outline-warning btn-block btn-dark "  style=" border-radius: 20px;" id="button">Login</button>
+                    <div style=" width:75% ">
+                        <button type="submit" class="btn btn-outline-warning btn-block btn-dark " style=" border-radius: 20px;" id="button">Login</button>
                     </div>
                 </form>
                 @include('components.lostyourpassword')

@@ -13,6 +13,7 @@ class Story extends Model
     protected $primaryKey = 'story_id';
 
     protected $fillable = [
+        'story_id',
         'mission_id',
         'user_id'	,
         'title',
@@ -22,7 +23,7 @@ class Story extends Model
     ];
 
     public function mission() {
-        return $this->belongsTo(Mission::class, 'mission_id');
+        return $this->belongsTo(Mission::class, 'mission_id' ,'mission_id' );
     }
 
     public function user() {

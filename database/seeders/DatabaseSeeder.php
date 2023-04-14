@@ -26,16 +26,16 @@ class DatabaseSeeder extends Seeder
         $this->call([
             // CountrySeeder::class,
             // CitySeeder::class,
-            SkillSeeder::class,
+            // SkillSeeder::class,
             // StoryInviteSeeder::class,
             // StoryMediaSeeder::class,
             // StorySeeder::class, mmmmmmmm
-
-            MissionThemeSeeder::class,
-            MissionSkillSeeder::class,
-            MissionMediaSeeder::class,
+            MissionRatingSeeder::class,
+            // MissionThemeSeeder::class,
+            // MissionSkillSeeder::class,
+            // MissionMediaSeeder::class,
             // MissionSeeder::class,
-            UserSeeder::class,
+            // UserSeeder::class,
             // MissionSeeder::class,
             // GoalMissionSeeder::class,
             // CommentSeeder::class,  in which text field not availabe in database
