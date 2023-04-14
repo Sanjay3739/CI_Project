@@ -105,8 +105,8 @@
                 <label for="inputType" class="form-label">Mission Type</label>
                 <select id="missionType" class="form-select" name='mission_type' onchange="handleMissionTypeChange(this)">
                     <option value="none" selected="" disabled="" hidden="">select mission type</option>
-                    <option value="time" {{ $mission->mission_type === 'TIME' ? 'selected' : '' }}>Time</option>
-                    <option value="goal" {{ $mission->mission_type === 'GOAL' ? 'selected' : '' }}>Goal</option>
+                    <option value="TIME" {{ $mission->mission_type === 'TIME' ? 'selected' : '' }}>Time</option>
+                    <option value="GOAL" {{ $mission->mission_type === 'GOAL' ? 'selected' : '' }}>Goal</option>
                 </select>
                 @error('mission_type')
                     <div class="text-danger">
@@ -272,7 +272,7 @@
         const goalValue = document.querySelector('#goal_value');
 
         function disableTotalSeatsAndRegistrationDeadline() {
-            totalSeatsInput.disabled = true;
+            totalSeats.disabled = true;
             registrationDeadline.disabled = true;
             totalSeats.value = '';
             registrationDeadline.value = '';
@@ -297,10 +297,10 @@
 
         function handleMissionTypeChange(selectElement) {
             const selectedMissionType = selectElement.value;
-            if (selectedMissionType === 'time') {
+            if (selectedMissionType === 'TIME') {
                 disableGoalObjectiveTextAndGoalValue();
                 enableTotalSeatsAndRegistrationDeadline();
-            } else if (selectedMissionType === 'goal') {
+            } else if (selectedMissionType === 'GOAL') {
                 disableTotalSeatsAndRegistrationDeadline();
                 enableGoalObjectiveTextAndGoalValue();
             }
@@ -309,9 +309,9 @@
             handleMissionTypeChange(this);
         });
         const initialMissionType = missionTypeSelect.value;
-        if (initialMissionType === 'time') {
+        if (initialMissionType === 'TIME') {
             disableGoalObjectiveTextAndGoalValue();
-        } else if (initialMissionType === 'goal') {
+        } else if (initialMissionType === 'GOAL') {
             disableTotalSeatsAndRegistrationDeadline();
         }
     </script>

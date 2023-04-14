@@ -92,14 +92,23 @@ User
                                     @endif
                                 </td>
                                 <td>
-                                    <form action="{{ route('user.destroy',$d->user_id) }}" method="Post">
-                                        <a href="{{ route('user.show', $d->user_id) }}" class="btn  btn-outline-primary btn-sm">View</a>
+                                    <a href="{{ route('user.show', $d->user_id) }}" class="btn  btn-outline-primary btn-sm">View</a>
                                         <a href="{{route('user.edit',$d->user_id)}}" class="btn btn-outline-warning btn-sm">Edit</a>
+                                    {{-- <form action="{{ route('user.destroy',$d->user_id) }}" method="Post">
+
                                         @csrf
                                         @method('DELETE')
 
                                         <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?')">Delete</button>
-                                    </form>
+                                    </form> --}}
+                                    <button type="submit" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deleteModal-{{$d->user_id}}" class="btn btn-white">
+                                      Delete
+                                    </button>
+                                    @include('admin.components.deleteModal', [
+                                    'id' => $d->user_id,
+
+                                    'form_action' => 'user.destroy',
+                                    ])
                                 </td>
                             </tr>
                             @endforeach

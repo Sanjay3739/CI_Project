@@ -46,4 +46,4 @@ Route::get('approve-application',[MissionApplicationController::class,'approveAp
 Route::get('reject-application',[MissionApplicationController::class,'rejectApplication']);
 
 
-Route::post('invite-users', [StoryInviteController::class, 'inviteUser']);
+Route::post('inviteUsers', [StoryInviteController::class, 'inviteUser']);

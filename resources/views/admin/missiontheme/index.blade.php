@@ -112,11 +112,19 @@ MissionTheme
 
                                 <a href="{{ route('missiontheme.edit', $item->mission_theme_id) }}" class="btn btn-outline-warning btn-sm">Edit</a>
 
-                                <form action="{{ route('missiontheme.destroy', $item->mission_theme_id) }}" method="POST" class="d-inline">
+                                {{-- <form action="{{ route('missiontheme.destroy', $item->mission_theme_id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?')">Delete</button>
-                                </form>
+                                </form> --}}
+                                <button type="submit" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deleteModal-{{$item->mission_theme_id }}" class="btn btn-white">
+                                   Delete {{-- <img src="Images/bin.png" alt="delete"> --}}
+                                </button>
+                                @include('admin.components.deleteModal', [
+                                'id' => $item->mission_theme_id,
+
+                                'form_action' => 'missiontheme.destroy',
+                                ])
                             </td>
                         </tr>
                         @endforeach

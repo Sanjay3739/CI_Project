@@ -1,15 +1,15 @@
 @extends('admin.app')
 @section('title')
-CMS Page
+    CMS Page
 @endsection
 @section('body')
     <div class="container-fluid px-4">
-        <h1 class="mt-4">CMS Page</h1>
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
         @endif
+        <h1 class="mt-4">CMS Page</h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item active">CMS Page</li>
         </ol>
@@ -19,14 +19,13 @@ CMS Page
             </div>
             <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between mt-1 mb-4">
-
-                    <div class="relative max-w-xs ">
+                    <div class="relative max-w-xs">
                         <form action="{{ route('cmspage.index') }}" method="GET">
                             @csrf
                             <label for="search" class="sr-only">
                                 Search
                             </label>
-                            <input type="text" name="s"
+                            <input type="text" name="s" value="{{ request()->input('s') }}"
                                 class="block w-full p-1 pl-10 px-4 text-sm border-gray-200 rounded-md focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
                                 style="border-radius:18px" placeholder="Search" />
                         </form>
@@ -39,7 +38,7 @@ CMS Page
                 <table class="table table responsive table-bordered">
                     <thead>
                         <tr>
-                            <th width="70%">Title</th>
+                            <th width="65%">Title</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -60,31 +59,27 @@ CMS Page
                                     @endif
                                 </td>
                                 <td>
-                                    <form action="{{ route('cmspage.destroy', $data->cms_page_id) }}" method="post">
-                                        <div>
-                                            <a class="btn btn-white"href="{{ route('cmspage.edit', $data->cms_page_id) }}">
-                                                <img src="Images/edit.png" height="22px" width="22px" alt="edit">
-                                            </a>
-                                            @csrf
-                                            @method('DELETE')
-                                            <!-- <button type="submit" class="btn btn-white ">
-                                                    <img src="Images/bin.png" alt="delete">
-                                                </button>-->
-                                            <button type="submit" class="btn btn-sm"
-                                                onclick="return confirm('Are you sure you want to delete this item?')"><img
-                                                    src="Images/bin.png" alt="delete"></button>
-                                        </div>
-                                    </form>
+                                    <a class="btn btn-white" href="{{ route('cmspage.edit', $data->cms_page_id) }}">
+                                        <img src="Images/edit.png" height="22px" width="22px" alt="edit">
+                                    </a>
+                                    <button type="button" data-toggle="modal"
+                                        data-target="#deleteModal-{{ $data->cms_page_id }}" class="btn btn-white">
+                                        <img src="Images/bin.png" alt="delete">
+                                    </button>
+                                    @include('admin.components.deleteModal', [
+                                        'id' => $data->cms_page_id,
+
+                                        'form_action' => 'cmspage.destroy',
+                                    ])
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
-                <div>
-                    {!! $cmsdata->links('pagination::bootstrap-4') !!}
-                </div>
+            </div>
+            <div>
+                {!! $cmsdata->links('pagination::bootstrap-4') !!}
             </div>
         </div>
     </div>
-</div>
 @endsection

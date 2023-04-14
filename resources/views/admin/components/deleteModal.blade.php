@@ -7,25 +7,25 @@
                 @method('DELETE')
                 <div class='d-flex justify-content-between'>
                     <div class="py-2">
-                        Confirm Delete
+                        <h5>Confirm Delete</h5>
                     </div>
 
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                         style="border:none;background:none;">
                         <span aria-hidden="true">&times;</span>
-                    </button>
+                    </button> --}}
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="fs-5 pb-4">
                     Are you sure you want to delete this item?
                 </div>
                 <div class="d-flex py-4 justify-content-center">
                     <div class="px-1">
-                        <button type="button" class="btn btn-outline-secondary px-4" style="border-radius: 23px"
+                        <button type="button" class="btn btn-outline-secondary px-4 rounded-pill"
                             data-dismiss="modal">Close</button>
                     </div>
                     <div class="px-1">
-                        <button type="submit" class="btn btn-outline effects px-4"
-                            style="border-color: #f88634 ;border-radius: 23px; color: #f88634">Delete</button>
+                        <button type="submit" class="btn btn-outline-danger rounded-pill px-4">Delete</button>
                     </div>
 
                 </div>

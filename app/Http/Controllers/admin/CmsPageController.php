@@ -42,10 +42,9 @@ class CmsPageController extends Controller
      */
     public function store(StoreCmsPageRequest $request): RedirectResponse
     {
-        // dd ($request);
         $request->validated();
         CmsPage::create($request->post());
-        return redirect()->route('cmspage.index')->with('success','field has been created successfully.');
+        return redirect()->route('cmspage.index')->with('success','Cms has been created successfully.');
     }
 
     /**
@@ -70,12 +69,11 @@ class CmsPageController extends Controller
      */
     public function update(UpdateCmsPageRequest $request,$id): RedirectResponse
     {
-        // dd($request);
         $request->validated();
         CmsPage::find($id)
                      ->fill($request->post())
                      ->save();
-        return redirect()->route('cmspage.index')->with('success','field Has Been updated successfully');
+        return redirect()->route('cmspage.index')->with('success','Cms has Been updated successfully');
     }
 
     /**
@@ -85,6 +83,6 @@ class CmsPageController extends Controller
     {
         $cmsPage->find($id)
         ->delete();
-        return back()->with('success','field has been deleted successfully');
+        return back()->with('success','Cms has been deleted successfully');
     }
 }
