@@ -16,17 +16,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class LandingPageController extends Controller
+class HomeController extends Controller
 {
     public function index()
     {
 
-        // user data send the index page 
+        // user data send the index page
         $user = Auth::user();
         // Authentication of user login
         $users = User::where('user_id', '!=', Auth::user()->user_id)->orderBy('user_id', 'asc')->get();
         $avgStar = MissionRating::avg('rating');
-        // relationship of mission and missiorating and pass the data using mission id to missionrating  
+        // relationship of mission and missiorating and pass the data using mission id to missionrating
         $data = Mission::with(['missionRating'])->where('mission_id', '!=', null);
         $ratings = DB::table('mission_ratings')->select('mission_id', DB::raw('avg(rating) as average_rating'))->groupBy('mission_id')->get();
         // dd($data->toArray())
@@ -206,21 +206,21 @@ class LandingPageController extends Controller
 
         //filter//
 
-        // 1. skii 
+        // 1. skii
         // 2. theme
-        // 3. country 
-        //4. city 
-        
+        // 3. country
+        //4. city
+
         //dropdown filter//
-        //  1. newest 
-        //  2. oldest 
-        //  3. lowest 
-        //  4. available 
-        //  5. seats 
-        //  6. highest 
-        //  7.available 
-        //  8.seates 
-        //  9.my fevorites 
+        //  1. newest
+        //  2. oldest
+        //  3. lowest
+        //  4. available
+        //  5. seats
+        //  6. highest
+        //  7.available
+        //  8.seates
+        //  9.my fevorites
         //  10.registration dedline
 
     }

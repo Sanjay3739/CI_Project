@@ -38,6 +38,10 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
+        'admin' => [
+            \App\Http\Middleware\AdminMiddleware::class,
+        ],
+
 
         'api' => [
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
@@ -68,12 +72,7 @@ class Kernel extends HttpKernel
     ];
 
     protected $routeMiddleware = [
-        // Other middleware
+        // ...
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
     ];
-    
-
-
-
-
 }

@@ -312,19 +312,17 @@
                             $full_stars = floor($avg_rating);
                             $half_stars = round($avg_rating * 2) % 2;
                             $empty_stars = 5 - $full_stars - $half_stars;
-                        @endphp
+                            @endphp
 
-                        <div class="small-ratings">
-                            @for ($i = 0; $i < $full_stars; $i++)
-                                <i class="fa fa-star rating-color"></i>
-                            @endfor
-                            @if ($half_stars)
-                                <i class="fa fa-star-half-o rating-color"></i>
-                            @endif
-                            @for ($i = 0; $i < $empty_stars; $i++)
-                                <i class="fa fa-star"></i>
-                            @endfor
-                        </div>
+                            <div class="small-ratings">
+                                @for ($i = 0; $i < $full_stars; $i++) <i class="fa fa-star rating-color"></i>
+                                    @endfor
+                                    @if ($half_stars)
+                                    <i class="fa fa-star-half-o rating-color"></i>
+                                    @endif
+                                    @for ($i = 0; $i < $empty_stars; $i++) <i class="fa fa-star"></i>
+                                        @endfor
+                            </div>
 
 
 
@@ -408,6 +406,22 @@
             </div>
             @endforeach
         </div>
+        <div class="modal fade" id="success-modal" tabindex="-1" role="dialog" aria-labelledby="success-modal-label" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-success">
+                        <h4 class="modal-title" id="success-modal-label">Success!</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        Your invitation has been sent successfully.
+                    </div>
+                    {{-- <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                    </div>  --}}
+                </div>
+            </div>
+        </div>
         {{-- This is list view --}}
         <div class="row py-3" id="listViewContent" style="display: none;">
             @foreach ($data as $item)
@@ -463,7 +477,7 @@
                             <button class="add_btn py-1" id="misison_invite_btn_{{$item->mission_id}}_{{$user_id}}" data-toggle="modal" data-target="#invite_user_modal_{{$item->mission_id}}_{{$user_id}}"><img src={{ asset('Images/user.png') }} alt=""></button>
                         </div>
                         <div class="text-center" style="z-index: 1; margin-top: -25px">
-                            <span class="fs-4 px-2 from_untill" style="">
+                            <span class="fs-10 px-2 from_untill" style="">
                                 {{ $item->title }}
 
                             </span>
@@ -601,7 +615,9 @@
                     </div>
                 </div>
             </div>
+
             {{-- Modal --}}
+
             <div class="modal fade w-100" id="invite_user_modal_{{$item->mission_id}}_{{$user_id}}" tabindex="-1" role="dialog" aria-labelledby="invite_user_modal_{{$item->mission_id}}_{{$user_id}}Label" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
@@ -636,12 +652,13 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="modal-footer">
+                        {{-- <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
+                        </div>  --}}
                     </div>
                 </div>
             </div>
+
             @endforeach
             <script>
                 function runJquery() {
@@ -949,6 +966,8 @@
                 });
             }
         });
+
+
         $('input[id^="invite_"]').on('click', function() {
             if (this.checked) {
                 var mission_id = this.id.split("_")[1];
@@ -963,13 +982,15 @@
                         , from_user_id: from_user_id
                         , to_user_id: to_user_id
                         , mission_id: mission_id
-                    , }
-                    , success: function(data) {
-                        alert("Invite Send", 1000);
                     }
-                , })
+                    , success: function(data) {
+                        $('#success-modal').modal('show');
+                    }
+                });
             }
         });
+
+
         //this is detail view page
         $('[id^="click-to-details_"]').click(function() {
             $(location).attr('href', "{{url('mission-page/')}}" + '/' + $(this).data('mission_id'));

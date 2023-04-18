@@ -5,7 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Banner;
-use App\Models\Mission;
+
 
 
 class BannerController extends Controller
@@ -37,7 +37,7 @@ class BannerController extends Controller
      * Store a newly created resource in storage.
      */
         $request->validate([
-            'text' => 'required|string|min:3|max:255',
+            'text' => 'required|string|min:3',
             'sort_order' => 'required|integer',
             'image' => 'required|mimes:jpeg,bmp,png',
         ]);
@@ -60,12 +60,12 @@ class BannerController extends Controller
     }
     public function banner_edit(Request $request)
     {
-       
+
     /**
      * Update the specified resource in storage.
      */
         $request->validate([
-            'text' => 'required|string|min:3|max:255',
+            'text' => 'required|string|min:3',
             'sort_order' => 'required|integer',
             'image' => 'required|mimes:jpeg,bmp,png',
         ]);

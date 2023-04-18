@@ -2,11 +2,22 @@
      display: flex;
      justify-content: space-between;
  }
+ #marquee{
+    background: linear-gradient(to right, #069ce6, #d00288, #f79809);
+    box-shadow: 5px 5px 5px rgba(62, 60, 60, 0.6);
+ }
+ .card{
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+ }
 
  tr {
      box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
          rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
  }
+#tf{
+    border:none ;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
 
  #green {
      fill: green;

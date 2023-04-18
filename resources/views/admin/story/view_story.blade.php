@@ -63,7 +63,7 @@ Story-View
                     <div class="sa">
                         @foreach ($medias as $media)
                         @if ($media->type != 'video')
-                        <img class="m-3" src="{{ asset('/images/'.$media->path) }}" height="200px" width="250px" value="" crossorigin="anonymous">
+                        <img class="m-3" src="{{ asset('storage/'.$media->path) }}" height="200px" width="250px" value="" crossorigin="anonymous">
                         @endif
                         @endforeach
                     </div>

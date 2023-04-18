@@ -64,7 +64,7 @@
                     </div>
                     <div class="text-center" style="margin-top:-15px;">
                         <span class="fs-15 px-2 fromuntill cardtheme">
-                            {{ $mystory->mission->missionTheme->title}}</span>
+                            {{ $mystory->mission->missionTheme->title?? 'ebuim'}}</span>
                     </div>
                     <div class="card-body">
                         <h4 class='mission-title theme-color'>{{ $mystory->title }}</h4>
@@ -98,7 +98,7 @@
                     </div>
                     <div class="text-center" style="margin-top:-15px;">
                         <span class="fs-15 px-2 cardtheme">
-                            {{ $story->mission->missionTheme->title }}</span> {{-- missiontheme remove --}}
+                            {{ $story->mission->missionTheme->title ?? 'ratec'}}</span> {{-- missiontheme remove --}}
                     </div>
                     <div class="card-body">
                         <h4 class='mission-title theme-color'>{{ $story->title }}</h4>

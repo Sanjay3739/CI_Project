@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\PasswordResetController;
-use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MissionDetailController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\VolunteeringTimesheetController;
@@ -25,11 +25,15 @@ use App\Http\Controllers\admin\ForgetPasswordController;
 use App\Http\Controllers\Admin\AdminPasswordResetController;
 use App\Http\Controllers\admin\MissionController;
 use App\Http\Controllers\admin\CmsPageController;
+use App\Http\Controllers\policyController;
 
 //frontend Routes//
+
 Route::get('index', function () {
     return view('index');
 })->name('index')->middleware('auth');
+Route::get('login-policy', [policyController::class, 'policy'])->name('login-policy');
+//admin-routes-no any middleware
 
 // Route::get('logout', 'AuthController@logout')->name('logout')->middleware('auth');
 // Route::get('/', 'AuthController@index')->name('login');
@@ -82,7 +86,9 @@ Route::post('resetpassword', [ForgetPasswordController::class, 'resetpassword'])
 Route::post('admin-check-email', [ForgetPasswordController::class, 'admincheckEmail'])->name('admin.check.email');
 Route::get('resetpassword', [ForgetPasswordController::class, 'resetpassword'])->name('resetpassword');
 Route::post('resetpassword2', [AdminPasswordResetController::class, 'resetPassword'])->name('resetpassword2');
-Route::get('adminresetpage/{token}', function () {return view('admin.auth.resetpassword');});
+Route::get('adminresetpage/{token}', function () {
+    return view('admin.auth.resetpassword');
+});
 Route::post('admin-password-resetting', [AdminPasswordResetController::class, 'adminPasswordResetting'])->name('adminPasswordResetting');
 //admin-routes-no any middleware
 
@@ -117,37 +123,38 @@ Route::get('sharestory', [ShareStoryController::class, 'index']);
 Route::resource('stories', ShareStoryController::class);
 Route::get('download/{filename}', [DownloadController::class, 'download']);
 Route::get('mission-page/{mission_id}', [MissionDetailController::class, 'main'])->name('mission-page');
-Route::get('index', [LandingPageController::class, 'index'])->name('main.index')->middleware('auth');
-Route::get('index-filter', [LandingPageController::class, 'filterApply'])->name('landing.filterApply')->middleware('auth');
-Route::get('index/find-city', [LandingPageController::class, 'findCity']);
-Route::get('index/find-theme', [LandingPageController::class, 'findTheme']);
-Route::get('index/find-skill', [LandingPageController::class, 'findSkill']);
-Route::get('filter-data', [LandingPageController::class, 'filterData']);
+Route::get('index', [HomeController::class, 'index'])->name('main.index')->middleware('auth');
+Route::get('index-filter', [HomeController::class, 'filterApply'])->name('landing.filterApply')->middleware('auth');
+Route::get('index/find-city', [HomeController::class, 'findCity']);
+Route::get('index/find-theme', [HomeController::class, 'findTheme']);
+Route::get('index/find-skill', [HomeController::class, 'findSkill']);
+Route::get('filter-data', [HomeController::class, 'filterData']);
 //user-route
 
 
 
 //admin-route
-Route::get('admindashboard', [AdminAuthController::class, 'dashboard'])->name('dashboard');
-Route::post('admindashboard', [AdminAuthController::class, 'index'])->name('dashboard');
-Route::get('approve/{story_id}', [StoryController::class, 'approve']);
-Route::get('decline/{story_id}', [StoryController::class, 'decline']);
-Route::get('admin/banner', [BannerController::class, 'banner'])->name('banner');
-Route::get('admin/add_banner', [BannerController::class, 'add_banner']);
-Route::get('admin/edit_banner/{banner_id}', [BannerController::class, 'edit_banner']);
-Route::post('admin/banner', [BannerController::class, 'banner']);
-Route::post('add-banner', [BannerController::class, 'banner_add'])->name('banner.add');
-Route::post('edit-banner', [BannerController::class, 'banner_edit'])->name('banner.edit');
-Route::delete('admin/delete_banner/{banner_id}', [BannerController::class, 'destroy'])->name('banner.destroy');
-Route::get('approve_app/{mission_application_id}', [ApplicationController::class, 'approve_app']);
-Route::get('decline_app/{mission_application_id}', [ApplicationController::class, 'decline_app']);
-Route::get('admin-mission-application', [MissionApplicationController::class, 'index']); //take the appilication
-Route::resource('application', ApplicationController::class);
-Route::resource('missiontheme', MissionThemeController::class);
-Route::resource('missionskill', MissionSkillController::class);
-Route::resource('user', UserController::class);
-Route::resource('story', StoryController::class);
-Route::resource('/mission', MissionController::class);
-Route::resource('/cmspage', CmsPageController::class);
+Route::group(['middleware' => [ 'admin']], function () {
+    Route::get('admindashboard', [AdminAuthController::class, 'dashboard'])->name('dashboard');
+    Route::post('admindashboard', [AdminAuthController::class, 'index'])->name('dashboard');
+    Route::get('approve/{story_id}', [StoryController::class, 'approve']);
+    Route::get('decline/{story_id}', [StoryController::class, 'decline']);
+    Route::get('admin/banner', [BannerController::class, 'banner'])->name('banner');
+    Route::get('admin/add_banner', [BannerController::class, 'add_banner']);
+    Route::get('admin/edit_banner/{banner_id}', [BannerController::class, 'edit_banner']);
+    Route::post('admin/banner', [BannerController::class, 'banner']);
+    Route::post('add-banner', [BannerController::class, 'banner_add'])->name('banner.add');
+    Route::post('edit-banner', [BannerController::class, 'banner_edit'])->name('banner.edit');
+    Route::delete('admin/delete_banner/{banner_id}', [BannerController::class, 'destroy'])->name('banner.destroy');
+    Route::get('approve_app/{mission_application_id}', [ApplicationController::class, 'approve_app']);
+    Route::get('decline_app/{mission_application_id}', [ApplicationController::class, 'decline_app']);
+    Route::get('admin-mission-application', [MissionApplicationController::class, 'index']); //take the appilication
+    Route::resource('application', ApplicationController::class);
+    Route::resource('missiontheme', MissionThemeController::class);
+    Route::resource('missionskill', MissionSkillController::class);
+    Route::resource('user', UserController::class);
+    Route::resource('story', StoryController::class);
+    Route::resource('/mission', MissionController::class);
+    Route::resource('/cmspage', CmsPageController::class);
+});
 //admin-route
-
