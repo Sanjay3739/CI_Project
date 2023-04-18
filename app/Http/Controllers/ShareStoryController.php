@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Validator;
 
 class ShareStoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('CheckDraft')->only(['edit', 'update','updateDraft']);
+    }
     public function index(Request $request)
     {
         $user = Auth::user();

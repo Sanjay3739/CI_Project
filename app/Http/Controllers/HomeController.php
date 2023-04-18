@@ -196,8 +196,8 @@ class HomeController extends Controller
             $data = $datas->paginate(9);
             $favorite = FavoriteMission::where('user_id', Auth::user()->user_id)
                 ->get(['favorite_mission_id', 'mission_id']);
-            $users = User::where('user_id', '!=', Auth::user()->user_id)
-                ->orderBy('user_id', 'asc')
+            $users = User::where('user_id', '=', Auth::user()->user_id)
+                // ->orderBy('user_id', 'asc')
                 ->get();
             return view('home.gridList', compact('count', 'data', 'favorite', 'users', 'user_id'));
         }

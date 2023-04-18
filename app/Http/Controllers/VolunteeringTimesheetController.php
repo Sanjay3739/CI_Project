@@ -22,26 +22,22 @@ class VolunteeringTimesheetController extends Controller
         $user = Auth::user();
 
         $timesheets = Timesheet::all();
-
-        $appliedTimeMissionIds = MissionApplication::where('user_id', $user->user_id)
-            ->where('approval_status', 'APPROVE')
-            ->pluck('mission_id')
-            ->toArray();
-
-        $timemissions = Mission::whereIn('mission_id', $appliedTimeMissionIds)->where('mission_type', 'TIME')->get();
-
-
         $missions = Mission::get(['title', 'mission_id']);
-        $appliedGoalMissionIds = MissionApplication::where('user_id', $user->user_id)
+
+        $approveTimeMission = MissionApplication::where('user_id', $user->user_id)
             ->where('approval_status', 'APPROVE')
             ->pluck('mission_id')
             ->toArray();
+        $timemissions = Mission::whereIn('mission_id', $approveTimeMission)->where('mission_type', 'TIME')->get();
 
-        $goalmissions = Mission::whereIn('mission_id', $appliedGoalMissionIds)->where('mission_type', 'GOAL')->get();
+        $approveGoalMission = MissionApplication::where('user_id', $user->user_id)
+            ->where('approval_status', 'APPROVE')
+            ->pluck('mission_id')
+            ->toArray();
+        $goalmissions = Mission::whereIn('mission_id', $approveGoalMission)->where('mission_type', 'GOAL')->get();
 
-        return view('volunteeringtimesheet.index', compact('user', 'timesheets', 'appliedTimeMissionIds', 'timemissions', 'appliedGoalMissionIds', 'goalmissions', 'missions'));
+        return view('volunteeringtimesheet.index', compact('user', 'timesheets', 'missions','approveTimeMission', 'timemissions', 'approveGoalMission', 'goalmissions'));
     }
-
 
 
     public function create()

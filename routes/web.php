@@ -119,7 +119,7 @@ Route::post('logout', [UserEditProfileController::class, 'logout'])->name('logou
 Route::get('storylisting', [StoryListingController::class, 'index'])->name('storylisting');
 Route::get('storydetail/{story_id}', [StoryDetailController::class, 'storydetails'])->name('storydetail');
 Route::post('stories/{story_id}', [ShareStoryController::class, 'updatedstory'])->name('stories.updatedstory');
-Route::get('sharestory', [ShareStoryController::class, 'index']);
+Route::get('sharestory', [ShareStoryController::class, 'index'])->name('sharestory');
 Route::resource('stories', ShareStoryController::class);
 Route::get('download/{filename}', [DownloadController::class, 'download']);
 Route::get('mission-page/{mission_id}', [MissionDetailController::class, 'main'])->name('mission-page');

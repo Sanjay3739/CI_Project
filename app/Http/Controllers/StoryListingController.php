@@ -21,5 +21,4 @@ class StoryListingController extends Controller
         $draft_stories = Story::where('user_id', $user->user_id)->where('status', 'DRAFT')->get();
         return view('storylisting',compact('user','published_stories','draft_stories'));
     }
-    
 }

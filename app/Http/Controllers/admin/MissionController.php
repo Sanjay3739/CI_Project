@@ -265,6 +265,23 @@ class MissionController extends Controller
             }
         }
 
+        $videoUrl = $request->input('media_names');
+        if ($videoUrl) {
+            $pattern = '/^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/';
+            if (preg_match($pattern, $videoUrl)) {
+                // media entry for  video
+                $missionMedia = new MissionMedia([
+                    'mission_id' => $mission->mission_id,
+                    'media_name' => 'youtube',
+                    'media_type' => 'MP4',
+                    'media_path' => $videoUrl,
+                    'default' => 1
+                ]);
+
+                $missionMedia->save();
+            }
+        }
+
         $selected_skills = $request->input('skill_id');
 
         $unselected_skills = MissionSkill::where('mission_id', $mission->mission_id)
