@@ -44,8 +44,8 @@ volunteering timesheet
                         <td>
 
                             @if ($timesheet->status == 'PENDING')
-                            <a class="btn btn-white" data-toggle="modal" data-target="#editVolunteerHourModal-{{ $timesheet->timesheet_id }}" data-timesheet-id="{{ $timesheet->timesheet_id }}">
-                                <i class="far fa-edit" style="color: orange;"></i>
+                            <a class="btn-outline-warning" data-toggle="modal" data-target="#editVolunteerHourModal-{{ $timesheet->timesheet_id }}" data-timesheet-id="{{ $timesheet->timesheet_id }}">
+                                <i class="fa fa-edit"></i>
                             </a>
                             @endif
 
@@ -220,8 +220,8 @@ volunteering timesheet
                         <td>
 
                             @if ($timesheet->status == 'PENDING')
-                            <a class="btn btn-white" data-toggle="modal" data-target="#editVolunteerGoalModal-{{ $timesheet->timesheet_id }}" data-timesheet-id="{{ $timesheet->timesheet_id }}">
-                                <i class="far fa-edit" style="color: orange;"></i>
+                            <a class="btn-outline-warning" data-toggle="modal" data-target="#editVolunteerGoalModal-{{ $timesheet->timesheet_id }}" data-timesheet-id="{{ $timesheet->timesheet_id }}">
+                                <i class="fa fa-edit"></i>
                             </a>
                             @endif
 
@@ -345,8 +345,6 @@ volunteering timesheet
                     </div>
                 </div>
             </div>
-
-
 
 
 
