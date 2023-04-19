@@ -17,28 +17,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
         $this->call([
             // CountrySeeder::class,
             // CitySeeder::class,
             // SkillSeeder::class,
             // StoryInviteSeeder::class,
             // StoryMediaSeeder::class,
-            // StorySeeder::class, mmmmmmmm
-            MissionRatingSeeder::class,
+            // StorySeeder::class,
+            // MissionRatingSeeder::class,
             // MissionThemeSeeder::class,
             // MissionSkillSeeder::class,
-            // MissionMediaSeeder::class,
+            MissionMediaSeeder::class,
             // MissionSeeder::class,
             // UserSeeder::class,
             // MissionSeeder::class,
             // GoalMissionSeeder::class,
-            // CommentSeeder::class,  in which text field not availabe in database
+            // CommentSeeder::class,
             // MissionApplicationSeeder::class,
 
         ]);

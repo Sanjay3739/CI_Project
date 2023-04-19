@@ -1,15 +1,12 @@
 @extends('layouts.app')
 @section('content')
 <?php
-
     $user_id = Auth::user()->user_id;
-
 ?>
-{{-- @include('home.search-filter')  --}}
-<div class="container-fluid " style="border: 1px solid #0e9e2c; background-color:#ffffff">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 d-flex rounded">
+{{-- search button   --}}
+<div class="container-fluid " id="row">
+    <div class="row" id="d">
+            <div class="col-md-6 ">
                 <form id="search-mission" style="margin: 0%; padding:0%;">
                     @csrf
                     <div class="d-flex">
@@ -22,18 +19,16 @@
                     </div>
                 </form>
             </div>
-            <div class="col-md-6 d-flex justify-content-around">
-                {{-- <button class="btn border-start" type=submit id="filter-apply">
-                        <img src="{{asset("Images/filter.png")}}" alt="">
-                </button> --}}
-                <div class="border input-group h-100 px-2">
+            <div class="col-md-6 ">
+              <div class="droping">
+                <div class="county border input-group">
                     <div class="dropdown w-100">
                         <button class="btn btn-none text-secondary form-select" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="float-start ps-0 pe-5">
+                            <span class="float-start">
                                 Country
                             </span>
                         </button>
-                        <div class="dropdown-menu px-2" aria-labelledby="dropdownMenuButton">
+                        <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
                             <div>
                                 @foreach ($countries as $country)
                                 <div class="form-check">
@@ -47,17 +42,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="border input-group px-2">
-                    {{-- <select class="custom-select w-100 border-0 text-muted" name="city_id" id="city-dropdown">
-                        <option disabled selected> City </option>
-                    </select> --}}
+
+                <div class="city border input-group">
                     <div class="dropdown w-100">
                         <button disabled class="btn btn-none text-secondary form-select" type="button" id="city_drop_down_menu" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="float-start ps-0 pe-5">
+                            <span class="float-start">
                                 City
                             </span>
                         </button>
-                        <div class="dropdown-menu px-2" aria-labelledby="city_drop_down_menu" style="overflow: scroll; max-height: 500px; max-width: fit-content">
+                        <div class="dropdown-menu px-2" aria-labelledby="city_drop_down_menu" >
                             <div id="city_dropper">
                                 @foreach ($cities as $city)
                                 <div class="form-check">
@@ -71,10 +64,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="border input-group px-2">
+
+                <div class="theme border input-group">
                     <div class="dropdown w-100">
                         <button class="btn btn-none text-secondary form-select" disabled type="button" id="theme_drop_down_menu" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="float-start ps-0 pe-5">
+                            <span class="float-start">
                                 Theme
                             </span>
                         </button>
@@ -92,10 +86,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="border border-end input-group px-2">
+
+                <div class="skill border input-group">
                     <div class="dropdown w-100">
                         <button class="btn btn-none text-secondary form-select" type="button" disabled id="skill_drop_down_menu" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="float-start ps-0 pe-5">
+                            <span class="float-start ">
                                 Skill
                             </span>
                         </button>
@@ -111,11 +106,11 @@
                         </div>
                     </div>
                 </div>
+              </div>
             </div>
-        </div>
-    </div>
-</div>
+     </div>
 
+</div>
 
 <form id="form_f" action="{{route('main.index')}}" method="POST" style="display: none">
     @csrf
@@ -128,7 +123,7 @@
     <button class="btn" type="submit" id="submit_f_id"></button>
 </form>
 
-</div>
+
 <div class="container py-4">
     <div class="d-flex">
         <div id="badges">
@@ -137,17 +132,16 @@
             <button class="btn close" id="filter-clear"> clear All</button>
         </div>
     </div>
-
 </div>
 @if($count!=0)
 <div class=" container  py-3">
     <div class="d-flex py-4 justify-content-between">
         <div>
             <h4> <span class="light-theme-color">Explore</span> <span class="theme-color" id="noOfMission">{{$count}}
-                </span> Mission </h4>
+            </span> Mission </h4>
         </div>
         <div class="d-flex">
-            <div class="input-group px-2" style="width:200px;">
+            <div class="input-group px-2" id="selectsort" style="width:200px;">
                 <select id="selectsort" class="custom-select  w-100 border-1 " style="border-radius: 10px;border:none; background-color:#ffffff; box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset; ">
                     <option disabled selected>Sort by</option>
                     <option value="1" @if(request()->input('sort')=='1') selected @endif>Newest</option>
@@ -173,17 +167,13 @@
         {{-- ('home.gridView')  --}}
         <div id="gridViewContent" class="row gx-2 " id="missions">
             @foreach ($data as $item)
-
-            <div class="card col-lg-6 col-md-12 col-xxl-4 col-xl-6 border-0  m-3  text-center" style=" width:30%; box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px; border-radius:20px;">
+            <div class="card col-lg-6 col-md-12 col-xxl-4 col-xl-6 border-0  m-3  text-center" id="card" style=" width:30%; box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px; border-radius:20px;">
                 <div class="d-flex justify-content-center py-1">
-
-
                     <div class="position-relative" style="width: 416px; height: 247px;">
                         <div class="position-absolute current-status">
                             @if(count($item->missionApplication->where('user_id',$user_id))!==0)
                             @if($item->missionApplication->where('user_id',$user_id)->first()->approval_status=='PENDING'
-                            || $item->missionApplication->where('user_id',$user_id)->first()->approval_status=='APPROVE'
-                            )
+                            || $item->missionApplication->where('user_id',$user_id)->first()->approval_status=='APPROVE')
                             <span class="badge fs10" style="background-color: rgb(26, 210, 54)">Applied</span>
                             @elseif ($item->missionApplication->where('user_id',$user_id)->first()->approval_status=='DECLINE')
                             <span class="badge fs10" style="background-color: rgb(252, 41, 41)">Decline</span>
@@ -191,36 +181,29 @@
                             @endif
                             <span id="applied_badge_{{$item->mission_id}}" style="display: none;" class="badge fs-6" style="background-color: rgb(26, 210, 54)">Applied</span>
                         </div>
-
                         <span class="position-absolute parent_mission_location">
                             <span class="mission_location px-2 py-1">
                                 <img src={{ asset('Images/pin.png') }} alt=""><span class="text-white px-2">{{ $item->city->name ?? 'burat' }}</span>
                             </span>
                         </span>
-
                         <div class="position-absolute parent_like_btn">
                             <button id="mission_like_btn_{{$item->mission_id}}_{{$user_id}}" type="button" class="like_btn py-1">
                                 <?php $set=false;
-                                            $value='0';?>
+                                $value='0';?>
                                 @foreach ($favorite as $fav)
                                 @if($fav->mission_id == $item->mission_id)
                                 <i class="fas fa-heart fs-4"></i>
                                 <?php $set=true;
-                                            $value=$fav->favorite_mission_id;
-                                            ?>
+                                 $value=$fav->favorite_mission_id;?>
                                 @break
                                 @endif
                                 @endforeach
-
-
                                 @if($set==false)
                                 <i class="fa-regular fa-heart fs-4"></i>
                                 @endif
                             </button>
                             <input type="radio" name="imgbackground" id="mission_like_input_{{$item->mission_id}}_{{$user_id}}" class="d-none imgbgchk py-1 hidden" style="display: none" value={{$value}}>
-                            {{-- </label> --}}
                         </div>
-
                         <div class="position-absolute parent_add_btn">
                             <button class="add_btn py-1" id="misison_invite_btn_{{$item->mission_id}}_{{$user_id}}" data-toggle="modal" data-target="#invite_user_modal_{{$item->mission_id}}_{{$user_id}}"><img src={{ asset('Images/user.png') }} alt=""></button>
                             <!-- Modal -->
@@ -273,7 +256,7 @@
 
                 </div>
                 <div class="text-center" style="z-index: 1; margin-top: -25px">
-                    <span class="fs-10 px-2 from_untill" style="">
+                    <span class="fs-10 px-2 from_untill" id="dg">
                         {{ $item->title }}
 
 
@@ -331,7 +314,7 @@
                     <div class="py-3">
                         <div class="border"></div>
                         <div class="text-center" style="margin-top: -14px">
-                            <small class="p-2 fs-6 border from_untill">From
+                            <small class="p-2 border from_untill">From
                                 {{ date('d-m-Y', strtotime($item->start_date)) }} untill
                                 {{ date('d-m-Y', strtotime($item->end_date)) }}
                             </small>
@@ -378,11 +361,10 @@
 
                                     <div class="d-flex flex-column ps-2 w-100">
                                         <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                         <small class="fw-light text-secondary ps-1">{{$item->goalMission->goal_value}} achieved</small>
                                     </div>
-
                                 </div>
                                 @endif
                             </div>
@@ -734,7 +716,6 @@
     var sort = 0;
     var search = "";
     var view = 0;
-
     function getBadge(id, name, type) {
         $("#clear_all").show()
         htmlstr = ""
@@ -749,12 +730,10 @@
         );
         badgeRunJQuery();
     }
-
     function removeBadge(id, type) {
         $('#close_' + type + '_parent_' + id).remove();
         badgeRunJQuery();
     }
-
     function updateCityDropdown(country_id) {
         $('#city_dropper').html('');
         $.ajax({
@@ -777,7 +756,6 @@
         });
         return;
     }
-
     function getPreviousValue() {
         skills = $('#skill_f_id').val().split(',');
         skills.forEach(skill => {
@@ -800,9 +778,7 @@
                 getBadge(country, $('#country_label_' + country).text(), 'country');
             }
         });
-
     }
-
     function getNextFilter(page) {
         $.ajax({
             url: "{{url('index-filter')}}" + "?page=" + page + "&s=" + search + "&countries=" + countries + "&cities=" + cities + "&themes=" + themes + "&skills=" + skills + "&sort=" + sort
@@ -814,7 +790,6 @@
             }
         })
     }
-
     function selectProperView() {
         $('#noOfMission').text($('#noOfMission2').val());
         if (view == 1) {
@@ -823,7 +798,6 @@
             $('#grid-view').click();
         }
     }
-
     function getCity() {
         $('#city_drop_down_menu').prop('disabled', false);
         $.ajax({
@@ -839,9 +813,7 @@
                 filterReloadJQueryCity();
             }
         });
-
     }
-
     function getTheme() {
         $('#theme_drop_down_menu').prop('disabled', false);
         $.ajax({
@@ -859,7 +831,6 @@
             }
         })
     }
-
     function getSkill() {
         $('#skill_drop_down_menu').prop('disabled', false);
         $.ajax({
@@ -878,7 +849,6 @@
             }
         })
     }
-
     function filterReloadJQueryCity() {
         $('input[id^=city_option_]').on('change', function() {
             let city_id = this.id.split('_')[2];
@@ -895,7 +865,6 @@
             getTheme();
         });
     }
-
     function filterReloadJQueryTheme() {
         $('input[id^=mission_theme_option_]').on('change', function() {
             let mission_theme_id = this.id.split('_')[3];
@@ -912,7 +881,6 @@
             getSkill();
         });
     }
-
     function filterReloadJQuerySkill() {
         $('input[id^=skill_option_]').on('change', function() {
             let skill_id = this.id.split('_')[2];
@@ -928,12 +896,10 @@
             getNextFilter(1);
         })
     }
-
     function runJquery() {
         $("button[id^='mission_like_btn_']").on('click', function() {
             var mission_id = this.id.split("_")[3];
             var user_id = this.id.split("_")[4];
-
             if ($('#mission_like_input_' + mission_id + '_' + user_id).val() == '0') {
                 $.ajax({
                     url: "{{url('api/add-favourite')}}"
@@ -966,8 +932,6 @@
                 });
             }
         });
-
-
         $('input[id^="invite_"]').on('click', function() {
             if (this.checked) {
                 var mission_id = this.id.split("_")[1];
@@ -989,9 +953,6 @@
                 });
             }
         });
-
-
-        //this is detail view page
         $('[id^="click-to-details_"]').click(function() {
             $(location).attr('href', "{{url('mission-page/')}}" + '/' + $(this).data('mission_id'));
         });
@@ -1036,7 +997,6 @@
             getNextFilter(page);
         });
     }
-
     function badgeRunJQuery() {
         $('[id^="close_skill_button_"]').click(function() {
             let id = this.id.split('_')[3];
@@ -1131,11 +1091,6 @@
                 $('#sort').val(sort);
                 getNextFilter(1);
             }),
-            // $('#refresh-apply').on('click', function() {
-            //     $('#search_input').val('');
-            //     $('#filter-clear').click();
-            //     search = $("#search_input").val();
-            // }),
             $('#grid-view').on('click', function() {
                 view = 0;
                 $('#gridViewContent').show();
