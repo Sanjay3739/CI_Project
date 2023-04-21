@@ -2,30 +2,67 @@
 *::before {
     box-sizing: border-box;
 }
-#marquee{
+
+#marquee {
     background: linear-gradient(to left, #069ce6, #d00288, #f79809);
-     color:#000000;
-     box-shadow: 5px 5px 5px rgba(62, 60, 60, 0.6);
+    color: #000000;
+    box-shadow: 5px 5px 5px rgba(62, 60, 60, 0.6);
 }
+
 tr {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
         rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
-.rok{
+
+.rok {
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
-.card-body{
+
+.card-body {
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
-.success{
+
+.success {
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 }
-.tf{
-    border:none
+
+.tf {
+    border: none
 }
+
 .breadcrumb {
     display: flex;
     justify-content: space-between;
+}
+
+.pagination .page-link:before,
+.pagination .page-link:after {
+    display: inline-block;
+    font-weight: bold;
+}
+
+.pagination .previous .page-link:before,
+.pagination .next .page-link:after {
+    display: none;
+}
+
+.pagination .page-link {
+    background-color: rgba(255, 255, 255, 0.779);
+    border-color: rgb(174, 169, 166);
+    margin: 8px;
+    color: rgb(218, 77, 7);
+}
+
+.pagination .page-link:hover {
+    background-color: #ff6701;
+    border-color: #ff4d00;
+    color: white;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #ff6701;
+    border-color: #ff6701;
+    color: white;
 }
 
 @media (max-width: 1250px) {
@@ -52,20 +89,24 @@ tr {
         margin-bottom: 4px;
     }
 }
+
 @media (max-width: 1168px) {
     .btn-outline-danger {
         width: 50px !important;
         font-size: 10px !important;
     }
+
     .btn-outline-warning {
         width: 50px !important;
         font-size: 10px !important;
     }
+
     .btn-outline-primary {
         width: 50px !important;
         font-size: 10px !important;
     }
 }
+
 @media (max-width: 1115px) {
     table {
         font-size: 15px !important;
@@ -96,19 +137,23 @@ tr {
         font-size: 10px !important;
 
     }
-    .btn{
+
+    .btn {
         font-size: small !important;
     }
 }
+
 @media (max-width: 1018px) {
     .btn-outline-danger {
         width: 40px !important;
         font-size: 10px !important;
     }
+
     .btn-outline-warning {
         width: 40px !important;
         font-size: 10px !important;
     }
+
     .btn-outline-primary {
         width: 40px !important;
         font-size: 10px !important;
@@ -126,7 +171,7 @@ tr {
 
     form>.btn:first-child {
 
-        margin:3px !important;
+        margin: 3px !important;
     }
 
     form>.btn:last-child {

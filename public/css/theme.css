@@ -2,24 +2,71 @@
     display: flex;
     justify-content: space-between;
 }
-#marquee{
+
+#marquee {
     background: linear-gradient(to right, #069ce6, #d00288, #f79809);
     box-shadow: 5px 5px 5px rgba(62, 60, 60, 0.6);
 }
-#card{
+
+#card {
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
-.success{
+
+.success {
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 
 }
-#tf{
+
+#tf {
     border: none;
 }
+
 tr {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
         rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
+/* 
+.pagination .page-item:first-child .page-link:before {
+    content: "«";
+    margin-right: 5px;
+}
+
+
+.pagination .page-item:last-child .page-link:after {
+    content: "<svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m3.378 20c-.76 0-1.378-.608-1.378-1.355 0-.531.315-1.018.843-1.302 1.212-.645 2.614-2.735 2.983-4.286-2.38-.538-3.8-2.394-3.8-4.564 0-2.169 1.859-4.493 4.627-4.493 3.501 0 5.096 2.882 5.096 5.561 0 5.742-6.32 10.439-8.371 10.439zm10.251 0c-.76 0-1.378-.608-1.378-1.355 0-.531.315-1.018.843-1.302 1.212-.645 2.614-2.735 2.983-4.286-2.38-.538-3.8-2.394-3.8-4.564 0-2.169 1.859-4.493 4.627-4.493 3.501 0 5.096 2.882 5.096 5.561 0 5.742-6.32 10.439-8.371 10.439zm-6.21-8.428c.112 3-1.984 5.754-3.649 6.966 1.911-.782 6.479-4.857 6.479-8.977 0-1.869-.942-4.051-3.596-4.051-1.871 0-3.127 1.542-3.127 2.983 0 1.453.862 3.166 3.893 3.079zm10.251 0c.112 3-1.984 5.754-3.649 6.966 1.911-.782 6.479-4.857 6.479-8.977 0-1.869-.942-4.051-3.596-4.051-1.871 0-3.127 1.542-3.127 2.983 0 1.453.862 3.166 3.893 3.079z" fill-rule="nonzero"/></svg>";
+    margin-left: 5px;
+} */
+
+.pagination .page-link:before,
+.pagination .page-link:after {
+    display: inline-block;
+    font-weight: bold;
+}
+
+.pagination .previous .page-link:before,
+.pagination .next .page-link:after {
+    display: none;
+}
+
+.pagination .page-link {
+    background-color: rgba(255, 255, 255, 0.779);
+    border-color: rgb(174, 169, 166);
+    margin: 8px;
+    color: rgb(218, 77, 7);
+}
+
+.pagination .page-link:hover {
+    background-color: #ff6701;
+    border-color: #ff4d00;
+    color: white;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #ff6701;
+    border-color: #ff6701;
+    color: white;
+}
+
 
 @media (max-width: 992px) {
     #sidebarToggle {

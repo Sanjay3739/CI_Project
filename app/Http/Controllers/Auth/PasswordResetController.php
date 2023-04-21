@@ -16,7 +16,7 @@ class PasswordResetController extends Controller
     public function postforgot(Request $request)
     {
         /**
-         * Dynamic banner show in register page. 
+         * Dynamic banner show in register page.
          * orderBy = data set in order , like { 1,2,3,4,5}
          */
         $banners = Banner::orderBy('sort_order', 'asc')->get();
@@ -68,23 +68,33 @@ class PasswordResetController extends Controller
         return view('reset', compact('banners'))->with(['token' => $token, 'email' => $request->email]);
     }
     public function passwordResetting(Request $request)
-    { 
+    {
         /**
-        * change password 
+        * change password
         */
-        $request->validate([
-            'token' => 'required',
-            'password' => 'required|max:6',
-            'confirm_password' => 'bail|required|same:password|max:6',
-        ]);
+
+        // $request->validate([
+        //     'password' => 'required|max:6',
+        //     'confirm_password' => 'required|same:password',
+        // ]);
+
+        $request->validate(
+            ['token' => 'required',
+             'password' => 'required|min:5|max:8 ',
+             'confirm-password' => 'required |same:password|min:5|max:8',
+             ]
+        );
+
+        $reset = PasswordReset::where('token', $request['token'])->first();
+        $email = $reset->email;
+
         if ($request['password'] !== $request['confirm-password']) {
             return back()->with('error', "confirm password is difrent of actuale
              password");
         }
-        $reset = PasswordReset::where('token', $request['token'])->first();
-        $email = $reset->email;
+
         User::where('email', $email)->update(['password' => bcrypt($request['password'])]);
-        return redirect()->intended('/')->with('success', 'spending!! Password
+        return redirect()->intended('/')->with('success', 'your!! Password
          Successfully change');
     }
 }

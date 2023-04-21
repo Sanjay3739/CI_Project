@@ -32,9 +32,7 @@
                                 placeholder="Enter confirm Password" name="confirm_password">
                         </div>
                     </div>
-
                 </div>
-
                 <div class="d-flex py-4 justify-content-end">
                     <div class="px-1">
                         <button type="button" class="btn btn-outline-secondary px-4" style="border-radius: 23px"
@@ -45,10 +43,8 @@
                             style="border-color: #f88634 ;border-radius: 23px; color: #f88634" form="form2">Change
                             Password</button>
                     </div>
-
                 </div>
             </form>
         </div>
-
     </div>
 </div>

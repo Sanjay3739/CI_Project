@@ -17,22 +17,18 @@
         input[type="email"]:invalid {
             border: 1.5px solid red;
         }
-
         input[type="email"]:valid {
             border: 1.5px solid rgb(7, 252, 3);
         }
         .form-control {
             border-radius: 20px;
             width: 75%;
-
         }
         form{
              margin-left: 80px
         }
-
     </style>
 </head>
-
 
 <body>
     <div class="container-fluid" style=" padding-left: 0px !important">
@@ -42,7 +38,7 @@
                     <div class="carousel-inner">
                         @foreach ($banners as $banner)
                         <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                            <img class="d-block w-100  img-fluid" src="/storage/uplodes/{{ $banner->image }}" alt="" style="height:765px; width:100%;" title="" />
+                            <img class="d-block w-100  img-fluid" src="/storage/uplodes/{{ $banner->image }}" alt="" style="height:900px; width:100%;" title="" />
 
                             <div class="carousel-caption d-none d-md-block">
 
@@ -94,9 +90,9 @@
                 <br>
 
                 <div class="footer">
-                    @include('components.loginnow')
+                    @include('footerpage.loginnow')
 
-                    @include('components.privacypolicy')
+                    @include('footerpage.privacypolicy')
                 </div>
 
             </div>

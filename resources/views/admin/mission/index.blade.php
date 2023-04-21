@@ -1,7 +1,10 @@
 @extends('admin.app')
 @section('title')
 Mission
-@endsection
+@
+<head>
+    <link rel="stylesheet" href="{{ asset('css/misson.css') }}" />
+</head>
 @section('body')
 <div class="container-fluid px-4">
     @if (session('success'))
@@ -77,7 +80,7 @@ Mission
             </table>
         </div>
 
-        <div>
+        <div class="ms-3">
             {!! $missiondata->links('pagination::bootstrap-4') !!}
         </div>
     </div>

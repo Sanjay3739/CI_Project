@@ -134,7 +134,7 @@ User-create
                                 @enderror
                             </div>
                         </div>
-                        <div class="form-row">
+                        {{-- <div class="form-row">
                             <div class="col-md-6">
                                 <label for="password">Password</label>
                                 <input type="password" name="password" class="form-control" value="{{old('password')}}" id="">
@@ -153,7 +153,7 @@ User-create
                                 </div>
                                 @enderror
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="form-row">
                             <div class="col-md-6">
                                 <label for="employee_id">Employee ID</label>

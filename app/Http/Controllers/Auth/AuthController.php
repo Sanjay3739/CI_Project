@@ -38,13 +38,13 @@ class AuthController extends Controller
          */
         $request->validate([
             'email' => 'required|email:snoof',
-            'password' => 'required|max:6',
+            'password' => 'required|min:6|max:8',
         ]);
 
         $credentials = $request->only('email', 'password');
         // intended = back()method = return back this page
         // with = msg send , like alert or success or show the view page , this with method sentence.
-        // Auth = auth abbreviation,  shorthand for referring to these authentication 
+        // Auth = auth abbreviation,  shorthand for referring to these authentication
         // credentials = user authentication credentials, such as a username and password.
         if (Auth::attempt($credentials)) {
             return redirect()->intended('index')->with('success', 'Your account has been opened.');
@@ -56,7 +56,7 @@ class AuthController extends Controller
     public function postregister(Request $request)
     {
         /**
-         * Dynamic banner show in register page. 
+         * Dynamic banner show in register page.
          * orderBy = data set in order , like { 1,2,3,4,5}
          */
         $banners = Banner::orderBy('sort_order', 'asc')->get();
@@ -73,7 +73,7 @@ class AuthController extends Controller
             'last_name' => 'required|max:255',
             'phone_number' => 'required',
             'email' => 'required|email:snoof',
-            'password' => 'required|max:6',
+            'password' => 'required|min:6|max:8',
         ]);
         // dd(User::where('email', $request->email)->count());
 
@@ -86,7 +86,7 @@ class AuthController extends Controller
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
             ]);
-            return redirect()->intended('/')->with('success', 'Registration Successfully' .$user->first_name );
+            return redirect()->intended('/')->with('success', 'Registration Successfully'  .$user->first_name );
         } else {
             return redirect()->intended('postregister')->with('status', 'user-Already exists');
         }

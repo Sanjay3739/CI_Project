@@ -54,8 +54,8 @@ class UserController extends Controller
             'last_name' => 'required',
             'email' => 'required|email:snoof',
             'phone_number' => 'bail|required|numeric',
-            'password' => 'required',
-            'confirm_password' => 'bail|required|same:password',
+            // 'password' => 'required',
+            // 'confirm_password' => 'bail|required|same:password',
             'employee_id' => 'numeric',
             'avatar' => 'required',
             'department' => 'required',
@@ -65,8 +65,8 @@ class UserController extends Controller
             'status' => 'required',
         ]);
 
-        $password = $validatedData['password'];
-        $validatedData['password'] = bcrypt($password);
+        // $password = $validatedData['password'];
+        // $validatedData['password'] = bcrypt($password);
         User::create($validatedData);
         return redirect()->route('user.index')->with('message', 'Your............. Account Created sucessfully 😁👌');
     }
@@ -107,8 +107,8 @@ class UserController extends Controller
             'last_name' => 'required',
             'email' => 'bail|required|email',
             'phone_number' => 'bail|required|numeric',
-            'password' => 'required',
-            'confirm_password' => 'bail|required|same:password',
+            // 'password' => 'required',
+            // 'confirm_password' => 'bail|required|same:password',
             'employee_id' => 'numeric',
             'avatar' => 'required',
             'department' => 'required',
@@ -118,8 +118,8 @@ class UserController extends Controller
             'status' => 'required',
         ]);
 
-        $password = $validatedData['password'];
-        $validatedData['password'] = bcrypt($password);
+        // $password = $validatedData['password'];
+        // $validatedData['password'] = bcrypt($password);
         User::findOrFail($id)->fill($validatedData)->save();
         return redirect()->route('user.index')->with('message', 'Your!.. Data Updated sucessfully 🙂👍');
     }

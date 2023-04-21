@@ -18,13 +18,10 @@
         .form-control {
             border-radius: 20px;
             width: 75%;
-
         }
-
         form {
             margin-left: 80px
         }
-
         input[type="email"]:valid {
             border: 2px solid rgb(4, 255, 0);
         }
@@ -43,8 +40,6 @@
 
     </style>
 </head>
-
-
 <body>
     <div class="container-fluid" style=" padding-left: 0px !important;">
         <div class="row">
@@ -53,7 +48,7 @@
                     <div class="carousel-inner">
                         @foreach ($banners as $banner)
                         <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                            <img class="d-block  w-100  img-fluid" src="/storage/uplodes/{{ $banner->image }}" alt="" style="height:765px;" title="" />
+                            <img class="d-block  w-100  img-fluid" src="/storage/uplodes/{{ $banner->image }}" alt="" style="height:950px;" title="" />
 
                             <div class="carousel-caption d-none d-md-block">
 
@@ -93,7 +88,7 @@
 
                     <div class="form-group">
                         <label for="" class="login-text mt-4">Email Address</label>
-                        <input type="email" class="form-control m-1" name="email" placeholder="" value="{{ old('email') }}">
+                        <input type="email" class="form-control m-1" name="email" placeholder="" value="{{ old('email') }}" autocomplete="current-email">
                         @error('email')
                         <div class="text-danger">
                             {{ $message }}
@@ -102,7 +97,7 @@
                     </div>
                     <div class="form-group">
                         <label for="" class="login-text">Password</label>
-                        <input type="password" class="form-control m-1" name="password" placeholder="************" required>
+                        <input type="password" class="form-control m-1" name="password" placeholder="************"  autocomplete="current-password" required>
                         @error('password')
                         <div class="text-danger">
                             {{ $message }}
@@ -113,11 +108,11 @@
                         <button type="submit" class="btn btn-outline-warning btn-block btn-dark " style=" border-radius: 20px;" id="button">Login</button>
                     </div>
                 </form>
-                @include('components.lostyourpassword')
+                @include('footerpage.lostyourpassword')
 
-                @include('components.createanaccount')
+                @include('footerpage.createanaccount')
 
-                @include('components.privacypolicy')
+                @include('footerpage.privacypolicy')
 
             </div>
         </div>

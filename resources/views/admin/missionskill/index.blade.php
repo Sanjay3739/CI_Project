@@ -111,7 +111,7 @@ Mission-Skill
                     </tbody>
                     <tfoot id="tf">
                         <tr>
-                            <th colspan="6"> {!! $data->links('pagination::bootstrap-4') !!}</th>
+                            <td colspan="6"> {!! $data->links('pagination::bootstrap-4') !!}</td>
                         </tr>
                     </tfoot>
                 </table>

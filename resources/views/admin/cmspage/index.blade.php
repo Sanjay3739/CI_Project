@@ -2,6 +2,9 @@
 @section('title')
     CMS Page
 @endsection
+<head>
+    <link rel="stylesheet" href="{{ asset('css/cms.css') }}" />
+</head>
 @section('body')
     <div class="container-fluid px-4">
         @if (session('success'))

@@ -47,7 +47,9 @@
         .form-control {
             border-radius: 20px;
             width: 75%;
-
+        }
+        .col{
+            margin: 10px;
         }
 
         form {
@@ -64,7 +66,7 @@
                     <div class="carousel-inner">
                         @foreach ($banners as $banner)
                         <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                            <img class="d-block  img-fluid" src="/storage/uplodes/{{ $banner->image }}"  style="height:765px; width:100%;" title="" />
+                            <img class="d-block  img-fluid" src="/storage/uplodes/{{ $banner->image }}"  style="height:900px; width:100%;" title="" />
 
                             <div class="carousel-caption d-none d-md-block">
 
@@ -94,14 +96,12 @@
                 </div>
                 @endif
 
-
-
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
                     <div class="col">
                         <label for="First Name" class="col-form-label"> First Name</label>
 
-                        <input type="text" class="form-control" name="first_name" id="" value="">
+                        <input type="text" class="form-control" name="first_name" id="text" value="">
                         @error('first_name')
                         <div class="text-danger">
                             {{$message}}
@@ -112,7 +112,7 @@
                     <div class="col">
                         <label for="Last Name" class="col-form-label"> Last Name</label>
 
-                        <input type="text" class="form-control" name="last_name" id="" value="">
+                        <input type="text" class="form-control" name="last_name" id="texts" value="">
                         @error('last_name')
                         <div class="text-danger">
                             {{$message}}
@@ -122,7 +122,7 @@
                     <div class="col">
                         <label for="inputPhone" class="col-form-label"> Phone Number</label>
 
-                        <input type="number" class="form-control" name="phone_number" id="" value="">
+                        <input type="phone" class="form-control" placeholder="1234567891" name="phone_number" id="phone" value="">
                         @error('phone_number')
                         <div class="text-danger">
                             {{$message}}
@@ -132,7 +132,7 @@
                     <div class="col">
                         <label for="inputEmail" class="col-form-label"> Email</label>
 
-                        <input type="email" class="form-control" name="email" id="" value="">
+                        <input type="email" class="form-control" placeholder="xyz@gmail.com" name="email" id="email" value="">
                         @error('email')
                         <div class="text-danger">
                             {{$message}}
@@ -142,7 +142,7 @@
                     <div class="col">
                         <label for="inputPassword" class="col-form-label">Password</label>
 
-                        <input type="password" class="form-control" name="password" id="" value="">
+                        <input type="password" class="form-control" name="password" id="password" value="">
                         @error('password')
                         <div class="text-danger">
                             {{$message}}
@@ -153,7 +153,7 @@
                     <div class="col">
                         <label for="inputComfirmPassword" class="col-form-label">Confirm Password</label>
 
-                        <input type="password" class="form-control" name="confirm_password" id="" value="">
+                        <input type="password" class="form-control" name="confirm_password" id="passwords" value="">
                         @error('confirm_password')
                         <div class="text-danger">
                             {{$message}}
@@ -161,18 +161,18 @@
                         @enderror
                     </div>
 
-                    <div class="col" style=" width:75% ">
+                    <div class="col mt-5 " style=" width:75% ">
                         <button type="submit" class="btn btn-outline-warning btn-block btn-dark mt-3" style=" border-radius: 20px;">Register</button>
                     </div>
                 </form>
 
 
 
-                @include('components.lostyourpassword')
+                @include('footerpage.lostyourpassword')
 
-                @include('components.loginnow')
+                @include('footerpage.loginnow')
 
-                @include('components.privacypolicy')
+                @include('footerpage.privacypolicy')
 
             </div>
         </div>

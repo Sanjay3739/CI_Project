@@ -102,6 +102,7 @@ Route::post('reset', [PasswordResetController::class, 'resetPassword'])->name('c
 Route::get('/', [AuthController::class, 'index'])->name('login');
 Route::get('postregister', [AuthController::class, 'postregister'])->name('postregister');
 Route::get('logout', [AuthController::class, 'logout']);
+Route::get('password-resetting', [PasswordResetController::class, 'passwordResetting'])->name('password-resetting');
 Route::post('password-resetting', [PasswordResetController::class, 'passwordResetting'])->name('password-resetting');
 //user-routes-no any middleware
 

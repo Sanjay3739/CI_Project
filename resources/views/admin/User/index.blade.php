@@ -5,6 +5,17 @@ User
 @endsection
 <head>
     <link rel="stylesheet" href={{ asset('css/user.css') }}>
+    <style>
+        .page-link {
+  color: blue;
+}
+
+.page-link:hover {
+  color: white;
+  background-color: rgb(13, 255, 0);
+  border-color: rgb(0, 255, 34);
+}
+    </style>
 </head>
 
 @section('body')
