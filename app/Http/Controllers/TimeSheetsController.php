@@ -22,7 +22,7 @@ class TimeSheetsController extends Controller
         $user = Auth::user();
         $policies = CmsPage::orderBy('cms_page_id', 'asc')->get();
         // $timesheets= Timesheet::all();
-        $timesheets = Timesheet::where('user_id', $user->user_id)->paginate(6);
+        $timesheets = Timesheet::where('user_id', $user->user_id)->get();
         $missions = Mission::get(['mission_id', 'title']);
         $ApprovedTimeMissionId = MissionApplication::where('user_id', $user->user_id)
             ->where('approval_status', 'APPROVE')

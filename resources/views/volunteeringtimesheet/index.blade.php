@@ -51,7 +51,7 @@
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         @endif
-                                    
+
                                         {{-- modal for editing the volunteer hour --}}
 
 
@@ -81,9 +81,6 @@
                                                                         <option value="{{ $mission->mission_id }}"
                                                                             {{ $mission->mission_id == $timesheet->mission_id ? 'selected' : '' }}>
                                                                             {{ $mission->title }}
-                                                                            <div class="d-flex p-3 justify-content-end">
-                                                                                {!! $timesheets->links('pagination::bootstrap-4') !!}
-                                                                            </div>
                                                                         </option>
                                                                     @endforeach
                                                                 </select>
