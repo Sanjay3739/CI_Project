@@ -101,7 +101,7 @@ Route::get('forgot', [PasswordResetController::class, 'postforgot'])->name('forg
 Route::post('reset', [PasswordResetController::class, 'resetPassword'])->name('check.email');
 Route::get('/', [AuthController::class, 'index'])->name('login');
 Route::get('postregister', [AuthController::class, 'postregister'])->name('postregister');
-Route::get('logout', [AuthController::class, 'logout']);
+
 Route::get('password-resetting', [PasswordResetController::class, 'passwordResetting'])->name('password-resetting');
 Route::post('password-resetting', [PasswordResetController::class, 'passwordResetting'])->name('password-resetting');
 //user-routes-no any middleware
@@ -131,6 +131,7 @@ Route::get('index/find-city', [HomeController::class, 'findCity']);
 Route::get('index/find-theme', [HomeController::class, 'findTheme']);
 Route::get('index/find-skill', [HomeController::class, 'findSkill']);
 Route::get('filter-data', [HomeController::class, 'filterData']);
+Route::get('logout', [AuthController::class, 'logout'])->name('userlogout');
 });
 //user-route
 
