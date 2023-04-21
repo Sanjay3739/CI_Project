@@ -1,9 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <?php
-
     $user_id = Auth::user()->user_id;
-
 ?>
 {{-- @include('home.search-filter')  --}}
 <div class="container-fluid " style="border: 1px solid #0e9e2c; background-color:#ffffff">
@@ -474,7 +472,7 @@
                         </div>
 
                         <div class="position-absolute parent_add_btn">
-                            <button class="add_btn py-1" id="misison_invite_btn_{{$item->mission_id}}_{{$user_id}}" data-toggle="modal" data-target="#invite_user_modal_{{$item->mission_id}}_{{$user_id}}"><img src={{ asset('Images/user.png') }} alt=""></button>
+                            <button class="add_btn py-1" id="misison_invites_btn_{{$item->mission_id}}_{{$user_id}}" data-toggle="modal" data-target="#invite_user_modal_{{$item->mission_id}}_{{$user_id}}"><img src={{ asset('Images/user.png') }} alt=""></button>
                         </div>
                         <div class="text-center" style="z-index: 1; margin-top: -25px">
                             <span class="fs-10 px-2 from_untill" style="">
@@ -691,6 +689,7 @@
             </script>
         </div>
 
+
         <div class="d-flex p-3 justify-content-center">
             {!! $data->links('pagination::bootstrap-4') !!}
         </div>
@@ -708,8 +707,6 @@
                 <i class="fa-sharp fa-solid fa-arrow-right"></i>
             </button>
         </div>
-
-
     </div>
 </div>
 @else
@@ -968,6 +965,27 @@
         });
 
 
+        $('input[id^="invite_"]').on('click', function() {
+            if (this.checked) {
+                var mission_id = this.id.split("_")[1];
+                var to_user_id = this.id.split('_')[2];
+                var from_user_id = this.id.split("_")[3];
+                console.log(mission_id);
+                $.ajax({
+                    url: "{{url('api/invite-user')}}"
+                    , type: "POST"
+                    , data: {
+                        _token: '{{csrf_token() }}'
+                        , from_user_id: from_user_id
+                        , to_user_id: to_user_id
+                        , mission_id: mission_id
+                    }
+                    , success: function(data) {
+                        $('#success-modal').modal('show');
+                    }
+                });
+            }
+        });
         $('input[id^="invite_"]').on('click', function() {
             if (this.checked) {
                 var mission_id = this.id.split("_")[1];

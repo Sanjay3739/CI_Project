@@ -35,8 +35,9 @@
 <div id="layoutSidenav_nav">
     <nav class="sb-sidenav accordion sb-sidenav zindex-sticky bg-orange" id="sidenavAccordion">
         <div class="sb-sidenav-menu align-content-center">
-            <div class="sb-sidenav-menu-heading ps-4 fs15 text-white">NAVIGATION</div>
-            <div class="menu mt-5">
+            <img src="{{asset('images/logo.png')}}" class=" ms-5" alt="">
+            <div class="sb-sidenav-menu-heading ps-4 fs15 font-weight-light text-white mt-5">NAVIGATION</div>
+            <div class="menu mt-3">
                 <a class="menu-item" href="{{ route('user.index') }}">
                     <div class='container'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24">
