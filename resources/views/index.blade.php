@@ -419,7 +419,7 @@
                                                     <div class="d-flex flex-column ps-2 w-100">
                                                         <div class="progress" style="max-width: 200px;">
                                                             <div class="progress-bar" role="progressbar"
-                                                                style="width: {{ ($item->goalMission->goal_value / 100) * 200 }}px;"
+                                                                style="width: {{ ($item->goalMission->goal_value / 1000)*10 }}px;"
                                                                 aria-valuenow="{{ $item->goalMission->goal_value }}"
                                                                 aria-valuemin="0" aria-valuemax="100">
                                                             </div>
@@ -428,6 +428,7 @@
                                                             class="fw-light text-secondary ps-1">{{ $item->goalMission->goal_value }}
                                                             achieved</small>
                                                     </div>
+
                                                 </div>
                                             @endif
                                         </div>
