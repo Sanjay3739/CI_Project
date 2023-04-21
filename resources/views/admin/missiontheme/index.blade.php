@@ -63,65 +63,45 @@
                                     <input type="text" name="search" value="{{ request()->input('search') }}"
                                         placeholder="search" class="form-control rbc">
                                 </div>
-                            </div>
-                        </form>
-                        <div class="car ">
-                            <a href="{{ route('missiontheme.create') }}" <button type="button"
-                                class="btn rounded text-right btn btn-outline-success success">
-                                <i class="fa-solid fa-plus px-3"></i> Add</button>
-                            </a>
-                        </div>
-                    </div>
-                    <table
-                        class="table  w-100 table-hover table-bordered text-center table-responsive-lg table-responsive-md">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>ID</th>
-                                <th>Title</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($data as $item)
-                                <tr>
-                                    <td>{{ $item->mission_theme_id }}</td>
-                                    <td>{{ $item->title }}</td>
-                                    <td>
-                                        @if ($item->status)
-                                            <div class=" text-success">
-                                                <span class="fs-6">Active</span>
-                                            </div>
-                                        @else
-                                            <div class="text-danger">
-                                                <span class="fs-6">Inactive</span>
-                                            </div>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('missiontheme.show', $item->mission_theme_id) }}"
-                                            class="btn btn-outline-primary btn-sm">View</a>
-                                        <a href="{{ route('missiontheme.edit', $item->mission_theme_id) }}"
-                                            class="btn btn-outline-warning btn-sm">Edit</a>
-                                        <button type="submit" class="btn btn-outline-danger btn-sm" data-toggle="modal"
-                                            data-target="#deleteModal-{{ $item->mission_theme_id }}" class="btn btn-white">
-                                            Delete
-                                        </button>
-                                        @include('admin.components.deleteModal', [
-                                            'id' => $item->mission_theme_id,
-                                            'form_action' => 'missiontheme.destroy',
-                                        ])
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                        <tfoot id="tf">
-                            <tr>
-                                <td colspan="4"> {!! $data->links('pagination::bootstrap-4') !!}</td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
+                                @else
+                                <div class="text-danger">
+                                    <span class="fs-6">Inactive</span>
+                                </div>
+                                @endif</td>
+                            <td>
+                                {{--  <a href="{{ route('missiontheme.show', $item->mission_theme_id) }}" class="btn btn-outline-primary btn-sm">View</a>  --}}
+                                <a href="{{ route('missiontheme.show', $item->mission_theme_id) }}">
+                                    <svg width="26" height="26" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill="#025091" d="m11.998 5c-4.078 0-7.742 3.093-9.853 6.483-.096.159-.145.338-.145.517s.048.358.144.517c2.112 3.39 5.776 6.483 9.854 6.483 4.143 0 7.796-3.09 9.864-6.493.092-.156.138-.332.138-.507s-.046-.351-.138-.507c-2.068-3.403-5.721-6.493-9.864-6.493zm8.413 7c-1.837 2.878-4.897 5.5-8.413 5.5-3.465 0-6.532-2.632-8.404-5.5 1.871-2.868 4.939-5.5 8.404-5.5 3.518 0 6.579 2.624 8.413 5.5zm-8.411-4c2.208 0 4 1.792 4 4s-1.792 4-4 4-4-1.792-4-4 1.792-4 4-4zm0 1.5c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5z" fill-rule="nonzero" /></svg></a>
+
+
+                                {{--  <a href="{{ route('missiontheme.edit', $item->mission_theme_id) }}" class="btn btn-outline-warning btn-sm">Edit</a>  --}}
+                                <a href="{{ route('missiontheme.edit', $item->mission_theme_id) }}">
+                                    <svg width="24" height="24" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill="orange" d="m11.25 6c.398 0 .75.352.75.75 0 .414-.336.75-.75.75-1.505 0-7.75 0-7.75 0v12h17v-8.749c0-.414.336-.75.75-.75s.75.336.75.75v9.249c0 .621-.522 1-1 1h-18c-.48 0-1-.379-1-1v-13c0-.481.38-1 1-1zm1.521 9.689 9.012-9.012c.133-.133.217-.329.217-.532 0-.179-.065-.363-.218-.515l-2.423-2.415c-.143-.143-.333-.215-.522-.215s-.378.072-.523.215l-9.027 8.996c-.442 1.371-1.158 3.586-1.264 3.952-.126.433.198.834.572.834.41 0 .696-.099 4.176-1.308zm-2.258-2.392 1.17 1.171c-.704.232-1.274.418-1.729.566zm.968-1.154 7.356-7.331 1.347 1.342-7.346 7.347z" fill-rule="nonzero" /></svg></a>
+
+
+                                {{--  <button type="submit" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deleteModal-{{$item->mission_theme_id }}" class="btn btn-white">
+                                    Delete
+                                </button>  --}}
+                                <button type="button" data-toggle="modal" data-target="#deleteModal-{{$item->mission_theme_id }}" class="btn btn-white">
+                                    <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
+                                        <path d="M9 3h6v-1.75c0-.066-.026-.13-.073-.177-.047-.047-.111-.073-.177-.073h-5.5c-.066 0-.13.026-.177.073-.047.047-.073.111-.073.177v1.75zm11 1h-16v18c0 .552.448 1 1 1h14c.552 0 1-.448 1-1v-18zm-10 3.5c0-.276-.224-.5-.5-.5s-.5.224-.5.5v12c0 .276.224.5.5.5s.5-.224.5-.5v-12zm5 0c0-.276-.224-.5-.5-.5s-.5.224-.5.5v12c0 .276.224.5.5.5s.5-.224.5-.5v-12zm8-4.5v1h-2v18c0 1.105-.895 2-2 2h-14c-1.105 0-2-.895-2-2v-18h-2v-1h7v-2c0-.552.448-1 1-1h6c.552 0 1 .448 1 1v2h7z" /></svg>
+                                </button>
+                                @include('admin.components.deleteModal', [
+                                'id' => $item->mission_theme_id,
+                                'form_action' => 'missiontheme.destroy',
+                                ])
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot id="tf">
+                        <tr>
+                            <td colspan="4"> {!! $data->links('pagination::bootstrap-4') !!}</td>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
         </div>
     </div>

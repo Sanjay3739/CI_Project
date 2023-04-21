@@ -1,7 +1,7 @@
 @extends('admin.app')
 
 @section('title')
-    list
+    Dashbord
 @endsection
 
 @section('body')

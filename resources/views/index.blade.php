@@ -538,16 +538,12 @@
                                     {{-- </label> --}}
                                 </div>
 
-                                <div class="position-absolute parent_add_btn">
-                                    <button class="add_btn py-1"
-                                        id="misison_invite_btn_{{ $item->mission_id }}_{{ $user_id }}"
-                                        data-toggle="modal"
-                                        data-target="#invite_user_modal_{{ $item->mission_id }}_{{ $user_id }}"><img
-                                            src={{ asset('Images/user.png') }} alt=""></button>
-                                </div>
-                                <div class="text-center" style="z-index: 1; margin-top: -25px">
-                                    <span class="fs-10 px-2 from_untill" style="">
-                                        {{ $item->title }}
+                        <div class="position-absolute parent_add_btn">
+                            <button class="add_btn py-1" id="misison_invite_btn_{{$item->mission_id}}_{{$user_id}}" data-toggle="modal" data-target="#invite_user_modal_{{$item->mission_id}}_{{$user_id}}"><img src={{ asset('Images/user.png') }} alt=""></button>
+                        </div>
+                        <div class="text-center" style="z-index: 1; margin-top: -25px">
+                            <span class="fs-10 px-2 from_untill" style="">
+                                {{ $item->title }}
 
                                     </span>
                                 </div>
@@ -790,26 +786,25 @@
             </script>
         </div>
 
+
         <div class="d-flex p-3 justify-content-center">
             {!! $data->links('pagination::bootstrap-4') !!}
         </div>
 
-    @endif
-    {{-- no mission   --}}
-    <div class="d-flex justify-content-center">
-        <span class="fs-3 font-weight-bold theme-color">
-            No Mission Found
-        </span>
+        @endif
+        {{-- no mission   --}}
+        <div class="d-flex justify-content-center">
+            <span class="fs-3 font-weight-bold theme-color">
+                No Mission Found
+            </span>
+        </div>
+        <div class="d-flex pt-4 justify-content-center">
+            <button class="btn btn-outline-info fs-10 apply-btn w-50">
+                Create New Missions
+                <i class="fa-sharp fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
     </div>
-    <div class="d-flex pt-4 justify-content-center">
-        <button class="btn btn-outline-info fs-10 apply-btn w-50">
-            Create New Missions
-            <i class="fa-sharp fa-solid fa-arrow-right"></i>
-        </button>
-    </div>
-
-
-</div>
 </div>
 @else
 <div class="d-flex justify-content-center">
@@ -1091,6 +1086,28 @@
                 });
             }
         });
+        $('input[id^="invite_"]').on('click', function() {
+            if (this.checked) {
+                var mission_id = this.id.split("_")[1];
+                var to_user_id = this.id.split('_')[2];
+                var from_user_id = this.id.split("_")[3];
+                console.log(mission_id);
+                $.ajax({
+                    url: "{{url('api/invite-user')}}"
+                    , type: "POST"
+                    , data: {
+                        _token: '{{csrf_token() }}'
+                        , from_user_id: from_user_id
+                        , to_user_id: to_user_id
+                        , mission_id: mission_id
+                    }
+                    , success: function(data) {
+                        $('#success-modal').modal('show');
+                    }
+                });
+            }
+        });
+
         $('[id^="click-to-details_"]').click(function() {
             $(location).attr('href', "{{ url('mission-page/') }}" + '/' + $(this).data('mission_id'));
         });
