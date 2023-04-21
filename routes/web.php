@@ -109,6 +109,7 @@ Route::post('password-resetting', [PasswordResetController::class, 'passwordRese
 
 
 //user-route
+Route::group(['middleware' => ['user']], function(){
 Route::resource('timesheet', VolunteeringTimesheetController::class);
 Route::get('storydetails', [StoryDetailController::class, 'storydetails']);
 Route::resource('timesheet', TimesheetsController::class);
@@ -130,6 +131,7 @@ Route::get('index/find-city', [HomeController::class, 'findCity']);
 Route::get('index/find-theme', [HomeController::class, 'findTheme']);
 Route::get('index/find-skill', [HomeController::class, 'findSkill']);
 Route::get('filter-data', [HomeController::class, 'filterData']);
+});
 //user-route
 
 
@@ -157,5 +159,6 @@ Route::group(['middleware' => [ 'admin']], function () {
     Route::resource('story', StoryController::class);
     Route::resource('/mission', MissionController::class);
     Route::resource('/cmspage', CmsPageController::class);
+    Route::get('adminlogout', [AdminAuthController::class,'logout'])->name('adminlogout');
 });
 //admin-route

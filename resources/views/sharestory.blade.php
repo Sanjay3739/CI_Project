@@ -2,12 +2,13 @@
 @section('title')
     share your story
 @endsection
+
 @section('content')
-@if (session('error'))
-<div class="alert alert-danger">
-    {{ session('error') }}
-</div>
-@endif
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
     <form id="story-form" action="{{ route('stories.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="container mt-3">
@@ -205,4 +206,5 @@
             })
         })
     </script>
+
 @endsection
