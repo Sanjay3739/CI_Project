@@ -10,6 +10,7 @@ use App\Models\TimeSheet;
 use App\Models\MissionApplication;
 use App\Http\Requests\StoreTimesheetRequest;
 use App\Http\Requests\UpdateTimesheetRequest;
+use App\Models\CmsPage;
 
 class TimeSheetsController extends Controller
 {
@@ -19,8 +20,9 @@ class TimeSheetsController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $policies = CmsPage::orderBy('cms_page_id', 'asc')->get();
         // $timesheets= Timesheet::all();
-        $timesheets = Timesheet::where('user_id', $user->user_id)->get();
+        $timesheets = Timesheet::where('user_id', $user->user_id)->paginate(6);
         $missions = Mission::get(['mission_id', 'title']);
         $ApprovedTimeMissionId = MissionApplication::where('user_id', $user->user_id)
             ->where('approval_status', 'APPROVE')
@@ -34,7 +36,7 @@ class TimeSheetsController extends Controller
             ->toArray();
         $goalmissions = Mission::whereIn('mission_id', $ApprovedGoalMissionId)->where('mission_type', 'GOAL')->get();
 
-        return view('volunteeringtimesheet.index', compact('user', 'timesheets','missions', 'ApprovedTimeMissionId', 'timemissions', 'ApprovedGoalMissionId', 'goalmissions'));
+        return view('volunteeringtimesheet.index', compact('user', 'timesheets','missions', 'ApprovedTimeMissionId', 'timemissions', 'ApprovedGoalMissionId', 'goalmissions','policies'));
     }
 
     /**
@@ -64,7 +66,7 @@ class TimeSheetsController extends Controller
             $timesheet->time = null;
             $timesheet->action = $request->action;
         }
-  
+
         $timesheet->date_volunteered = $request->date_volunteered;
         $timesheet->notes = $request->notes;
         $timesheet->status = 'PENDING';

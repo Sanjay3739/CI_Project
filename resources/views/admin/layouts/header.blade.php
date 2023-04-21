@@ -6,6 +6,9 @@
     <div>
         <button class="btn btn-outline-warning btn-sm order-1 order-lg-0 me-4 me-lg-0 px-3" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
     </div>
+    <div class="position-absolute d-none d-lg-block" style="left: 230px">
+            <span>{{ (new DateTime())->sub(new DateInterval('PT6H30M'))->format('l, F j, Y, g:i A') }}</span>
+        </div>
     <div>
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
             <li class="nav-item dropdown">

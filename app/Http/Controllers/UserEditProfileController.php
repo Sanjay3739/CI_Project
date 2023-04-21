@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Skill;
 use App\Models\UserSkill;
+use App\Models\ContactUs;
+use App\Models\CmsPage;
+use App\Http\Requests\StoreContactusRequest;
+
 
 class UserEditProfileController extends Controller
 {
@@ -19,7 +23,7 @@ class UserEditProfileController extends Controller
     public function editProfile(Request $request, $user_id)
     {
         $user = User::find($user_id);
-
+        $policies = CmsPage::orderBy('cms_page_id', 'asc')->get();
         if (!$user || $user->user_id != auth()->user()->user_id) {
             return redirect()->route('login');
         }
@@ -32,7 +36,7 @@ class UserEditProfileController extends Controller
         $countries = Country::get(['name', 'country_id']);
         $cities = City::where("country_id", $user->country_id)->get();
 
-        return view('userprofile', compact('user', 'countries', 'cities', 'skills', 'selected_skills'));
+        return view('userprofile', compact('user', 'countries', 'cities', 'skills', 'selected_skills','policies'));
     }
 
     public function updateProfile(UserProfileUpdateRequest $request)
@@ -96,6 +100,19 @@ class UserEditProfileController extends Controller
         }
 
         return response()->json(['success' => true]);
+    }
+    public function contactus(StoreContactusRequest $request)
+    {
+
+        //dd($request->user_id);
+            $contactUs = new ContactUs;
+            $contactUs->user_id = $request->user_id;
+            $contactUs->subject = $request->subject;
+            $contactUs->message = $request->message;
+
+
+
+        $contactUs->save();
     }
 
     public function logout()

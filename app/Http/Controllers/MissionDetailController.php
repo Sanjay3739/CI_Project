@@ -12,12 +12,14 @@ use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\CmsPage;
 
 class MissionDetailController extends Controller
 {
     public function main($mission_id)
     {
         $user = Auth::user();
+        $policies = CmsPage::orderBy('cms_page_id', 'asc')->get();
         $mission = Mission::where('mission_id', $mission_id)->first();
         $skill_id_array = MissionSkill::where('mission_id', $mission_id)->get()->pluck('skill_id');
         $themes = MissionTheme::all(['mission_theme_id', 'title']);
@@ -37,7 +39,7 @@ class MissionDetailController extends Controller
         } else {
             $avg_rating = ceil($rating / $count_rating);
         }
-        return view('detais', compact('data', 'favorite', 'mission', 'users', 'themes', 'skills', 'my_rating', 'avg_rating', 'count_rating'));
+        return view('detais', compact('data', 'favorite', 'mission', 'users', 'themes', 'skills', 'my_rating', 'avg_rating', 'count_rating','policies'));
     }
     public function showVolunteer(Request $request)
     {
