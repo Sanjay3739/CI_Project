@@ -51,7 +51,7 @@
                             @endif
 
                             @if ($mystory->status == 'DRAFT')
-                                <div class="image__overlay">
+                                <div class="cardimage__overlay">
                                     <a class="btn px-3 mr-2 rounded-pill btn-outline-secondary"
                                         href="{{ route('stories.edit', $mystory->story_id) }}">Edit Story
                                         Details&nbsp;<i class="fa fa-arrow-right"></i></a>
@@ -69,7 +69,8 @@
                             </p>
                         </div>
                         <div class="d-flex justify-content-start mb-3">
-                            <img class="rounded-circle px-3 " id="header-avatar" src="{{ asset($mystory->user->avatar) }}"
+                                <img class="rounded-circle px-3 " id="header-avatar"
+                                src="{{ $mystory->user->avatar ? asset($mystory->user->avatar) : asset('images/user-img1.png') }}"
                                 alt="Profile" style="height:54px">
                             <span class="mt-3">{{ $mystory->user->first_name }}
                                 {{ $mystory->user->last_name }}</span>
@@ -102,11 +103,9 @@
                             </p>
                         </div>
                         <div class="d-flex justify-content-start mb-3">
-                            <img class="rounded-circle px-3 " id="header-avatar" src="{{ asset($story->user->avatar) }}"
-                                alt="Profile" style="height:54px">
-                            {{-- <img class="rounded-circle px-3 " id="header-avatar"
+                            <img class="rounded-circle px-3 " id="header-avatar"
                                 src="{{ $story->user->avatar ? asset($story->user->avatar) : asset('images/user-img1.png') }}"
-                                alt="Profile" style="height:54px"> --}}
+                                alt="Profile" style="height:54px">
                             <span class="mt-3">{{ $story->user->first_name }}
                                 {{ $story->user->last_name }}</span>
                         </div>

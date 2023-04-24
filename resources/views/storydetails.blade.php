@@ -70,10 +70,8 @@
                 <div class="row">
                     <div class="d-flex justify-content-start">
                         <img class="rounded-circle px-2 ms-3 mb-2 " id="header-avatar"
-                            src="{{ asset($storydetails->user->avatar) }}" alt="Profile">
-                        {{-- <img class="rounded-circle px-3 " id="header-avatar"
                             src="{{ $storydetails->user->avatar ? asset($storydetails->user->avatar) : asset('images/user-img1.png') }}"
-                            alt="Profile"> --}}
+                            alt="Profile" style="height:54px">
                     </div>
                     <div class="col-xl-12">
                         <span class="ms-4 px-2">{{ $storydetails->user->first_name }}
@@ -332,6 +330,5 @@
                 }
             });
         });
-        // });
     </script>
 @endsection
