@@ -26,7 +26,6 @@
                 <button class="btn close" id="filter-clear"> clear All</button>
             </div>
         </div>
-
     </div>
 @if($count!=0)
     <div class=" container  py-3">

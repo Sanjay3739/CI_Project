@@ -43,7 +43,7 @@
                             href="{{ route('edit-profile', ['user_id' => Auth::user()->user_id]) }}">My Profile</a>
                         <a class="dropdown-item" href="{{ url('timesheet') }}">Volunteering Timesheet</a>
                         <a class="dropdown-item" href="{{ url('storylisting') }}">Story Listing</a>
-                        <a class="dropdown-item" href="{{ route('login') }}">Logout</a>
+                        <a class="dropdown-item" href="{{ route('userlogout') }}">Logout</a>
                     </div>
                 </div>
             </div>

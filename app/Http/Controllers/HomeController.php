@@ -26,7 +26,7 @@ class HomeController extends Controller
         $user = Auth::user();
         $policies = CmsPage::orderBy('cms_page_id', 'asc')->get();
         // Authentication of user login
-        $users = User::where('user_id', '!=', Auth::user()->user_id)->orderBy('user_id', 'asc')->get();
+        $users = User::where('user_id', '==', Auth::user()->user_id)->get('first_name','last_name');
         $avgStar = MissionRating::avg('rating');
         // relationship of mission and missiorating and pass the data using mission id to missionrating
         $data = Mission::with(['missionRating'])->where('mission_id', '!=', null);
@@ -200,7 +200,7 @@ class HomeController extends Controller
                 ->get(['favorite_mission_id', 'mission_id']);
             $users = User::where('user_id', '=', Auth::user()->user_id)
                 // ->orderBy('user_id', 'asc')
-                ->get();
+                ->get('user_id');
             return view('home.gridList', compact('count', 'data', 'favorite', 'users', 'user_id'));
         }
     }

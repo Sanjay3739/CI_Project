@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\MissionRating;
 use Illuminate\Http\Request;
 
+
+
 class MissionRatingController extends Controller
 {
     public function addRating(Request $request){
@@ -16,4 +18,5 @@ class MissionRatingController extends Controller
         MissionRating::create($request->post());
         return('Successfully added');
     }
+
 }

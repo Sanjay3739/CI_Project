@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\MissionApplication;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\Mission;
+use App\Models\TimeMission;
+use App\Models\User;
+use Illuminate\Pagination\LengthAwarePaginator;
 class MissionApplicationController extends Controller
 {
     public function index(Request $request)
@@ -61,4 +63,5 @@ class MissionApplicationController extends Controller
         $application->save();
         return ("rejected");
     }
+
 }
