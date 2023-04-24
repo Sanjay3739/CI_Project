@@ -8,13 +8,13 @@
     $user_id = Auth::user()->user_id;
     ?>
     @if (session('Successfully'))
-    <div class="alert alert-success">
-        {{ session('Successfully') }}
-    </div>
+        <div class="alert alert-success">
+            {{ session('Successfully') }}
+        </div>
     @endif
     <div class="row">
         <div class="container-fluid">
-            <div class="storyimage"
+            <div class="storytopimage"
                 style="background-image: url('{{ asset('images/Grow-Trees-On-the-path-to-environment-sustainability.png') }}');">
                 <div class="image__overlay">
                     <div class="text text-center text-light">Lorem Ipsum has been the industry's standard dummy text ever
@@ -32,8 +32,6 @@
         <div class="row">
 
             @foreach ($draft_stories as $mystory)
-                {{-- <div class="card col-lg-6 col-xl-4 col-md-6 border-0  pb-4 text-center mb-5"
-                    style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;"> --}}
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pb-4 text-center">
                     <div class="card"style="width:100%; height:422px">
                         <div class="cardimage">
@@ -66,7 +64,7 @@
                         </div>
                         <div class="card-body">
                             <h4 class='mission-title theme-color' id="storytitle">{{ $mystory->title }}</h4>
-                            <p class='card-text mission-short-description' >
+                            <p class='card-text mission-short-description'>
                                 {{ strip_tags($mystory->description) }}
                             </p>
                         </div>
@@ -80,8 +78,6 @@
                 </div>
             @endforeach
             @foreach ($published_stories as $story)
-                {{-- <div class="card col-lg-6 col-xl-4 col-md-6 border-0  pb-4 text-center mb-5"
-                    style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;"> --}}
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pb-4 text-center">
                     <div class="card card" style="width:100%; height:422px">
                         <div class="cardimage">
@@ -108,7 +104,10 @@
                         <div class="d-flex justify-content-start mb-3">
                             <img class="rounded-circle px-3 " id="header-avatar" src="{{ asset($story->user->avatar) }}"
                                 alt="Profile" style="height:54px">
-                            <span class="mt-3" >{{ $story->user->first_name }}
+                            {{-- <img class="rounded-circle px-3 " id="header-avatar"
+                                src="{{ $story->user->avatar ? asset($story->user->avatar) : asset('images/user-img1.png') }}"
+                                alt="Profile" style="height:54px"> --}}
+                            <span class="mt-3">{{ $story->user->first_name }}
                                 {{ $story->user->last_name }}</span>
                         </div>
                     </div>

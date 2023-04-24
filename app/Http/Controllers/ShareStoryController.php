@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\CmsPage;
+use App\Http\Requests\StoreStoryRequest;
+use App\Http\Requests\StoreDraftStoryRequest;
+use App\Http\Requests\UpdateStoryRequest;
 
 class ShareStoryController extends Controller
 {
@@ -34,50 +37,29 @@ class ShareStoryController extends Controller
         return view('sharestory', compact('user', 'approveMission', 'storyMissions', 'policies'));
     }
 
-    public function store(Request $request)
+    public function store(StoreStoryRequest $request)
     {
 
         if ($request->ajax()) {
-            $validated = $request->validate(
-                [
-                    'mission_id' => 'required',
-                    'title' => 'required|string|max:255',
-                    'description' => 'required|max:40000',
-                    'published_at' => 'required|date',
-                    'path' => 'required|array|max:20',
-                    'path.*' => 'required|url',
-                    'images' => 'required|array|max:20',
-                    'images.*' => 'image|max:4096|mimes:jpg,jpeg,png,',
-                ],
-                [
-                    'url' => 'The video URL must be a valid URL.',
-                    'path.max' => 'maximum 20 URL can be uploaded',
-                    'mimes' => 'The :attribute field must be a file of type: :values.',
-                    'published_at.required' => 'The date field is required.',
-                    // 'images.*' => 'photo size should not be more then 4 MB',
-                    'images.max' => 'maximum 20 photos can be uploaded',
-                    'path.*.regex' => 'please enter a valid youtube URL on index :index of the video URL'
-                ]
-            );
             $story = new Story;
-            $story->mission_id = $validated['mission_id'];
-            $story->title = $validated['title'];
-            $story->description = $validated['description'];
-            $story->published_at = $validated['published_at'];
+            $story->mission_id = $request['mission_id'];
+            $story->title = $request['title'];
+            $story->description = $request['description'];
+            $story->published_at = $request['published_at'];
             $story->status = 'DRAFT';
             $story->user_id = auth()->user()->user_id;
             $story->save();
             // dd($request);
             $story_id = $story->story_id;
             // dd($validated['path']);
-            foreach ($validated['path'] as $video) {
+            foreach ($request['path'] as $video) {
                 $storymedia = new StoryMedia;
                 $storymedia->story_id = $story->story_id;
                 $storymedia->type = 'video';
                 $storymedia->path = $video;
                 $storymedia->save();
             }
-            foreach ($validated['images'] as $photo) {
+            foreach ($request['images'] as $photo) {
                 $storyimage = $photo->getClientOriginalName();
                 $imagePath = $photo->storeAs('storage/storyMedia', $storyimage, 'public');
                 $extension = $photo->getClientOriginalExtension();
@@ -109,41 +91,20 @@ class ShareStoryController extends Controller
         return view('editshareyourstory', compact('user', 'story', 'storyMissions', 'storyvideo', 'storyimage', 'policies'));
     }
 
-    public function updatedstory(Request $request, $story_id)
+    public function updatedstory(StoreDraftStoryRequest $request, $story_id)
     {
         $story = Story::findOrFail($story_id);
-        $validated = $request->validate(
-            [
-                'mission_id' => 'required',
-                'title' => 'required|string|max:255',
-                'description' => 'required|max:40000',
-                'published_at' => 'nullable|date',
-                'path' => 'array|max:20|required',
-                'path.*' => 'url',
-                'images' => 'nullable|array|max:20',
-                'images.*' => 'required|image|max:4096|mimes:jpg,jpeg,png,',
-            ],
-            [
-                'url' => 'The video URL must be a valid URL.',
-                'path.max' => 'maximum 20 URL can be uploaded',
-                'mimes' => 'The :attribute field must be a file of type: :values.',
-                'published_at.required' => 'The date field is required.',
-                'images.*.max' => 'photo size should not be more then 4 MB',
-                'images.max' => 'maximum 20 photos can be uploaded',
-            ]
-        );
-        $story = Story::findOrFail($story_id);
-        $story->mission_id = $validated['mission_id'];
-        $story->title = $validated['title'];
-        $story->description = $validated['description'];
-        $story->published_at = $validated['published_at'];
+        $story->mission_id = $request['mission_id'];
+        $story->title = $request['title'];
+        $story->description = $request['description'];
+        $story->published_at = $request['published_at'];
         $story->status = 'DRAFT';
         $story->user_id = auth()->user()->user_id;
         $story->save();
 
         // images
         if (isset($request->images)) {
-            foreach ($validated['images'] as $photo) {
+            foreach ($request['images'] as $photo) {
                 $storyimage = $photo->getClientOriginalName();
                 $imagePath = $photo->storeAs('storage/storyMedia', $storyimage, 'public');
                 $extension = $photo->getClientOriginalExtension();
@@ -166,7 +127,7 @@ class ShareStoryController extends Controller
         //video
         $existingMedia = $story->storyMedia()->where('type', 'video')->get();
         $existingPaths = $existingMedia->pluck('path')->toArray();
-        $newPaths = $validated['path'];
+        $newPaths = $request['path'];
         $removedPaths = array_diff($existingPaths, $newPaths);
         $addedPaths = array_diff($newPaths, $existingPaths);
 
@@ -194,30 +155,20 @@ class ShareStoryController extends Controller
         return 'Your Story has been Updated';
     }
 
-    public function update(Request $request, $story_id)
+    public function update(UpdateStoryRequest $request, $story_id)
     {
         $newPaths = explode("\r\n", $request->path[0]);
         $validator = Validator::make($newPaths, [
             'path.*' => 'required|url',
         ]);
-        $validated = $request->validate([
-            'mission_id' => 'required',
-            'title' => 'required|string|max:255',
-            'description' => 'required|max:40000',
-            'published_at' => 'nullable|date',
-            'path' => 'nullable|array|max:20',
-            'images' => 'nullable|array|max:20',
-            'images.*' => 'image|max:4096|mimes:jpg,jpeg,png,',
 
-        ]);
-
-        $mypaths = $validated['path'];
-        $paths = array_filter($validated['path']);
+        $mypaths = $request['path'];
+        $paths = array_filter($request['path']);
         $story = Story::findOrFail($story_id);
-        $story->title = $validated['title'];
-        $story->description = $validated['description'];
-        $story->mission_id = $validated['mission_id'];
-        $story->published_at = $validated['published_at'];
+        $story->title = $request['title'];
+        $story->description = $request['description'];
+        $story->mission_id = $request['mission_id'];
+        $story->published_at = $request['published_at'];
         $story->status = 'PENDING';
         $story->save();
 
@@ -253,7 +204,7 @@ class ShareStoryController extends Controller
         }
 
         if (isset($request->images)) {
-            foreach ($validated['images'] as $photo) {
+            foreach ($request['images'] as $photo) {
                 $storyimage = $photo->getClientOriginalName();
                 $imagePath = $photo->storeAs('storage/story_media', $storyimage, 'public');
                 $extension = $photo->getClientOriginalExtension();

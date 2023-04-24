@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
+        <div class="row d-flex">
             <div class="col-xl-6 mt-5">
                 <div class="carousel-thumbnail">
                     <div class="topimage">
@@ -71,6 +71,9 @@
                     <div class="d-flex justify-content-start">
                         <img class="rounded-circle px-2 ms-3 mb-2 " id="header-avatar"
                             src="{{ asset($storydetails->user->avatar) }}" alt="Profile">
+                        {{-- <img class="rounded-circle px-3 " id="header-avatar"
+                            src="{{ $storydetails->user->avatar ? asset($storydetails->user->avatar) : asset('images/user-img1.png') }}"
+                            alt="Profile"> --}}
                     </div>
                     <div class="col-xl-12">
                         <span class="ms-4 px-2">{{ $storydetails->user->first_name }}
@@ -149,9 +152,9 @@
             </div>
         </div>
         <div class="col-xl-12">
-            <ul class="nav nav-tabs mt-3 px-2" id="myTab" role="tablist" >
-                <a class="nav-link active details" data-bs-toggle="tab"  data-bs-target="#tab-1" type="button" role="tab"
-                    aria-controls="home" aria-selected="flase">
+            <ul class="nav nav-tabs mt-3 px-2" id="myTab" role="tablist">
+                <a class="nav-link active details" data-bs-toggle="tab" data-bs-target="#tab-1" type="button"
+                    role="tab" aria-controls="home" aria-selected="flase">
                     {{ $storydetails->title }}
                 </a>
             </ul>

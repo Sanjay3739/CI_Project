@@ -48,7 +48,7 @@
                     </a>
                 </div>
 
-                <table class="table table-responsive table-bordered">
+                <table class="table table responsive table-bordered">
                     <thead>
                         <tr>
                             <th>Mission Title</th>

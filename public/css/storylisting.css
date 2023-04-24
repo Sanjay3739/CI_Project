@@ -1,4 +1,5 @@
-.storyimage {
+
+.storytopimage {
     position: relative;
     /* width: 100%; */
     height: 340px;
@@ -8,7 +9,7 @@
     z-index: 1;
     /* background-image: url("Images/Grow-Trees-On-the-path-to-environment-sustainability.png"); */
     /* background-image: "Images/Grow-Trees-On-the-path-to-environment-sustainability.png"; */
-    position: fixed;
+    /* position: fixed; */
 }
 
 .image__overlay {
@@ -90,7 +91,7 @@
     max-width: fit-content;
     padding-bottom: 0.5rem;
     background-color: white;
-    z-index: 1000;
+    z-index: 1;
 }
 
 #storytitle{
