@@ -46,3 +46,5 @@ Route::post('new-mission-application', [MissionApplicationController::class, 'ne
 Route::get('approve-application', [MissionApplicationController::class, 'approveApplication']);
 Route::get('reject-application', [MissionApplicationController::class, 'rejectApplication']);
 Route::post('invite-users', [StoryInviteController::class, 'inviteUser']);
+
+

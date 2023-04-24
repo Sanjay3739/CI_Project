@@ -27,6 +27,7 @@ use App\Http\Controllers\admin\MissionController;
 use App\Http\Controllers\admin\CmsPageController;
 use App\Http\Controllers\policyController;
 
+
 //frontend Routes//
 
 Route::get('index', function () {
@@ -72,9 +73,6 @@ Route::get('login-policy', [policyController::class, 'policy'])->name('login-pol
 // Route::get('approve_app/{mission_application_id}', 'ApplicationController@approve_app');
 // Route::get('decline_app/{mission_application_id}', 'ApplicationController@decline_app');
 // Route::get('policy', [CmsPagesController::class, 'index']);
-
-
-
 
 
 
