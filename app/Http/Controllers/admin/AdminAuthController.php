@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 
 class AdminAuthController extends Controller
@@ -37,4 +38,12 @@ class AdminAuthController extends Controller
             return redirect()->intended('adminlogin')->withInput()->withErrors(['password' => 'Oppes! You have entered wrong password']);
         }
     }
+    public function logout()
+    {
+        Auth::guard('admin')->logout();
+        Session::flush();
+
+        return redirect()->route('adminlogin');
+    }
+
 }

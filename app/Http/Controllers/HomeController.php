@@ -15,6 +15,7 @@ use Illuminate\Database\Query\JoinClause;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\CmsPage;
 
 class HomeController extends Controller
 {
@@ -23,8 +24,9 @@ class HomeController extends Controller
 
         // user data send the index page
         $user = Auth::user();
+        $policies = CmsPage::orderBy('cms_page_id', 'asc')->get();
         // Authentication of user login
-        $users = User::where('user_id', '!=', Auth::user()->user_id)->orderBy('user_id', 'asc')->get();
+        $users = User::where('user_id', '==', Auth::user()->user_id)->get('first_name','last_name');
         $avgStar = MissionRating::avg('rating');
         // relationship of mission and missiorating and pass the data using mission id to missionrating
         $data = Mission::with(['missionRating'])->where('mission_id', '!=', null);
@@ -59,7 +61,7 @@ class HomeController extends Controller
         $favorite = FavoriteMission::where('user_id', Auth::user()->user_id)->get(['favorite_mission_id', 'mission_id']);
         $data = $data->orderBy('created_at', 'desc')->paginate(12);
 
-        return view('index', compact('data', 'count', 'countries', 'ratings', 'user', 'cities', 'themes', 'skills', 'favorite', 'users'));
+        return view('index', compact('data', 'count', 'countries', 'ratings', 'user', 'cities', 'themes', 'skills', 'favorite', 'users','policies'));
     }
     public function findCity(Request $request)
     {
@@ -198,7 +200,7 @@ class HomeController extends Controller
                 ->get(['favorite_mission_id', 'mission_id']);
             $users = User::where('user_id', '=', Auth::user()->user_id)
                 // ->orderBy('user_id', 'asc')
-                ->get();
+                ->get('user_id');
             return view('home.gridList', compact('count', 'data', 'favorite', 'users', 'user_id'));
         }
     }

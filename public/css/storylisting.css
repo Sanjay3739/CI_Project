@@ -1,13 +1,14 @@
-.image {
+.storyimage {
     position: relative;
-    width: 100%;
+    /* width: 100%; */
+    height: 340px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     z-index: 1;
-}
-
-.img-fluid {
-    display: block;
-    width: 100%;
-
+    /* background-image: url("Images/Grow-Trees-On-the-path-to-environment-sustainability.png"); */
+    /* background-image: "Images/Grow-Trees-On-the-path-to-environment-sustainability.png"; */
+    position: fixed;
 }
 
 .image__overlay {
@@ -26,26 +27,33 @@
     transition: opacity 0.25s;
 }
 
-.image__overlay > *{
-    transform: translateY(50%);
+
+.image__overlay>* {
+    transform: matrix(100%);
 
 }
 .image__overlay:hover {
     opacity: 1;
-
-
+}
+#fonts{
+    font-size: small !important;
+    background-color: rgb(246, 249, 252);
+    /* bacolor: aliceblue; */
 }
 
 
 .cardimage {
     position: relative;
     width: 100%;
+    /* height: 250px; */
 
 }
 
-.cardimg-fluid {
+.card-img {
     display: block;
     width: 100%;
+    width:100%;
+    height:200px;
 
 }
 
@@ -65,23 +73,95 @@
     transition: opacity 0.25s;
 }
 
-.cardimage__overlay > *{
+.cardimage__overlay>* {
     transform: translateY(50%);
 
 }
+
 .cardimage__overlay:hover {
     opacity: 1;
 
 
 }
-.cardtheme{
+
+.cardtheme {
     position: relative;
     border-radius: 23px;
     max-width: fit-content;
     padding-bottom: 0.5rem;
     background-color: white;
     z-index: 1000;
-    margin-top: -25px;
-    /* margin-top:-15px; */
 }
 
+#storytitle{
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+
+/* story listing css */
+/* .text-center {
+    text-align: center !important;
+}
+
+.pb-4 {
+    padding-bottom: 1.5rem !important;
+}
+
+.mb-5 {
+    margin-bottom: 3rem !important;
+}
+
+.border-0 {
+    border: 0 !important;
+}
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+}
+@media (min-width: 768px)
+.col-md-6 {
+    flex: 0 0 auto;
+    width: 50%;
+}
+.row > * {
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+    padding-right: calc(var(--bs-gutter-x) * 0.5);
+    padding-left: calc(var(--bs-gutter-x) * 0.5);
+    margin-top: var(--bs-gutter-y);
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+.row {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(var(--bs-gutter-y) * -1);
+    margin-right: calc(var(--bs-gutter-x) * -0.5);
+    margin-left: calc(var(--bs-gutter-x) * -0.5);
+}
+
+body {
+    margin: 0;
+    font-family: var(--bs-font-sans-serif);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+} */

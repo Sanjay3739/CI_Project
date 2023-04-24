@@ -114,4 +114,8 @@ class Mission extends Model
     {
         return $this->belongsToMany(Skill::class, 'mission_skills', 'mission_id', 'skill_id');
     }
+
+    public function Contactus() {
+        return $this->hasMany(Contactus::class, 'contact_us_id');
+    }
 }

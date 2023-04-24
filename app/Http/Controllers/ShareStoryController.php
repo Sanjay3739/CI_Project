@@ -9,12 +9,13 @@ use App\Models\MissionApplication;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Models\CmsPage;
 
 class ShareStoryController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('CheckDraft')->only(['edit', 'update','updateDraft']);
+        $this->middleware('CheckDraft')->only(['edit', 'update', 'updateDraft']);
     }
     public function index(Request $request)
     {
@@ -29,8 +30,8 @@ class ShareStoryController extends Controller
         $storyMissions = Mission::whereIn('mission_id', $approveMission)
             ->whereNotIn('mission_id', $storyshareMission)
             ->get();
-
-        return view('sharestory', compact('user', 'approveMission', 'storyMissions'));
+        $policies = CmsPage::orderBy('cms_page_id', 'asc')->get();
+        return view('sharestory', compact('user', 'approveMission', 'storyMissions', 'policies'));
     }
 
     public function store(Request $request)
@@ -43,10 +44,19 @@ class ShareStoryController extends Controller
                     'title' => 'required|string|max:255',
                     'description' => 'required|max:40000',
                     'published_at' => 'required|date',
-                    'path' => 'nullable|array|max:20',
+                    'path' => 'required|array|max:20',
                     'path.*' => 'required|url',
-                    'images' => 'nullable|array|max:20',
+                    'images' => 'required|array|max:20',
                     'images.*' => 'image|max:4096|mimes:jpg,jpeg,png,',
+                ],
+                [
+                    'url' => 'The video URL must be a valid URL.',
+                    'path.max' => 'maximum 20 URL can be uploaded',
+                    'mimes' => 'The :attribute field must be a file of type: :values.',
+                    'published_at.required' => 'The date field is required.',
+                    // 'images.*' => 'photo size should not be more then 4 MB',
+                    'images.max' => 'maximum 20 photos can be uploaded',
+                    'path.*.regex' => 'please enter a valid youtube URL on index :index of the video URL'
                 ]
             );
             $story = new Story;
@@ -57,7 +67,16 @@ class ShareStoryController extends Controller
             $story->status = 'DRAFT';
             $story->user_id = auth()->user()->user_id;
             $story->save();
-
+            // dd($request);
+            $story_id = $story->story_id;
+            // dd($validated['path']);
+            foreach ($validated['path'] as $video) {
+                $storymedia = new StoryMedia;
+                $storymedia->story_id = $story->story_id;
+                $storymedia->type = 'video';
+                $storymedia->path = $video;
+                $storymedia->save();
+            }
             foreach ($validated['images'] as $photo) {
                 $storyimage = $photo->getClientOriginalName();
                 $imagePath = $photo->storeAs('storage/storyMedia', $storyimage, 'public');
@@ -68,22 +87,15 @@ class ShareStoryController extends Controller
                 $storymedia->path = $imagePath;
                 $storymedia->save();
             }
-            foreach ($validated['path'] as $video) {
-                $storymedia = new StoryMedia;
-                $storymedia->story_id = $story->story_id;
-                $storymedia->type = 'video';
-                $storymedia->path = $video;
-                $storymedia->save();
-            }
 
-            $sharestory_id = $story->story_id;
-            return $sharestory_id;
+            return $story_id;
         }
     }
 
     public function edit($story_id)
     {
         $user = Auth::user();
+        $policies = CmsPage::orderBy('cms_page_id', 'asc')->get();
         $story = Story::findOrFail($story_id);
         $storyvideo = StoryMedia::where('story_id', $story_id)->where('type', 'video')->get();
         $storyimage = StoryMedia::where('story_id', $story_id)->whereIn('type', ['png', 'jpg', 'jpeg'])->get();
@@ -94,7 +106,7 @@ class ShareStoryController extends Controller
             ->toArray();
 
         $storyMissions = Mission::whereIn('mission_id', $approveMission,)->get();
-        return view('editshareyourstory', compact('user', 'story', 'storyMissions', 'storyvideo', 'storyimage'));
+        return view('editshareyourstory', compact('user', 'story', 'storyMissions', 'storyvideo', 'storyimage', 'policies'));
     }
 
     public function updatedstory(Request $request, $story_id)
@@ -110,6 +122,14 @@ class ShareStoryController extends Controller
                 'path.*' => 'url',
                 'images' => 'nullable|array|max:20',
                 'images.*' => 'required|image|max:4096|mimes:jpg,jpeg,png,',
+            ],
+            [
+                'url' => 'The video URL must be a valid URL.',
+                'path.max' => 'maximum 20 URL can be uploaded',
+                'mimes' => 'The :attribute field must be a file of type: :values.',
+                'published_at.required' => 'The date field is required.',
+                'images.*.max' => 'photo size should not be more then 4 MB',
+                'images.max' => 'maximum 20 photos can be uploaded',
             ]
         );
         $story = Story::findOrFail($story_id);
@@ -121,7 +141,7 @@ class ShareStoryController extends Controller
         $story->user_id = auth()->user()->user_id;
         $story->save();
 
-         // images
+        // images
         if (isset($request->images)) {
             foreach ($validated['images'] as $photo) {
                 $storyimage = $photo->getClientOriginalName();
@@ -149,14 +169,15 @@ class ShareStoryController extends Controller
         $newPaths = $validated['path'];
         $removedPaths = array_diff($existingPaths, $newPaths);
         $addedPaths = array_diff($newPaths, $existingPaths);
-        foreach ($existingMedia as $media) {
-            if (in_array($media->path, $addedPaths)) {
 
-                $storymedia->path = $newPaths[array_search($media->path, $addedPaths)];
+        foreach ($existingMedia as $storymedia) {
+            if (in_array($storymedia->path, $addedPaths)) {
+
+                $storymedia->path = $newPaths[array_search($storymedia->path, $addedPaths)];
                 $storymedia->save();
-            } elseif (in_array($media->path, $removedPaths)) {
+            } elseif (in_array($storymedia->path, $removedPaths)) {
 
-                $media->delete();
+                $storymedia->delete();
             }
         }
 
@@ -205,9 +226,11 @@ class ShareStoryController extends Controller
         $existingPaths = $existingMedia->pluck('path')->toArray();
         if (isset($paths[0])) {
             $newPaths = explode("\r\n", $paths[0]);
+
         }
 
         $removedPaths = array_diff($existingPaths, $newPaths);
+
         $addedPaths = array_diff($newPaths, $existingPaths);
 
         foreach ($existingMedia as $storymedia) {
@@ -251,5 +274,3 @@ class ShareStoryController extends Controller
         return redirect()->route('storylisting')->with('Successfully', 'Your story has been Updated.');
     }
 }
-
-

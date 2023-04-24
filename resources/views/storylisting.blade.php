@@ -7,119 +7,117 @@
     <?php
     $user_id = Auth::user()->user_id;
     ?>
+    @if (session('Successfully'))
+    <div class="alert alert-success">
+        {{ session('Successfully') }}
+    </div>
+    @endif
     <div class="row">
         <div class="container-fluid">
-
-            <div class="image">
-                <img class="d-block w-100 h-100" src="images/growsharestory.png" class="img-fluid" alt="First slide">
+            <div class="storyimage"
+                style="background-image: url('{{ asset('images/Grow-Trees-On-the-path-to-environment-sustainability.png') }}');">
                 <div class="image__overlay">
-                    <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                        incididunt ut labore
-                        et dolore magna
-                        aliqua.<br> Ut enim ad minim veniam, quis nostrud
-                        exercitation ullamco laboris nisi ut aliquip.</p>
-                    <a class="btn px-3 mr-2 rounded-pill btn-outline-secondary" href="{{ url('sharestory') }}">Share
+                    <div class="text text-center text-light">Lorem Ipsum has been the industry's standard dummy text ever
+                        since the
+                        1500s, when an unknown printer took a <br> galley of type and scrambled it
+                        to make a type specimen book. It has survived not only five centuries</div>
+                    <a class="btn px-3 mt-3 rounded-pill btn-outline-secondary" href="{{ url('sharestory') }}">Share
                         Your
                         Story <i class="fa fa-arrow-right"></i></a>
-
                 </div>
             </div>
-
         </div>
     </div>
-    <div>
-    </div>
-
     <div class="container mt-5" id="my-story">
         <div class="row">
 
             @foreach ($draft_stories as $mystory)
-                <div class="card col-lg-6 col-xl-4 col-md-6 border-0  pb-4 text-center mb-5"
-                    style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
-                    <div class="image">
-                        <img class="cardimg-fluid w-100 h-100 card-img-top"
-                            src="{{ asset('storage/' . $mystory->storyMedia->whereIn('type', ['jpeg', 'jpg', 'png'])->first()->path) }}"
-                            alt="">
+                {{-- <div class="card col-lg-6 col-xl-4 col-md-6 border-0  pb-4 text-center mb-5"
+                    style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;"> --}}
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pb-4 text-center">
+                    <div class="card"style="width:100%; height:422px">
+                        <div class="cardimage">
+                            <img class="img-fluid card-img"
+                                src="{{ asset('storage/' . $mystory->storyMedia->whereIn('type', ['jpeg', 'jpg', 'png'])->first()->path) }}"
+                                alt="">
+                            @if ($mystory->status == 'PUBLISHED')
+                                <div class="cardimage__overlay">
+                                    <a class="btn px-3 mr-2 rounded-pill btn-outline-secondary"
+                                        href="{{ url('storydetail', $mystory->story_id) }}">View
+                                        Details&nbsp;<i class="fa fa-arrow-right"></i></a>
 
+                                    <a class="btn px-3 mr-2 rounded-pill btn-outline-secondary"
+                                        href="{{ route('storydetail', $story->story_id) }}">View
+                                        Details&nbsp;<i class="fa fa-arrow-right"></i></a>
+                                </div>
+                            @endif
 
-                        @if ($mystory->status == 'PUBLISHED')
+                            @if ($mystory->status == 'DRAFT')
+                                <div class="image__overlay">
+                                    <a class="btn px-3 mr-2 rounded-pill btn-outline-secondary"
+                                        href="{{ route('stories.edit', $mystory->story_id) }}">Edit Story
+                                        Details&nbsp;<i class="fa fa-arrow-right"></i></a>
+                                </div>
+                            @endif
+                        </div>
+                        <div class="text-center" style="margin-top:-15px;">
+                            <span class="px-2 fromuntill cardtheme" id="fonts">
+                                {{ $mystory->mission->missionTheme->title ?? 'ebuim' }}</span>
+                        </div>
+                        <div class="card-body">
+                            <h4 class='mission-title theme-color' id="storytitle">{{ $mystory->title }}</h4>
+                            <p class='card-text mission-short-description' >
+                                {{ strip_tags($mystory->description) }}
+                            </p>
+                        </div>
+                        <div class="d-flex justify-content-start mb-3">
+                            <img class="rounded-circle px-3 " id="header-avatar" src="{{ asset($mystory->user->avatar) }}"
+                                alt="Profile" style="height:54px">
+                            <span class="mt-3">{{ $mystory->user->first_name }}
+                                {{ $mystory->user->last_name }}</span>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+            @foreach ($published_stories as $story)
+                {{-- <div class="card col-lg-6 col-xl-4 col-md-6 border-0  pb-4 text-center mb-5"
+                    style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;"> --}}
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pb-4 text-center">
+                    <div class="card card" style="width:100%; height:422px">
+                        <div class="cardimage">
+                            <img class="img-fluid card-img"
+                                src="{{ asset('storage/' . $story->storyMedia->whereIn('type', ['jpeg', 'jpg', 'png'])->first()->path) }}"
+                                alt="">
+
                             <div class="cardimage__overlay">
-                                <a class="btn px-3 mr-2 rounded-pill btn-outline-secondary"
-                            href="{{ url('storydetail', $mystory->story_id) }}">View
-                            Details&nbsp;<i class="fa fa-arrow-right"></i></a>
-
                                 <a class="btn px-3 mr-2 rounded-pill btn-outline-secondary"
                                     href="{{ route('storydetail', $story->story_id) }}">View
                                     Details&nbsp;<i class="fa fa-arrow-right"></i></a>
                             </div>
-                        @endif
-
-                        @if($mystory->status == 'DRAFT')
-                    <div class="image__overlay">
-                        <a class="btn px-3 mr-2 rounded-pill btn-outline-secondary"
-                        href="{{route('stories.edit',$mystory->story_id)}}">Edit Story
-                            Details&nbsp;<i class="fa fa-arrow-right"></i></a>
-                    </div>
-                    @endif
-                    </div>
-                    <div class="text-center" style="margin-top:-15px;">
-                        <span class="fs-15 px-2 fromuntill cardtheme">
-                            {{ $mystory->mission->missionTheme->title?? 'ebuim'}}</span>
-                    </div>
-                    <div class="card-body">
-                        <h4 class='mission-title theme-color'>{{ $mystory->title }}</h4>
-                        <p class='card-text mission-short-description'>
-                            {{ strip_tags($mystory->description) }}
-                        </p>
-                    </div>
-                    <div class="d-flex justify-content-start">
-                        <img class="rounded-circle px-3 " id="header-avatar" src="{{ asset($mystory->user->avatar) }}"
-                            alt="Profile" style="height:54px">
-                        <span class="mt-3" id="userAvatar">{{ $mystory->user->first_name }}
-                            {{ $mystory->user->last_name }}</span>
-                    </div>
-
-                </div>
-            @endforeach
-            @foreach ($published_stories as $story)
-                <div class="card col-lg-6 col-xl-4 col-md-6 border-0  pb-4 text-center mb-5"
-                    style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
-
-                    <div class="cardimage">
-                        <img class="cardimg-fluid w-100 h-100 card-img-top"
-                            src="{{ asset('storage/' . $story->storyMedia->whereIn('type', ['jpeg', 'jpg', 'png'])->first()->path) }}"
-                            alt="">
-
-                        <div class="cardimage__overlay">
-                            <a class="btn px-3 mr-2 rounded-pill btn-outline-secondary"
-                                href="{{ route('storydetail', $story->story_id) }}">View
-                                Details&nbsp;<i class="fa fa-arrow-right"></i></a>
+                        </div>
+                        <div class="text-center" style="margin-top:-15px;">
+                            <span class="fs-15 px-2 cardtheme" id="fonts">
+                                {{ $story->mission->missionTheme->title ?? 'ratec' }}</span> {{-- missiontheme remove --}}
+                        </div>
+                        <div class="card-body">
+                            <h4 class='mission-title theme-color' id="storytitle">{{ $story->title }}</h4>
+                            <p class='card-text mission-short-description'>
+                                {{ strip_tags($story->description) }}
+                            </p>
+                        </div>
+                        <div class="d-flex justify-content-start mb-3">
+                            <img class="rounded-circle px-3 " id="header-avatar" src="{{ asset($story->user->avatar) }}"
+                                alt="Profile" style="height:54px">
+                            <span class="mt-3" >{{ $story->user->first_name }}
+                                {{ $story->user->last_name }}</span>
                         </div>
                     </div>
-                    <div class="text-center" style="margin-top:-15px;">
-                        <span class="fs-15 px-2 cardtheme">
-                            {{ $story->mission->missionTheme->title ?? 'ratec'}}</span> {{-- missiontheme remove --}}
-                    </div>
-                    <div class="card-body">
-                        <h4 class='mission-title theme-color'>{{ $story->title }}</h4>
-                        <p class='card-text mission-short-description'>
-                            {{ strip_tags($story->description) }}
-                        </p>
-                    </div>
-                    <div class="d-flex justify-content-start">
-                        <img class="rounded-circle px-3 " id="header-avatar" src="{{ asset($story->user->avatar) }}"
-                            alt="Profile" style="height:54px">
-                        <span class="mt-3" id="userAvatar">{{ $story->user->first_name }}
-                            {{ $story->user->last_name }}</span>
-                    </div>
                 </div>
             @endforeach
-            <hr>
+            {{-- <hr> --}}
         </div>
         <div class="d-flex p-3 justify-content-end">
             {!! $published_stories->links('pagination::bootstrap-4') !!}
         </div>
-    </div>
-    </div>
     </div>
 @endsection

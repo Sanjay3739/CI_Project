@@ -11,6 +11,7 @@ use App\Models\MissionApplication;
 use App\Models\Mission;
 use App\Http\Requests\StoreTimeSheetRequest;
 use App\Http\Requests\UpdateTimesheetRequest;
+use App\Models\CmsPage;
 
 class VolunteeringTimesheetController extends Controller
 {
@@ -20,7 +21,7 @@ class VolunteeringTimesheetController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-
+        $policies = CmsPage::orderBy('cms_page_id', 'asc')->get();
         $timesheets = Timesheet::all();
         $missions = Mission::get(['title', 'mission_id']);
 
@@ -36,7 +37,7 @@ class VolunteeringTimesheetController extends Controller
             ->toArray();
         $goalmissions = Mission::whereIn('mission_id', $approveGoalMission)->where('mission_type', 'GOAL')->get();
 
-        return view('volunteeringtimesheet.index', compact('user', 'timesheets', 'missions','approveTimeMission', 'timemissions', 'approveGoalMission', 'goalmissions'));
+        return view('volunteeringtimesheet.index', compact('user', 'timesheets', 'missions','approveTimeMission', 'timemissions', 'approveGoalMission', 'goalmissions','policies'));
     }
 
 

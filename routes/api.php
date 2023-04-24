@@ -38,6 +38,7 @@ Route::post('invite-user', [MissionInviteController::class, 'inviteUser']);
 
 
 Route::post('inviteUsers', [StoryInviteController::class, 'inviteUser']);
+Route::post('/users/Contactus', [UserEditProfileController::class, 'contactus'])->name('users.Contactus');
 Route::post('fetch-comment', [CommentController::class, 'showComments']);
 Route::post('add-comment', [CommentController::class, 'addComment']);
 Route::get('recent-volunteer', [MissionDetailController::class, 'showVolunteer']);
