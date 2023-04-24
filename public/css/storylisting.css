@@ -91,11 +91,36 @@
     z-index: 1;
 }
 
-#storytitle{
+.storytitle{
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    color: #3b3b3b;
+}
+.story-description {
+    color: #757575;
+    display: -webkit-box;
+    /* max-width: 250px; */
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.cardthemes{
+    margin-top: -12px;
+    align-items: center !important;
 }
 
-
+.page-item.active .page-link {
+    color: #fff !important;
+    background-color: var(--bs-yellow) !important;
+    border-color: var(--bs-yellow) !important;
+}
+.page-link {
+    color: var(--bs-yellow) !important;
+}
+.pagination .page-link:hover {
+    background-color: var(--bs-yellow) !important;
+    border-color: var(--bs-yellow) !important;
+    color: white !important;
+}

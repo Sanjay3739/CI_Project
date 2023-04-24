@@ -58,7 +58,7 @@
                                 </div>
                             @endif
                         </div>
-                        <div class="text-center" style="margin-top:-15px;">
+                        <div class="cardthemes text-center">
                             <span class="px-2 fromuntill cardtheme" id="fonts">
                                 {{ $mystory->mission->missionTheme->title ?? 'ebuim' }}</span>
                         </div>
@@ -80,7 +80,7 @@
             @endforeach
             @foreach ($published_stories as $story)
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 pb-4 text-center">
-                    <div class="card card" style="width:100%; height:422px">
+                    <div class="card" style="width:100%; height:422px">
                         <div class="cardimage">
                             <img class="img-fluid card-img"
                                 src="{{ asset('storage/' . $story->storyMedia->whereIn('type', ['jpeg', 'jpg', 'png'])->first()->path) }}"
@@ -92,13 +92,13 @@
                                     Details&nbsp;<i class="fa fa-arrow-right"></i></a>
                             </div>
                         </div>
-                        <div class="text-center" style="margin-top:-15px;">
+                        <div class="cardthemes text-center">
                             <span class="fs-15 px-2 cardtheme" id="fonts">
-                                {{ $story->mission->missionTheme->title ?? 'ratec' }}</span> {{-- missiontheme remove --}}
+                                {{ $story->mission->missionTheme->title ?? 'ratec' }}</span>
                         </div>
                         <div class="card-body">
-                            <h4 class='mission-title theme-color' id="storytitle">{{ $story->title }}</h4>
-                            <p class='card-text mission-short-description'>
+                            <h4 class="storytitle">{{ $story->title }}</h4>
+                            <p class="card-text story-description">
                                 {{ strip_tags($story->description) }}
                             </p>
                         </div>
@@ -112,7 +112,6 @@
                     </div>
                 </div>
             @endforeach
-            {{-- <hr> --}}
         </div>
         <div class="d-flex p-3 justify-content-end">
             {!! $published_stories->links('pagination::bootstrap-4') !!}
