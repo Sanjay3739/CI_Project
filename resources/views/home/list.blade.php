@@ -137,9 +137,9 @@
                                         </div>
                                     @elseif($item->goalMission!=null)
                                     <div class="d-flex flex-column ps-2 w-100">
-                                        <div class="progress" style="max-width: 200px;">
+                                        <div class="progress" style="max-width: 150px;">
                                             <div class="progress-bar" role="progressbar"
-                                                style="width: {{ ($item->goalMission->goal_value / 100) * 200 }}px;"
+                                                style="width: {{ ($item->goalMission->goal_value / 100)}}px;"
                                                 aria-valuenow="{{ $item->goalMission->goal_value }}"
                                                 aria-valuemin="0" aria-valuemax="100">
                                             </div>
@@ -167,7 +167,7 @@
                                     <div class='col-6 d-flex align-items-center'>
                                         <div class="px-1">
                                             <img src={{ asset('Images/settings.png') }} alt="">
-                                        </div>
+                                        </div>  
                                         <div class=" px-2 d-flex flex-column align-items-start">
                                             <small class="p-2 fs-6 theme-color"> Skills <br>
                                                 @foreach ($item->skill as $i_skill)
@@ -236,5 +236,5 @@
         </div>
     @endforeach
     </div>
-
+</div>
 

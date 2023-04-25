@@ -204,9 +204,9 @@
                             <div class='d-flex align-items-center justify-content-start w-50'>
                                 <br>
                                 <div class="d-flex flex-column ps-2 w-100">
-                                    <div class="progress" style="max-width: 200px;">
+                                    <div class="progress" style="max-width: 150px;">
                                         <div class="progress-bar" role="progressbar"
-                                            style="width: {{ ($item->goalMission->goal_value / 100) * 200 }}px;"
+                                            style="width: {{ ($item->goalMission->goal_value / 100)  }}px;"
                                             aria-valuenow="{{ $item->goalMission->goal_value }}"
                                             aria-valuemin="0" aria-valuemax="100">
                                         </div>

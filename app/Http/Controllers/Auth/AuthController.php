@@ -86,7 +86,7 @@ class AuthController extends Controller
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
             ]);
-            return redirect()->intended('/')->with('success', 'Registration Successfully'  .$user->first_name );
+            return redirect()->intended('/')->with('success', $user->first_name  .'Registration Successfully' );
         } else {
             return redirect()->intended('postregister')->with('status', 'user-Already exists');
         }

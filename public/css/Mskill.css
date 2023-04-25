@@ -1,4 +1,4 @@
- .breadcrumb {
+ /* .breadcrumb {
      display: flex;
      justify-content: space-between;
  }
@@ -27,7 +27,7 @@
 
  #tf {
      border: none;
- }
+ } */
 
  .pagination .page-link:before,
  .pagination .page-link:after {

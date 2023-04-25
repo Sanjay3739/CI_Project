@@ -26,7 +26,7 @@ class HomeController extends Controller
         $user = Auth::user();
         $policies = CmsPage::orderBy('cms_page_id', 'asc')->get();
         // Authentication of user login
-        $users = User::where('user_id', '==', Auth::user()->user_id)->get('first_name','last_name');
+        $users = User::where('user_id', '!=', Auth::user()->user_id)->get();
         $avgStar = MissionRating::avg('rating');
         // relationship of mission and missiorating and pass the data using mission id to missionrating
         $data = Mission::with(['missionRating'])->where('mission_id', '!=', null);
@@ -59,9 +59,9 @@ class HomeController extends Controller
         // all data of model to select only name of themes
         $themes = MissionTheme::whereIn('mission_theme_id', $theme_ids)->get(['mission_theme_id', 'title']);
         $favorite = FavoriteMission::where('user_id', Auth::user()->user_id)->get(['favorite_mission_id', 'mission_id']);
-        $data = $data->orderBy('created_at', 'desc')->paginate(12);
+        $data = $data->orderBy('created_at', 'desc')->paginate();
 
-        return view('index', compact('data', 'count', 'countries', 'ratings', 'user', 'cities', 'themes', 'skills', 'favorite', 'users','policies'));
+        return view('index', compact('data', 'count', 'countries', 'ratings', 'user', 'cities', 'themes', 'skills', 'favorite', 'users','policies'))->with('success', 'Your account has been opened.');
     }
     public function findCity(Request $request)
     {
@@ -163,11 +163,15 @@ class HomeController extends Controller
                             ->leftJoin('time_missions', 'time_missions.mission_id', '=', 'missions.mission_id')
                             ->orderBy('time_missions.total_seats', 'desc');
                         break;
-                    case '5':
-                        $datas = $datas->select('missions.*')
-                            ->leftJoin('favorite_missions', 'favorite_missions.mission_id', '=', 'missions.mission_id')
-                            ->orderBy('favorite_missions.created_at', 'desc');
-                        break;
+                        case '5':
+                            $datas = $datas->select('missions.*')
+                                ->leftJoin('favorite_missions', function ($join) {
+                                    $join->on('favorite_missions.mission_id', '=', 'missions.mission_id')
+                                        ->whereNull('favorite_missions.deleted_at');
+                                })
+                                ->orderBy('favorite_missions.created_at', 'desc');
+                            break;
+
                     case '6':
                         $datas = $datas->select('missions.*')
                             ->leftJoin('time_missions', 'time_missions.mission_id', '=', 'missions.mission_id')
@@ -195,10 +199,10 @@ class HomeController extends Controller
             }
 
             $count = $datas->count();
-            $data = $datas->paginate(9);
+            $data = $datas->paginate(5);
             $favorite = FavoriteMission::where('user_id', Auth::user()->user_id)
                 ->get(['favorite_mission_id', 'mission_id']);
-            $users = User::where('user_id', '=', Auth::user()->user_id)
+            $users = User::where('user_id', '!=', Auth::user()->user_id)
                 // ->orderBy('user_id', 'asc')
                 ->get('user_id');
             return view('home.gridList', compact('count', 'data', 'favorite', 'users', 'user_id'));

@@ -47,42 +47,45 @@
                             style="border-radius:18px">Add</button>
                     </a>
                 </div>
+                <div class="table-responsive">
 
-                <table class="table table responsive table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Mission Title</th>
-                            <th>Mission Type</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th width="150px">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($missiondata as $data)
+
+                    <table class="table  table-bordered">
+                        <thead>
                             <tr>
-                                <td>{{ $data->title }}</td>
-                                <td>{{ $data->mission_type }}</td>
-                                <td>{{ $data->start_date }}</td>
-                                <td>{{ $data->end_date }}</td>
-                                <td>
-                                    <a class="btn btn-white" href="{{ route('mission.edit', $data->mission_id) }}">
-                                        <img src="Images/edit.png" height="22px" width="22px" alt="edit">
-                                    </a>
-                                    <button type="button" data-toggle="modal"
-                                        data-target="#deleteModal-{{ $data->mission_id }}" class="btn btn-white">
-                                        <img src="Images/bin.png" alt="delete">
-                                    </button>
-                                    @include('admin.components.deleteModal', [
-                                        'id' => $data->mission_id,
-
-                                        'form_action' => 'mission.destroy',
-                                    ])
-                                </td>
+                                <th>Mission Title</th>
+                                <th>Mission Type</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th width="150px">Action</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($missiondata as $data)
+                                <tr>
+                                    <td>{{ $data->title }}</td>
+                                    <td>{{ $data->mission_type }}</td>
+                                    <td>{{ $data->start_date }}</td>
+                                    <td>{{ $data->end_date }}</td>
+                                    <td>
+                                        <a class="btn btn-white" href="{{ route('mission.edit', $data->mission_id) }}">
+                                            <img src="Images/edit.png" height="22px" width="22px" alt="edit">
+                                        </a>
+                                        <button type="button" data-toggle="modal"
+                                            data-target="#deleteModal-{{ $data->mission_id }}" class="btn btn-white">
+                                            <img src="Images/bin.png" alt="delete">
+                                        </button>
+                                        @include('admin.components.deleteModal', [
+                                            'id' => $data->mission_id,
+
+                                            'form_action' => 'mission.destroy',
+                                        ])
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div class="ms-3">

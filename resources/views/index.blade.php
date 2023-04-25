@@ -1,22 +1,28 @@
 @extends('layouts.app')
 @section('content')
-<?php
+    <?php
     $user_id = Auth::user()->user_id;
 
-?>
-        @include('home.search-filter');
+    ?>
 
-    <form id="form_f"  action="{{route('main.index')}}" method="POST" style="display: none">
+    @include('home.search-filter')
+
+    <form id="form_f" action="{{ route('main.index') }}" method="POST" style="display: none">
         @csrf
-        <input  type="text" name="country_f" id="country_f_id" value="{{ request()->input('country_f') }}"/>
-        <input  type="text" name="city_f" id="city_f_id" value="{{ request()->input('city_f') }}"/>
-        <input type="text" name="s" id="search_f_id" value="{{ request()->input('s') }}"/>
-        <input type="text" name="theme_f" id="theme_f_id" value="{{ request()->input('theme_f')}}" />
-        <input type="text" multiple name="skill_f" id="skill_f_id" value="{{ request()->input('skill_f') }}"/>
-        <input type="number" name="sort" id="sort" value="{{request()->input('sort')}}"/>
+        <input type="text" name="country_f" id="country_f_id" value="{{ request()->input('country_f') }}" />
+        <input type="text" name="city_f" id="city_f_id" value="{{ request()->input('city_f') }}" />
+        <input type="text" name="s" id="search_f_id" value="{{ request()->input('s') }}" />
+        <input type="text" name="theme_f" id="theme_f_id" value="{{ request()->input('theme_f') }}" />
+        <input type="text" multiple name="skill_f" id="skill_f_id" value="{{ request()->input('skill_f') }}" />
+        <input type="number" name="sort" id="sort" value="{{ request()->input('sort') }}" />
         <button class="btn" type="submit" id="submit_f_id"></button>
     </form>
-
+    <br>
+    @if (session('success'))
+        <div class="alert" style="background-color: white">
+            {{ session('success') }}
+        </div>
+    @endif
     </div>
     <div class="container py-4">
         <div class="d-flex">
@@ -27,42 +33,63 @@
             </div>
         </div>
     </div>
-@if($count!=0)
-    <div class=" container  py-3">
-        <div class="d-flex py-4 justify-content-between">
-            <div>
-                <h4> <span class="light-theme-color">Explore</span> <span class="theme-color" id="noOfMission">{{$count}}
-                    </span> Mission </h4>
-            </div>
-            <div class="d-flex">
-                <div class="input-group px-2" style="width: 200px ">
-                    <select id="selectsort" class="custom-select w-100 border-1 text-muted">
-                        <option disabled selected>Sort by</option>
-                        <option value="1" @if(request()->input('sort')=='1') selected @endif>Newest</option>
-                        <option value="2"@if(request()->input('sort')=='2') selected @endif>Oldest</option>
-                        <option value="3"@if(request()->input('sort')=='3') selected @endif>Lowest available seats</option>
-                        <option value="4"@if(request()->input('sort')=='4') selected @endif>Highest available seats</option>
-                        <option value="5"@if(request()->input('sort')=='5') selected @endif>My favourites</option>
-                        <option value="6" @if(request()->input('sort')=='6') selected @endif>Registration deadline</option>
-                    </select>
+    @if ($count != 0)
+        <div class=" container  py-3">
+            <div class="d-flex py-4 justify-content-between">
+                <div>
+                    <h4> <span class="light-theme-color">Explore</span> <span class="theme-color"
+                            id="noOfMission">{{ $count }}
+                        </span> Mission </h4>
                 </div>
-                <div class='d-flex px-3 justify-content-center align-items-center'>
-                    <input type="radio" class="btn-check px-1" name="view" value='0' checked  id="grid-view">
-                    <label  id="grid-view-label" class="btn p-1 rounded-circle" for="grid-view"><img src={{ asset('Images/grid.png') }}
-                            alt=""></label>
-                    <input type="radio" class="btn-check px-1" name="view" id="list-view">
-                    <label id="list-view-label" class="btn p-2 rounded-circle" value='1' for="list-view"><img
-                            src={{ asset('Images/list.png') }} alt=""></label>
+                <div class="d-flex">
+                    <div class="input-group px-2" style="width: 200px ">
+                        <select id="selectsort" class="custom-select w-100 border-1 text-muted">
+                            <option disabled selected>Sort by</option>
+                            <option value="1" @if (request()->input('sort') == '1') selected @endif>Newest</option>
+                            <option value="2" @if (request()->input('sort') == '2') selected @endif>Oldest</option>
+                            <option value="3" @if (request()->input('sort') == '3') selected @endif>Lowest available seats
+                            </option>
+                            <option value="4" @if (request()->input('sort') == '4') selected @endif>Highest available seats
+                            </option>
+                            <option value="5" @if (request()->input('sort') == '5') selected @endif>My favourites</option>
+                            <option value="6" @if (request()->input('sort') == '6') selected @endif>Registration deadline
+                            </option>
+                        </select>
+                    </div>
+                    <div class='d-flex px-3 justify-content-center align-items-center'>
+                        <input type="radio" class="btn-check px-1" name="view" value='0' checked id="grid-view">
+                        <label id="grid-view-label" class="btn p-1 rounded-circle" for="grid-view"><img
+                                src={{ asset('Images/grid.png') }} alt=""></label>
+                        <input type="radio" class="btn-check px-1" name="view" id="list-view">
+                        <label id="list-view-label" class="btn p-2 rounded-circle" value='1' for="list-view"><img
+                                src={{ asset('Images/list.png') }} alt=""></label>
+                    </div>
+                </div>
+            </div>
+            <div id="this_views">
+                @include('home.gridList')
+            </div>
+            <div class="modal fade" id="success-modal" tabindex="-1" role="dialog" aria-labelledby="success-modal-label"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header bg-success">
+                            <h4 class="modal-title" id="success-modal-label">Success!</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body bg-success">
+                            Your invitation has been sent successfully.
+                        </div>
+                        {{-- <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+            </div>  --}}
+                    </div>
                 </div>
             </div>
         </div>
-        <div  id="this_views">
-            @include('home.gridList')
-        </div>
-    </div>
-@else
-    @include('home.NoMissionFound')
-@endif
+    @else
+        @include('home.NoMissionFound')
+    @endif
     <script>
         var countries = [];
         var cities = [];
@@ -71,28 +98,33 @@
         var sort = 0;
         var search = "";
         var view = 0;
-        function getBadge(id,name,type){
+
+        function getBadge(id, name, type) {
             $("#clear_all").show()
-                    htmlstr = ""
-                    htmlstr += '<div id="close_'+type+'_parent_'+id+'" class="d-inline-flex border px-2" style="border-radius: 23px">';
-                    htmlstr += '<span class="badge fs-5" style="color: black; font-weight: lighter;">' +
-                        name + '</span>';
-                    htmlstr += '<button type="button" class="close btn" style="padding: 0%;" id=close_'+type+'_button_'+id+'>'
-                    htmlstr += '<span aria-hidden="true">&times;</span>'
-                    htmlstr += '</button></div>'
-                    $('#badges').append(
-                        htmlstr
-                    );
-                    badgeRunJQuery();
-        }
-        function removeBadge(id,type){
-            $('#close_'+type+'_parent_'+id).remove();
+            htmlstr = ""
+            htmlstr += '<div id="close_' + type + '_parent_' + id +
+                '" class="d-inline-flex border px-2" style="border-radius: 23px">';
+            htmlstr += '<span class="badge fs-5" style="color: black; font-weight: lighter;">' +
+                name + '</span>';
+            htmlstr += '<button type="button" class="close btn" style="padding: 0%;" id=close_' + type + '_button_' + id +
+                '>'
+            htmlstr += '<span aria-hidden="true">&times;</span>'
+            htmlstr += '</button></div>'
+            $('#badges').append(
+                htmlstr
+            );
             badgeRunJQuery();
         }
-        function updateCityDropdown(country_id){
+
+        function removeBadge(id, type) {
+            $('#close_' + type + '_parent_' + id).remove();
+            badgeRunJQuery();
+        }
+
+        function updateCityDropdown(country_id) {
             $('#city_dropper').html('');
             $.ajax({
-                url: "{{ url('api/fetch-city')}}",
+                url: "{{ url('api/fetch-city') }}",
                 type: "POST",
                 data: {
                     country_id: country_id,
@@ -100,87 +132,90 @@
                 },
                 dataType: 'json',
                 success: function(result) {
-                    $.each(result.cities, function(key, value){
+                    $.each(result.cities, function(key, value) {
                         html = "";
-                        $('#city_dropper').append("<div class='form-check'>"+
-                            "<input class='form-check-input' type='checkbox' value="+value.city_id+" id='city_option_"+value.city_id+"'>"+
-                            "<label class='form-check-label text-secondary' for='city_option_"+value.city_id+"' id='city_label_"+value.city_id+"'>"+value.name+"</label>"+
-                            "</div>" );
+                        $('#city_dropper').append("<div class='form-check'>" +
+                            "<input class='form-check-input' type='checkbox' value=" + value
+                            .city_id + " id='city_option_" + value.city_id + "'>" +
+                            "<label class='form-check-label text-secondary' for='city_option_" +
+                            value.city_id + "' id='city_label_" + value.city_id + "'>" + value
+                            .name + "</label>" +
+                            "</div>");
                     });
                 }
             });
             return;
         }
-        function getPreviousValue(){
+
+        function getPreviousValue() {
             skills = $('#skill_f_id').val().split(',');
             skills.forEach(skill => {
-                if(skill!=""){
-                    $('#skill_option_'+skill).prop('checked', true);
-                    getBadge(skill,$('#skill_label_'+skill).text(),'skill');
+                if (skill != "") {
+                    $('#skill_option_' + skill).prop('checked', true);
+                    getBadge(skill, $('#skill_label_' + skill).text(), 'skill');
                 }
             });
             themes = $('#theme_f_id').val().split(',');
             themes.forEach(theme => {
-                if(theme!=""){
-                    $('#mission_theme_option_'+theme).prop('checked', true);
-                    getBadge(theme,$('#theme_label_'+theme).text(),'mission');
+                if (theme != "") {
+                    $('#mission_theme_option_' + theme).prop('checked', true);
+                    getBadge(theme, $('#theme_label_' + theme).text(), 'mission');
                 }
             });
             countries = $('#country_f_id').val().split(',');
             countries.forEach(country => {
-                if(country!=""){
-                    $('#country_option_'+country).prop('checked', true);
-                    getBadge(country,$('#country_label_'+country).text(),'country');
+                if (country != "") {
+                    $('#country_option_' + country).prop('checked', true);
+                    getBadge(country, $('#country_label_' + country).text(), 'country');
                 }
             });
-            // cities = $('#city_f_id').val().split(',');
-            // cities.forEach(city => {
-            //     if(cities!=""){
-            //         $('#city_option_'+city).prop('checked', true);
-            //         getBadge(city,$('#city_label_'+city).text(),'city');
-            //     }
-            // });
+
         }
-        function getNextFilter(page){
+
+        function getNextFilter(page) {
             $.ajax({
-                url: "{{url('index-filter')}}"+"?page="+page+"&s="+search+"&countries="+countries+"&cities="+cities+"&themes="+themes+"&skills="+skills+"&sort="+sort,
+                url: "{{ url('index-filter') }}" + "?page=" + page + "&s=" + search + "&countries=" + countries +
+                    "&cities=" + cities + "&themes=" + themes + "&skills=" + skills + "&sort=" + sort,
                 type: "get",
-                success: function(result){
+                success: function(result) {
                     $('#this_views').html(result);
                     selectProperView();
                     runJquery();
                 }
             })
         }
-        function selectProperView(){
+
+        function selectProperView() {
             $('#noOfMission').text($('#noOfMission2').val());
-            if(view==1){
-                        $('#list-view').click();
-                    }else{
-                        $('#grid-view').click();
-                    }
+            if (view == 1) {
+                $('#list-view').click();
+            } else {
+                $('#grid-view').click();
+            }
         }
-        function getCity(){
+
+        function getCity() {
             $('#city_drop_down_menu').prop('disabled', false);
             $.ajax({
-                url: "{{url('index/find-city')}}",
+                url: "{{ url('index/find-city') }}",
                 type: "get",
                 data: {
                     _token: '{{ csrf_token() }}',
                     countries: countries,
                     s: search,
                 },
-                success: function(result){
+                success: function(result) {
                     $('#city_dropper').html(result);
                     filterReloadJQueryCity();
                 }
             });
 
         }
-        function getTheme(){
+
+        function getTheme() {
             $('#theme_drop_down_menu').prop('disabled', false);
             $.ajax({
-                url: "{{url('index/find-theme')}}",
+                url: "{{ url('index/find-theme') }}",
                 type: "get",
                 data: {
                     _token: '{{ csrf_token() }}',
@@ -188,16 +223,17 @@
                     s: search,
                     cities: cities,
                 },
-                success: function(result){
+                success: function(result) {
                     $('#theme_dropper').html(result);
                     filterReloadJQueryTheme();
                 }
             })
         }
-        function getSkill(){
+
+        function getSkill() {
             $('#skill_drop_down_menu').prop('disabled', false);
             $.ajax({
-                url: "{{url('index/find-skill')}}",
+                url: "{{ url('index/find-skill') }}",
                 type: "get",
                 data: {
                     _token: '{{ csrf_token() }}',
@@ -206,21 +242,21 @@
                     cities: cities,
                     themes: themes,
                 },
-                success: function(result){
+                success: function(result) {
                     $('#skill_dropper').html(result);
                     filterReloadJQuerySkill();
                 }
             })
         }
-        function filterReloadJQueryCity(){
-            $('input[id^=city_option_]').on('change',function(){
+
+        function filterReloadJQueryCity() {
+            $('input[id^=city_option_]').on('change', function() {
                 let city_id = this.id.split('_')[2];
-                let city_name = $('#city_label_'+city_id).text();
-                if(this.checked){
-                    getBadge(city_id,city_name,'city');
+                let city_name = $('#city_label_' + city_id).text();
+                if (this.checked) {
+                    getBadge(city_id, city_name, 'city');
                     cities.push(city_id);
-                }
-                else{
+                } else {
                     removeBadge(city_id, 'city');
                     cities.pop(city_id);
                 }
@@ -229,16 +265,16 @@
                 getTheme();
             });
         }
-        function filterReloadJQueryTheme(){
-            $('input[id^=mission_theme_option_]').on('change', function(){
+
+        function filterReloadJQueryTheme() {
+            $('input[id^=mission_theme_option_]').on('change', function() {
                 let mission_theme_id = this.id.split('_')[3];
-                let title = $('#theme_label_'+mission_theme_id).text();
-                if(this.checked){
-                    getBadge(mission_theme_id,title,'mission');
+                let title = $('#theme_label_' + mission_theme_id).text();
+                if (this.checked) {
+                    getBadge(mission_theme_id, title, 'mission');
                     themes.push(mission_theme_id);
-                }
-                else{
-                    removeBadge(mission_theme_id,'mission');
+                } else {
+                    removeBadge(mission_theme_id, 'mission');
                     themes.pop(mission_theme_id);
                 }
                 $('#theme_f_id').val(themes);
@@ -246,30 +282,31 @@
                 getSkill();
             });
         }
-        function filterReloadJQuerySkill(){
-            $('input[id^=skill_option_]').on('change', function(){
+
+        function filterReloadJQuerySkill() {
+            $('input[id^=skill_option_]').on('change', function() {
                 let skill_id = this.id.split('_')[2];
-                let skill_name = $('#skill_label_'+skill_id).text();
-                if(this.checked){
-                    getBadge(skill_id, skill_name,'skill');
+                let skill_name = $('#skill_label_' + skill_id).text();
+                if (this.checked) {
+                    getBadge(skill_id, skill_name, 'skill');
                     skills.push(skill_id);
-                }
-                else{
-                    removeBadge(skill_id,'skill');
+                } else {
+                    removeBadge(skill_id, 'skill');
                     skills.pop(skill_id);
                 }
                 $('#skill_f_id').val(skills);
                 getNextFilter(1);
             })
         }
-        function runJquery(){
+
+        function runJquery() {
             $("button[id^='mission_like_btn_']").on('click', function() {
                 var mission_id = this.id.split("_")[3];
                 var user_id = this.id.split("_")[4];
 
-                if($('#mission_like_input_'+mission_id+'_'+user_id).val()=='0'){
+                if ($('#mission_like_input_' + mission_id + '_' + user_id).val() == '0') {
                     $.ajax({
-                        url: "{{url('api/add-favourite')}}",
+                        url: "{{ url('api/add-favourite') }}",
                         type: "POST",
                         data: {
                             _token: '{{ csrf_token() }}',
@@ -277,14 +314,15 @@
                             user_id: user_id,
                         },
                         success: function(data) {
-                            $('#mission_like_input_'+mission_id+'_'+user_id).val(data);
-                            $("button[id^='mission_like_btn_"+mission_id+"_"+user_id+"']").html('<i class="fas fa-heart fs-4"></i>');
+                            $('#mission_like_input_' + mission_id + '_' + user_id).val(data);
+                            $("button[id^='mission_like_btn_" + mission_id + "_" + user_id + "']").html(
+                                '<i class="fas fa-heart fs-4"></i>');
                         }
                     });
-                }else{
-                    let fav = $('#mission_like_input_'+mission_id+'_'+user_id).val()
+                } else {
+                    let fav = $('#mission_like_input_' + mission_id + '_' + user_id).val()
                     $.ajax({
-                        url: "{{url('api/remove-favourite')}}",
+                        url: "{{ url('api/remove-favourite') }}",
                         type: "POST",
                         data: {
                             _token: '{{ csrf_token() }}',
@@ -293,8 +331,9 @@
                             favorite_mission_id: fav,
                         },
                         success: function() {
-                            $('#mission_like_input_'+mission_id+'_'+user_id).val('0');
-                            $("button[id^='mission_like_btn_"+mission_id+"_"+user_id+"']").html('<i class="fa-regular fa-heart fs-4"></i>');
+                            $('#mission_like_input_' + mission_id + '_' + user_id).val('0');
+                            $("button[id^='mission_like_btn_" + mission_id + "_" + user_id + "']").html(
+                                '<i class="fa-regular fa-heart fs-4"></i>');
                         }
                     });
                 }
@@ -306,10 +345,10 @@
                     var from_user_id = this.id.split("_")[3];
                     console.log(mission_id);
                     $.ajax({
-                        url: "{{url('api/invite-user')}}",
+                        url: "{{ url('api/invite-user') }}",
                         type: "POST",
                         data: {
-                            _token: '{{csrf_token() }}',
+                            _token: '{{ csrf_token() }}',
                             from_user_id: from_user_id,
                             to_user_id: to_user_id,
                             mission_id: mission_id,
@@ -317,65 +356,71 @@
                         success: function(data) {
                             alert("Invite Send",1000);
                         },
+                        // success: function(data) {
+                        //     $('#success-modal').modal('show');
+                        // },
                     })
                 }
             });
             //this is detail view page
-            $('[id^="click-to-details_"]').click(function(){
-                $(location).attr('href',"{{url('mission-page/')}}"+'/'+$(this).data('mission_id'));
+            $('[id^="click-to-details_"]').click(function() {
+                $(location).attr('href', "{{ url('mission-page/') }}" + '/' + $(this).data('mission_id'));
             });
-            $('button[id^="mission_application_btn_"]').on('click',function(){
-                mission_id=$(this).data('mission_id');
+            $('button[id^="mission_application_btn_"]').on('click', function() {
+                mission_id = $(this).data('mission_id');
                 $.ajax({
-                    url: "{{url('api/new-mission-application')}}",
+                    url: "{{ url('api/new-mission-application') }}",
                     type: "POST",
                     data: {
                         user_id: $(this).data('user_id'),
                         mission_id: $(this).data('mission_id'),
                         approval_status: 'PENDING',
                     },
-                    success: function(result){
+                    success: function(result) {
                         alert(result);
-                        $('#badge_'+mission_id).prop('display','block');
+                        // Display the message in the view
+                        $('#message').text(result);
+                        $('#badge_' + mission_id).prop('display', 'block');
                     }
                 })
                 $(this).hide();
 
-                $('#mission_detail_btn_'+$(this).data('mission_id')).show();
+                $('#mission_detail_btn_' + $(this).data('mission_id')).show();
             });
-            $(document).on('click','.pagination a', function(event){
+            $(document).on('click', '.pagination a', function(event) {
                 event.preventDefault();
                 var page = $(this).attr('href').split('page=')[1];
                 getNextFilter(page);
             });
         }
-        function badgeRunJQuery(){
-            $('[id^="close_skill_button_"]').click(function(){
+
+        function badgeRunJQuery() {
+            $('[id^="close_skill_button_"]').click(function() {
                 let id = this.id.split('_')[3];
-                $('#skill_option_'+id).prop('checked', false);
+                $('#skill_option_' + id).prop('checked', false);
                 skills.pop(id);
-                removeBadge(id,'skill');
+                removeBadge(id, 'skill');
                 getNextFilter(1);
                 badgeRunJQuery();
             });
-            $('[id^="close_theme_button_"]').click(function(){
+            $('[id^="close_theme_button_"]').click(function() {
                 let id = this.id.split('_')[3];
-                $('#theme_option_'+id).prop('checked', false);
+                $('#theme_option_' + id).prop('checked', false);
                 themes.pop(id);
-                removeBadge(id,'theme');
-                if(themes.length==0){
+                removeBadge(id, 'theme');
+                if (themes.length == 0) {
                     $('[id^="close_skill_button_"]').click();
                     $('#skill_drop_down_menu').prop('disabled', true);
                 }
                 getNextFilter(1);
                 badgeRunJQuery();
             })
-            $('[id^="close_city_button_"]').click(function(){
+            $('[id^="close_city_button_"]').click(function() {
                 let id = this.id.split('_')[3];
-                $('#city_option_'+id).prop('checked', false);
+                $('#city_option_' + id).prop('checked', false);
                 cities.pop(id);
-                removeBadge(id,'city');
-                if(cities.length==0){
+                removeBadge(id, 'city');
+                if (cities.length == 0) {
                     $('[id^="close_theme_button_"]').click();
                     $('[id^="close_skill_button_"]').click();
                     $('#skill_drop_down_menu').prop('disabled', true);
@@ -384,12 +429,12 @@
                 getNextFilter(1);
                 badgeRunJQuery();
             })
-            $('[id^="close_country_button_"]').click(function(){
+            $('[id^="close_country_button_"]').click(function() {
                 let id = this.id.split('_')[3];
-                $('#country_option_'+id).prop('checked', false);
+                $('#country_option_' + id).prop('checked', false);
                 countries.pop(id);
-                removeBadge(id,'country');
-                if(countries.length==0){
+                removeBadge(id, 'country');
+                if (countries.length == 0) {
                     $('[id^="close_city_button_"]').click();
                     $('[id^="close_theme_button_"]').click();
                     $('[id^="close_skill_button_"]').click();
@@ -406,24 +451,32 @@
             getPreviousValue();
             runJquery();
             $('#grid-view').on('click', function() {
-                $('#grid-view-label').css({'background-color': '#D9D9D9'});
-                $('#list-view-label').css({'background-color': 'white'});
+                $('#grid-view-label').css({
+                    'background-color': '#D9D9D9'
+                });
+                $('#list-view-label').css({
+                    'background-color': 'white'
+                });
             })
             $('#grid-view').click();
             $('#list-view').on('click', function() {
-                $('#list-view-label').css({'background-color': '#D9D9D9'});
-                $('#grid-view-label').css({'background-color': 'white'});
+                $('#list-view-label').css({
+                    'background-color': '#D9D9D9'
+                });
+                $('#grid-view-label').css({
+                    'background-color': 'white'
+                });
             })
-            $('#search-mission').on('submit', function(event){
+            $('#search-mission').on('submit', function(event) {
                 event.preventDefault();
                 search = $('#search_input').val();
                 $.ajax({
-                    url: "{{route('landing.filterApply')}}",
+                    url: "{{ route('landing.filterApply') }}",
                     type: "get",
                     data: {
                         s: $('#search_input').val(),
                     },
-                    success: function(result){
+                    success: function(result) {
                         $('#this_views').html(result);
                         runJquery();
                         selectProperView();
@@ -431,88 +484,84 @@
                 })
             })
             $('#selectsort').on('change', function() {
-                sort=$('#selectsort').val();
-                $('#sort').val(sort);
-                getNextFilter(1);
-            }),
-            // $('#refresh-apply').on('click', function() {
-            //     $('#search_input').val('');
-            //     $('#filter-clear').click();
-            //     search = $("#search_input").val();
-            // }),
-            $('#grid-view').on('click', function() {
-                view=0;
-                $('#gridViewContent').show();
-                $('#listViewContent').hide();
-            }),
-            $('#list-view').on('click', function() {
-                view=1;
-                $('#gridViewContent').hide();
-                $('#listViewContent').show();
-            }),
-            $("#filter-apply").on('click',function() {
-                search = $("#search_input").val();
-                $("#search_f_id").val(search);
-                $('#submit_f_id').click();
-            }),
-            // this is country dropdown
-            $('input[id^=country_option_]').on('change', function(){
-                let country_id = this.id.split('_')[2];
-                let country_name = $('#country_label_'+country_id).text();
-                if(this.checked){
-                    getBadge(country_id,country_name,'country');
-                    countries.push(country_id);
-                }
-                else{
-                    removeBadge(country_id, 'country');
-                    countries.pop(country_id);
-                }
-                $('#country_f_id').val(countries);
-                getNextFilter(1);
-                getCity();
-            }),
-            // this is city dropdown
-            $('input[id^=city_option_]').on('change',function(){
-                let city_id = this.id.split('_')[2];
-                let city_name = $('#city_label_'+city_id).text();
-                if(this.checked){
-                    getBadge(city_id,city_name,'city');
-                    cities.push(city_id);
-                }
-                else{
-                    removeBadge(city_id, 'city');
-                    cities.pop(city_id);
-                }
-                $('#city_f_id').val(cities);
-                getNextFilter(1);
-                getTheme();
-            }),
-            // this is theme dropdown
-            $('input[id^=mission_theme_option_]').on('change', function(){
-                let mission_theme_id = this.id.split('_')[3];
-                let title = $('#theme_label_'+mission_theme_id).text();
-                if(this.checked){
-                    getBadge(mission_theme_id,title,'mission');
-                    themes.push(mission_theme_id);
-                }
-                else{
-                    removeBadge(mission_theme_id,'mission');
-                    themes.pop(mission_theme_id);
-                }
-                $('#theme_f_id').val(themes);
-                getNextFilter(1);
-                getSkill();
-            })
+                    sort = $('#selectsort').val();
+                    $('#sort').val(sort);
+                    getNextFilter(1);
+                }),
+                // $('#refresh-apply').on('click', function() {
+                //     $('#search_input').val('');
+                //     $('#filter-clear').click();
+                //     search = $("#search_input").val();
+                // }),
+                $('#grid-view').on('click', function() {
+                    view = 0;
+                    $('#gridViewContent').show();
+                    $('#listViewContent').hide();
+                }),
+                $('#list-view').on('click', function() {
+                    view = 1;
+                    $('#gridViewContent').hide();
+                    $('#listViewContent').show();
+                }),
+                $("#filter-apply").on('click', function() {
+                    search = $("#search_input").val();
+                    $("#search_f_id").val(search);
+                    $('#submit_f_id').click();
+                }),
+                // this is country dropdown
+                $('input[id^=country_option_]').on('change', function() {
+                    let country_id = this.id.split('_')[2];
+                    let country_name = $('#country_label_' + country_id).text();
+                    if (this.checked) {
+                        getBadge(country_id, country_name, 'country');
+                        countries.push(country_id);
+                    } else {
+                        removeBadge(country_id, 'country');
+                        countries.pop(country_id);
+                    }
+                    $('#country_f_id').val(countries);
+                    getNextFilter(1);
+                    getCity();
+                }),
+                // this is city dropdown
+                $('input[id^=city_option_]').on('change', function() {
+                    let city_id = this.id.split('_')[2];
+                    let city_name = $('#city_label_' + city_id).text();
+                    if (this.checked) {
+                        getBadge(city_id, city_name, 'city');
+                        cities.push(city_id);
+                    } else {
+                        removeBadge(city_id, 'city');
+                        cities.pop(city_id);
+                    }
+                    $('#city_f_id').val(cities);
+                    getNextFilter(1);
+                    getTheme();
+                }),
+                // this is theme dropdown
+                $('input[id^=mission_theme_option_]').on('change', function() {
+                    let mission_theme_id = this.id.split('_')[3];
+                    let title = $('#theme_label_' + mission_theme_id).text();
+                    if (this.checked) {
+                        getBadge(mission_theme_id, title, 'mission');
+                        themes.push(mission_theme_id);
+                    } else {
+                        removeBadge(mission_theme_id, 'mission');
+                        themes.pop(mission_theme_id);
+                    }
+                    $('#theme_f_id').val(themes);
+                    getNextFilter(1);
+                    getSkill();
+                })
             // this is skill dropdown
-            $('input[id^=skill_option_]').on('change', function(){
+            $('input[id^=skill_option_]').on('change', function() {
                 let skill_id = this.id.split('_')[2];
-                let skill_name = $('#skill_label_'+skill_id).text();
-                if(this.checked){
-                    getBadge(skill_id, skill_name,'skill');
+                let skill_name = $('#skill_label_' + skill_id).text();
+                if (this.checked) {
+                    getBadge(skill_id, skill_name, 'skill');
                     skills.push(skill_id);
-                }
-                else{
-                    removeBadge(skill_id,'skill');
+                } else {
+                    removeBadge(skill_id, 'skill');
                     skills.pop(skill_id);
                 }
                 $('#skill_f_id').val(skills);
@@ -541,9 +590,8 @@
                 getNextFilter(1);
             })
         });
-        $(document).on('click', '#country-dropdown', function (e) {
+        $(document).on('click', '#country-dropdown', function(e) {
             e.stopPropagation();
         });
-
     </script>
 @endsection
