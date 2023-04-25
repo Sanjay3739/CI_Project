@@ -109,14 +109,17 @@
                         </div>
                     </div>
 
-                    <img class="img-fluid w-100 h-100 card-img-top"
+                    {{-- <img class="img-fluid w-100 h-100 card-img-top"
                         src={{ asset('storage/' . $item->missionMedia->where('default', '1')[0]->media_path) }}
+                        alt=""> --}}
+                        <img class="img-fluid w-100 h-100 card-img-top"
+                        src="{{ $item->missionMedia->isNotEmpty() ? asset('storage/' . $item->missionMedia->where('default', '1')->first()->media_path) : '' }}"
                         alt="">
                 </div>
             </div>
         </div>
         <div class="text-center" style="z-index: 1; margin-top: -25px">
-            <span class="fs-4 px-2 from_untill" style="">
+            <span class=" px-2 from_untill" style="">
                 {{ $item->missionTheme->title }}
             </span>
         </div>
@@ -158,7 +161,7 @@
             <div class="py-3">
                 <div class="border"></div>
                 <div class="text-center" style="margin-top: -14px">
-                    <small class="p-2 fs-6 border from_untill">From
+                    <small class="p-2  border from_untill">From
                         {{ date('d-m-Y', strtotime($item->start_date)) }} untill
                         {{ date('d-m-Y', strtotime($item->end_date)) }}
                     </small>
@@ -246,3 +249,4 @@
     </div>
 @endforeach
 </div>
+

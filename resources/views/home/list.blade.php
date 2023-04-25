@@ -4,7 +4,10 @@
         <div class="row  py-3">
             <div class="col-lg-12 col-xl-4 py-2">
                 <div class="position-relative">
-                    <img class="img-fluid w-100" src="{{asset('storage/'.$item->missionMedia->where('default','1')[0]->media_path)}}" alt="">
+                    {{-- <img class="img-fluid w-100" src="{{asset('storage/'.$item->missionMedia->where('default','1')[0]->media_path)}}" alt=""> --}}
+                    <img class="img-fluid w-100 h-100 card-img-top"
+                    src="{{ $item->missionMedia->isNotEmpty() ? asset('storage/' . $item->missionMedia->where('default', '1')->first()->media_path) : '' }}"
+                    alt="">
                     @if(count($item->missionApplication->where('user_id',$user_id))!==0)
                         <div class="position-absolute current-status">
                             @if($item->missionApplication->where('user_id',$user_id)->first()->approval_status=='PENDING'
@@ -167,7 +170,7 @@
                                     <div class='col-6 d-flex align-items-center'>
                                         <div class="px-1">
                                             <img src={{ asset('Images/settings.png') }} alt="">
-                                        </div>  
+                                        </div>
                                         <div class=" px-2 d-flex flex-column align-items-start">
                                             <small class="p-2 fs-6 theme-color"> Skills <br>
                                                 @foreach ($item->skill as $i_skill)
@@ -237,4 +240,5 @@
     @endforeach
     </div>
 </div>
+
 

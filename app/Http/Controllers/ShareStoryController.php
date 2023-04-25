@@ -61,7 +61,7 @@ class ShareStoryController extends Controller
             }
             foreach ($request['images'] as $photo) {
                 $storyimage = $photo->getClientOriginalName();
-                $imagePath = $photo->storeAs('storage/storyMedia', $storyimage, 'public');
+                $imagePath = $photo->storeAs('storage/StoryMedia', $storyimage, 'public');
                 $extension = $photo->getClientOriginalExtension();
                 $storymedia = new StoryMedia;
                 $storymedia->story_id = $story->story_id;
@@ -106,7 +106,7 @@ class ShareStoryController extends Controller
         if (isset($request->images)) {
             foreach ($request['images'] as $photo) {
                 $storyimage = $photo->getClientOriginalName();
-                $imagePath = $photo->storeAs('storage/storyMedia', $storyimage, 'public');
+                $imagePath = $photo->storeAs('storage/StoryMedia', $storyimage, 'public');
                 $extension = $photo->getClientOriginalExtension();
                 $storymedia = new StoryMedia;
                 $storymedia->story_id = $story->story_id;
@@ -193,6 +193,8 @@ class ShareStoryController extends Controller
             }
         }
 
+
+
         foreach ($addedPaths as $path) {
             if (!in_array($path, $existingPaths)) {
                 $storymedia = new StoryMedia;
@@ -206,7 +208,7 @@ class ShareStoryController extends Controller
         if (isset($request->images)) {
             foreach ($request['images'] as $photo) {
                 $storyimage = $photo->getClientOriginalName();
-                $imagePath = $photo->storeAs('storage/story_media', $storyimage, 'public');
+                $imagePath = $photo->storeAs('storage/StoryMedia', $storyimage, 'public');
                 $extension = $photo->getClientOriginalExtension();
                 $storymedia = new StoryMedia;
                 $storymedia->story_id = $story_id;

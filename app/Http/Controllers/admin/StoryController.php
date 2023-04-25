@@ -29,6 +29,7 @@ class StoryController extends Controller
             ->orWhere('users.last_name', 'LIKE', '%' . $query . '%')
             ->orWhere('missions.title', 'LIKE', '%' . $query . '%')
             ->select('story_id', 'stories.title as story_title', 'users.first_name', 'users.last_name', 'missions.title')
+            ->orderBy('story_id', 'desc')
             ->paginate(20);
 
         $stories->appends(['search' => $query]);

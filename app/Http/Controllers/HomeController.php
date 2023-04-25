@@ -59,7 +59,8 @@ class HomeController extends Controller
         // all data of model to select only name of themes
         $themes = MissionTheme::whereIn('mission_theme_id', $theme_ids)->get(['mission_theme_id', 'title']);
         $favorite = FavoriteMission::where('user_id', Auth::user()->user_id)->get(['favorite_mission_id', 'mission_id']);
-        $data = $data->orderBy('created_at', 'desc')->paginate();
+        $data = $data->orderBy('created_at', 'desc')
+        ->paginate(6);
 
         return view('index', compact('data', 'count', 'countries', 'ratings', 'user', 'cities', 'themes', 'skills', 'favorite', 'users','policies'))->with('success', 'Your account has been opened.');
     }

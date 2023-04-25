@@ -87,7 +87,7 @@
                                 </div>
                                 <div class="px-2 d-flex flex-column align-items-start">
                                     <span class="theme-color fs-5 font-weight-bolder">
-                                        {{ $mission->timeMission->total_seats ?? '88' }} <br></span>
+                                        {{ $mission->timeMission->total_seats ?? '12' }} <br></span>
                                     <span class="text-muted">Seats left</span>
                                 </div>
                             </div>
@@ -125,7 +125,7 @@
                                 <div class="px-2 d-flex flex-column ">
                                     <div class="progress" style="max-width: 200px;">
                                         <div class="progress-bar" role="progressbar"
-                                            style="width: {{ ($mission->goalMission->goal_value / 100) * 200 }}px;"
+                                            style="width: {{ $mission->goalMission->goal_value / 100 }}px;"
                                             aria-valuenow="{{ $mission->goalMission->goal_value }}" aria-valuemin="0"
                                             aria-valuemax="100">
                                         </div>
@@ -590,14 +590,10 @@
                                     </div>
                                 </div>
                             </div>
-
-
-
                             <img class="img-fluid w-100 h-100  card-img-top" style="border-radius: 20px; "
                                 @if ($item->missionMedia->where('default', '1')->first()) src={{ asset('storage/' . $item->missionMedia->where('default', '1')->first()->media_path) }} @endif
                                 alt="">
                         </div>
-
                     </div>
                     <div class="text-center" style="z-index: 1; margin-top: -25px">
                         <span class="fs-10 px-2 from_untill" style="">
@@ -781,7 +777,7 @@
                         if (comment['avatar']) {
                             html +=
                                 '<img class="img-fluid rounded-circle" src="http://127.0.0.1:8000/' +
-                                comment['avatar'] + '" width="60px" height="60px" alt="">';
+                                comment['avatar'] + '" style="height: 72px; width: 72px"   alt="">';
                         } else {
                             html +=
                                 '<img class="img-fluid rounded-circle" src="/Images/profile.png" width="60px" height="60px" alt="">';
