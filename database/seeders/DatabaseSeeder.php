@@ -24,7 +24,6 @@ class DatabaseSeeder extends Seeder
             // StoryInviteSeeder::class,
             StorySeeder::class,
             StoryMediaSeeder::class,
-
             // MissionRatingSeeder::class,
             // MissionThemeSeeder::class,
             // MissionSkillSeeder::class,
