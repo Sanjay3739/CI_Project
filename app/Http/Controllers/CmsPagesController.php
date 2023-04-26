@@ -13,7 +13,7 @@ class CmsPagesController extends Controller
         $user=Auth::user();
         $policies = CmsPage::
         orderBy('cms_page_id', 'asc')
-        ->paginate(5);
+        ->paginate(12);
         return view('policy', compact('policies','user'));
     }
 }

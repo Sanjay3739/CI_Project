@@ -8,7 +8,7 @@
         <form method="post" action="{{ route('mission.store') }}" class="row g-3" enctype="multipart/form-data">
             @csrf
             <div class="col-md-6">
-                <label for="missionTitle" class="form-label">Mission Title</label>
+                <label for="missionTitle" class="form-label">Mission Title*</label>
                 <input type="text" class="form-control" id="missionTitle" name='title' value="{{ old('title') }}">
                 @error('title')
                     <div class="text-danger">
@@ -17,7 +17,7 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label for="missionDesc" class="form-label">Mission Short Description</label>
+                <label for="missionDesc" class="form-label">Mission Short Description*</label>
                 <input type="text" class="form-control" id="missionDesc" name='short_description'
                     value="{{ old('short_description') }}">
                 @error('short_description')
@@ -27,7 +27,7 @@
                 @enderror
             </div>
             <div class="col-12">
-                <label for="inputAddress" class="form-label">Mission Description</label>
+                <label for="inputAddress" class="form-label">Mission Description*</label>
                 <textarea name="description" id="editor1">{{ old('description') }}</textarea>
                 @error('description')
                     <div class="text-danger">
@@ -36,7 +36,7 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label for="country">Country</label>
+                <label for="country">Country*</label>
                 <select name="country_id" class="form-control" id="country-dropdown">
                     <option value="none" selected="" disabled="" hidden="">Select Country</option>
                     @foreach ($countries as $country)
@@ -50,7 +50,7 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label for="city">City</label>
+                <label for="city">City*</label>
                 <select class="form-control" name="city_id" id="city-dropdown">
                     <option value="none" selected="" disabled="" hidden=""></option>
                 </select>
@@ -70,7 +70,7 @@
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name='organization_detail'>{{ old('organization_name') }}</textarea>
             </div>
             <div class="col-md-6">
-                <label for="startdate" class="form-label">Mission Start Date</label>
+                <label for="startdate" class="form-label">Mission Start Date*</label>
                 <div class='input-group date' id='datetimepicker1'>
                     <input type='date' class="form-control" name='start_date' value="{{ old('start_date') }}" />
                 </div>
@@ -81,7 +81,7 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label for="enddate" class="form-label">Mission End Date</label>
+                <label for="enddate" class="form-label">Mission End Date*</label>
                 <div class='input-group date' id='datetimepicker1'>
                     <input type='date' class="form-control" name='end_date' value="{{ old('end_date') }}" />
                 </div>
@@ -92,7 +92,7 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label for="inputType" class="form-label">Mission Type</label>
+                <label for="inputType" class="form-label">Mission Type*</label>
                 <select id="missionType" class="form-select" name='mission_type' value="{{ old('mission_type') }}">
                     <option value="none" selected="" disabled="" hidden="">select mision type</option>
                     <option value="time">Time</option>
@@ -105,7 +105,7 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label for="text" class="form-label">Total Seats</label>
+                <label for="text" class="form-label">Total Seats*</label>
                 <input type="text" class="form-control" id="text" name='total_seats' disabled>
                 @error('total_seats')
                     <div class="text-danger">
@@ -114,7 +114,7 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label for="missionRegDeadline" class="form-label">Mission Registration Deadline</label>
+                <label for="missionRegDeadline" class="form-label">Mission Registration Deadline*</label>
                 <input type="date" class="form-control" id="missionRegDeadline" name='registration_deadline' disabled
                     value="{{ old('registration_deadline') }}">
                 @error('registration_deadline')
@@ -124,7 +124,7 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label for="goal_objective_text" class="form-label">Goal Objective Text</label>
+                <label for="goal_objective_text" class="form-label">Goal Objective Text*</label>
                 <input type="text" class="form-control" id="goal_objective_text" name='goal_objective_text' disabled
                     value="{{ old('goal_objective_text') }}">
                 @error('goal_objective_text')
@@ -134,7 +134,7 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label for="goal_value" class="form-label">Goal Value</label>
+                <label for="goal_value" class="form-label">Goal Value*</label>
                 <input type="text" class="form-control" id="goal_value" name='goal_value' disabled
                     value="{{ old('goal_value') }}">
                 @error('goal_value')
@@ -144,16 +144,21 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label for="inputTheme" class="form-label">Mission Theme</label>
+                <label for="inputTheme" class="form-label">Mission Theme*</label>
                 <select class="form-control" id="country-dropdown" name='theme_id'>
                     <option value="none" selected="" disabled="" hidden="">select mission theme</option>
                     @foreach ($mission_theme as $theme)
                         <option value="{{ $theme->mission_theme_id }}">{{ $theme->title }}</option>
                     @endforeach
                 </select>
+                @error('theme_id')
+                    <div class="text-danger">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="col-md-6">
-                <label for="mission_skills">Mission Skills</label>
+                <label for="mission_skills">Mission Skills*</label>
                 <select name="skill_id[]" class="form-control" id="skill-dropdown" multiple>
                     @foreach ($mission_skills as $skill)
                         <option value="{{ $skill->skill_id }}">{{ $skill->skill_name }}</option>
@@ -167,7 +172,7 @@
                 </select>
             </div>
             <div class="col-md-6">
-                <label class="form-label" for="customFile">Mission Images</label>
+                <label class="form-label" for="customFile">Mission Images*</label>
                 <input type="file" class="form-control" id="customFile" name="media_name[]" multiple />
                 @error('media_name.*')
                     <div class="text-danger">
@@ -176,7 +181,7 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label class="form-label" for="customFile">Mission Documents</label>
+                <label class="form-label" for="customFile">Mission Documents*</label>
                 <input type="file" class="form-control" id="customFile" name="document_name[]" multiple />
                 @error('document_name.*')
                     <div class="text-danger">
@@ -185,7 +190,7 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label for="inputAvailable" class="form-label">Mission Availability</label>
+                <label for="inputAvailable" class="form-label">Mission Availability*</label>
                 <select id="inputAvailable" class="form-select" name='availability'>
                     <option>Daily</option>
                     <option>Weekly</option>
@@ -203,7 +208,7 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label for="status">Status</label>
+                <label for="status">Status*</label>
                 <select name="status" id="status" class="form-control" required>
                     <option value="0">Inactive</option>
                     <option value="1" selected>Active</option>

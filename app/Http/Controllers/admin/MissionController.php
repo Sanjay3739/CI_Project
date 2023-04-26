@@ -167,7 +167,6 @@ class MissionController extends Controller
         $timeMission = $mission->timeMission;
 
         return view('admin.mission.edit', compact('mission', 'countries', 'mission_theme', 'cities', 'mission_skills', 'selected_skills', 'missionVideo', 'Images', 'Documents', 'goalMission', 'timeMission'));
-
     }
 
     /**
@@ -182,7 +181,30 @@ class MissionController extends Controller
         $currentMissionType = $mission->mission_type;
         $newMissionType = $request->post('mission_type');
         $mission->fill($request->post())->save();
-        $mission->update($request->all());
+        // $mission->update($request->all());
+        if ($currentMissionType == $newMissionType) {
+            if ($currentMissionType === 'TIME') {
+                $timeMission = TimeMission::where('mission_id', $id)->first();
+                if ($timeMission) {
+                    $timeMission->fill([
+                        'mission_id' => $mission->mission_id,
+                        'total_seats' => $request->post('total_seats'),
+                        'registration_deadline' => $request->post('registration_deadline'),
+                    ])->save();
+                }
+            } elseif ($currentMissionType === 'GOAL') {
+                $goalMission = GoalMission::where('mission_id', $id)->first();
+                if ($goalMission) {
+                    $goalMission->fill([
+                        'mission_id' => $mission->mission_id,
+                        'goal_objective_text' => $request->post('goal_objective_text'),
+                        'goal_value' => $request->post('goal_value'),
+                    ])->save();
+                }
+            }
+        }
+
+        // Move mission data between tables based on mission type change
         if ($currentMissionType !== $newMissionType) {
             if ($currentMissionType === 'TIME') {
                 $timeMission = TimeMission::where('mission_id', $id)->first();

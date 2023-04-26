@@ -24,7 +24,7 @@
                         <span class="position-absolute parent_mission_location">
                             <span class="mission_location px-2 py-1">
                                 <img src={{ asset('Images/pin.png') }} alt=""><span
-                                    class="text-white px-2">{{ $item->city->name }}</span>
+                                    class="text-white px-2">{{ $item->city->name?? 'Jurm' }}</span>
                             </span>
                         </span>
 

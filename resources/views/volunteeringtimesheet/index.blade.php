@@ -73,7 +73,7 @@
                                                             @csrf
                                                             @method('PUT')
                                                             <div class="form-group">
-                                                                <label for="missionSelect">Mission</label>
+                                                                <label for="missionSelect">Mission*</label>
                                                                 <select class="form-control" id="missionSelect"
                                                                     name="mission_id">
                                                                     <option value="" disabled>Select Mission</option>
@@ -86,20 +86,20 @@
                                                                 </select>
                                                             </div>
                                                             <div class="form-group  mt-3">
-                                                                <label for="dateVolunteered">Date Volunteered</label>
+                                                                <label for="dateVolunteered">Date Volunteered*</label>
                                                                 <input type="date" class="form-control"
                                                                     id="dateVolunteered" name="date_volunteered"
                                                                     value="{{ \Carbon\Carbon::parse($timesheet->date_volunteered)->format('Y-m-d') }}">
                                                             </div>
                                                             <div class="form-group  mt-3">
-                                                                <label for="hoursVolunteered">Hours</label>
+                                                                <label for="hoursVolunteered">Hours*</label>
                                                                 <input type="number" class="form-control"
                                                                     id="hoursVolunteered" placeholder="Enter Spent Hours"
                                                                     min="0" name="hour"
                                                                     value="{{ date('H', strtotime($timesheet->time)) }}">
                                                             </div>
                                                             <div class="form-group  mt-3">
-                                                                <label for="minutesVolunteered">Minutes</label>
+                                                                <label for="minutesVolunteered">Minutes*</label>
                                                                 <input type="number" class="form-control"
                                                                     id="minutesVolunteered"
                                                                     placeholder="Enter Spent Minutes" min="0"
@@ -107,7 +107,7 @@
                                                                     value="{{ date('i', strtotime($timesheet->time)) }}">
                                                             </div>
                                                             <div class="form-group  mt-3">
-                                                                <label for="messageTextarea">Message</label>
+                                                                <label for="messageTextarea">Message*</label>
                                                                 <textarea class="form-control" id="messageTextarea" rows="3" placeholder="Enter your message" name="notes">{{ $timesheet->notes }}</textarea>
                                                             </div>
                                                             <input type="hidden" id="user_id" name="user_id"
@@ -171,7 +171,7 @@
                                 <form id="timesheetForm">
                                     @csrf
                                     <div class="form-group">
-                                        <label for="missionSelect">Mission</label>
+                                        <label for="missionSelect">Mission*</label>
                                         <select class="form-control" id="missionSelect" name="mission_id">
                                             <option value="" disabled selected>Select Mission</option>
                                             @foreach ($timemissions as $mission)
@@ -181,23 +181,23 @@
                                     </div>
 
                                     <div class="form-group  mt-3">
-                                        <label for="dateVolunteered">Date Volunteered</label>
+                                        <label for="dateVolunteered">Date Volunteered*</label>
                                         <input type="date" class="form-control" id="dateVolunteered"
                                             name="date_volunteered">
                                     </div>
                                     <div class="form-group  mt-3">
-                                        <label for="hoursVolunteered">Hours</label>
+                                        <label for="hoursVolunteered">Hours*</label>
                                         <input type="number" class="form-control" id="hoursVolunteered"
                                             placeholder="Enter Spent Hours" min="0" name="hour">
                                     </div>
                                     <div class="form-group  mt-3">
-                                        <label for="minutesVolunteered">Minutes</label>
+                                        <label for="minutesVolunteered">Minutes*</label>
                                         <input type="number" class="form-control" id="minutesVolunteered"
                                             placeholder="Enter Spent Minutes" min="0" max="59"
                                             name="minute">
                                     </div>
                                     <div class="form-group  mt-3">
-                                        <label for="messageTextarea">Message</label>
+                                        <label for="messageTextarea">Message*</label>
                                         <textarea class="form-control" id="messageTextarea" rows="3" placeholder="Enter your message" name="notes"></textarea>
                                     </div>
                                     <input type="hidden" id="user_id" name="user_id"
@@ -287,7 +287,7 @@
                                                             @csrf
                                                             @method('PUT')
                                                             <div class="form-group">
-                                                                <label for="missionSelect">Mission</label>
+                                                                <label for="missionSelect">Mission*</label>
                                                                 <select class="form-control" id="missionSelect"
                                                                     name="mission_id">
                                                                     <option value="" disabled>Select Mission</option>
@@ -300,19 +300,19 @@
                                                                 </select>
                                                             </div>
                                                             <div class="form-group mt-3">
-                                                                <label for="action">Action</label>
+                                                                <label for="action">Action*</label>
                                                                 <input type="text" class="form-control" id="action"
                                                                     placeholder="Enter Actions" name="action"
-                                                                    value="{{ $timesheet->action }}">
+                                                                    value="{{ $timesheet->action }}"/>
                                                             </div>
                                                             <div class="form-group mt-3">
-                                                                <label for="dateVolunteered">Date Volunteered</label>
+                                                                <label for="dateVolunteered">Date Volunteered*</label>
                                                                 <input type="date" class="form-control"
                                                                     id="dateVolunteered" name="date_volunteered"
                                                                     value="{{ \carbon\carbon::parse($timesheet->date_volunteered)->format('Y-m-d') }}">
                                                             </div>
                                                             <div class="form-group mt-3">
-                                                                <label for="message">Message</label>
+                                                                <label for="message">Message*</label>
                                                                 <textarea class="form-control" id="message" rows="3" placeholder="Enter your message" name="notes">{{ $timesheet->notes }}</textarea>
                                                             </div>
                                                             <div id="editgoalentry-error-{{ $timesheet->timesheet_id }}"
@@ -369,7 +369,7 @@
                                 <form id="goaltimesheetForm">
                                     @csrf
                                     <div class="form-group">
-                                        <label for="missionSelect">Mission</label>
+                                        <label for="missionSelect">Mission*</label>
                                         <select class="form-control" id="missionSelect" name="mission_id">
                                             <option value="" disabled selected>Select Mission</option>
                                             @foreach ($goalmissions as $mission)
@@ -378,17 +378,17 @@
                                         </select>
                                     </div>
                                     <div class="form-group mt-3">
-                                        <label for="action">Action</label>
+                                        <label for="action">Action*</label>
                                         <input type="text" class="form-control" id="action"
                                             placeholder="Enter Actions" name="action">
                                     </div>
                                     <div class="form-group mt-3">
-                                        <label for="dateVolunteered">Date Volunteered</label>
+                                        <label for="dateVolunteered">Date Volunteered*</label>
                                         <input type="date" class="form-control" id="dateVolunteered"
                                             name="date_volunteered">
                                     </div>
                                     <div class="form-group mt-3">
-                                        <label for="message">Message</label>
+                                        <label for="message">Message*</label>
                                         <textarea class="form-control" id="message" rows="3" placeholder="Enter your message" name="notes"></textarea>
                                     </div>
                                     <div id="goalentry-error" class="alert alert-danger" role="alert"

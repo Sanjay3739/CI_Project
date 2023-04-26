@@ -35,6 +35,7 @@ class UpdateTimesheetRequest extends FormRequest
             'notes' => 'required|string',
 
             'action' => [
+                'numeric',
                 Rule::requiredIf(function () use ($mission) {
                     return $mission->mission_type === 'GOAL';
                 })
@@ -59,15 +60,6 @@ class UpdateTimesheetRequest extends FormRequest
                 'max:59',
             ],
 
-            // 'date_volunteered' => [
-            //     'required',
-
-            //     'before_or_equal:today',
-            //     Rule::exists('missions', 'start_date')->where(function ($query) {
-            //         $query->where('mission_id', $this->input('mission_id'));
-            //     }),
-
-            // ],
 
             'date_volunteered' => [
                 'required',
@@ -85,10 +77,10 @@ class UpdateTimesheetRequest extends FormRequest
         return [
 
             'date_volunteered.required' => 'Please select the date when you volunteered.',
-
             'date_volunteered.after_or_equal' => 'The date must be equal to or after the start date of the mission.',
             'date_volunteered.before_or_equal' => 'The date must be equal to or before the end date of the mission.',
             'date_volunteered.before' => 'You cannot add a volunteer time in the future.',
+            'action.numeric' => 'The value must be Numeric',
         ];
     }
 }

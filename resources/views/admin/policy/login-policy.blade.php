@@ -28,10 +28,12 @@
                     <div class="collapse customnavbar-collapse" id="navbarNav">
                         <ul class="nav flex-column justify-content" style="list-style:none;padding-left:0;">
                             @foreach ($policies as $policy)
+                            @if($policy->status == '1')
                             <li class="nav-item">
                                 <a href="#{{ $policy->slug }}" style="cursor: pointer;text-decoration:none;" class="nav-link text-dark pl-3 py-2">{{ $policy->title }}</a>
                             </li>
                             <hr>
+                            @endif
                             @endforeach
                         </ul>
                     </div>
@@ -40,6 +42,7 @@
                     <div class="col-sm-10" style="position: sticky;top:10%;">
                         <ul class="customnav flex-column justify-content" style="list-style:none;padding-left:0;">
                             @foreach ($policies as $policy)
+                            @if($policy->status == '1')
                             <li class="nav-item">
                                 <a href="#{{ $policy->slug }}" style="cursor: pointer;text-decoration:none;">
                                     <div class="d-flex justify-content-between">
@@ -49,6 +52,7 @@
                                 </a>
                                 <hr>
                             </li>
+                            @endif
                             @endforeach
 
                             <li class="nav-items justify-content-center">

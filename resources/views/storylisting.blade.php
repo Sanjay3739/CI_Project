@@ -43,10 +43,6 @@
                                     <a class="btn px-3 mr-2 rounded-pill btn-outline-secondary"
                                         href="{{ url('storydetail', $mystory->story_id) }}">View
                                         Details&nbsp;<i class="fa fa-arrow-right"></i></a>
-
-                                    <a class="btn px-3 mr-2 rounded-pill btn-outline-secondary"
-                                        href="{{ route('storydetail', $story->story_id) }}">View
-                                        Details&nbsp;<i class="fa fa-arrow-right"></i></a>
                                 </div>
                             @endif
 

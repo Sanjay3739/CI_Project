@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-lg-4">
 
-                    <label for="missionSelect" class="form-label">Mission</label>
+                    <label for="missionSelect" class="form-label">Mission*</label>
                     <select class="form-control" id="missionSelect" name="mission_id">
                         <option value="" disabled selected>Select Mission</option>
                         @foreach ($storyMissions as $mission)
@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="col-lg-4">
-                    <label for="title" class="form-label">My Story Title</label>
+                    <label for="title" class="form-label">My Story Title*</label>
                     <input type="text" class="form-control" id="title" name='title' placeholder="Enter your title"
                         placeholder="Enter story title" value="{{ $story->title }}">
                     @error('title')
@@ -41,7 +41,7 @@
                 </div>
 
                 <div class="col-lg-4">
-                    <label for="inputdate" class="form-label">Date</label>
+                    <label for="inputdate" class="form-label">Date*</label>
                     <div class='input-group date' id='datetimepicker1'>
                         <input type='datetime-local' class="form-control" id='published_at' name='published_at'
                             placeholder="Select date" value="{{ date('Y-m-d\TH:i:s', strtotime($story->published_at)) }}">
@@ -56,7 +56,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 mt-3">
-                    <label for="summary-ckeditor" class="form-label">My Story</label>
+                    <label for="summary-ckeditor" class="form-label">My Story*</label>
                     <textarea name="description" class="story-textarea" id="summary-ckeditor">{{ $story->description }}</textarea>
                 </div>
                 @error('description')
@@ -68,7 +68,7 @@
 
             <div class="row">
                 <div class="col-lg-12 mt-3">
-                    <label for="orgVideo" class="form-label">Enter Video URL</label>
+                    <label for="orgVideo" class="form-label">Enter Video URL*</label>
                     <textarea class="form-control" id="path" name="path[]" placeholder="Enter your url">@foreach ($storyvideo as $video){{ $video->path }}&#13;&#10;@endforeach</textarea>
                     @error('path.*')
                         <div class="text-danger">
@@ -79,7 +79,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 mt-3">
-                    <label for="UploadYourPhotos" class="form-label">Upload your Photos</label>
+                    <label for="UploadYourPhotos" class="form-label">Upload your Photos*</label>
                     <div class="text-center border-dashed p-4" id="drop-zone" style="border: 3px dashed #bdbdbd;"
 
                         ondragover="event.preventDefault(); document.getElementById('drop-zone').classList.add('dragover');"

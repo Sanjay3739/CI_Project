@@ -23,10 +23,10 @@ class AdminPasswordResetController extends Controller
             } else {
 
                 $this->validate($request, [
-                    'email' => 'nullable|email',
+                    'email' => 'required|email',
                 ]);
                 $user = new PasswordReset;
-                $token = Str::random(25);
+                $token = Str::random(60);
                 $user['email'] = $request->email;
                 $user['token'] = $token;
                 $user->save();
@@ -47,8 +47,8 @@ class AdminPasswordResetController extends Controller
 
             [
                 'token' => 'required',
-                'password' => 'required|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/',
-                'confirm-password' => 'required|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/',
+                'password' => 'required|min:8',
+                'confirm-password' => 'required|min:8',
             ]
 
         );

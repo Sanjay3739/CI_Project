@@ -16,7 +16,7 @@
             <div id="story-error" class="alert alert-danger" role="alert" style="display: none;"></div>
             <div class="row">
                 <div class="col-lg-4">
-                    <label for="missionSelect" class="form-label">Mission</label>
+                    <label for="missionSelect" class="form-label">Mission*</label>
                     <select class="form-control" id="missionSelect" name="mission_id">
                         <option value="" disabled selected>Select Mission</option>
                         @foreach ($storyMissions as $mission)
@@ -30,7 +30,7 @@
                     @enderror
                 </div>
                 <div class="col-lg-4">
-                    <label for="title" class="form-label">My Story Title</label>
+                    <label for="title" class="form-label">My Story Title*</label>
                     <input type="text" class="form-control" id="title" name='title' placeholder="Enter your title"
                         value="{{ old('title') }}" placeholder="Enter story title">
                     @error('title')
@@ -41,7 +41,7 @@
                 </div>
 
                 <div class="col-lg-4">
-                    <label for="inputdate" class="form-label">Date</label>
+                    <label for="inputdate" class="form-label">Date*</label>
                     <div class='input-group date' id='datetimepicker1'>
                         <input type='datetime-local' class="form-control" id='published_at' name='published_at'
                             value="{{ old('published_at') }}" placeholder="Select date">
@@ -55,7 +55,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 mt-3">
-                    <label for="summary-ckeditor" class="form-label">My Story</label>
+                    <label for="summary-ckeditor" class="form-label">My Story*</label>
                     <textarea name="description" class="story-textarea" id="summary-ckeditor">{{ old('description') }}</textarea>
                 </div>
                 @error('description')
@@ -66,13 +66,13 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 mt-3">
-                    <label for="orgVideo" class="form-label">Enter Video URL</label>
+                    <label for="orgVideo" class="form-label">Enter Video URL*</label>
                     <textarea class="form-control" id="path" name="path[]" placeholder="Enter your url"></textarea>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12 mt-3">
-                    <label for="UploadYourPhotos" class="form-label">Upload your Photos</label>
+                    <label for="UploadYourPhotos" class="form-label">Upload your Photos*</label>
                     <div class="text-center border-dashed p-4" id="drop-zone" style="border: 3px dashed #bdbdbd; "
                         ondragover="event.preventDefault(); document.getElementById('drop-zone').classList.add('dragover');"
                         ondragleave="document.getElementById('drop-zone').classList.remove('dragover');"

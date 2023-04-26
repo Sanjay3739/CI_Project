@@ -23,7 +23,7 @@
                     <span class="position-absolute parent_mission_location">
                         <span class="mission_location px-2 py-1">
                             <img src={{ asset('Images/pin.png') }} alt=""><span
-                                class="text-white px-2">{{ $item->city->name }}</span>
+                                class="text-white px-2">{{ $item->city->name ?? 'Ghormach'}}</span>
                         </span>
                     </span>
 
@@ -71,7 +71,7 @@
                     <div class="col">
                         <div class="d-flex">
                             <div>
-                                <img src="{{asset('Images/pin1.png')}}" alt=""> {{$item->city->name}}
+                                <img src="{{asset('Images/pin1.png')}}" alt=""> {{$item->city->name?? 'Ghormach'}}
                             </div>
                             <div class="px-2">
                                 <img src="{{asset('Images/web.png')}}" alt=""> {{$item->missionTheme->title}}

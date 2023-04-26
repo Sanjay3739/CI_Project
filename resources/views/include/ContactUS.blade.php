@@ -33,8 +33,8 @@
                                 <textarea class="form-control" id="message" name="message" placeholder="Enter your message" name="message"></textarea>
                             </div>
                         </div>
-                        <div id="contactus-error" class="alert alert-danger" role="alert" style="display: none;">
-                        </div>
+                        <p id="contactus-error" class="alert alert-danger" role="alert" style="display: none;">
+                        </p>
                     </div>
                     <input type="hidden" id="user_id" name="user_id" value="{{ Auth::user()->user_id }}">
                     <div class="d-flex py-2 justify-content-end">

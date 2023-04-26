@@ -8,10 +8,10 @@ class policyController extends Controller
 {
     public function policy(Request $request)
     {
-        
+
         $policies = CmsPage::orderBy('cms_page_id', 'asc')
-        ->paginate(5);
-      
+        ->paginate(12);
+
         return view('admin.policy.login-policy', compact('policies'));
     }
 

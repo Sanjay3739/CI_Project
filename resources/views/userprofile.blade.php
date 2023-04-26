@@ -59,7 +59,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 mt-3">
-                                    <label for="title" class="form-label">Title</label>
+                                    <label for="title" class="form-label">Title*</label>
                                     <input type="text" class="form-control" id="title" name='title'
                                         placeholder="Enter your title" value="{{ $user->title }}">
                                     @error('title')
@@ -87,7 +87,7 @@
                             </div>
                             <div class="row">
                                 <div class="col mt-3">
-                                    <label for="why_i_volunteer">Why I Volunteer?</label>
+                                    <label for="why_i_volunteer">Why I Volunteer?*</label>
                                     <textarea class="form-control mt-2" id="why_i_volunteer" name="why_i_volunteer" placeholder="Enter your comments..."
                                         value="{{ old('why_i_volunteer') }}">{{ $user->why_i_volunteer }}</textarea>
                                     @error('why_i_volunteer')
@@ -112,7 +112,7 @@
                         <div class="tab-pane fade show active" id="tab-1" role="tabpanel">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <label for="country">Country</label>
+                                    <label for="country">Country*</label>
                                     <select name="country_id" class="form-control" id="country-dropdown">
                                         @foreach ($countries as $country)
                                             <option value="{{ $country->country_id }}"
@@ -122,7 +122,7 @@
                                     </select>
                                 </div>
                                 <div class="col-lg-6">
-                                    <label for="city">City</label>
+                                    <label for="city">City*</label>
                                     <select class="form-control" name="city_id" id="city-dropdown">
                                         <option value="none" selected="" disabled="" hidden=""></option>
                                         @foreach ($cities as $city)

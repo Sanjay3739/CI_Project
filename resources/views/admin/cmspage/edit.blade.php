@@ -19,7 +19,7 @@
                         @method('PUT')
                         <div class="form-row">
                             <div class="col-md-12 mb-3">
-                                <label for="Title">Title</label>
+                                <label for="Title">Title*</label>
                                 <input type="text" name="title" class="form-control" value='{{ $cmsPage->title }}'
                                     id="">
                                 @error('title')
@@ -29,7 +29,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-12 mb-3">
-                                <label for="inputAddress" class="form-label">Description</label>
+                                <label for="inputAddress" class="form-label">Description*</label>
                                 <textarea name="text" id="editor1">{{ $cmsPage->text }}</textarea>
                                 @error('text')
                                     <div class="text-danger">
@@ -38,7 +38,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-12 mb-3">
-                                <label for="slug">Slug</label>
+                                <label for="slug">Slug*</label>
                                 <input type="text" name="slug" class="form-control" value='{{ $cmsPage->slug }}'
                                     id="">
 
@@ -49,7 +49,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-12 mb-3">
-                                <label for="status">Status</label>
+                                <label for="status">Status*</label>
                                 <select name="status" id="status" class="form-control" required>
                                     <option value="0" @if (!$cmsPage->status) selected @endif>Inactive
                                     </option>

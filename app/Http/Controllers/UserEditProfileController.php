@@ -69,7 +69,7 @@ class UserEditProfileController extends Controller
                     }
                 }
             ],
-            'password' => 'required|string|min:8|different:old_password',
+            'password' => 'required|string|min:5|different:old_password',
             'confirm_password' => 'required|same:password'
         ]);
         //dd($request);

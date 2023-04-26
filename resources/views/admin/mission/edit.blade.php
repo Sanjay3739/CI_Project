@@ -10,7 +10,7 @@
             @csrf
             @method('PUT')
             <div class="col-md-6">
-                <label for="missionTitle" class="form-label">Mission Title</label>
+                <label for="missionTitle" class="form-label">Mission Title*</label>
                 <input type="text" class="form-control" id="missionTitle" name='title' value='{{ $mission->title }}'>
                 @error('title')
                     <div class="text-danger">
@@ -19,7 +19,7 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label for="missionDesc" class="form-label">Mission Short Description</label>
+                <label for="missionDesc" class="form-label">Mission Short Description*</label>
                 <input type="text" class="form-control" id="missionDesc" name='short_description'
                     value='{{ $mission->short_description }}'>
                 @error('short_description')
@@ -29,7 +29,7 @@
                 @enderror
             </div>
             <div class="col-12">
-                <label for="inputAddress" class="form-label">Mission Description</label>
+                <label for="inputAddress" class="form-label">Mission Description*</label>
                 <textarea name="description" id="editor1">{{ $mission->description }}</textarea>
                 @error('description')
                     <div class="text-danger">
@@ -38,7 +38,7 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label for="country">Country</label>
+                <label for="country">Country*</label>
                 <select name="country_id" class="form-control" id="country-dropdown">
 
                     @foreach ($countries as $country)
@@ -53,7 +53,7 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label for="city">City</label>
+                <label for="city">City*</label>
                 <select class="form-control" name="city_id" id="city-dropdown">
                     <option value="none" selected="" disabled="" hidden=""></option>
                     @foreach ($cities as $city)
@@ -78,7 +78,7 @@
                 <textarea class="form-control" id="missionorg" rows="3" name='organization_detail'>{{ $mission->organization_detail }}</textarea>
             </div>
             <div class="col-md-6">
-                <label for="startdate" class="form-label">Mission Start Date</label>
+                <label for="startdate" class="form-label">Mission Start Date*</label>
                 <div class='input-group date' id='datetimepicker1'>
                     <input type='date' class="form-control" name='start_date'
                         value="{{ date('Y-m-d', strtotime($mission->start_date)) }}" />
@@ -90,7 +90,7 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label for="endtdate" class="form-label">Mission End Date</label>
+                <label for="endtdate" class="form-label">Mission End Date*</label>
                 <div class='input-group date' id='datetimepicker1'>
                     <input type='date' class="form-control" name='end_date'
                         value="{{ date('Y-m-d', strtotime($mission->end_date)) }}" />
@@ -102,7 +102,7 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label for="inputType" class="form-label">Mission Type</label>
+                <label for="inputType" class="form-label">Mission Type*</label>
                 <select id="missionType" class="form-select" name='mission_type' onchange="handleMissionTypeChange(this)">
                     <option value="none" selected="" disabled="" hidden="">select mission type</option>
                     <option value="TIME" {{ $mission->mission_type === 'TIME' ? 'selected' : '' }}>Time</option>
@@ -115,7 +115,7 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label for="text" class="form-label">Total Seats</label>
+                <label for="text" class="form-label">Total Seats*</label>
                 <input type="text" class="form-control" id="text" name='total_seats'
                     value="{{ $timeMission ? $timeMission->total_seats : '' }}"
                     {{ $mission->mission_type === 'GOAL' ? 'disabled' : '' }}>
@@ -126,7 +126,7 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label for="missionRegDeadline" class="form-label">Mission Registration Deadline</label>
+                <label for="missionRegDeadline" class="form-label">Mission Registration Deadline*</label>
                 <input type="date" class="form-control" id="missionRegDeadline" name='registration_deadline'
                     value="{{ $timeMission ? date('Y-m-d', strtotime($timeMission->registration_deadline)) : '' }}"
                     {{ $mission->mission_type === 'GOAL' ? 'disabled' : '' }}>
@@ -137,7 +137,7 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label for="goal_objective_text" class="form-label">Goal Objective Text</label>
+                <label for="goal_objective_text" class="form-label">Goal Objective Text*</label>
                 <input type="text" class="form-control" id="goal_objective_text" name='goal_objective_text'
                     value="{{ $goalMission ? $goalMission->goal_objective_text : '' }}"
                     {{ $mission->mission_type === 'TIME' ? 'disabled' : '' }}>
@@ -149,7 +149,7 @@
             </div>
 
             <div class="col-md-6">
-                <label for="goal_value" class="form-label">Goal Value</label>
+                <label for="goal_value" class="form-label">Goal Value*</label>
                 <input type="text" class="form-control" id="goal_value" name='goal_value'
                     value="{{ $goalMission ? $goalMission->goal_value : '' }}"
                     {{ $mission->mission_type === 'TIME' ? 'disabled' : '' }}>
@@ -160,7 +160,7 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label for="inputTheme" class="form-label">Mission Theme</label>
+                <label for="inputTheme" class="form-label">Mission Theme*</label>
                 <select class="form-control" id="country-dropdown" name='theme_id'>
                     <option value="none" selected="" disabled="" hidden=""></option>
                     @foreach ($mission_theme as $theme)
@@ -169,9 +169,14 @@
                         </option>
                     @endforeach
                 </select>
+                @error('theme_id')
+                    <div class="text-danger">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="col-md-6">
-                <label for="mission_skills">Mission Skills</label>
+                <label for="mission_skills">Mission Skills*</label>
                 <select name="skill_id[]" class="form-control" id="skill-dropdown" multiple>
                     @foreach ($mission_skills as $skill)
                         <option value="{{ $skill->skill_id }}"
@@ -186,7 +191,7 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label class="form-label" for="customFile">Mission Images</label>
+                <label class="form-label" for="customFile">Mission Images*</label>
                 <input type="file" class="form-control" id="customFile" name="media_name[]" multiple />
                 @error('media_name.*')
                     <div class="text-danger">
@@ -201,7 +206,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <label class="form-label" for="customFile">Mission Documents</label>
+                <label class="form-label" for="customFile">Mission Documents*</label>
                 <input type="file" class="form-control" id="customFile" name="document_name[]" multiple />
                 @error('document_name.*')
                     <div class="text-danger">

@@ -31,6 +31,7 @@ class StoreTimesheetRequest extends FormRequest
             'mission_id' => 'required',
             'notes' => 'required|string',
             'action' => [
+                'numeric',
                 Rule::requiredIf(function () use ($mission) {
                     return $mission->mission_type === 'GOAL';
                 })
@@ -71,6 +72,7 @@ class StoreTimesheetRequest extends FormRequest
             'date_volunteered.after_or_equal' => 'The date must be equal to or after the start date of the mission.',
             'date_volunteered.before_or_equal' => 'The date must be equal to or before the end date of the mission.',
             'date_volunteered.before' => 'You cannot add a volunteer time in the future.',
+            'action.numeric' => 'The value must be Numeric',
         ];
     }
 }
