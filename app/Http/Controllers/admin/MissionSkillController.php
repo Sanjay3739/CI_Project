@@ -22,7 +22,8 @@ class MissionSkillController extends Controller
                         ->get();
                 }
             }]
-        ])->paginate(20)
+        ])->orderBy('created_at', 'desc')
+        ->paginate(10)
             ->appends(['rat' => $request->rat]);
         return view("admin.missionskill.index", compact('data'));
     }

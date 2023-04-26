@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('mission_themes', function (Blueprint $table) {
             $table->bigIncrements('mission_theme_id');
             $table->string('title', 255);
-            $table->tinyInteger('status')->default(1);
+            $table->tinyInteger('status')->notnull()->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

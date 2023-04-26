@@ -201,7 +201,8 @@
                 <div>
                     @foreach ($Images as $image)
                         <span>{{ $image->media_name }}</span>
-                        <input type="checkbox" name="selected_media[]" value="{{ $image->media_name }}" checked>
+                        <input type="checkbox" name="selected_media[]" value="{{ $image->media_name }}"
+                        checked>
                     @endforeach
                 </div>
             </div>

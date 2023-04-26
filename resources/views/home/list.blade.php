@@ -5,7 +5,7 @@
             <div class="col-lg-12 col-xl-4 py-2">
                 <div class="position-relative">
                     {{-- <img class="img-fluid w-100" src="{{asset('storage/'.$item->missionMedia->where('default','1')[0]->media_path)}}" alt=""> --}}
-                    <img class="img-fluid w-100 h-100 card-img-top"
+                    <img class="img-fluid w-100  card-img-top"
                     src="{{ $item->missionMedia->isNotEmpty() ? asset('storage/' . $item->missionMedia->where('default', '1')->first()->media_path) : '' }}"
                     alt="">
                     @if(count($item->missionApplication->where('user_id',$user_id))!==0)
@@ -129,29 +129,35 @@
                                         </div>
                                     @endif
                                     @if ($item->timeMission!=null)
-                                        <div class='col-6 d-flex align-items-center'>
-                                            <div class="px-1">
-                                                <img src={{ asset('Images/deadline.png') }} alt="">
-                                            </div>
-                                            <div class=" px-2 d-flex flex-column align-items-start">
-                                                <span class="theme-color fs-7 font-weight-bolder">{{ date('d-m-Y', strtotime($item->timeMission->registration_deadline)) }} <br></span>
-                                                <span class="text-muted">Registration Deadline</span>
-                                            </div>
-                                        </div>
-                                    @elseif($item->goalMission!=null)
-                                    <div class="d-flex flex-column ps-2 w-100">
-                                        <div class="progress" style="max-width: 150px;">
-                                            <div class="progress-bar" role="progressbar"
-                                                style="width: {{ ($item->goalMission->goal_value / 100)}}px;"
-                                                aria-valuenow="{{ $item->goalMission->goal_value }}"
-                                                aria-valuemin="0" aria-valuemax="100">
-                                            </div>
-                                        </div>
-                                        <small
-                                            class="fw-light text-secondary ps-1">{{ $item->goalMission->goal_value }}
-                                            achieved</small>
+                            <div class='col-md-6 d-flex align-items-center'>
+                                <div class="px-1">
+                                    <img src={{ asset('Images/deadline.png') }} alt="deadline" style="width:33px;height:33px">
+                                </div>
+                                <div class=" px-2 d-flex flex-column align-items-start">
+                                    <span class="theme-color fs-5 font-weight-bolder">{{ date('d-m-Y', strtotime($item->timeMission->registration_deadline)) }}<br></span>
+                                    <span class="text-muted">Deadline</span>
+                                </div>
+                            </div>
+                        @elseif($item->goalMission!=null)
+                        @php
+                            $achieved=0;
+                            foreach($item->timeSheet->where('status','APPROVED') as $sheet){
+                                $achieved += $sheet->action;
+                            }
+                        @endphp
+                            <div class='col-md-6 d-flex align-items-center justify-content-start'>
+                                <div class="px-1">
+                                    <img src={{ asset('Images/achieved.png') }} alt="achieved" style="width:24px;height:24px">
+                                </div>
+                                <div class="d-flex flex-column w-100">
+                                    <div class="progress w-100">
+                                        <div class="progress-bar" aria-label="goal-reached" name="goal_status" style="width: {{($achieved/$item->goalMission->goal_value)*100}}%" role="progressbar" aria-valuenow="{{$achieved}}" aria-valuemin="0" aria-valuemax="{{$item->goalMission->goal_value}}"></div>
                                     </div>
-                                    @endif
+                                    <small class="fw-light text-secondary ps-1">{{$achieved}} achieved</small>
+                                </div>
+
+                            </div>
+                        @endif
                                 </div>
                             </div>
                             <div class="col-lg-6">

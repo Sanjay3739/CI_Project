@@ -200,7 +200,7 @@ class HomeController extends Controller
             }
 
             $count = $datas->count();
-            $data = $datas->paginate(5);
+            $data = $datas->paginate(6);
             $favorite = FavoriteMission::where('user_id', Auth::user()->user_id)
                 ->get(['favorite_mission_id', 'mission_id']);
             $users = User::where('user_id', '!=', Auth::user()->user_id)

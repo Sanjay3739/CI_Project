@@ -68,13 +68,27 @@ class AuthController extends Controller
         /**
          *  submission of a registration form via HTTP POST request.
          */
+        // $this->validate($request, [
+        //     'first_name' => 'required|max:255',
+        //     'last_name' => 'required|max:255',
+        //     'phone_number' => 'required',
+        //     'email' => 'required|email:snoof',
+        //     'password' => 'required|same:min:6|max:8',
+        // ]);
         $this->validate($request, [
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
             'phone_number' => 'required',
             'email' => 'required|email:snoof',
             'password' => 'required|min:6|max:8',
+            'confirm_password' => 'required|same:password|min:6|max:8',
+            // 'password' => 'required|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/',
+            // 'confirm-password' => 'required|same:password|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/',
         ]);
+
+
+
+
         // dd(User::where('email', $request->email)->count());
 
         if (User::where('email', $request->email)->count() === 0) {

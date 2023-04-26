@@ -3,7 +3,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
 <script src="//cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
 <script>
-    CKEDITOR.replace('summary-ckeditor');
+    CKEDITOR.replace('editor1');
 </script>
 <link rel="stylesheet" type="text/css" href="{{asset('slick/slick.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('slick/slick-theme.css')}}" />

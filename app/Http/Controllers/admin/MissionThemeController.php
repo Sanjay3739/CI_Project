@@ -46,12 +46,18 @@ class MissionThemeController extends Controller
          /**
      * Store a newly created resource in storage.
      */
-        $data = new MissionTheme;
-        $data->title = $request->title;
-        $data->status = $request->status;
-        $data->save();
-        return redirect()->route('missiontheme.index')->with('message', 'New Theme added sucessfully 😁👌');
+
+
+     $validatedData = $request->validate([
+       'title' => 'required',
+        'status' => 'required',
+    ]);
+    MissionTheme::create($validatedData);
+    return redirect()->route('missiontheme.index')->with('message', 'New Theme added sucessfully 😁👌');
+
     }
+
+
 
 
 

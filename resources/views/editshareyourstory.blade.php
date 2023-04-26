@@ -56,8 +56,8 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 mt-3">
-                    <label for="summary-ckeditor" class="form-label">My Story*</label>
-                    <textarea name="description" class="story-textarea" id="summary-ckeditor">{{ $story->description }}</textarea>
+                    <label for="summary-ckeditor" class="form-label">My Story</label>
+                    <textarea name="description" class="story-textarea" id="editor1">{{ $story->description }}</textarea>
                 </div>
                 @error('description')
                     <div class="text-danger">
@@ -205,7 +205,7 @@
 
             $('#edit_story_save').on('click', function(event) {
                 event.preventDefault();
-                var value = CKEDITOR.instances['summary-ckeditor'].getData();
+                var value = CKEDITOR.instances['editor1'].getData();
                 // Get the selected files
                 var files = document.getElementById("file-input").files;
                 // Create a new FormData object

@@ -51,12 +51,22 @@
                                 </label>
                                 <input type="text" name="title" class="form-control" id="title"
                                     placeholder="Enter title">
+                                    @error('title')
+                                    <div class="text-danger">
+                                        {{$message}}
+                                    </div>
+                                    @enderror
                             </div>
                             <div class="form-group form-check">
-                                <input type="radio" class="btn-check " name="status" {{old('status')==1?'checked':''}} value='1' id="success-outlined">
+                                <input type="radio" class="btn-check " name="status" {{old('status')=='1'?'checked':''}} value='1' id="success-outlined">
                                 <label class="btn btn-outline-success px-3" for="success-outlined">Active</label>
-                                <input type="radio" class="btn-check" value='0' {{old('status')==0?'checked':''}} name="status" id="danger-outlined">
+                                <input type="radio" class="btn-check" value='0' {{old('status')=='0'?'checked':''}} name="status" id="danger-outlined">
                                 <label class="btn btn-outline-danger px-3" for="danger-outlined">Inactive</label>
+                                @error('status')
+                                <div class="text-danger">
+                                    {{$message}}
+                                </div>
+                                @enderror
                             </div>
                             <tfoot>
                                 <tr>

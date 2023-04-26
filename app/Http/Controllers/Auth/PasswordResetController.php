@@ -25,42 +25,38 @@ class PasswordResetController extends Controller
 
     public function resetPassword(Request $request)
     {
-        /**
-         *  submission of a reset form via HTTP POST request.
-         */
         $request->validate([
-            'email' => 'required|email:snoof',
-
+            'email' => 'required|email',
         ]);
-        $link = '<a style="text-decoration:none;" href="{{route(\'register\')}}">Create an account</a>';
-        if (User::where('email', $request->email)->get()->isEmpty()) {
-            return back()->with('status', 'This ' . $request->email . ' is not Registered. Please register here ' . $link);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            $link = '<a style="text-decoration:none;" href="' . route('register') . '">Create an account</a>';
+            return back()->with('status', 'This ' . $request->email . ' is not registered. Please register here ' . $link);
+        }
+
+        $token = Str::random(60);
+
+        $existingPasswordReset = PasswordReset::where('email', $request->email)->first();
+        if ($existingPasswordReset) {
+            $existingPasswordReset->update(['token' => $token]);
         } else {
-            $this->validate($request, [
-                'email' => 'required|email:snoof',
-            ]);
-            $token = Str::random(60);
+            $newPasswordReset = new PasswordReset();
+            $newPasswordReset->email = $request->email;
+            $newPasswordReset->token = $token;
+            $newPasswordReset->save();
+        }
 
-            if (PasswordReset::where('email', $request->email)) {
+        $mail = Mail::to($request->email)->send(new ResetPassword($request->email, $token));
 
-                $user = new PasswordReset;
-                $user['email'] = $request->email;
-                $user['token'] = $token;
-                $user->save();
-                $mail = Mail::to($request->email)->send(new ResetPassword($user['email'], $token));
-
-
-
-                if ($mail) {
-
-                    return back()->with('success', 'Success! password reset link has been sent. ');
-                } else {
-
-                    return back()->with('failed', 'The email not sent, any issue.');
-                }
-            }
+        if ($mail) {
+            return back()->with('success', 'Success! Password reset link has been sent.');
+        } else {
+            return back()->with('failed', 'The email was not sent. Please try again.');
         }
     }
+
     public function postreset(Request $request)
     {
         $token = $request->route()->parameter('token');
@@ -80,8 +76,8 @@ class PasswordResetController extends Controller
 
         $request->validate(
             ['token' => 'required',
-             'password' => 'required|min:5|max:8 ',
-             'confirm-password' => 'required |same:password|min:5|max:8',
+             'password' => 'required|min:6|max:8 ',
+             'confirm-password' => 'required |same:password|min:6|max:8',
              ]
         );
 

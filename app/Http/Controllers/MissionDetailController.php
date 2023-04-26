@@ -26,7 +26,8 @@ class MissionDetailController extends Controller
         $skills = Skill::whereIn('skill_id', $skill_id_array)->get()->pluck('skill_name');
         $favorite = FavoriteMission::where('user_id', Auth::user()->user_id)->get(['favorite_mission_id', 'mission_id']);
         $data = Mission::where('theme_id', $mission->theme_id)->where('mission_id', '!=', $mission->mission_id)->limit(3)->get();
-        $users = User::where('user_id', '!=', Auth::user()->user_id)->orderBy('user_id', 'asc')->get();
+        // $users = User::where('user_id', '!=', Auth::user()->user_id)->orderBy('user_id', 'asc')->get();
+        $users = User::where('user_id', '!=', Auth::user()->user_id)->get();
         $my_rating = MissionRating::where('mission_id', '=', $mission_id)->where('user_id', '=', $user->user_id)->first();
         $rating_a = MissionRating::where('mission_id', $mission_id)->get()->pluck('rating');
         $rating = 0;

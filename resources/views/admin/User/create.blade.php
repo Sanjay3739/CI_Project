@@ -95,7 +95,8 @@ User-create
 
                         <div class="form-row">
                             <div class="col-md-6">
-                                <label for="first_name">First Name</label>
+                                <label for="first_name"  style="display:flex;flex-direction:row">
+                                   <p>First Name</p> <p class="text-danger">*</p></label>
                                 <input type="text" name="first_name" class="form-control" value="{{old('first_name')}}" id="">
 
                                 @error('first_name')
@@ -105,7 +106,9 @@ User-create
                                 @enderror
                             </div>
                             <div class="col-md-6">
-                                <label for="last_name">Last Name</label>
+                                <label for="last_name"  style="display:flex;flex-direction:row">
+                                    <p>Last Name</p> <p class="text-danger">*</p></label>
+
                                 <input type="text" name="last_name" class="form-control" value="{{old('last_name')}}" id="">
                                 @error('last_name')
                                 <div class="text-danger">
@@ -116,7 +119,9 @@ User-create
                         </div>
                         <div class="form-row">
                             <div class="col-md-6">
-                                <label for="email">Email</label>
+                                <label for="Email"  style="display:flex;flex-direction:row">
+                                    <p>Email</p> <p class="text-danger">*</p></label>
+
                                 <input type="email" name="email" class="form-control" value="{{old('email')}}" id="">
                                 @error('email')
                                 <div class="text-danger">
@@ -125,7 +130,8 @@ User-create
                                 @enderror
                             </div>
                             <div class="col-md-6">
-                                <label for="phone_number">Phone Number</label>
+                                <label for="phone_number"  style="display:flex;flex-direction:row">
+                                    <p>Phone Number</p> <p class="text-danger">*</p></label>
                                 <input type="tel" name="phone_number" class="form-control" value="{{old('phone_number')}}" id="">
                                 @error('phone_number')
                                 <div class="text-danger">
@@ -156,7 +162,11 @@ User-create
                         </div> --}}
                         <div class="form-row">
                             <div class="col-md-6">
-                                <label for="employee_id">Employee ID</label>
+
+
+                                <label for="employee_id"  style="display:flex;flex-direction:row">
+                                    <p>Employee ID</p> <p class="text-danger">*</p></label>
+
                                 <input type="text" name="employee_id" class="form-control" value="{{old('employee_id')}}" id="">
                                 @error('employee_id')
                                 <div class="text-danger">
@@ -165,7 +175,10 @@ User-create
                                 @enderror
                             </div>
                             <div class="col-md-6">
-                                <label for="department">Department</label>
+
+                                <label for="department"  style="display:flex;flex-direction:row">
+                                    <p>Department</p> <p class="text-danger">*</p></label>
+
                                 <select id="inputState" name="department" class="form-control">
                                     <option selected>Choose...</option>
                                     <option value="HR" {{ old('department')=="HR"? 'selected' : '' }}>HR</option>
@@ -183,7 +196,11 @@ User-create
                         </div>
                         <div class="form-row">
                             <div class="col">
-                                <label for="profile_text">About You</label>
+
+                                <label for="profile_text"  style="display:flex;flex-direction:row">
+                                    <p>About You</p> <p class="text-danger">*</p></label>
+
+
                                 <textarea class="form-control" id="profile_text" name="profile_text">{{old('profile_text')}}</textarea>
                             </div>
                             @error('profile_text')

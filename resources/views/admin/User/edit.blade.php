@@ -94,9 +94,7 @@ User-Edit
                                             <img class="rounded-circle" height="100px" width="100px" src={{ asset('Images/volunteer9.png') }} alt="Alt Images">
                                         </label>
                                     </div>
-
                                 </div>
-
                                 <div class="form-row">
                                     <div class="col-md-6">
                                         <label for="first_name">First Name</label>
@@ -121,7 +119,7 @@ User-Edit
                                 <div class="form-row">
                                     <div class="col-md-6">
                                         <label for="email">Email</label>
-                                        <input type="email" name="email" class="form-control" value={{ $user->email }} id="">
+                                        <input type="email" name="email" class="form-control" value={{ $user->email }} id="" @disabled(true)>
                                         @error('email')
                                         <div class="text-danger">
                                             {{ $message }}
@@ -200,7 +198,6 @@ User-Edit
                                     </div>
                                     @enderror
                                 </div>
-
                                 <div class="form-row justify-content-start">
                                     <div class="col-md-5">
                                         <label for="country">Country</label>
@@ -237,14 +234,12 @@ User-Edit
                                 <div class="form-row justify-content-between">
                                     <div class="col-md-6 py-4">
                                         <label for="status">Status</label>
-                                        <input type="radio" class="btn-check form-control" name="status" {{ old('status') == '1' ? 'checked' : '' }} value='1' id="success-outlined">
-                                        {{-- @if ($skill->status == 1) checked @endif> --}}
+                                        <input type="radio" class="btn-check " name="status" value='1' id="success-outlined" @if($user->status==1) checked @endif>
                                         <label class="btn btn-outline-success px-3" for="success-outlined">Active</label>
 
-                                        <input type="radio" class="btn-check form-control" value='0' name="status" id="danger-outlined">
-                                        {{-- @if ($skill->status == 0) checked @endif> --}}
+                                        <input type="radio" class="btn-check" value='0' name="status" id="danger-outlined" @if($user->status==0) checked @endif>
                                         <label class="btn btn-outline-danger px-3" for="danger-outlined">Inactive</label>
-                                        @error('status')
+                                       @error('status')
                                         <div class="text-danger">
                                             {{ $message }}
                                         </div>
