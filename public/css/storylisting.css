@@ -110,7 +110,10 @@
     margin-top: -12px;
     align-items: center !important;
 }
-
+/* .btn-outline-secondary {
+    color: #ffffff;
+    border: 2px solid white;
+} */
 .page-item.active .page-link {
     color: #fff !important;
     background-color: var(--bs-yellow) !important;

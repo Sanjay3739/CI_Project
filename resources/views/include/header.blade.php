@@ -15,18 +15,16 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink"
                                 style="max-height: 200px; width:50px;overflow-y:auto;">
                                 @foreach ($policies as $policy)
-                                    @if ($policy->status == '1')
-                                        <li class="nav-item">
-                                            <a href="{{ url('policy') . '#' . $policy->slug }}"
-                                                style="cursor: pointer;text-decoration:none;">
-                                                <div class="d-flex justify-content-between">
-                                                    <span class="nav-link text-dark"
-                                                        style="font-size: 12px">{{ $policy->title }}</span>
-                                                </div>
-                                            </a>
-                                            <hr>
-                                        </li>
-                                    @endif
+                                    <li class="nav-item">
+                                        <a href="{{ url('policy') . '#' . $policy->slug }}"
+                                            style="cursor: pointer;text-decoration:none;">
+                                            <div class="d-flex justify-content-between">
+                                                <span class="nav-link text-dark"
+                                                    style="font-size: 12px">{{ $policy->title }}</span>
+                                            </div>
+                                        </a>
+                                        <hr>
+                                    </li>
                                 @endforeach
                             </div>
                         </div>

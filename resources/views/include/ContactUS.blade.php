@@ -27,13 +27,14 @@
                                 <label for="subject" class="form-label">Subject*</label>
                                 <input type="text" class="form-control" id="subject"
                                     placeholder="Enter your Subject" name="subject">
+                                    <span class="text-danger" id="error_subject"></span>
                             </div>
                             <div class="col-12 mt-2">
                                 <label for="message" class="form-label">Message*</label>
                                 <textarea class="form-control" id="message" name="message" placeholder="Enter your message" name="message"></textarea>
+                                <span class="text-danger" id="error_message"></span>
                             </div>
                         </div>
-                        <p id="contactus-error" class="alert alert-danger" role="alert" style="display: none;">
                         </p>
                     </div>
                     <input type="hidden" id="user_id" name="user_id" value="{{ Auth::user()->user_id }}">
@@ -51,6 +52,7 @@
     $('#contactus').submit(function(event) {
         event.preventDefault();
         var user_id = $('#user_id').val();
+        $('[id^=error]').html('');
         $.ajax({
             type: 'POST',
             url: "{{ url('api/users/Contactus') }}",
@@ -64,7 +66,10 @@
                 var errors = response.responseJSON.errors;
                 var errorHtml = '';
                 $.each(errors, function(key, value) {
+                    var errorHtml = '';
                     errorHtml += '<p>' + value + '</p>';
+                    console.log(key + ',' + value);
+                    $('#error_' + key).html(errorHtml)
                 });
                 $('#contactus-error').html(errorHtml).show();
             },

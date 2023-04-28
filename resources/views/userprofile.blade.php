@@ -232,6 +232,7 @@
                                     <input type="password" class="form-control" id="old_password"
                                         placeholder="Enter Old Password" name="old_password">
                                 </div>
+                                <span class="text-danger" id="error_old_password"></span>
                             </div>
                         </div>
                         <div class="form-group">
@@ -240,6 +241,7 @@
                                     <input type="password" class="form-control" id="password"
                                         placeholder="Enter new Password" name="password">
                                 </div>
+                                <span class="text-danger" id="error_password"></span>
                             </div>
                         </div>
                         <div class="form-group">
@@ -248,9 +250,10 @@
                                     <input type="password" class="form-control" id="password_confirmation"
                                         placeholder="Enter confirm Password" name="confirm_password">
                                 </div>
+                                <span class="text-danger" id="error_confirm_password"></span>
                             </div>
                         </div>
-                        <div id="password-error" class="alert alert-danger" role="alert" style="display: none;"></div>
+
                     </div>
                     <div class="container">
                         <div class=" d-flex mt-3 justify-content-end">
@@ -290,7 +293,7 @@
                                 </div>
                             </div>
                             <div class="col-2 d-flex flex-column align-items-center justify-content-center"
-                            style="height: 100%; position: sticky; top:50%;">
+                                style="height: 100%; position: sticky; top:50%;">
                                 <a href="#" class="text-decoration-none text-muted add-skill "><i
                                         class="fas fa-chevron-right"></i></a>
                                 <a href="#" class="text-decoration-none text-muted remove-skill mt-2"><i
@@ -434,6 +437,7 @@
         $('#passwordForm').submit(function(event) {
             event.preventDefault();
             var user_id = $('#user_id').val();
+            $('[id^=error]').html('');
             $.ajax({
                 type: 'POST',
                 url: "{{ url('api/users/update-password') }}",
@@ -447,14 +451,15 @@
                     var errors = response.responseJSON.errors;
                     var errorHtml = '';
                     $.each(errors, function(key, value) {
+                        errorHtml = '';
                         errorHtml += '<p>' + value + '</p>';
+                        console.log(key + ',' + value);
+                        $('#error_' + key).html(errorHtml);
                     });
-                    $('#password-error').html(errorHtml).show();
                 },
             });
         });
     </script>
-
     {{-- city-country dropdown --}}
     <script>
         $(document).ready(function() {

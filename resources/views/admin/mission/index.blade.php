@@ -43,49 +43,45 @@
                         </form>
                     </div>
                     <a href="{{ route('mission.create') }}">
-                        <button type="button" class="btn px-4 text-right btn-outline-warning"
-                            style="border-radius:18px">Add</button>
+                        <button type="button" class="btn px-4 text-right btn-outline-warning rounded-pill">Add</button>
                     </a>
                 </div>
-                <div class="table-responsive">
-
-
-                    <table class="table  table-bordered">
-                        <thead>
+                <table class="table table-hover table-bordered text-center table-responsive-xl table-responsive-lg table-responsive-md table-responsive-ms">
+                    <thead>
+                        <tr>
+                            <th>Mission Title</th>
+                            <th>Mission Type</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th width="150px">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($missiondata as $data)
                             <tr>
-                                <th>Mission Title</th>
-                                <th>Mission Type</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
-                                <th width="150px">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($missiondata as $data)
-                                <tr>
-                                    <td>{{ $data->title }}</td>
-                                    <td>{{ $data->mission_type }}</td>
-                                    <td>{{ $data->start_date }}</td>
-                                    <td>{{ $data->end_date }}</td>
-                                    <td>
-                                        <a class="btn btn-white" href="{{ route('mission.edit', $data->mission_id) }}">
-                                            <img src="Images/edit.png" height="22px" width="22px" alt="edit">
-                                        </a>
-                                        <button type="button" data-toggle="modal"
-                                            data-target="#deleteModal-{{ $data->mission_id }}" class="btn btn-white">
-                                            <img src="Images/bin.png" alt="delete">
-                                        </button>
-                                        @include('admin.components.deleteModal', [
-                                            'id' => $data->mission_id,
+                                <td>{{ $data->title }}</td>
+                                <td>{{ $data->mission_type }}</td>
+                                <td>{{ $data->start_date }}</td>
+                                <td>{{ $data->end_date }}</td>
+                                <td>
+                                    <a class="btn btn-white" href="{{ route('mission.edit', $data->mission_id) }}">
+                                        <img src="Images/edit.png" height="22px" width="22px" alt="edit">
+                                    </a>
+                                    <button type="button" data-toggle="modal"
+                                        data-target="#deleteModal-{{ $data->mission_id }}" class="btn btn-white">
+                                        <img src="Images/bin.png" alt="delete">
+                                    </button>
+                                    @include('admin.components.deleteModal', [
+                                        'id' => $data->mission_id,
 
-                                            'form_action' => 'mission.destroy',
-                                        ])
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                                        'form_action' => 'mission.destroy',
+                                    ])
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                {{-- </div> --}}
             </div>
 
             <div class="ms-3">

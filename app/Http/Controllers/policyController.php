@@ -9,9 +9,9 @@ class policyController extends Controller
     public function policy(Request $request)
     {
 
-        $policies = CmsPage::orderBy('cms_page_id', 'asc')
-        ->paginate(12);
-
+        // $policies = CmsPage::orderBy('cms_page_id', 'asc')
+        // ->paginate(12);
+        $policies = CmsPage::where('status','1')->paginate(10);
         return view('admin.policy.login-policy', compact('policies'));
     }
 

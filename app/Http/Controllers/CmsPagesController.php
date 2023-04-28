@@ -11,9 +11,7 @@ class CmsPagesController extends Controller
     public function index(Request $request)
     {
         $user=Auth::user();
-        $policies = CmsPage::
-        orderBy('cms_page_id', 'asc')
-        ->paginate(12);
+        $policies = CmsPage::where('status','1')->paginate(10);
         return view('policy', compact('policies','user'));
     }
 }

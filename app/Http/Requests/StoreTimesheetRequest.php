@@ -31,10 +31,11 @@ class StoreTimesheetRequest extends FormRequest
             'mission_id' => 'required',
             'notes' => 'required|string',
             'action' => [
-                'numeric',
+
                 Rule::requiredIf(function () use ($mission) {
                     return $mission->mission_type === 'GOAL';
-                })
+                }),
+                'numeric',
             ],
             'hour' => [
 

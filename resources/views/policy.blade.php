@@ -15,13 +15,11 @@
                     <div class="collapse customnavbar-collapse" id="navbarNav">
                         <ul class="nav flex-column justify-content" style="list-style:none;padding-left:0;">
                             @foreach ($policies as $policy)
-                                @if ($policy->status == '1')
-                                    <li class="nav-item">
-                                        <a href="#{{ $policy->slug }}" style="cursor: pointer;text-decoration:none;"
-                                            class="nav-link text-dark pl-3 py-2">{{ $policy->title }}</a>
-                                    </li>
-                                    <hr>
-                                @endif
+                                <li class="nav-item">
+                                    <a href="#{{ $policy->slug }}" style="cursor: pointer;text-decoration:none;"
+                                        class="nav-link text-dark pl-3 py-2">{{ $policy->title }}</a>
+                                </li>
+                                <hr>
                             @endforeach
                         </ul>
                     </div>
@@ -30,18 +28,16 @@
                     <div class="col-sm-10" style="position: sticky;top:10%;">
                         <ul class="customnav flex-column justify-content" style="list-style:none;padding-left:0;">
                             @foreach ($policies as $policy)
-                                @if ($policy->status == '1')
-                                    <li class="nav-item">
-                                        <a href="#{{ $policy->slug }}" style="cursor: pointer;text-decoration:none;">
-                                            <div class="d-flex justify-content-between">
-                                                <span class="nav-link text-dark pl-3 py-2">{{ $policy->title }}</span>
-                                                <img src="Images/right-arrow1.png"
-                                                    style="width:auto;height:2%;padding-right:auto;">
-                                            </div>
-                                        </a>
-                                        <hr>
-                                    </li>
-                                @endif
+                                <li class="nav-item">
+                                    <a href="#{{ $policy->slug }}" style="cursor: pointer;text-decoration:none;">
+                                        <div class="d-flex justify-content-between">
+                                            <span class="nav-link text-dark pl-3 py-2">{{ $policy->title }}</span>
+                                            <img src="Images/right-arrow1.png"
+                                                style="width:auto;height:2%;padding-right:auto;">
+                                        </div>
+                                    </a>
+                                    <hr>
+                                </li>
                             @endforeach
                         </ul>
                     </div>
@@ -51,15 +47,13 @@
                 <div class="container">
                     <div class="row">
                         @foreach ($policies as $policy)
-                            @if ($policy->status == '1')
-                                <div class="tab-content">
-                                    <div class="tab-pane fade show active" id="{{ $policy->slug }}" role="tabpanel">
-                                        <h3 class="mt-3">{{ $policy->title }}</h3>
-                                        <p class="mt-3" style="line-height: 1.5;">{!! $policy->text !!}</p>
-                                        <hr>
-                                    </div>
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="{{ $policy->slug }}" role="tabpanel">
+                                    <h3 class="mt-3">{{ $policy->title }}</h3>
+                                    <p class="mt-3" style="line-height: 1.5;">{!! $policy->text !!}</p>
+                                    <hr>
                                 </div>
-                            @endif
+                            </div>
                         @endforeach
                     </div>
                 </div>
