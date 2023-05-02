@@ -1,14 +1,14 @@
 <div id="gridViewContent" class="row" id="missions">
     @foreach ($data as $item)
     {{-- This is grid view --}}
-    <div class="card col-lg-6 col-md-12 col-xxl-4 col-xl-6 border-0  pb-4 text-center">
+    <div class="card col-lg-6 col-md-12 col-xxl-4 col-xl-6 border-0 MB-2 pb-4 text-center" style="box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;">
         <div class="d-flex justify-content-center py-1">
             <div>
                 {{-- <div class="position-absolute current-status">
                 <span id="bagde_{{$item->mission_id}}" style="display: none;" class="badge bg-success
                 fs-6">Applied</span>
             </div> --}}
-            <div class="position-relative" style="width: 416px; height: 247px;">
+            <div class="position-relative" style="width: 415px; height: 247px;">
 
                 @if (count($item->missionApplication->where('user_id', $user_id)) !== 0)
                 <div class="position-absolute current-status">

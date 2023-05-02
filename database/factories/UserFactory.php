@@ -39,14 +39,7 @@ class UserFactory extends Factory
             'country_id' => $country,
             'city_id' => fake()->randomElement($cities),
             'avatar' => fake()->randomElement(['Images/volunteer1.png',
-            'Images/volunteer2.png',
-            'Images/volunteer3.png',
-            'Images/volunteer4.png',
-            'Images/volunteer5.png',
-            'Images/volunteer6.png',
-            'Images/volunteer7.png',
-            'Images/volunteer8.png',
-            'Images/volunteer9.png',
+          
         ]),
         ];
     }

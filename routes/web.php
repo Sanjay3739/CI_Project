@@ -153,8 +153,13 @@ Route::group(['middleware' => [ 'admin']], function () {
     Route::get('admin-mission-application', [MissionApplicationController::class, 'index']); //take the appilication
     Route::resource('application', ApplicationController::class);
     Route::resource('missiontheme', MissionThemeController::class);
+
+    Route::get('theme.show/{id}', [MissionThemeController::class, 'show'])->name('theme.show');
     Route::resource('missionskill', MissionSkillController::class);
+
+    Route::get('skill.show/{id}', [MissionSkillController::class, 'show'])->name('skill.show');
     Route::resource('user', UserController::class);
+    // Route::get('user.show/{id}', [UserController::class, 'show'])->name('user.show');
     Route::resource('story', StoryController::class);
     Route::resource('/mission', MissionController::class);
     Route::resource('/cmspage', CmsPageController::class);

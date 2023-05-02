@@ -90,13 +90,23 @@ class MissionSkillController extends Controller
         return back()->with('message', 'Skill Deleted sucessfully 😒');
     }
 
-    public function show(Skill $skill, $id)
-    {
-        /**
-         * Display the specified resource.
-         */
-        $skill = Skill::where('skill_id', $id)->first();
 
-        return view('admin.missionskill.show', compact('skill'));
+
+    public function show($id)
+    {
+        $skill = Skill::find($id);
+
+
+        return response()->json($skill);
     }
+
+    // public function show(Skill $skill, $id)
+    // {
+    //     /**
+    //      * Display the specified resource.
+    //      */
+    //     $skill = Skill::where('skill_id', $id)->first();
+
+    //     return view('admin.missionskill.show', compact('skill'));
+    // }
 }

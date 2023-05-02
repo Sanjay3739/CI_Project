@@ -20,17 +20,19 @@ class UserController extends Controller
     {
         $data = User::where([
 
-            [function ($query) use ($request) {
-                if (($rat = $request->search)) {
-                    $query->orWhere('first_name', 'LIKE', '%' . $rat . '%')
-                        ->orWhere('last_name', 'LIKE', '%' . $rat . '%')
-                        ->orWhere('email', 'LIKE', '%' . $rat . '%')
-                        ->orWhere('employee_id', 'LIKE', '%' . $rat . '%')
-                        ->orWhere('department', 'LIKE', '%' . $rat . '%')
-                        ->get();
+            [
+                function ($query) use ($request) {
+                    if (($rat = $request->search)) {
+                        $query->orWhere('first_name', 'LIKE', '%' . $rat . '%')
+                            ->orWhere('last_name', 'LIKE', '%' . $rat . '%')
+                            ->orWhere('email', 'LIKE', '%' . $rat . '%')
+                            ->orWhere('employee_id', 'LIKE', '%' . $rat . '%')
+                            ->orWhere('department', 'LIKE', '%' . $rat . '%')
+                            ->get();
+                    }
                 }
-            }]
-        ])->paginate(20)
+            ]
+        ])->paginate(15)
             ->appends(['rat' => $request->search]);
         return view('admin.user.index', compact('data'));
     }
@@ -79,7 +81,17 @@ class UserController extends Controller
         $countries = Country::where('country_id')->get(['country_id', 'name']);
         $users = User::where('user_id', $id)->first();
         return view('admin.user.show', compact('users', 'countries', 'cities'));
+
     }
+
+    // public function show($id)
+    // {
+    //     $cities = City::where('country_id')->get(['city_id', 'name']);
+    //     $countries = Country::where('country_id')->get(['country_id', 'name']);
+    //     $users = User::find($id);
+
+    //     return response()->json([$cities, $countries, $users]);
+    // }
     public function edit($id)
     {
         /**

@@ -107,6 +107,7 @@ User-Show
                 </div>
             </div>
         </div>
+        
         <table>
             <tfoot class="bg-secondary bg-gradient">
                 <tr>
