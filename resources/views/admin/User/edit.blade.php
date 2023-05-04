@@ -98,7 +98,7 @@ User-Edit
                                 <div class="form-row">
                                     <div class="col-md-6">
                                         <label for="first_name">First Name</label>
-                                        <input type="text" name="first_name" class="form-control" value={{ $user->first_name }} id="">
+                                        <input type="text" name="first_name" class="form-control @error('first_name') is-invalid @enderror" value={{ $user->first_name }} id="">
 
                                         @error('first_name')
                                         <div class="text-danger">
@@ -108,7 +108,7 @@ User-Edit
                                     </div>
                                     <div class="col-md-6">
                                         <label for="last_name">Last Name</label>
-                                        <input type="text" name="last_name" class="form-control" value={{ $user->last_name }} id="">
+                                        <input type="text" name="last_name" class="form-control  @error('last_name') is-invalid @enderror" value={{ $user->last_name }} id="">
                                         @error('last_name')
                                         <div class="text-danger">
                                             {{ $message }}
@@ -128,7 +128,7 @@ User-Edit
                                     </div>
                                     <div class="col-md-6">
                                         <label for="phone_number">Phone Number</label>
-                                        <input type="tel" name="phone_number" class="form-control" value={{ $user->phone_number }} id="">
+                                        <input type="tel" name="phone_number" class="form-control  @error('phone_number') is-invalid @enderror" value={{ $user->phone_number }} id="">
                                         @error('phone_number')
                                         <div class="text-danger">
                                             {{ $message }}
@@ -159,7 +159,7 @@ User-Edit
                                 <div class="form-row">
                                     <div class="col-md-6">
                                         <label for="employee_id">Employee ID</label>
-                                        <input type="text" name="employee_id" class="form-control" value="{{ $user->employee_id }}" id="">
+                                        <input type="text" name="employee_id" class="form-control @error('employee_id') is-invalid @enderror" value="{{ $user->employee_id }}" id="">
                                         @error('employee_id')
                                         <div class="text-danger">
                                             {{ $message }}
@@ -190,13 +190,14 @@ User-Edit
                                 <div class="form-row">
                                     <div class="col">
                                         <label for="profile_text">About You</label>
-                                        <textarea class="form-control" id="profile_text" name="profile_text">{{ $user->profile_text }}</textarea>
-                                    </div>
+                                        <textarea class="form-control @error('profile_text') is-invalid @enderror" id="profile_text" name="profile_text">{{ $user->profile_text }}</textarea>
+
                                     @error('profile_text')
                                     <div class="text-danger">
                                         {{ $message }}
                                     </div>
                                     @enderror
+                                </div>
                                 </div>
                                 <div class="form-row justify-content-start">
                                     <div class="col-md-5">
@@ -216,7 +217,7 @@ User-Edit
                                     </div>
                                     <div class="col-md-5">
                                         <label for="city">city</label>
-                                        <select class="form-control" name="city_id" id="city-dropdown">
+                                        <select class="form-control @error('city_id') is-invalid @enderror" name="city_id" id="city-dropdown">
                                             @isset($cities)
                                             @foreach ($cities as $city)
                                             <option value="{{ $city->city_id }}" {{ $user->city_id == $city->city_id ? 'selected' : '' }}>{{ $city->name }}

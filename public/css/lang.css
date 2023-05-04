@@ -1,0 +1,18 @@
+
+
+
+.boxs select {
+    background: #ecf0f3;
+    color: rgb(0, 17, 255);
+    padding: 8px;
+    width: 20%;
+    margin-left: 300px;;
+    border: none;
+    font-size: 20px;
+    border-radius: 50px;
+    box-shadow: inset 6px 6px 6px #cbced1, inset 6px 6px 6px white;
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
+}
+

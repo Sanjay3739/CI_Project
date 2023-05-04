@@ -39,6 +39,6 @@
     });
 
 </script>
-{{-- <script>
+<script>
     $(".alert").slideUp(2000);
-</script> --}}
+</script>

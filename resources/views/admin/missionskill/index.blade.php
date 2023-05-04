@@ -11,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 </head>
 @section('body')
-    <div class="container">
+    <div class="container-fluid">
         @if (Session::has('message'))
             <div class="alert alert-success mb-0 mt-3" role="alert">
                 {{ Session::get('message') }}
@@ -103,7 +103,7 @@
                                             {{-- <a href="{{ route('missionskill.show', $skill->skill_id) }}" class="btn mt-2
                                     btn-outline-primary btn-sm">View</a> --}}
 
-                                            <a href="javascript:void(0)" id="showskill"
+                                            {{-- <a href="javascript:void(0)" id="showskill"
                                                 data-url="{{ route('skill.show', $skill->skill_id) }}"> <svg width="26"
                                                     height="26" clip-rule="evenodd" fill-rule="evenodd"
                                                     stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24"
@@ -111,17 +111,17 @@
                                                     <path fill="#025091"
                                                         d="m11.998 5c-4.078 0-7.742 3.093-9.853 6.483-.096.159-.145.338-.145.517s.048.358.144.517c2.112 3.39 5.776 6.483 9.854 6.483 4.143 0 7.796-3.09 9.864-6.493.092-.156.138-.332.138-.507s-.046-.351-.138-.507c-2.068-3.403-5.721-6.493-9.864-6.493zm8.413 7c-1.837 2.878-4.897 5.5-8.413 5.5-3.465 0-6.532-2.632-8.404-5.5 1.871-2.868 4.939-5.5 8.404-5.5 3.518 0 6.579 2.624 8.413 5.5zm-8.411-4c2.208 0 4 1.792 4 4s-1.792 4-4 4-4-1.792-4-4 1.792-4 4-4zm0 1.5c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5z"
                                                         fill-rule="nonzero" />
-                                                </svg></a>
+                                                </svg></a> --}}
 
 
-                                            {{-- <a href="{{ route('missionskill.show', $skill->skill_id) }}">
+                                            <a href="{{ route('missionskill.show', $skill->skill_id) }}">
                                     <svg width="26" height="26" clip-rule="evenodd" fill-rule="evenodd"
                                         stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path fill="#025091"
                                             d="m11.998 5c-4.078 0-7.742 3.093-9.853 6.483-.096.159-.145.338-.145.517s.048.358.144.517c2.112 3.39 5.776 6.483 9.854 6.483 4.143 0 7.796-3.09 9.864-6.493.092-.156.138-.332.138-.507s-.046-.351-.138-.507c-2.068-3.403-5.721-6.493-9.864-6.493zm8.413 7c-1.837 2.878-4.897 5.5-8.413 5.5-3.465 0-6.532-2.632-8.404-5.5 1.871-2.868 4.939-5.5 8.404-5.5 3.518 0 6.579 2.624 8.413 5.5zm-8.411-4c2.208 0 4 1.792 4 4s-1.792 4-4 4-4-1.792-4-4 1.792-4 4-4zm0 1.5c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5z"
                                             fill-rule="nonzero" />
-                                    </svg></a> --}}
+                                    </svg></a>
 
                                             {{-- <a href="{{ route('missionskill.edit', $skill->skill_id) }}" class="btn mt-2
                                     btn-outline-warning btn-sm">Edit</a> --}}
@@ -168,12 +168,12 @@
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="userShowModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    {{-- <div class="modal fade" id="userShowModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">User Data</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">SKill Data</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -205,7 +205,7 @@
 
                     $('#userShowModal').modal('show');
                     $('#skill-id').text(data.skill_id);
-                    $('#skill-title').text(data.title);
+                    $('#skill-title').text(data.skill_name);
                     if (data.status == 0) {
                         $('#skill-status').addClass('text-danger').text('inactive');
                     } else {
@@ -216,5 +216,5 @@
                 });
             });
         });
-    </script>
+    </script> --}}
 @endsection

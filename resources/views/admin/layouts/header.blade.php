@@ -10,6 +10,27 @@
     <div class="position-absolute d-none d-lg-block" style="left: 230px">
         <span>{{ (new DateTime())->sub(new DateInterval('PT6H30M'))->format('l, F j, Y, g:i A') }}</span>
     </div>
+
+    <div class="col-lg">
+        <div class="boxs -3">
+
+            <select onchange="changelanguage(this.value)">
+                <option
+                    {{ session()->has('lang_code')?(session()->get('lang_code') == 'en' ? 'selected' : '' ) :''}}
+                    value='en'>🏁 English</option>
+                <option
+                    {{ session()->has('lang_code')?(session()->get('lang_code') == 'hin' ? 'selected' : '' ) :''}}
+                    value='hin'> 🏁 Hindi</option>
+                <option
+                    {{ session()->has('lang_code')?(session()->get('lang_code') == 'cn' ? 'selected' : '' ) :''}}
+                    value='cn'> 🏁 Chainese</option>
+                <option
+                    {{ session()->has('lang_code')?(session()->get('lang_code') == 'Gj' ? 'selected' : '' ) :''}}
+                    value='Gj'> 🏁 Gujrati</option>
+            </select>
+        </div>
+    </div>
+
     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
         <li class="nav-item dropdown">
             <div class="dropdown">

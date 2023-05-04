@@ -14,6 +14,8 @@
 
     <link href="{{asset('admin/css/styles.css')}}" rel="stylesheet" />
 
+        <link rel="stylesheet" href="{{asset('css/lang.css')}}" />
+
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" crossorigin="anonymous"></script>

@@ -58,6 +58,13 @@ class MissionThemeController extends Controller
     }
 
 
+    // public function show($id)
+    // {
+    //     $theme = MissionTheme::find($id);
+
+
+    //     return response()->json($theme);
+    // }
 
 
 
@@ -88,6 +95,13 @@ class MissionThemeController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
+
+
+     $validatedData = $request->validate([
+        'title' => 'required',
+
+     ]);
 
         $data = MissionTheme::where('mission_theme_id', $id)->first();
         $data->title = $request->title;

@@ -117,7 +117,7 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'bail|required|email',
+            // 'email' => 'bail|required|email',
             'phone_number' => 'bail|required|numeric',
             // 'password' => 'required',
             // 'confirm_password' => 'bail|required|same:password',

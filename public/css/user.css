@@ -1,4 +1,4 @@
-/* *::after,
+*::after,
 *::before {
     box-sizing: border-box;
 }
@@ -20,7 +20,7 @@ tr {
 
 .card-body {
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
-} */
+}
 
 .success {
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
@@ -64,7 +64,7 @@ tr {
     border-color: #ff6701;
     color: white;
 }
-
+/*
 @media (max-width: 1250px) {
     .btn:first-child {
 
@@ -184,7 +184,7 @@ tr {
         font-size: 10px !important;
     }
 }
-
+ */
 @media (max-width: 490px) {
 
 
@@ -204,4 +204,5 @@ tr {
     #marquee {
         width: 200px !important;
     }
+    
 }

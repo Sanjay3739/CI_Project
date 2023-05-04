@@ -26,7 +26,7 @@ use App\Http\Controllers\Admin\AdminPasswordResetController;
 use App\Http\Controllers\admin\MissionController;
 use App\Http\Controllers\admin\CmsPageController;
 use App\Http\Controllers\policyController;
-
+use App\Http\Controllers\languagecontroller;
 
 //frontend Routes//
 
@@ -107,36 +107,42 @@ Route::post('password-resetting', [PasswordResetController::class, 'passwordRese
 
 
 //user-route
-Route::group(['middleware' => ['user']], function(){
-Route::resource('timesheet', VolunteeringTimesheetController::class);
-Route::get('storydetails', [StoryDetailController::class, 'storydetails']);
-Route::resource('timesheet', TimesheetsController::class);
-Route::get('policy', [CmsPagesController::class, 'index'])->name('privacypolicy');
-Route::post('update-profile', [UserEditProfileController::class, 'updateProfile'])->name('update-profile');
-Route::get('edit-profile/{user_id}', [UserEditProfileController::class, 'editProfile'])->name('edit-profile')->middleware('auth');
-Route::post('logout', [UserEditProfileController::class, 'logout'])->name('logout');
-// Route::get('storylisting', [StoryListingController::class, 'index']);
-Route::get('storylisting', [StoryListingController::class, 'index'])->name('storylisting');
-Route::get('storydetail/{story_id}', [StoryDetailController::class, 'storydetails'])->name('storydetail');
-Route::post('stories/{story_id}', [ShareStoryController::class, 'updatedstory'])->name('stories.updatedstory');
-Route::get('sharestory', [ShareStoryController::class, 'index'])->name('sharestory');
-Route::resource('stories', ShareStoryController::class);
-Route::get('download/{filename}', [DownloadController::class, 'download']);
-Route::get('mission-page/{mission_id}', [MissionDetailController::class, 'main'])->name('mission-page');
-Route::get('index', [HomeController::class, 'index'])->name('main.index')->middleware('auth');
-Route::get('index-filter', [HomeController::class, 'filterApply'])->name('landing.filterApply')->middleware('auth');
-Route::get('index/find-city', [HomeController::class, 'findCity']);
-Route::get('index/find-theme', [HomeController::class, 'findTheme']);
-Route::get('index/find-skill', [HomeController::class, 'findSkill']);
-Route::get('filter-data', [HomeController::class, 'filterData']);
-Route::get('logout', [AuthController::class, 'logout'])->name('userlogout');
+Route::group(['middleware' => ['user']], function () {
+
+    Route::resource('timesheet', VolunteeringTimesheetController::class);
+    Route::get('storydetails', [StoryDetailController::class, 'storydetails']);
+    Route::resource('timesheet', TimesheetsController::class);
+    Route::get('policy', [CmsPagesController::class, 'index'])->name('privacypolicy');
+    Route::post('update-profile', [UserEditProfileController::class, 'updateProfile'])->name('update-profile');
+    Route::get('edit-profile/{user_id}', [UserEditProfileController::class, 'editProfile'])->name('edit-profile')->middleware('auth');
+    Route::post('logout', [UserEditProfileController::class, 'logout'])->name('logout');
+    // Route::get('storylisting', [StoryListingController::class, 'index']);
+    Route::get('storylisting', [StoryListingController::class, 'index'])->name('storylisting');
+    Route::get('storydetail/{story_id}', [StoryDetailController::class, 'storydetails'])->name('storydetail');
+    Route::post('stories/{story_id}', [ShareStoryController::class, 'updatedstory'])->name('stories.updatedstory');
+    Route::get('sharestory', [ShareStoryController::class, 'index'])->name('sharestory');
+    Route::resource('stories', ShareStoryController::class);
+    Route::get('download/{filename}', [DownloadController::class, 'download']);
+    Route::get('mission-page/{mission_id}', [MissionDetailController::class, 'main'])->name('mission-page');
+    Route::get('index', [HomeController::class, 'index'])->name('main.index')->middleware('auth');
+    Route::get('index-filter', [HomeController::class, 'filterApply'])->name('landing.filterApply')->middleware('auth');
+    Route::get('index/find-city', [HomeController::class, 'findCity']);
+    Route::get('index/find-theme', [HomeController::class, 'findTheme']);
+    Route::get('index/find-skill', [HomeController::class, 'findSkill']);
+    Route::get('filter-data', [HomeController::class, 'filterData']);
+    Route::get('logout', [AuthController::class, 'logout'])->name('userlogout');
 });
 //user-route
 
 
 
 //admin-route
-Route::group(['middleware' => [ 'admin']], function () {
+Route::group(['middleware' => ['admin', 'localization']], function () {
+
+
+    Route::get("change-language/{lang}", [languageController::class, 'changelanguage']);
+
+
     Route::get('admindashboard', [AdminAuthController::class, 'dashboard'])->name('dashboard');
     Route::post('admindashboard', [AdminAuthController::class, 'index'])->name('dashboard');
     Route::get('approve/{story_id}', [StoryController::class, 'approve']);
@@ -153,16 +159,16 @@ Route::group(['middleware' => [ 'admin']], function () {
     Route::get('admin-mission-application', [MissionApplicationController::class, 'index']); //take the appilication
     Route::resource('application', ApplicationController::class);
     Route::resource('missiontheme', MissionThemeController::class);
+    // Route::get('theme.show/{id}', [MissionThemeController::class, 'show'])->name('theme.show');
 
-    Route::get('theme.show/{id}', [MissionThemeController::class, 'show'])->name('theme.show');
     Route::resource('missionskill', MissionSkillController::class);
+    // Route::get('skill.show/{id}', [MissionSkillController::class, 'show'])->name('skill.show');
 
-    Route::get('skill.show/{id}', [MissionSkillController::class, 'show'])->name('skill.show');
     Route::resource('user', UserController::class);
     // Route::get('user.show/{id}', [UserController::class, 'show'])->name('user.show');
     Route::resource('story', StoryController::class);
     Route::resource('/mission', MissionController::class);
     Route::resource('/cmspage', CmsPageController::class);
-    Route::get('adminlogout', [AdminAuthController::class,'logout'])->name('adminlogout');
+    Route::get('adminlogout', [AdminAuthController::class, 'logout'])->name('adminlogout');
 });
 //admin-route

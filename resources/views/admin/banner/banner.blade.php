@@ -6,7 +6,7 @@ Banner
     <link rel="stylesheet" href="{{asset('css/banner.css')}}" />
 </head>
 @section('body')
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         @if (Session::has('message'))
         <div class="alert alert-success mb-0 mt-3" role="alert">

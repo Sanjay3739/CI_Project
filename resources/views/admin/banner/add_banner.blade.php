@@ -58,7 +58,7 @@ Banner-Create
                 <div class="form-row mb-4">
                     <div class="col-lg-12 ">
                         <label for="text">Title</label>
-                        <textarea rows="5" type="text" name="text" id="editor1" class="form-control">{{ old('text') }}</textarea>
+                        <textarea rows="5" type="text" name="text" id="editor1" class="form-control @error('text') is-invalid @enderror ">{{ old('text') }}</textarea>
                         @if ($errors->has('text'))
                         <span class="text-danger">{{ $errors->first('text') }}</span>
                         @endif
@@ -67,7 +67,7 @@ Banner-Create
                         <div class="row">
                             <div class="col-lg-3 col-md-12 ">
                                 <label for="Sort Order"> Sort Order</label>
-                                <input type="number" name="sort_order" class="form-control " value="{{ old('sort_order') }}">
+                                <input type="number" name="sort_order" class="form-control @error('sort_order') is-invalid @enderror " value="{{ old('sort_order') }}">
                                 @if ($errors->has('sort_order'))
                                 <span class="text-danger">{{ $errors->first('sort_order') }}</span>
                                 @endif
@@ -76,7 +76,7 @@ Banner-Create
 
                             <div class="col-lg-9 col-md-12 ">
                                 <label for="Image"> Image</label>
-                                <input type="file" name="image" class="form-control">
+                                <input type="file" name="image" class="form-control @error('image') is-invalid @enderror">
                                 @if ($errors->has('image'))
                                 <span class="text-danger">{{ $errors->first('image') }}</span>
                                 @endif

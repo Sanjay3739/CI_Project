@@ -81,14 +81,14 @@
                                 <div class="col-lg-6  mt-3">
                                     <div class="col-lg-12">
                                         <label for="Sort Order"> Sort Order</label>
-                                        <input type="number" name="sort_order" class="form-control popup   " value="{{ $banner->sort_order }}">
+                                        <input type="number" name="sort_order" class="form-control popup @error('sort_order') is-invalid @enderror  " value="{{ $banner->sort_order }}">
                                         @if ($errors->has('sort_order'))
                                         <span class="text-danger">{{ $errors->first('sort_order') }}</span>
                                         @endif
                                     </div>
                                     <div class="col-lg-12">
                                         <label for="text">Image:</label>
-                                        <input type="file" class="form-control" name="image" value="">
+                                        <input type="file" class="form-control @error('image') is-invalid @enderror" name="image" value="">
                                         @if ($errors->has('image'))
                                         <span class="text-danger">{{ $errors->first('image') }}</span>
                                         @endif

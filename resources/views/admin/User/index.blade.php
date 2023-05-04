@@ -13,7 +13,7 @@ User
 
 @section('body')
 <br>
-<div class="container">
+<div class="container-fluid">
     @if (Session::has('message'))
     <div class="alert alert-success mb-0 mt-3" role="alert">
         {{ Session::get('message') }}
@@ -24,65 +24,87 @@ User
         {{ Session::get('error') }}
     </div>
     @endif
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="mt-4">User</h1>
-            <marquee class="breadcrumb mb-4 w-25" id="marquee">
-                User-Index
-                <svg width="24" height="24" class="ms-5" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
-                    clip-rule="evenodd">
-                    <path
-                        d="M9 23h-5.991c-.553 0-1.001-.448-1.001-1s.448-1 1.001-1h2v-1h-2c-.553 0-1.001-.448-1.001-1s.448-1 1.001-1h2v-1h-2c-.553 0-1.001-.448-1.001-1s.448-1 1.001-1h18.008c.552 0 1 .448 1 1s-.448 1-1 1h-2.001v1h2.001c.552 0 1 .448 1 1s-.448 1-1 1h-2.001v1h2.001c.552 0 1 .448 1 1s-.448 1-1 1h-6.003v-6h-6.014v6zm13.172-9h-20.302l10.124-8.971 10.178 8.971zm-10.169-13s9.046 7.911 11.672 10.244c.413.367.45.999.083 1.412-.367.413-.996.445-1.412.083-2.421-2.105-10.343-9.063-10.343-9.063s-7.899 6.893-10.327 9.051c-.413.367-1.046.329-1.413-.083-.367-.413-.329-1.045.083-1.412 2.626-2.333 11.657-10.232 11.657-10.232zm.01 7c1.104 0 2 .896 2 2s-.896 2-2 2c-1.105 0-2.001-.896-2.001-2s.896-2 2.001-2zm7.003-5h2.984v5.128l-2.984-2.59v-2.538z" />
-                </svg>
-            </marquee>
-        </div>
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header rok">
-                    <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
+    {{-- <div class="col-lg-12">
+        <div class="boxs">
+            <select onchange="changelanguage(this.value)">
+                   <option {{ session()->has('lang_code')?(session()->get('lang_code') == 'en' ? 'selected' : '' ) :''}}
+    value='en'> usbgtft</option>
+    <option {{ session()->has('lang_code')?(session()->get('lang_code') == 'fr' ? 'selected' : '' ) :''}} value='fr'>
+        gujrat</option>
+    <option {{ session()->has('lang_code')?(session()->get('lang_code') == 'cn' ? 'selected' : '' ) :''}} value='cn'>
+        franch</option>
+    <option {{ session()->has('lang_code')?(session()->get('lang_code') == 'dn' ? 'selected' : '' ) :''}} value='dn'>
+        india</option>
+    </select>
+</div>
+</div>
+</div> --}}
+
+<div class="row">
+
+    <div class="col-lg-12">
+
+        <h1 class="mt-4">{{__("massages.User") }}</h1>
+        <div class="row">
+            <div class="col-lg-6">
+                <marquee class="breadcrumb mb-4 w-50" id="marquee">
+                    {{__("massages.User-Index") }}
+                    <svg width="24" height="24" class="ms-5" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
                         clip-rule="evenodd">
                         <path
                             d="M9 23h-5.991c-.553 0-1.001-.448-1.001-1s.448-1 1.001-1h2v-1h-2c-.553 0-1.001-.448-1.001-1s.448-1 1.001-1h2v-1h-2c-.553 0-1.001-.448-1.001-1s.448-1 1.001-1h18.008c.552 0 1 .448 1 1s-.448 1-1 1h-2.001v1h2.001c.552 0 1 .448 1 1s-.448 1-1 1h-2.001v1h2.001c.552 0 1 .448 1 1s-.448 1-1 1h-6.003v-6h-6.014v6zm13.172-9h-20.302l10.124-8.971 10.178 8.971zm-10.169-13s9.046 7.911 11.672 10.244c.413.367.45.999.083 1.412-.367.413-.996.445-1.412.083-2.421-2.105-10.343-9.063-10.343-9.063s-7.899 6.893-10.327 9.051c-.413.367-1.046.329-1.413-.083-.367-.413-.329-1.045.083-1.412 2.626-2.333 11.657-10.232 11.657-10.232zm.01 7c1.104 0 2 .896 2 2s-.896 2-2 2c-1.105 0-2.001-.896-2.001-2s.896-2 2.001-2zm7.003-5h2.984v5.128l-2.984-2.59v-2.538z" />
                     </svg>
-                </div>
+                </marquee>
+            </div>
 
-                <div class="card-body">
+        </div>
+    </div>
 
-                    <div class="d-flex justify-content-between m-3">
-                        <form class="m-0" action="{{ route('user.index') }}" method="PUT" enctype="multipart/form-data">
-                            @csrf
-                            <div class="rb">
-                                <div class="input-group">
-                                    <span class="input-group-text rbc">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24">
-                                            <path
-                                                d="M23.111 20.058l-4.977-4.977c.965-1.52 1.523-3.322 1.523-5.251 0-5.42-4.409-9.83-9.829-9.83-5.42 0-9.828 4.41-9.828 9.83s4.408 9.83 9.829 9.83c1.834 0 3.552-.505 5.022-1.383l5.021 5.021c2.144 2.141 5.384-1.096 3.239-3.24zm-20.064-10.228c0-3.739 3.043-6.782 6.782-6.782s6.782 3.042 6.782 6.782-3.043 6.782-6.782 6.782-6.782-3.043-6.782-6.782zm2.01-1.764c1.984-4.599 8.664-4.066 9.922.749-2.534-2.974-6.993-3.294-9.922-.749z" />
-                                        </svg>
-                                    </span>
-                                    <input type="text" name="search" value="{{ request()->input('search') }}"
-                                        placeholder="search" id="search" class="form-control rbc">
-                                </div>
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header rok">
+                <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
+                    <path
+                        d="M9 23h-5.991c-.553 0-1.001-.448-1.001-1s.448-1 1.001-1h2v-1h-2c-.553 0-1.001-.448-1.001-1s.448-1 1.001-1h2v-1h-2c-.553 0-1.001-.448-1.001-1s.448-1 1.001-1h18.008c.552 0 1 .448 1 1s-.448 1-1 1h-2.001v1h2.001c.552 0 1 .448 1 1s-.448 1-1 1h-2.001v1h2.001c.552 0 1 .448 1 1s-.448 1-1 1h-6.003v-6h-6.014v6zm13.172-9h-20.302l10.124-8.971 10.178 8.971zm-10.169-13s9.046 7.911 11.672 10.244c.413.367.45.999.083 1.412-.367.413-.996.445-1.412.083-2.421-2.105-10.343-9.063-10.343-9.063s-7.899 6.893-10.327 9.051c-.413.367-1.046.329-1.413-.083-.367-.413-.329-1.045.083-1.412 2.626-2.333 11.657-10.232 11.657-10.232zm.01 7c1.104 0 2 .896 2 2s-.896 2-2 2c-1.105 0-2.001-.896-2.001-2s.896-2 2.001-2zm7.003-5h2.984v5.128l-2.984-2.59v-2.538z" />
+                </svg>
+            </div>
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between m-3">
+                    <form class="m-0" action="{{ route('user.index') }}" method="PUT" enctype="multipart/form-data">
+                        @csrf
+                        <div class="rb">
+                            <div class="input-group">
+                                <span class="input-group-text rbc">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <path
+                                            d="M23.111 20.058l-4.977-4.977c.965-1.52 1.523-3.322 1.523-5.251 0-5.42-4.409-9.83-9.829-9.83-5.42 0-9.828 4.41-9.828 9.83s4.408 9.83 9.829 9.83c1.834 0 3.552-.505 5.022-1.383l5.021 5.021c2.144 2.141 5.384-1.096 3.239-3.24zm-20.064-10.228c0-3.739 3.043-6.782 6.782-6.782s6.782 3.042 6.782 6.782-3.043 6.782-6.782 6.782-6.782-3.043-6.782-6.782zm2.01-1.764c1.984-4.599 8.664-4.066 9.922.749-2.534-2.974-6.993-3.294-9.922-.749z" />
+                                    </svg>
+                                </span>
+                                <input type="text" name="search" value="{{ request()->input('search') }}"
+                                    placeholder="search" id="search" class="form-control rbc">
                             </div>
-                        </form>
-                        <div class="car">
-                            <a href="{{ route('user.create') }}" <button type="button"
-                                class="btn rounded text-right btn btn-outline-success success">
-                                <i class="fa-solid fa-plus px-3"></i> Add</button>
-                            </a>
                         </div>
+                    </form>
+                    <div class="car">
+                        <a href="{{ route('user.create') }}" <button type="button"
+                            class="btn rounded text-right btn btn-outline-success success">
+                            <i class="fa-solid fa-plus px-3"></i> {{__("massages.Add") }}</button>
+                        </a>
                     </div>
-
-                    <table class="table  table-hover  text-center table-responsive-lg table-responsive-md ">
+                </div>
+                <div class="table-responsive">
+                    <table class="table  table-hover  text-center  ">
                         <thead class="thead-light">
                             <tr>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Email</th>
-                                <th>Employee Id</th>
-                                <th>Department</th>
-                                <th id="op">Status</th>
-                                <th>Action</th>
+                                <th>{{__("massages.First Name") }} </th>
+                                <th>{{__("massages.Last Name") }} </th>
+                                <th> {{__("massages.Email") }}</th>
+                                <th> {{__("massages.Employee Id") }} </th>
+                                <th> {{__("massages.Department") }}</th>
+                                <th id="op"> {{__("massages.Status") }}</th>
+                                <th> {{__("massages.Action") }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -107,11 +129,12 @@ User
                                     @endif
                                 </td>
                                 <td>
+                                  
 
                                     {{-- <a href="javascript:void(0)" id="showuser"
-                                        data-url="{{ route('user.show', $item->user_id) }}"> <svg width="26" height="26" clip-rule="evenodd" fill-rule="evenodd"
-                                        stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg">
+                                        data-url="{{ route('user.show', $item->user_id) }}"> <svg width="26"
+                                        height="26" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round"
+                                        stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path fill="#025091"
                                             d="m11.998 5c-4.078 0-7.742 3.093-9.853 6.483-.096.159-.145.338-.145.517s.048.358.144.517c2.112 3.39 5.776 6.483 9.854 6.483 4.143 0 7.796-3.09 9.864-6.493.092-.156.138-.332.138-.507s-.046-.351-.138-.507c-2.068-3.403-5.721-6.493-9.864-6.493zm8.413 7c-1.837 2.878-4.897 5.5-8.413 5.5-3.465 0-6.532-2.632-8.404-5.5 1.871-2.868 4.939-5.5 8.404-5.5 3.518 0 6.579 2.624 8.413 5.5zm-8.411-4c2.208 0 4 1.792 4 4s-1.792 4-4 4-4-1.792-4-4 1.792-4 4-4zm0 1.5c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5z"
                                             fill-rule="nonzero" />
@@ -120,13 +143,13 @@ User
                                     btn-outline-primary btn-sm">View</a> --}}
 
                                     <a href="{{ route('user.show', $item->user_id) }}">
-                                    <svg width="26" height="26" clip-rule="evenodd" fill-rule="evenodd"
-                                        stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill="#025091"
-                                            d="m11.998 5c-4.078 0-7.742 3.093-9.853 6.483-.096.159-.145.338-.145.517s.048.358.144.517c2.112 3.39 5.776 6.483 9.854 6.483 4.143 0 7.796-3.09 9.864-6.493.092-.156.138-.332.138-.507s-.046-.351-.138-.507c-2.068-3.403-5.721-6.493-9.864-6.493zm8.413 7c-1.837 2.878-4.897 5.5-8.413 5.5-3.465 0-6.532-2.632-8.404-5.5 1.871-2.868 4.939-5.5 8.404-5.5 3.518 0 6.579 2.624 8.413 5.5zm-8.411-4c2.208 0 4 1.792 4 4s-1.792 4-4 4-4-1.792-4-4 1.792-4 4-4zm0 1.5c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5z"
-                                            fill-rule="nonzero" />
-                                    </svg></a>
+                                        <svg width="26" height="26" clip-rule="evenodd" fill-rule="evenodd"
+                                            stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill="#025091"
+                                                d="m11.998 5c-4.078 0-7.742 3.093-9.853 6.483-.096.159-.145.338-.145.517s.048.358.144.517c2.112 3.39 5.776 6.483 9.854 6.483 4.143 0 7.796-3.09 9.864-6.493.092-.156.138-.332.138-.507s-.046-.351-.138-.507c-2.068-3.403-5.721-6.493-9.864-6.493zm8.413 7c-1.837 2.878-4.897 5.5-8.413 5.5-3.465 0-6.532-2.632-8.404-5.5 1.871-2.868 4.939-5.5 8.404-5.5 3.518 0 6.579 2.624 8.413 5.5zm-8.411-4c2.208 0 4 1.792 4 4s-1.792 4-4 4-4-1.792-4-4 1.792-4 4-4zm0 1.5c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5z"
+                                                fill-rule="nonzero" />
+                                        </svg></a>
 
                                     {{-- <a href="{{route('user.edit',$item->user_id)}}" class="btn btn-outline-warning
                                     btn-sm">Edit</a> --}}
@@ -167,11 +190,11 @@ User
                             </tr>
                         </tfoot>
                     </table>
-
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 <!-- Button trigger modal -->
 
@@ -198,6 +221,8 @@ User
                 <p> <strong>last name:</strong> <span id="user-lastname"></span></p>
 
                 <p> <strong>email:</strong> <span id="user-email"></span></p>
+
+                 <p> <strong>Status:</strong> <span id="user-status"></span></p>
 
                 <p> <strong>mobile number:</strong> <span id="user-number"></span></p>
 
@@ -238,6 +263,12 @@ User
             $('#user-name').text(data[2].first_name);
             $('#user-lastname').text(data[2].last_name);
             $('#user-email').text(data[2].email);
+             if (data.status == 0) {
+                        $('#user-status').addClass('text-danger').text('inactive');
+                    } else {
+
+                        $('#user-status').addClass('text-success').text('active');
+                    }
             $('#user-number').text(data[2].phone_number);
             $('#user-department').text(data[2].title);
             $('#user-emloyeeid').text(data[2].employee_id);
@@ -252,4 +283,12 @@ User
     });
  });
 </script> --}}
+
+
+
+<script>
+    function changelanguage(lang){
+            window.location = '{{url("change-language")}}/' + lang;
+        }
+</script>
 @endsection

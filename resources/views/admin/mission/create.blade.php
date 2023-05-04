@@ -9,7 +9,7 @@
             @csrf
             <div class="col-md-6">
                 <label for="missionTitle" class="form-label">Mission Title*</label>
-                <input type="text" class="form-control" id="missionTitle" name='title' value="{{ old('title') }}">
+                <input type="text" class="form-control @error('title') is-invalid @enderror" id="missionTitle" name='title' value="{{ old('title') }}">
                 @error('title')
                     <div class="text-danger">
                         {{ $message }}
@@ -18,7 +18,7 @@
             </div>
             <div class="col-md-6">
                 <label for="missionDesc" class="form-label">Mission Short Description*</label>
-                <input type="text" class="form-control" id="missionDesc" name='short_description'
+                <input type="text" class="form-control @error('short_description') is-invalid @enderror" id="missionDesc" name='short_description'
                     value="{{ old('short_description') }}">
                 @error('short_description')
                     <div class="text-danger">
@@ -28,7 +28,7 @@
             </div>
             <div class="col-12">
                 <label for="inputAddress" class="form-label">Mission Description*</label>
-                <textarea name="description" id="editor1">{{ old('description') }}</textarea>
+                <textarea name="description" class="@error('description') is-invalid @enderror" id="editor1">{{ old('description') }}</textarea>
                 @error('description')
                     <div class="text-danger">
                         {{ $message }}
@@ -51,7 +51,7 @@
             </div>
             <div class="col-md-6">
                 <label for="city">City*</label>
-                <select class="form-control" name="city_id" id="city-dropdown">
+                <select class="form-control @error('city_id') is-invalid @enderror" name="city_id" id="city-dropdown">
                     <option value="none" selected="" disabled="" hidden=""></option>
                 </select>
                 @error('city_id')
@@ -62,17 +62,21 @@
             </div>
             <div class="col-md-6">
                 <label for="orgName" class="form-label">Mission Organisation Name</label>
-                <input type="text" class="form-control" id="orgName" name='organization_name'
-                    value="{{ old('organization_name') }}">
+                <input type="text" class="form-control  @error('organization_name') is-invalid @enderror " id="orgName" name='organization_name' value="{{ old('organization_name') }}">
+                    @error('organization_name')
+                    <div class="text-danger">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="col-md-6">
                 <label for="exampleFormControlTextarea1" class="form-label">Mission Organisation Detail</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name='organization_detail'>{{ old('organization_name') }}</textarea>
+                <textarea class="form-control"  class="@error('organization_detail') is-invalid @enderror" id="exampleFormControlTextarea1" rows="3" name='organization_detail'>{{ old('organization_name') }}</textarea>
             </div>
             <div class="col-md-6">
                 <label for="startdate" class="form-label">Mission Start Date*</label>
                 <div class='input-group date' id='datetimepicker1'>
-                    <input type='date' class="form-control" name='start_date' value="{{ old('start_date') }}" />
+                    <input type='date' class="form-control @error('start_date') is-invalid @enderror" name='start_date' value="{{ old('start_date') }}" />
                 </div>
                 @error('start_date')
                     <div class="text-danger">
@@ -83,7 +87,7 @@
             <div class="col-md-6">
                 <label for="enddate" class="form-label">Mission End Date*</label>
                 <div class='input-group date' id='datetimepicker1'>
-                    <input type='date' class="form-control" name='end_date' value="{{ old('end_date') }}" />
+                    <input type='date' class="form-control @error('end_date') is-invalid @enderror" name='end_date' value="{{ old('end_date') }}" />
                 </div>
                 @error('end_date')
                     <div class="text-danger">
@@ -106,7 +110,7 @@
             </div>
             <div class="col-md-6">
                 <label for="text" class="form-label">Total Seats*</label>
-                <input type="text" class="form-control" id="text" name='total_seats' disabled>
+                <input type="text" class="form-control @error('total_seats') is-invalid @enderror" id="text" name='total_seats' disabled>
                 @error('total_seats')
                     <div class="text-danger">
                         {{ $message }}
@@ -115,7 +119,7 @@
             </div>
             <div class="col-md-6">
                 <label for="missionRegDeadline" class="form-label">Mission Registration Deadline*</label>
-                <input type="date" class="form-control" id="missionRegDeadline" name='registration_deadline' disabled
+                <input type="date" class="form-control @error('registration_deadline') is-invalid @enderror" id="missionRegDeadline" name='registration_deadline' disabled
                     value="{{ old('registration_deadline') }}">
                 @error('registration_deadline')
                     <div class="text-danger">
@@ -125,7 +129,7 @@
             </div>
             <div class="col-md-6">
                 <label for="goal_objective_text" class="form-label">Goal Objective Text*</label>
-                <input type="text" class="form-control" id="goal_objective_text" name='goal_objective_text' disabled
+                <input type="text" class="form-control @error('goal_objective_text') is-invalid @enderror" id="goal_objective_text" name='goal_objective_text' disabled
                     value="{{ old('goal_objective_text') }}">
                 @error('goal_objective_text')
                     <div class="text-danger">
@@ -135,7 +139,7 @@
             </div>
             <div class="col-md-6">
                 <label for="goal_value" class="form-label">Goal Value*</label>
-                <input type="text" class="form-control" id="goal_value" name='goal_value' disabled
+                <input type="text" class="form-control @error('goal_value') is-invalid @enderror" id="goal_value" name='goal_value' disabled
                     value="{{ old('goal_value') }}">
                 @error('goal_value')
                     <div class="text-danger">
@@ -173,7 +177,7 @@
             </div>
             <div class="col-md-6">
                 <label class="form-label" for="customFile">Mission Images*</label>
-                <input type="file" class="form-control" id="customFile" name="media_name[]" multiple />
+                <input type="file" class="form-control @error('media_name[]') is-invalid @enderror" id="customFile" name="media_name[]" multiple />
                 @error('media_name.*')
                     <div class="text-danger">
                         {{ $message }}
@@ -182,7 +186,7 @@
             </div>
             <div class="col-md-6">
                 <label class="form-label" for="customFile">Mission Documents*</label>
-                <input type="file" class="form-control" id="customFile" name="document_name[]" multiple />
+                <input type="file" class="form-control @error('document_name[]') is-invalid @enderror" id="customFile" name="document_name[]" multiple />
                 @error('document_name.*')
                     <div class="text-danger">
                         {{ $message }}
@@ -200,7 +204,7 @@
             </div>
             <div class="col-md-6">
                 <label for="missionVideo" class="form-label">Mission Video</label>
-                <input type="text" class="form-control" id="orgVideo" name="media_names">
+                <input type="text" class="form-control @error('media_names') is-invalid @enderror" id="orgVideo" name="media_names">
                 @error('media_names')
                     <div class="text-danger">
                         {{ $message }}

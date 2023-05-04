@@ -6,7 +6,7 @@ Mission-Applications
     <link rel="stylesheet" href="{{asset('css/Application.css')}}" />
 </head>
 @section('body')
-<div class="container">
+<div class="container-fluid">
     @if (Session::has('message'))
     <div class="alert alert-success mb-0 mt-3" role="alert">
         {{ Session::get('message') }}

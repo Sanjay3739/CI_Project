@@ -19,7 +19,7 @@
                         <div class="form-row">
                             <div class="col-md-12 mb-3">
                                 <label for="Title">Title*</label>
-                                <input type="text" name="title" class="form-control" id="">
+                                <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" id="">
                                 @error('title')
                                     <div class="text-danger">
                                         {{ $message }}
@@ -27,8 +27,8 @@
                                 @enderror
                             </div>
                             <div class="col-md-12 mb-3">
-                                <label for="inputAddress" class="form-label">Description*</label>
-                                <textarea name="text" id="editor1"></textarea>
+                                <label for="inputAddress" class="form-label ">Description*</label>
+                                <textarea name="text" class="@error('text') is-invalid @enderror" id="editor1"></textarea>
                                 @error('text')
                                     <div class="text-danger">
                                         {{ $message }}
@@ -37,7 +37,7 @@
                             </div>
                             <div class="col-md-12 mb-3">
                                 <label for="slug">Slug*</label>
-                                <input type="text" name="slug" class="form-control" id="">
+                                <input type="text" name="slug" class="form-control @error('slug') is-invalid @enderror" id="">
                                 @error('slug')
                                     <div class="text-danger">
                                         {{ $message }}

@@ -39,7 +39,7 @@ Mission-Skill-Edit
                 <label for="skill_name">
                     <h5>Skill Name:</h5>
                 </label>
-                <input type="text" class='form-control' name='skill_name' value='{{$skill->skill_name}}'>
+                <input type="text" class='form-control @error('skill_name') is-invalid @enderror' name='skill_name' value='{{$skill->skill_name}}'>
                 @error('skill_name')
                 <div class="text-danger">
                     {{$message}}

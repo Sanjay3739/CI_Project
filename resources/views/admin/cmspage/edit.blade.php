@@ -20,7 +20,7 @@
                         <div class="form-row">
                             <div class="col-md-12 mb-3">
                                 <label for="Title">Title*</label>
-                                <input type="text" name="title" class="form-control" value='{{ $cmsPage->title }}'
+                                <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value='{{ $cmsPage->title }}'
                                     id="">
                                 @error('title')
                                     <div class="text-danger">
@@ -30,7 +30,7 @@
                             </div>
                             <div class="col-md-12 mb-3">
                                 <label for="inputAddress" class="form-label">Description*</label>
-                                <textarea name="text" id="editor1">{{ $cmsPage->text }}</textarea>
+                                <textarea name="text" class="@error('text') is-invalid @enderror" id="editor1">{{ $cmsPage->text }}</textarea>
                                 @error('text')
                                     <div class="text-danger">
                                         {{ $message }}
@@ -39,7 +39,7 @@
                             </div>
                             <div class="col-md-12 mb-3">
                                 <label for="slug">Slug*</label>
-                                <input type="text" name="slug" class="form-control" value='{{ $cmsPage->slug }}'
+                                <input type="text" name="slug" class="form-control @error('slug') is-invalid @enderror" value='{{ $cmsPage->slug }}'
                                     id="">
 
                                 @error('slug')

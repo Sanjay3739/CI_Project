@@ -96,8 +96,8 @@ User-create
                         <div class="form-row">
                             <div class="col-md-6">
                                 <label for="first_name"  style="display:flex;flex-direction:row">
-                                   <p>First Name</p> <p class="text-danger">*</p></label>
-                                <input type="text" name="first_name" class="form-control" value="{{old('first_name')}}" id="">
+                                   First Name</label>
+                                <input type="text" name="first_name" class="form-control @error('first_name') is-invalid @enderror " value="{{old('first_name')}}" id="">
 
                                 @error('first_name')
                                 <div class="text-danger">
@@ -106,10 +106,10 @@ User-create
                                 @enderror
                             </div>
                             <div class="col-md-6">
-                                <label for="last_name"  style="display:flex;flex-direction:row">
-                                    <p>Last Name</p> <p class="text-danger">*</p></label>
+                                <label for="last_name">
+                                Last Name</label>
 
-                                <input type="text" name="last_name" class="form-control" value="{{old('last_name')}}" id="">
+                                <input type="text" name="last_name" class="form-control @error('last_name') is-invalid @enderror" value="{{old('last_name')}}" id="">
                                 @error('last_name')
                                 <div class="text-danger">
                                     {{$message}}
@@ -119,10 +119,10 @@ User-create
                         </div>
                         <div class="form-row">
                             <div class="col-md-6">
-                                <label for="Email"  style="display:flex;flex-direction:row">
-                                    <p>Email</p> <p class="text-danger">*</p></label>
+                                <label for="Email">
+                                    Email</label>
 
-                                <input type="email" name="email" class="form-control" value="{{old('email')}}" id="">
+                                <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{old('email')}}" id="">
                                 @error('email')
                                 <div class="text-danger">
                                     {{$message}}
@@ -130,9 +130,9 @@ User-create
                                 @enderror
                             </div>
                             <div class="col-md-6">
-                                <label for="phone_number"  style="display:flex;flex-direction:row">
-                                    <p>Phone Number</p> <p class="text-danger">*</p></label>
-                                <input type="tel" name="phone_number" class="form-control" value="{{old('phone_number')}}" id="">
+                                <label for="phone_number">
+                                    Phone Number</label>
+                                <input type="tel" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" value="{{old('phone_number')}}" id="">
                                 @error('phone_number')
                                 <div class="text-danger">
                                     {{$message}}
@@ -164,10 +164,10 @@ User-create
                             <div class="col-md-6">
 
 
-                                <label for="employee_id"  style="display:flex;flex-direction:row">
-                                    <p>Employee ID</p> <p class="text-danger">*</p></label>
+                                <label for="employee_id">
+                                    Employee ID</label>
 
-                                <input type="text" name="employee_id" class="form-control" value="{{old('employee_id')}}" id="">
+                                <input type="text" name="employee_id" class="form-control @error('employee_id') is-invalid @enderror"  value="{{old('employee_id')}}" id="">
                                 @error('employee_id')
                                 <div class="text-danger">
                                     {{$message}}
@@ -176,10 +176,10 @@ User-create
                             </div>
                             <div class="col-md-6">
 
-                                <label for="department"  style="display:flex;flex-direction:row">
-                                    <p>Department</p> <p class="text-danger">*</p></label>
+                                <label for="department">
+                                    Department</label>
 
-                                <select id="inputState" name="department" class="form-control">
+                                <select id="inputState" name="department" class="form-control  @error('department') is-invalid @enderror">
                                     <option selected>Choose...</option>
                                     <option value="HR" {{ old('department')=="HR"? 'selected' : '' }}>HR</option>
                                     <option value="Development" {{ old('department')=="Development"? 'selected' : '' }}>Development</option>
@@ -188,8 +188,8 @@ User-create
                                     <option value="Manager" {{ old('department')=="Manager"? 'selected' : '' }}>Manager</option>
                                 </select>
                                 @error('department')
-                                <div class="text-danger">
-                                    {{$message}}
+                                <div class="text-danger invalid-feedback">
+                                    {{ $message }}
                                 </div>
                                 @enderror
                             </div>
@@ -197,22 +197,20 @@ User-create
                         <div class="form-row">
                             <div class="col">
 
-                                <label for="profile_text"  style="display:flex;flex-direction:row">
-                                    <p>About You</p> <p class="text-danger">*</p></label>
-
-
-                                <textarea class="form-control" id="profile_text" name="profile_text">{{old('profile_text')}}</textarea>
+                                <label for="profile_text">
+                                    About You</label>
+                                <textarea class="form-control @error('profile_text') is-invalid @enderror" id="profile_text" name="profile_text">{{old('profile_text')}}</textarea>
+                                @error('profile_text')
+                                <div class="text-danger ">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
-                            @error('profile_text')
-                            <div class="text-danger">
-                                {{$message}}
-                            </div>
-                            @enderror
                         </div>
                         <div class="form-row justify-content-start">
                             <div class="col-md-5">
                                 <label for="country">Country</label>
-                                <select name="country_id" class="form-control" id="country-dropdown">
+                                <select name="country_id" class="form-control @error('country_id') is-invalid @enderror"  id="country-dropdown">
                                     <option selected>Select Country</option>
                                     @foreach ($countries as $country)
                                     <option value="{{ $country->country_id }}" {{old('country_id')==$country->country_id? 'selected':''}}>{{ $country->name }}</option>
@@ -226,7 +224,7 @@ User-create
                             </div>
                             <div class="col-md-5">
                                 <label for="city">city</label>
-                                <select class="form-control" name="city_id" id="city-dropdown">
+                                <select class="form-control  @error('city_id') is-invalid @enderror" name="city_id" id="city-dropdown">
                                 </select>
                                 @error('city_id')
                                 <div class="text-danger">
@@ -238,7 +236,7 @@ User-create
                         <div class="form-row justify-content-between">
                             <div class="col-md-6 py-4">
                                 <label for="status">Status</label>
-                                <input type="radio" class="btn-check form-control" name="status" {{old('status')=='1'? 'checked':''}} value='1' id="success-outlined">
+                                <input type="radio" class="btn-check form-control " name="status" {{old('status')=='1'? 'checked':''}} value='1' id="success-outlined">
                                 {{-- @if($skill->status==1) checked @endif> --}}
                                 <label class="btn btn-outline-success px-3" for="success-outlined">Active</label>
 
