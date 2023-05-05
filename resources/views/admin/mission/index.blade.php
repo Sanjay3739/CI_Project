@@ -13,14 +13,14 @@
                 {{ session('success') }}
             </div>
         @endif
-        <h1 class=" h1 mt-4">Mission</h1>
+        <h1 class=" h1 mt-4">  {{__("massages.Mission") }}</h1>
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
         @endif
         <marquee class="breadcrumb mb-4 w-25 " id="marquee">
-            Mission-Index
+              {{__("massages.Mission-Index") }}
             <svg width="24" height="24" class="ms-5" xmlns="http://www.w3.org/2000/svg"
                 fill-rule="evenodd" clip-rule="evenodd">
                 <path
@@ -53,17 +53,17 @@
                         </form>
                     </div>
                     <a href="{{ route('mission.create') }}">
-                        <button type="button" class="btn px-4 text-right btn-outline-warning rounded-pill">Add</button>
+                        <button type="button" class="btn px-4 text-right btn-outline-warning rounded-pill">{{__("massages.Add") }}</button>
                     </a>
                 </div>
                 <table class="table table-hover table-bordered text-center table-responsive-xl table-responsive-lg table-responsive-md table-responsive-ms">
                     <thead>
                         <tr>
-                            <th>Mission Title</th>
-                            <th>Mission Type</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th width="150px">Action</th>
+                            <th>   {{__("massages.Mission Title") }}</th>
+                            <th>    {{__("massages.Mission Type") }}</th>
+                            <th>    {{__("massages.Start Date") }}</th>
+                            <th>   {{__("massages.End Date") }}</th>
+                            <th width="150px"> {{__("massages.Action") }}</th>
                         </tr>
                     </thead>
                     <tbody>

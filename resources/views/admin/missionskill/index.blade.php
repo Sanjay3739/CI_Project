@@ -25,14 +25,14 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="container-fluid px-1">
-                    <h1 class=" h1 mt-4">Mission Skill</h1>
+                    <h1 class=" h1 mt-4"> {{__("massages.Mission Skill") }}</h1>
                     @if (session('success'))
                         <div class="alert alert-success">
                             {{ session('success') }}
                         </div>
                     @endif
                     <marquee class="breadcrumb mb-4 w-25 " id="marquee">
-                        Skill-Index
+                          {{__("massages.Skill-Index") }}
                         <svg width="24" height="24" class="ms-5" xmlns="http://www.w3.org/2000/svg"
                             fill-rule="evenodd" clip-rule="evenodd">
                             <path
@@ -68,7 +68,7 @@
                         <div class="card add_btn ">
                             <a href="{{ route('missionskill.create') }}">
                                 <button type="button" class="btn rounded text-right btn btn-outline-success success">
-                                    <i class="fa-solid fa-plus"></i> Add</button>
+                                    <i class="fa-solid fa-plus"></i> {{__("massages.Add") }}</button>
                             </a>
                         </div>
                     </div>
@@ -77,10 +77,10 @@
                             class="table table-hover mw-100 w-100 table-bordered text-center  table-responsive-lg  table-responsive-md table-responsive-sm">
                             <thead class="thead-light">
                                 <tr>
-                                    <th class="fs-7" scope="col">ID</th>
-                                    <th class="fs-7" scope="col">Skill Name</th>
-                                    <th class="fs-7" scope="col">Status</th>
-                                    <th class="fs-7" scope="col">Action</th>
+                                    <th class="fs-7" scope="col"> {{__("massages.ID") }}</th>
+                                    <th class="fs-7" scope="col"> {{__("massages.Skill Name") }}</th>
+                                    <th class="fs-7" scope="col"> {{__("massages.Status") }}</th>
+                                    <th class="fs-7" scope="col">  {{__("massages.Action") }}</th>
                                 </tr>
                             </thead>
                             <tbody>

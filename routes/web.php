@@ -25,6 +25,7 @@ use App\Http\Controllers\admin\ForgetPasswordController;
 use App\Http\Controllers\Admin\AdminPasswordResetController;
 use App\Http\Controllers\admin\MissionController;
 use App\Http\Controllers\admin\CmsPageController;
+use App\Http\Controllers\Timecontroller;
 use App\Http\Controllers\policyController;
 use App\Http\Controllers\languagecontroller;
 
@@ -136,13 +137,13 @@ Route::group(['middleware' => ['user']], function () {
 
 
 
+
 //admin-route
 Route::group(['middleware' => ['admin', 'localization']], function () {
-
-
     Route::get("change-language/{lang}", [languageController::class, 'changelanguage']);
-
-
+    Route::get('time', [Timecontroller::class, 'Time'])->name('time');
+    Route::get('tapprove/{timesheet_id}', [Timecontroller::class,'tapprove'])->name('tapprove');
+    Route::get('tdecline/{timesheet_id}', [Timecontroller::class,'tdecline'])->name('tdecline');
     Route::get('admindashboard', [AdminAuthController::class, 'dashboard'])->name('dashboard');
     Route::post('admindashboard', [AdminAuthController::class, 'index'])->name('dashboard');
     Route::get('approve/{story_id}', [StoryController::class, 'approve']);
@@ -160,10 +161,8 @@ Route::group(['middleware' => ['admin', 'localization']], function () {
     Route::resource('application', ApplicationController::class);
     Route::resource('missiontheme', MissionThemeController::class);
     // Route::get('theme.show/{id}', [MissionThemeController::class, 'show'])->name('theme.show');
-
     Route::resource('missionskill', MissionSkillController::class);
     // Route::get('skill.show/{id}', [MissionSkillController::class, 'show'])->name('skill.show');
-
     Route::resource('user', UserController::class);
     // Route::get('user.show/{id}', [UserController::class, 'show'])->name('user.show');
     Route::resource('story', StoryController::class);

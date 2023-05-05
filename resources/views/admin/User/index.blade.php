@@ -129,7 +129,7 @@ User
                                     @endif
                                 </td>
                                 <td>
-                                  
+
 
                                     {{-- <a href="javascript:void(0)" id="showuser"
                                         data-url="{{ route('user.show', $item->user_id) }}"> <svg width="26"
@@ -284,11 +284,11 @@ User
  });
 </script> --}}
 
-
+{{--
 
 <script>
     function changelanguage(lang){
             window.location = '{{url("change-language")}}/' + lang;
         }
-</script>
+</script> --}}
 @endsection

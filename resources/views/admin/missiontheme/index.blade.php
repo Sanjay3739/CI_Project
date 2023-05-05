@@ -23,14 +23,14 @@ MissionTheme
     <div class="row">
         <div class="col-lg-12">
             <div class="container-fluid px-1">
-                <h1 class="mt-4">Mission Theme</h1>
+                <h1 class="mt-4">{{__("massages.Mission Theme") }}</h1>
                 @if (session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}
                 </div>
                 @endif
                 <marquee class="breadcrumb mb-4 w-25 " id="marquee">
-                    Theme-Index
+                    {{__("massages.Theme-Index") }}
                     <svg width="24" height="24" class="ms-5" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
                         clip-rule="evenodd">
                         <path
@@ -67,7 +67,7 @@ MissionTheme
                     <div class="car ">
                         <a href="{{ route('missiontheme.create') }}" <button type="button"
                             class="btn rounded text-right btn btn-outline-success success">
-                            <i class="fa-solid fa-plus px-3"></i> Add</button>
+                            <i class="fa-solid fa-plus px-3"></i> {{__("massages.Add") }}</button>
                         </a>
                     </div>
                 </div>
@@ -75,10 +75,10 @@ MissionTheme
                     <table class="table  w-100 table-hover table-bordered text-center  ">
                         <thead class="thead-light">
                             <tr>
-                                <th>ID</th>
-                                <th>Title</th>
-                                <th>Status</th>
-                                <th>Actions</th>
+                                <th>{{__("massages.ID") }} </th>
+                                <th>{{__("massages.title") }} </th>
+                                <th>{{__("massages.Status") }} </th>
+                                <th>{{__("massages.Action") }}  </th>
                             </tr>
                         </thead>
                         <tbody>

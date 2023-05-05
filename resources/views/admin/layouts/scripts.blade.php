@@ -42,3 +42,9 @@
 <script>
     $(".alert").slideUp(2000);
 </script>
+
+<script>
+    function changelanguage(lang){
+            window.location = '{{url("change-language")}}/' + lang;
+        }
+</script>

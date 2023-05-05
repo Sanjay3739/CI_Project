@@ -1,12 +1,18 @@
 @extends('admin.app')
+
 @section('title')
-Mission-Applications
+Time Sheet
 @endsection
 
 <head>
-    <link rel="stylesheet" href="{{ asset('css/Application.css') }}" />
+    <link rel="stylesheet" href={{ asset('css/user.css') }}>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"> --}}
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 </head>
+
 @section('body')
+<br>
 <div class="container-fluid">
     @if (Session::has('message'))
     <div class="alert alert-success mb-0 mt-3" role="alert">
@@ -18,17 +24,25 @@ Mission-Applications
         {{ Session::get('error') }}
     </div>
     @endif
-    <h3 class=" mt-4"> {{ __('massages.Mission Application') }} </h3>
+
     <div class="row">
-        <div class="col-md-12">
-            <marquee class="breadcrumb mb-4 w-25 " id="marquee">
-                {{ __('massages.Mission-Application') }}
-                <svg width="24" height="24" class="ms-5" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
-                    clip-rule="evenodd">
-                    <path
-                        d="M9 23h-5.991c-.553 0-1.001-.448-1.001-1s.448-1 1.001-1h2v-1h-2c-.553 0-1.001-.448-1.001-1s.448-1 1.001-1h2v-1h-2c-.553 0-1.001-.448-1.001-1s.448-1 1.001-1h18.008c.552 0 1 .448 1 1s-.448 1-1 1h-2.001v1h2.001c.552 0 1 .448 1 1s-.448 1-1 1h-2.001v1h2.001c.552 0 1 .448 1 1s-.448 1-1 1h-6.003v-6h-6.014v6zm13.172-9h-20.302l10.124-8.971 10.178 8.971zm-10.169-13s9.046 7.911 11.672 10.244c.413.367.45.999.083 1.412-.367.413-.996.445-1.412.083-2.421-2.105-10.343-9.063-10.343-9.063s-7.899 6.893-10.327 9.051c-.413.367-1.046.329-1.413-.083-.367-.413-.329-1.045.083-1.412 2.626-2.333 11.657-10.232 11.657-10.232zm.01 7c1.104 0 2 .896 2 2s-.896 2-2 2c-1.105 0-2.001-.896-2.001-2s.896-2 2.001-2zm7.003-5h2.984v5.128l-2.984-2.59v-2.538z" />
-                </svg>
-            </marquee>
+
+        <div class="col-lg-12">
+
+            <h1 class="mt-4">{{ __('massages.Timesheet') }}</h1>
+            <div class="row">
+                <div class="col-lg-6">
+                    <marquee class="breadcrumb mb-4 w-50" id="marquee">
+                        {{ __('massages.Timesheet-Index') }}
+                        <svg width="24" height="24" class="ms-5" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
+                            clip-rule="evenodd">
+                            <path
+                                d="M9 23h-5.991c-.553 0-1.001-.448-1.001-1s.448-1 1.001-1h2v-1h-2c-.553 0-1.001-.448-1.001-1s.448-1 1.001-1h2v-1h-2c-.553 0-1.001-.448-1.001-1s.448-1 1.001-1h18.008c.552 0 1 .448 1 1s-.448 1-1 1h-2.001v1h2.001c.552 0 1 .448 1 1s-.448 1-1 1h-2.001v1h2.001c.552 0 1 .448 1 1s-.448 1-1 1h-6.003v-6h-6.014v6zm13.172-9h-20.302l10.124-8.971 10.178 8.971zm-10.169-13s9.046 7.911 11.672 10.244c.413.367.45.999.083 1.412-.367.413-.996.445-1.412.083-2.421-2.105-10.343-9.063-10.343-9.063s-7.899 6.893-10.327 9.051c-.413.367-1.046.329-1.413-.083-.367-.413-.329-1.045.083-1.412 2.626-2.333 11.657-10.232 11.657-10.232zm.01 7c1.104 0 2 .896 2 2s-.896 2-2 2c-1.105 0-2.001-.896-2.001-2s.896-2 2.001-2zm7.003-5h2.984v5.128l-2.984-2.59v-2.538z" />
+                        </svg>
+                    </marquee>
+                </div>
+
+            </div>
         </div>
         <div class="col-md-12">
             <div class="card">
@@ -39,7 +53,7 @@ Mission-Applications
                     </svg>
                 </div>
                 <div class="d-flex justify-content-between m-3">
-                    <form class="m-0" action="{{ route('application.index') }}" method="PUT"
+                    <form class="m-0" action="{{ route('time') }}" method="PUT"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="rb">
@@ -60,36 +74,36 @@ Mission-Applications
                     <table class="table table-hover  ">
                         <thead class="thead-light">
                             <tr>
-                                <th class="fs-7" scope="col"> {{ __('massages.Mission Title') }} </th>
-                                <th class="fs-7" scope="col"> {{ __('massages.Mission Id') }} </th>
-                                <th class="fs-7" scope="col">{{ __('massages.User Id') }} </th>
-                                <th class="fs-7" scope="col"> {{ __('massages.User Name') }} </th>
-                                <th class="fs-7" scope="col"> {{ __('massages.Appication Date') }} </th>
-                                <th class="fs-7" scope="col"> {{ __('massages.Action') }} </th>
+                                <th class="fs-7" scope="col"> {{__('massages.Mission Title') }} </th>
+                                <th class="fs-7" scope="col"> {{__('massages.Goal') }} </th>
+                                <th class="fs-7" scope="col">{{__('massages.Time') }} </th>
+                                <th class="fs-7" scope="col"> {{__('massages.volnteered Date') }} </th>
+                                <th class="fs-7" scope="col"> {{__('massages.Status') }} </th>
+                                <th class="fs-7" scope="col"> {{__('massages.Action') }} </th>
 
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($application as $app)
+                            @foreach ($timesheets as $time)
                             <tr>
-                                <td class="fs-20">{{ $app->title }}</td>
-                                <td class="fs-20">{{ $app->mission_id }}</td>
-                                <td class="fs-20">{{ $app->user_id }}</td>
-                                <td class="fs-20">{{ $app->first_name . ' ' . $app->last_name }}</td>
-                                <td class="fs-20">{{ $app->applied_at }}</td>
+                                <td class="fs-20">{{ $time->title }}</td>
+                                <td class="fs-20">{{ $time->timesheet_id }}</td>
+                                <td class="fs-20">{{ $time->time}}</td>
+                                <td class="fs-20">{{ $time->date_volunteered }}</td>
+                                <td class="fs-20">{{ $time->status }}</td>
                                 <td class="fs-20">
-                                    <a href="approve_app/{{ $app->mission_application_id }}">
+                                    <a href="tapprove/{{ $time->timesheet_id }}">
                                         <svg clip-rule="evenodd" fill-rule="evenodd"
-                                            href="approve_app/{{ $app->mission_application_id }}"
+                                            href="tapprove/{{ $time->timesheet_id }}"
                                             stroke-linejoin="round" stroke-miterlimit="2" height="35" width="35"
                                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path id="green"
                                                 d="m11.998 2.005c5.517 0 9.997 4.48 9.997 9.997 0 5.518-4.48 9.998-9.997 9.998-5.518 0-9.998-4.48-9.998-9.998 0-5.517 4.48-9.997 9.998-9.997zm0 1.5c-4.69 0-8.498 3.807-8.498 8.497s3.808 8.498 8.498 8.498 8.497-3.808 8.497-8.498-3.807-8.497-8.497-8.497zm-5.049 8.886 3.851 3.43c.142.128.321.19.499.19.202 0 .405-.081.552-.242l5.953-6.509c.131-.143.196-.323.196-.502 0-.41-.331-.747-.748-.747-.204 0-.405.082-.554.243l-5.453 5.962-3.298-2.938c-.144-.127-.321-.19-.499-.19-.415 0-.748.335-.748.746 0 .205.084.409.249.557z"
                                                 fill-rule="nonzero" />
                                         </svg></a>
-                                    <a href="decline_app/{{ $app->mission_application_id }}">
+                                    <a href="tdecline/{{ $time->timesheet_id }}">
                                         <svg clip-rule="evenodd" fill-rule="evenodd"
-                                            href="decline_app/{{ $app->mission_application_id }}"
+                                            href="tdecline/{{ $time->timesheet_id }}"
                                             stroke-linejoin="round" stroke-miterlimit="2" height="35" width="35"
                                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path id="red"
@@ -102,7 +116,7 @@ Mission-Applications
                         </tbody>
                         <tfoot id="tf">
                             <tr>
-                                <td colspan="6"> {!! $application->links('pagination::bootstrap-4') !!}</td>
+                                <td colspan="6"> {!! $timesheets->links('pagination::bootstrap-4') !!}</td>
                             </tr>
                         </tfoot>
                     </table>

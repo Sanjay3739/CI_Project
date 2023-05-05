@@ -103,7 +103,7 @@ class Mission extends Model
 
     public function timeSheet()
     {
-        return $this->hasMany(TimeSheet::class, 'mission_id');
+        return $this->hasMany(TimeSheet::class, 'mission_id','timesheet_id' );
     }
 
     public function userSkill()

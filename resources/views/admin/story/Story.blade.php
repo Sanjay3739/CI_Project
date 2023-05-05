@@ -20,9 +20,9 @@ Story
     @endif
     <div class="row">
         <div class="col-lg-12">
-            <h3 class="mt-4 mb-2" id="jd">Stories</h3>
+            <h3 class="mt-4 mb-2" id="jd">{{__("massages.Stories") }}</h3>
             <marquee class="breadcrumb mb-4 w-25 " id="marquee">
-                Story-Index
+                {{__("massages.Story-Index") }}
                 <svg width="24" height="24" class="ms-5" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
                     clip-rule="evenodd">
                     <path
@@ -63,10 +63,10 @@ Story
                             <table class="table table-responsive-lg table-hover table-responsive-md text-center">
                                 <thead class="thead-light border-bottom">
                                     <tr>
-                                        <th class="p-2 pe-0 fs-6" scope="col">Story Title</th>
-                                        <th class="p-2 pe-0 fs-6" scope="col">Full Name</th>
-                                        <th class="p-2 pe-0 fs-6" scope="col">Mission Title</th>
-                                        <th class="p-2 pe-0 fs-6" scope="col">Action</th>
+                                        <th class="p-2 pe-0 fs-6" scope="col">{{__("massages.Story Title")}}</th>
+                                        <th class="p-2 pe-0 fs-6" scope="col">{{__("massages.Full Name")}}</th>
+                                        <th class="p-2 pe-0 fs-6" scope="col">{{__("massages.Mission Title")}}</th>
+                                        <th class="p-2 pe-0 fs-6" scope="col">{{__("massages.Action")}}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -142,4 +142,10 @@ Story
         </div>
     </div>
 </div>
+
+<script>
+    function changelanguage(lang){
+            window.location = '{{url("change-language")}}/' + lang;
+        }
+</script>
 @endsection

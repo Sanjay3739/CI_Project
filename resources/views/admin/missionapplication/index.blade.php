@@ -2,12 +2,12 @@
 
 
 @section('title')
-    Mission Application
+     {{__("massages.Mission Application") }}
 @endsection
 
 @section('body')
     <div class="container-fluid px-4">
-        <ul class="nav border-bottom"><span class="nav-link active fs-1"> Mission Application </span></ul>
+        <ul class="nav border-bottom"><span class="nav-link active fs-1">  {{__("massages.Mission Application") }}</span></ul>
 
         @include('admin.components.successAlert')
 
@@ -35,12 +35,12 @@
         <table class="table table-responsive border-start border-end">
             <thead style="background-color: #F8F9FC">
                 <tr>
-                    <th width="300px">Mission Title</th>
-                    <th width="300px">Mission Id</th>
-                    <th width="300px">User Id</th>
-                    <th width="300px">User Name</th>
-                    <th width="300px">Applied Date</th>
-                    <th width="300px">Action</th>
+                    <th width="300px">             {{__("massages.Mission Title ") }}</th>
+                    <th width="300px">             {{__("massages.Mission Id ") }}</th>
+                    <th width="300px">             {{__("massages.User Id ") }}</th>
+                    <th width="300px">             {{__("massages.User Name ") }}</th>
+                    <th width="300px">              {{__("massages.Applied Date") }}</th>
+                    <th width="300px">              {{__("massages.Action") }}</th>
                 </tr>
             </thead>
             <tbody>

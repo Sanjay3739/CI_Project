@@ -22,7 +22,7 @@ class TimeSheet extends Model
      ];
 
     public function mission() {
-        return $this->belongsTo(Mission::class, 'mission_id');
+        return $this->belongsTo(Mission::class, 'mission_id',);
     }
 
     public function user() {
