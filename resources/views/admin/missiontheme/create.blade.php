@@ -59,7 +59,7 @@ MissionTheme-Create
                             @enderror
                         </div>
                         <div class="form-group form-check">
-                            <input type="radio" class="btn-check name="status" {{old('status')=='1'?'checked':''}}
+                            <input type="radio" class="btn-check" name="status" {{old('status')=='1'?'checked':''}}
                                 value='1' id="success-outlined">
                             <label class="btn btn-outline-success px-3" for="success-outlined">Active</label>
 

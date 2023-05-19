@@ -29,7 +29,7 @@ class UserFactory extends Factory
             'first_name' => fake()->firstname(),
             'last_name' => fake()->lastName(),
             'email' => fake()->unique()->safeEmail(),
-            'employee_id' => fake()->unique()->randomNumber(9),
+            'employee_id' => fake()->unique()->randomNumber(5),
             'department' => fake()->randomElement(['HR', 'SALES', 'DEVELOPER', 'DEPLOYER', 'MANAGER']),
             'status' => fake()->numberBetween(0,1),
             'password' => bcrypt(fake()->word()), //passsword
@@ -39,7 +39,7 @@ class UserFactory extends Factory
             'country_id' => $country,
             'city_id' => fake()->randomElement($cities),
             'avatar' => fake()->randomElement(['Images/volunteer1.png',
-          
+
         ]),
         ];
     }

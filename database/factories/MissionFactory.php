@@ -22,9 +22,9 @@ class MissionFactory extends Factory
         $countries = Country::All()->pluck('country_id')->toArray();
         $country = $this->faker->randomElement($countries);
         $cities = City::Where('country_id',$country)->pluck('city_id');
-        
+
         return [
-            'theme_id' => $this->faker->numberBetween(1,200),
+            'theme_id' => $this->faker->numberBetween(1,100),
             'title' => $this->faker->words(4,true),
             'short_description' => $this->faker->words(10,true),
             'description' => $this->faker->sentence(3),

@@ -148,10 +148,10 @@ class HomeController extends Controller
             if (isset($request->sort)) {
                 switch ($request->sort) {
                     case '1':
-                        $datas = $datas->orderBy('start_date', 'desc');
+                        $datas = $datas->orderBy('start_date', 'asc');
                         break;
                     case '2':
-                        $datas = $datas->orderBy('start_date', 'asc');
+                        $datas = $datas->orderBy('start_date', 'desc');
                         break;
                     case '3':
 
